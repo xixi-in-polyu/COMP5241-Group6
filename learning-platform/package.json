@@ -9,6 +9,7 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
+    "test:login": "vitest run tests/login.test.ts",
     "db:generate": "prisma generate",
     "db:migrate:baseline": "prisma migrate resolve --applied 20261019045900_baseline",
     "db:migrate:deploy": "prisma migrate deploy"
