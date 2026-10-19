@@ -28,6 +28,15 @@ function isErrorResponse(value: unknown): value is { error: string } {
   );
 }
 
+function isSuccessResponse(value: unknown): value is { role: Role } {
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    "role" in value &&
+    roles.includes(value.role as Role)
+  );
+}
+
 export default function Home() {
   const router = useRouter();
   const [role, setRole] = useState<Role>("student");
@@ -85,7 +94,12 @@ export default function Home() {
         return;
       }
 
-      router.push(rolePaths[role]);
+      if (!isSuccessResponse(result)) {
+        setErrorMsg("The server returned an invalid sign-in response.");
+        return;
+      }
+
+      router.push(rolePaths[result.role]);
     } catch {
       setErrorMsg("Unable to sign in right now. Please try again.");
     } finally {

@@ -1,5 +1,7 @@
 import OpenAI from "openai";
 
+import { authorizeApiRole } from "@/lib/auth/authorization";
+
 const MODEL = "nvidia/nemotron-3.5-super-vl:free";
 
 const SYSTEM_PROMPT = [
@@ -28,6 +30,12 @@ function isChatMessage(value: unknown): value is ChatMessage {
 }
 
 export async function POST(request: Request) {
+  const authorization = await authorizeApiRole("student");
+
+  if (authorization.response) {
+    return authorization.response;
+  }
+
   let body: unknown;
 
   try {
