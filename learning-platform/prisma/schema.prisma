@@ -41,14 +41,26 @@ enum MaterialStatus {
   UPLOADED
   PARSING
   READY
+  NEEDS_INPUT
   FAILED
 }
 
 enum AssignmentStatus {
+  INGESTING
+  AWAITING_MATERIAL_FIX
+  EXTRACTING_ENTITIES
+  AWAITING_ENTITY_REVIEW
+  READY_TO_GENERATE
   GENERATING
   DRAFT
   SUBMITTED
   FAILED
+}
+
+enum AssignmentMaterialKind {
+  FILE
+  VIDEO
+  TRANSCRIPT
 }
 
 enum QuestionVersionStatus {
@@ -146,27 +158,99 @@ model KnowledgeEntity {
 }
 
 model Assignment {
-  id               String                @id @default(uuid())
-  courseId         String
-  title            String
-  status           AssignmentStatus      @default(GENERATING)
-  originalBrief    Json
-  questions        Json                  @default("[]")
-  failedSlots      Json                  @default("[]")
-  qualityWarnings  Json                  @default("[]")
-  version          Int                   @default(0)
-  error            String?
-  submittedAt      DateTime?
-  createdAt        DateTime              @default(now())
-  updatedAt        DateTime              @updatedAt
-  course           Course                @relation(fields: [courseId], references: [id], onDelete: Restrict)
-  questionVersions QuestionVersion[]
-  usageRuns        UsageRun[]
-  usageEvents      UsageEvent[]
-  slotLeases       AssignmentSlotLease[]
+  id                String                      @id @default(uuid())
+  courseId          String
+  title             String
+  status            AssignmentStatus            @default(INGESTING)
+  phase             String                      @default("Waiting to select sources")
+  entityRevision    Int                         @default(0)
+  workflowHookToken String?
+  ingestionRunId    String?
+  originalBrief     Json?
+  questions         Json                        @default("[]")
+  failedSlots       Json                        @default("[]")
+  qualityWarnings   Json                        @default("[]")
+  version           Int                         @default(0)
+  error             String?
+  submittedAt       DateTime?
+  createdAt         DateTime                    @default(now())
+  updatedAt         DateTime                    @updatedAt
+  course            Course                      @relation(fields: [courseId], references: [id], onDelete: Restrict)
+  materials         AssignmentMaterial[]
+  segments          AssignmentSourceSegment[]
+  entities          AssignmentKnowledgeEntity[]
+  questionVersions  QuestionVersion[]
+  usageRuns         UsageRun[]
+  usageEvents       UsageEvent[]
+  slotLeases        AssignmentSlotLease[]
 
   @@index([courseId, updatedAt])
   @@index([courseId, status])
+}
+
+model AssignmentMaterial {
+  id                 String                    @id @default(uuid())
+  assignmentId       String
+  name               String
+  kind               AssignmentMaterialKind
+  mimeType           String?
+  size               Int?
+  blobPathname       String?                   @unique
+  sourceUrl          String?
+  pageCount          Int?
+  durationSeconds    Int?
+  captionMode        String?
+  captionAttemptedAt DateTime?
+  status             MaterialStatus            @default(UPLOADED)
+  errorCode          String?
+  errorDetail        String?
+  createdAt          DateTime                  @default(now())
+  updatedAt          DateTime                  @updatedAt
+  assignment         Assignment                @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  segments           AssignmentSourceSegment[]
+
+  @@index([assignmentId, status])
+  @@index([assignmentId, kind])
+}
+
+model AssignmentSourceSegment {
+  id                  String             @id @default(uuid())
+  assignmentId        String
+  materialId          String
+  ordinal             Int
+  locator             Json
+  rawText             String
+  normalizedText      String
+  normalizationStatus String             @default("raw")
+  hash                String
+  createdAt           DateTime           @default(now())
+  assignment          Assignment         @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  material            AssignmentMaterial @relation(fields: [materialId], references: [id], onDelete: Cascade)
+
+  @@unique([materialId, ordinal])
+  @@index([assignmentId, ordinal])
+}
+
+model AssignmentKnowledgeEntity {
+  id                   String                      @id @default(uuid())
+  assignmentId         String
+  sourceCourseEntityId String?
+  name                 String
+  description          String                      @default("")
+  aliases              Json                        @default("[]")
+  importance           String                      @default("supporting")
+  selected             Boolean                     @default(true)
+  evidence             Json                        @default("[]")
+  parentId             String?
+  createdAt            DateTime                    @default(now())
+  updatedAt            DateTime                    @updatedAt
+  assignment           Assignment                  @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  parent               AssignmentKnowledgeEntity?  @relation("AssignmentEntityHierarchy", fields: [parentId], references: [id], onDelete: SetNull)
+  children             AssignmentKnowledgeEntity[] @relation("AssignmentEntityHierarchy")
+
+  @@index([assignmentId, selected])
+  @@index([assignmentId, sourceCourseEntityId])
+  @@index([parentId])
 }
 
 model AssignmentSlotLease {
