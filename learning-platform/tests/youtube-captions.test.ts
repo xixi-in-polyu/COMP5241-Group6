@@ -7,7 +7,10 @@ vi.mock("youtubei.js", () => ({
   },
 }));
 
-import { parseSubtitles } from "@/lib/materials/subtitles";
+import {
+  parseSubtitles,
+  validateTranscriptMetadata,
+} from "@/lib/materials/subtitles";
 import {
   fetchYouTubeCaptions,
   parseYouTubeVideoId,
@@ -139,6 +142,13 @@ describe("YouTube caption adapter", () => {
 });
 
 describe("transcript parsing", () => {
+  it("accepts TXT, SRT, and VTT transcript metadata", () => {
+    expect(() => validateTranscriptMetadata("lesson.txt", "text/plain", 100)).not.toThrow();
+    expect(() => validateTranscriptMetadata("lesson.srt", "application/x-subrip", 100)).not.toThrow();
+    expect(() => validateTranscriptMetadata("lesson.vtt", "text/vtt", 100)).not.toThrow();
+    expect(() => validateTranscriptMetadata("lesson.pdf", "application/pdf", 100)).toThrow(/TXT, SRT, and VTT/);
+  });
+
   it("normalizes SRT and VTT cues into timestamped units", () => {
     const srt = `1\n00:00:01,000 --> 00:00:03,000\nBuild <b>the pipeline</b>.`;
     const vtt = `WEBVTT\n\n00:03.000 --> 00:04.500 align:start\nRun tests.`;

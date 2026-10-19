@@ -1,5 +1,37 @@
 import { MaterialError, type SourceUnit } from "./types";
 
+const TRANSCRIPT_MIME_TYPES: Record<string, string[]> = {
+  txt: ["text/plain"],
+  srt: ["application/x-subrip", "text/plain"],
+  vtt: ["text/vtt", "text/plain"],
+};
+
+export function validateTranscriptMetadata(
+  name: string,
+  mimeType: string,
+  size: number,
+) {
+  const extension = name.toLowerCase().split(".").pop() || "";
+  if (!Object.hasOwn(TRANSCRIPT_MIME_TYPES, extension)) {
+    throw new MaterialError(
+      "UNSUPPORTED_TRANSCRIPT_TYPE",
+      "Only TXT, SRT, and VTT transcripts are supported.",
+    );
+  }
+  if (size <= 0 || size > 20 * 1024 * 1024) {
+    throw new MaterialError(
+      "FILE_SIZE_EXCEEDED",
+      "Each transcript must be no larger than 20 MiB.",
+    );
+  }
+  if (mimeType && !TRANSCRIPT_MIME_TYPES[extension].includes(mimeType)) {
+    throw new MaterialError(
+      "MIME_MISMATCH",
+      `The MIME type does not match .${extension}.`,
+    );
+  }
+}
+
 function timestampMs(value: string) {
   const match = value
     .trim()

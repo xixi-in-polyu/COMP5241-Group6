@@ -112,4 +112,26 @@ export async function reviewQuestions(questions: Question[], entities: Knowledge
   return result.warnings.map((item) => `${item.questionId}: ${item.warning}`);
 }
 
+const normalizedTranscriptSchema = z.object({
+  segments: z.array(z.object({ id: z.string(), text: z.string().min(1) })),
+});
+
+export async function normalizeTranscript(
+  segments: Array<{ id: string; text: string }>,
+  trace: Trace,
+) {
+  const result = await structured(
+    normalizedTranscriptSchema,
+    "normalized_transcript",
+    "Correct obvious automatic-caption punctuation and transcription errors without adding facts, deleting meaning, or changing segment IDs. Return every segment exactly once in the original order.",
+    { segments },
+    trace,
+  );
+  const byId = new Map(result.segments.map((segment) => [segment.id, segment.text]));
+  if (byId.size !== segments.length || segments.some((segment) => !byId.has(segment.id))) {
+    throw new Error("Transcript normalization changed the segment set.");
+  }
+  return segments.map((segment) => ({ ...segment, text: byId.get(segment.id)! }));
+}
+
 export { evidenceSchema };
