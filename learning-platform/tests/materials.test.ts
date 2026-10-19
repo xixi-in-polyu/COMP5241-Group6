@@ -1,5 +1,7 @@
 import { zipSync, strToU8 } from "fflate";
+import { BlobNotFoundError } from "@vercel/blob";
 import { describe, expect, it } from "vitest";
+import { mapBlobMaterialError } from "@/lib/materials/blob-errors";
 import { parseMaterial, validateMaterialMetadata, validateSignature } from "@/lib/materials/parsers";
 import { segmentUnits } from "@/lib/materials/segment";
 
@@ -32,5 +34,23 @@ describe("material parsing", () => {
     const segments = segmentUnits([{ locator: { label: "Paragraph 1", paragraph: 1 }, text: usefulText.repeat(60) }]);
     expect(segments.length).toBeGreaterThan(1);
     expect(new Set(segments.map((item) => item.hash)).size).toBe(segments.length);
+  });
+
+  it("maps Blob failures to actionable material errors", () => {
+    expect(mapBlobMaterialError(new BlobNotFoundError(), "fallback")).toMatchObject({
+      code: "BLOB_NOT_FOUND",
+      message: expect.stringMatching(/Replace the file/),
+    });
+    expect(
+      mapBlobMaterialError(
+        new Error(
+          'Vercel Blob: OIDC is enabled for this project, but not for the "development" environment.',
+        ),
+        "fallback",
+      ),
+    ).toMatchObject({
+      code: "BLOB_ACCESS_DENIED",
+      message: expect.stringMatching(/credentials/),
+    });
   });
 });

@@ -1,4 +1,5 @@
 import { Prisma } from "@prisma/client";
+import { head } from "@vercel/blob";
 import { start } from "workflow/api";
 import { z } from "zod";
 import { ApiError, apiError, ownedCourse, requireTeacherApi } from "@/lib/api";
@@ -79,9 +80,11 @@ export async function POST(
         "Add a source because this course has no reusable knowledge.",
       );
     }
+    const verifiedSources = [];
     for (const source of input.sources) {
       if (source.kind === "VIDEO") {
         parseYouTubeVideoId(source.sourceUrl);
+        verifiedSources.push(source);
         continue;
       }
       const expectedPrefix = input.assignmentId
@@ -90,11 +93,19 @@ export async function POST(
       if (!expectedPrefix || !source.blobPathname.startsWith(expectedPrefix)) {
         throw new ApiError(422, "Invalid assignment Blob path.");
       }
+      const blob = await head(source.blobPathname);
+      const verified = {
+        ...source,
+        blobPathname: blob.pathname,
+        mimeType: blob.contentType || source.mimeType,
+        size: blob.size,
+      };
       if (source.kind === "TRANSCRIPT") {
-        validateTranscriptMetadata(source.name, source.mimeType, source.size);
+        validateTranscriptMetadata(verified.name, verified.mimeType, verified.size);
       } else {
-        validateMaterialMetadata(source.name, source.mimeType, source.size);
+        validateMaterialMetadata(verified.name, verified.mimeType, verified.size);
       }
+      verifiedSources.push(verified);
     }
 
     let assignment;
@@ -107,7 +118,7 @@ export async function POST(
           status: "INGESTING",
           phase: "Processing assignment sources",
           materials: {
-            create: input.sources.map((source) =>
+            create: verifiedSources.map((source) =>
               source.kind === "VIDEO"
                 ? {
                     name: "YouTube video",

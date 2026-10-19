@@ -1,5 +1,7 @@
 import { z } from "zod";
+import { HookNotFoundError } from "workflow/errors";
 import { ApiError, apiError, ownedAssignment, requireTeacherApi } from "@/lib/api";
+import { finishUsageRun } from "@/lib/assignments/usage";
 import { prisma } from "@/lib/prisma";
 import { assignmentEntityReviewHook } from "@/workflows/hooks";
 
@@ -30,10 +32,57 @@ export async function POST(
     ) {
       throw new ApiError(422, "Select at least one knowledge entity.");
     }
-    await assignmentEntityReviewHook.resume(assignment.workflowHookToken, {
-      revision: input.revision,
-    });
-    return Response.json({ status: "PROCESSING" }, { status: 202 });
+    try {
+      await assignmentEntityReviewHook.resume(assignment.workflowHookToken, {
+        revision: input.revision,
+      });
+      return Response.json({ status: "PROCESSING" }, { status: 202 });
+    } catch (error) {
+      if (!HookNotFoundError.is(error)) throw error;
+
+      const recovered = await prisma.assignment.updateMany({
+        where: {
+          id: assignmentId,
+          status: "AWAITING_ENTITY_REVIEW",
+          entityRevision: input.revision,
+          workflowHookToken: assignment.workflowHookToken,
+        },
+        data: {
+          status: "READY_TO_GENERATE",
+          phase: "Ready to define the assignment brief",
+          workflowHookToken: null,
+          error: null,
+        },
+      });
+      if (!recovered.count) {
+        throw new ApiError(409, "Assignment state changed while recovering confirmation.");
+      }
+      if (assignment.ingestionRunId) {
+        await finishUsageRun(assignment.ingestionRunId, "SUCCESS").catch(
+          (usageError) => {
+            console.error(
+              "[assignment-knowledge] could not finish recovered usage run",
+              {
+                assignmentId,
+                usageRunId: assignment.ingestionRunId,
+                error:
+                  usageError instanceof Error
+                    ? usageError.message
+                    : String(usageError),
+              },
+            );
+          },
+        );
+      }
+      console.warn("[assignment-knowledge] recovered missing workflow hook", {
+        assignmentId,
+        workflowHookToken: assignment.workflowHookToken,
+      });
+      return Response.json(
+        { status: "READY_TO_GENERATE", recovered: true },
+        { status: 202 },
+      );
+    }
   } catch (error) {
     return apiError(error);
   }

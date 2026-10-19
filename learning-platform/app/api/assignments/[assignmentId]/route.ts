@@ -25,7 +25,19 @@ export async function GET(_request: Request, { params }: { params: Promise<{ ass
         course: { include: { entities: true } },
       },
     });
-    return Response.json({ assignment: serializeAssignment(assignment) });
+    const serialized = serializeAssignment(assignment);
+    if (
+      assignment.status === "FAILED" &&
+      (!assignment.error || assignment.error === "Assignment ingestion failed.")
+    ) {
+      const latestFailure = await prisma.usageEvent.findFirst({
+        where: { assignmentId, errorDetail: { not: null } },
+        orderBy: { createdAt: "desc" },
+        select: { errorDetail: true },
+      });
+      if (latestFailure?.errorDetail) serialized.error = latestFailure.errorDetail;
+    }
+    return Response.json({ assignment: serialized });
   } catch (error) { return apiError(error); }
 }
 

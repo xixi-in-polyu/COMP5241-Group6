@@ -7,6 +7,7 @@ import { briefSchema, createQuestionSlots, entitySchema, failedSlotsSchema, ques
 import { getAssignmentSourceReadiness, mergeAssignmentEntities, snapshotCourseEntities, validateAssignmentSourceSelection, type AssignmentEntitySnapshot } from "@/lib/assignments/staged";
 import { finishUsageRun } from "@/lib/assignments/usage";
 import { parseMaterial, validateMaterialMetadata } from "@/lib/materials/parsers";
+import { mapBlobMaterialError } from "@/lib/materials/blob-errors";
 import { parseSubtitles, validateTranscriptMetadata } from "@/lib/materials/subtitles";
 import { MaterialError } from "@/lib/materials/types";
 import { fetchYouTubeCaptions } from "@/lib/materials/youtube-captions";
@@ -53,7 +54,7 @@ async function parseMaterialsStep(courseId: string) {
         prisma.courseMaterial.update({ where: { id: material.id }, data: { status: "READY", pageCount: parsed.pageCount, errorCode: null, errorDetail: null } }),
       ]);
     } catch (error) {
-      const failure = error instanceof MaterialError ? error : new MaterialError("MATERIAL_PARSE_FAILED", error instanceof Error ? error.message : "Parsing failed.");
+      const failure = mapBlobMaterialError(error, "Parsing failed.");
       await prisma.courseMaterial.update({ where: { id: material.id }, data: { status: "FAILED", errorCode: failure.code, errorDetail: failure.message } });
     }
   }
@@ -302,13 +303,7 @@ async function processAssignmentMaterialsStep(
         },
       });
     } catch (error) {
-      const failure =
-        error instanceof MaterialError
-          ? error
-          : new MaterialError(
-              "MATERIAL_PARSE_FAILED",
-              error instanceof Error ? error.message : "Source processing failed.",
-            );
+      const failure = mapBlobMaterialError(error, "Source processing failed.");
       const needsInput =
         material.kind === "VIDEO" &&
         [
@@ -508,16 +503,29 @@ async function failStagedAssignmentStep(
   error: string,
 ) {
   "use step";
+  const latestFailure = await prisma.usageEvent.findFirst({
+    where: { runId: usageRunId, errorDetail: { not: null } },
+    orderBy: { createdAt: "desc" },
+    select: { operation: true, errorCode: true, errorDetail: true },
+  });
+  const resolvedError = latestFailure?.errorDetail || error;
+  console.error("[assignment-ingestion] workflow failed", {
+    assignmentId,
+    usageRunId,
+    operation: latestFailure?.operation,
+    errorCode: latestFailure?.errorCode,
+    error: resolvedError,
+  });
   await prisma.assignment.update({
     where: { id: assignmentId },
     data: {
       status: "FAILED",
       phase: "Assignment source workflow failed",
       workflowHookToken: null,
-      error,
+      error: resolvedError,
     },
   });
-  await finishUsageRun(usageRunId, "FAILED", error);
+  await finishUsageRun(usageRunId, "FAILED", resolvedError);
 }
 
 export async function generationWorkflow(assignmentId: string, usageRunId: string) {
