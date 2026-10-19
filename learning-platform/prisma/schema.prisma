@@ -7,11 +7,13 @@ datasource db {
 }
 
 model User {
-  id       String    @id @default(uuid())
-  email    String    @unique
-  password String
-  role     String
-  sessions Session[]
+  id        String     @id @default(uuid())
+  email     String     @unique
+  password  String
+  role      String
+  sessions  Session[]
+  courses   Course[]
+  usageRuns UsageRun[]
 }
 
 model Session {
@@ -24,4 +26,239 @@ model Session {
 
   @@index([userId])
   @@index([expiresAt])
+}
+
+enum CourseStatus {
+  INGESTING
+  AWAITING_MATERIAL_FIX
+  EXTRACTING_ENTITIES
+  AWAITING_ENTITY_REVIEW
+  READY
+  FAILED
+}
+
+enum MaterialStatus {
+  UPLOADED
+  PARSING
+  READY
+  FAILED
+}
+
+enum AssignmentStatus {
+  GENERATING
+  DRAFT
+  SUBMITTED
+  FAILED
+}
+
+enum QuestionVersionStatus {
+  CANDIDATE
+  ACCEPTED
+  REJECTED
+}
+
+enum UsageRunStatus {
+  RUNNING
+  SUCCESS
+  FAILED
+}
+
+model Course {
+  id             String            @id @default(uuid())
+  teacherId      String
+  title          String
+  category       String?
+  description    String            @default("")
+  status         CourseStatus      @default(INGESTING)
+  phase          String            @default("Waiting for material processing")
+  entityRevision Int               @default(0)
+  error          String?
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+  teacher        User              @relation(fields: [teacherId], references: [id], onDelete: Restrict)
+  materials      CourseMaterial[]
+  segments       SourceSegment[]
+  entities       KnowledgeEntity[]
+  assignments    Assignment[]
+  usageRuns      UsageRun[]
+  usageEvents    UsageEvent[]
+  usageBuckets   UsageBucket[]
+
+  @@index([teacherId, updatedAt])
+  @@index([teacherId, status])
+}
+
+model CourseMaterial {
+  id           String          @id @default(uuid())
+  courseId     String
+  name         String
+  mimeType     String
+  size         Int
+  blobPathname String          @unique
+  status       MaterialStatus  @default(UPLOADED)
+  pageCount    Int?
+  errorCode    String?
+  errorDetail  String?
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+  course       Course          @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  segments     SourceSegment[]
+
+  @@index([courseId, status])
+}
+
+model SourceSegment {
+  id                  String         @id @default(uuid())
+  courseId            String
+  materialId          String
+  ordinal             Int
+  locator             Json
+  rawText             String
+  normalizedText      String
+  normalizationStatus String         @default("raw")
+  hash                String
+  createdAt           DateTime       @default(now())
+  course              Course         @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  material            CourseMaterial @relation(fields: [materialId], references: [id], onDelete: Cascade)
+
+  @@unique([materialId, ordinal])
+  @@index([courseId, ordinal])
+}
+
+model KnowledgeEntity {
+  id          String            @id @default(uuid())
+  courseId    String
+  name        String
+  description String            @default("")
+  aliases     Json              @default("[]")
+  importance  String            @default("supporting")
+  selected    Boolean           @default(true)
+  evidence    Json              @default("[]")
+  parentId    String?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  course      Course            @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  parent      KnowledgeEntity?  @relation("EntityHierarchy", fields: [parentId], references: [id], onDelete: SetNull)
+  children    KnowledgeEntity[] @relation("EntityHierarchy")
+
+  @@index([courseId, selected])
+  @@index([parentId])
+}
+
+model Assignment {
+  id               String                @id @default(uuid())
+  courseId         String
+  title            String
+  status           AssignmentStatus      @default(GENERATING)
+  originalBrief    Json
+  questions        Json                  @default("[]")
+  failedSlots      Json                  @default("[]")
+  qualityWarnings  Json                  @default("[]")
+  version          Int                   @default(0)
+  error            String?
+  submittedAt      DateTime?
+  createdAt        DateTime              @default(now())
+  updatedAt        DateTime              @updatedAt
+  course           Course                @relation(fields: [courseId], references: [id], onDelete: Restrict)
+  questionVersions QuestionVersion[]
+  usageRuns        UsageRun[]
+  usageEvents      UsageEvent[]
+  slotLeases       AssignmentSlotLease[]
+
+  @@index([courseId, updatedAt])
+  @@index([courseId, status])
+}
+
+model AssignmentSlotLease {
+  id           String     @id @default(uuid())
+  assignmentId String
+  slotIndex    Int
+  expiresAt    DateTime
+  createdAt    DateTime   @default(now())
+  assignment   Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+
+  @@unique([assignmentId, slotIndex])
+  @@index([expiresAt])
+}
+
+model QuestionVersion {
+  id           String                @id @default(uuid())
+  assignmentId String
+  questionId   String
+  instruction  String
+  payload      Json
+  status       QuestionVersionStatus @default(CANDIDATE)
+  createdAt    DateTime              @default(now())
+  resolvedAt   DateTime?
+  assignment   Assignment            @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+
+  @@index([assignmentId, questionId, status])
+}
+
+model UsageRun {
+  id           String         @id @default(uuid())
+  courseId     String
+  assignmentId String?
+  teacherId    String
+  kind         String
+  status       UsageRunStatus @default(RUNNING)
+  error        String?
+  startedAt    DateTime       @default(now())
+  completedAt  DateTime?
+  course       Course         @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  assignment   Assignment?    @relation(fields: [assignmentId], references: [id], onDelete: SetNull)
+  teacher      User           @relation(fields: [teacherId], references: [id], onDelete: Restrict)
+  events       UsageEvent[]
+
+  @@index([teacherId, startedAt])
+  @@index([courseId, startedAt])
+}
+
+model UsageEvent {
+  id                String      @id @default(uuid())
+  runId             String?
+  courseId          String
+  assignmentId      String?
+  category          String
+  operation         String
+  provider          String?
+  model             String?
+  status            String
+  attempt           Int         @default(1)
+  durationMs        Int?
+  requestPayload    Json?
+  responsePayload   Json?
+  requestBytes      Int         @default(0)
+  responseBytes     Int         @default(0)
+  inputTokens       Int?
+  outputTokens      Int?
+  totalTokens       Int?
+  providerRequestId String?
+  errorCode         String?
+  errorDetail       String?
+  metadata          Json        @default("{}")
+  createdAt         DateTime    @default(now())
+  completedAt       DateTime?
+  payloadExpiresAt  DateTime?
+  run               UsageRun?   @relation(fields: [runId], references: [id], onDelete: SetNull)
+  course            Course      @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  assignment        Assignment? @relation(fields: [assignmentId], references: [id], onDelete: SetNull)
+
+  @@index([courseId, createdAt])
+  @@index([runId, createdAt])
+  @@index([payloadExpiresAt])
+}
+
+model UsageBucket {
+  id         String   @id @default(uuid())
+  courseId   String
+  teacherId  String
+  windowKind String
+  windowKey  String
+  count      Int      @default(0)
+  updatedAt  DateTime @updatedAt
+  course     Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([teacherId, windowKind, windowKey])
+  @@index([courseId, updatedAt])
 }
