@@ -35,7 +35,7 @@ describe("session primitives", () => {
   it("accepts only application roles", () => {
     expect(isRole("student")).toBe(true);
     expect(isRole("teacher")).toBe(true);
-    expect(isRole("admin")).toBe(true);
+    expect(isRole("admin")).toBe(false);
     expect(isRole("owner")).toBe(false);
   });
 });
