@@ -56,28 +56,34 @@ async function waitFor<T>(load: () => Promise<T>, done: (value: T) => boolean, l
 }
 
 const courseIds: string[] = [];
+const assignmentIds: string[] = [];
 for (const pair of [files.slice(0, 2), files.slice(2)]) {
   const created = await request<{ course: { id: string } }>("/api/courses", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ title: `HCI smoke ${pair[0].name}`, description: "Cloud integration smoke test." }) });
   courseIds.push(created.course.id);
-  const materials = [];
+  const assignmentId = crypto.randomUUID();
+  assignmentIds.push(assignmentId);
+  const sources = [];
   for (const file of pair) {
-    const blob = await put(`learning-platform/courses/${created.course.id}/smoke/${file.name}`, file.body, { access: "private", contentType: file.type, addRandomSuffix: true });
-    materials.push({ name: file.name, mimeType: file.type, size: file.body.byteLength, blobPathname: blob.pathname });
+    const blob = await put(`learning-platform/courses/${created.course.id}/assignments/${assignmentId}/smoke/${file.name}`, file.body, { access: "private", contentType: file.type, addRandomSuffix: true });
+    sources.push({ kind: "FILE", name: file.name, mimeType: file.type, size: file.body.byteLength, blobPathname: blob.pathname });
   }
-  await request(`/api/courses/${created.course.id}/materials`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ materials }) });
-  const settled = await waitFor(() => request<{ course: { status: string; error?: string } }>(`/api/courses/${created.course.id}`), (value) => ["AWAITING_ENTITY_REVIEW", "AWAITING_MATERIAL_FIX", "FAILED"].includes(value.course.status), `course ${created.course.id}`);
-  if (settled.course.status !== "AWAITING_ENTITY_REVIEW") throw new Error(`Ingestion failed: ${settled.course.status} ${settled.course.error || ""}`);
+  await request(`/api/courses/${created.course.id}/assignments`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ assignmentId, title: `HCI smoke ${pair[0].name}`, sources }) });
+  const settled = await waitFor(() => request<{ assignment: { status: string; error?: string } }>(`/api/assignments/${assignmentId}`), (value) => ["AWAITING_ENTITY_REVIEW", "AWAITING_MATERIAL_FIX", "FAILED"].includes(value.assignment.status), `assignment ${assignmentId}`);
+  if (settled.assignment.status !== "AWAITING_ENTITY_REVIEW") throw new Error(`Ingestion failed: ${settled.assignment.status} ${settled.assignment.error || ""}`);
 }
 
-const primary = await request<{ course: { entityRevision: number; entities: unknown[] } }>(`/api/courses/${courseIds[0]}`);
-const saved = await request<{ revision: number }>(`/api/courses/${courseIds[0]}/entities`, { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ revision: primary.course.entityRevision, entities: primary.course.entities }) });
-await request(`/api/courses/${courseIds[0]}/entities/confirm`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ revision: saved.revision }) });
-const generated = await request<{ assignmentId: string }>(`/api/courses/${courseIds[0]}/assignments`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ title: "Twenty-question smoke assignment", instructions: "Create grounded questions covering definitions and applied usability decisions.", count: 20, types: ["single_choice", "multi_choice", "fill_blank", "short_answer"], difficulty: { easy: 30, medium: 50, hard: 20 }, objectives: ["knowledge", "comprehension", "application"], coverageEntityIds: [] }) });
-const assignment = await waitFor(() => request<{ assignment: { status: string; questions: unknown[]; failedSlots: unknown[]; error?: string } }>(`/api/assignments/${generated.assignmentId}`), (value) => value.assignment.status !== "GENERATING", "20-question assignment", 600_000);
+for (const assignmentId of assignmentIds) {
+  const review = await request<{ assignment: { entityRevision: number; entities: unknown[] } }>(`/api/assignments/${assignmentId}`);
+  const saved = await request<{ revision: number }>(`/api/assignments/${assignmentId}/entities`, { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ revision: review.assignment.entityRevision, entities: review.assignment.entities }) });
+  await request(`/api/assignments/${assignmentId}/entities/confirm`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ revision: saved.revision }) });
+  await waitFor(() => request<{ assignment: { status: string } }>(`/api/assignments/${assignmentId}`), (value) => value.assignment.status === "READY_TO_GENERATE", `brief readiness ${assignmentId}`);
+}
+await request(`/api/assignments/${assignmentIds[0]}/generate`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ title: "Twenty-question smoke assignment", instructions: "Create grounded questions covering definitions and applied usability decisions.", count: 20, types: ["single_choice", "multi_choice", "fill_blank", "short_answer"], difficulty: { easy: 30, medium: 50, hard: 20 }, objectives: ["knowledge", "comprehension", "application"], coverageEntityIds: [] }) });
+const assignment = await waitFor(() => request<{ assignment: { status: string; questions: unknown[]; failedSlots: unknown[]; error?: string } }>(`/api/assignments/${assignmentIds[0]}`), (value) => value.assignment.status !== "GENERATING", "20-question assignment", 600_000);
 if (assignment.assignment.status !== "DRAFT") throw new Error(`Generation failed: ${assignment.assignment.error || assignment.assignment.status}`);
-const current = await request<{ assignment: { version: number; questions: unknown[] } }>(`/api/assignments/${generated.assignmentId}`);
-const savedDraft = await request<{ version: number }>(`/api/assignments/${generated.assignmentId}`, { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ version: current.assignment.version, questions: current.assignment.questions }) });
-await request(`/api/assignments/${generated.assignmentId}/submit`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ version: savedDraft.version }) });
-const locked = await fetch(`${baseUrl}/api/assignments/${generated.assignmentId}`, { method: "PUT", headers: { cookie: sessionCookie, "content-type": "application/json" }, body: JSON.stringify({ version: savedDraft.version + 1, questions: current.assignment.questions }) });
+const current = await request<{ assignment: { version: number; questions: unknown[] } }>(`/api/assignments/${assignmentIds[0]}`);
+const savedDraft = await request<{ version: number }>(`/api/assignments/${assignmentIds[0]}`, { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ version: current.assignment.version, questions: current.assignment.questions }) });
+await request(`/api/assignments/${assignmentIds[0]}/submit`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ version: savedDraft.version }) });
+const locked = await fetch(`${baseUrl}/api/assignments/${assignmentIds[0]}`, { method: "PUT", headers: { cookie: sessionCookie, "content-type": "application/json" }, body: JSON.stringify({ version: savedDraft.version + 1, questions: current.assignment.questions }) });
 if (locked.status !== 409) throw new Error(`Submitted assignment was not locked; save returned ${locked.status}.`);
-console.log(JSON.stringify({ courseIds, assignmentId: generated.assignmentId, generatedQuestions: assignment.assignment.questions.length, failedSlots: assignment.assignment.failedSlots.length, submittedAndLocked: true }));
+console.log(JSON.stringify({ courseIds, assignmentIds, generatedQuestions: assignment.assignment.questions.length, failedSlots: assignment.assignment.failedSlots.length, submittedAndLocked: true }));

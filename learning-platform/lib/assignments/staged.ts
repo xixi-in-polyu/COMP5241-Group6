@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto";
+import { MaterialError } from "@/lib/materials/types";
 import type { KnowledgeEntity } from "./domain";
 
 function key(value: string) {
@@ -41,13 +42,19 @@ export function validateAssignmentSourceSelection(sources: AssignmentSource[]) {
   );
   const videos = sources.filter((source) => source.kind === "VIDEO");
   if (documents.length > 2 || videos.length > 1 || (documents.length && videos.length)) {
-    throw new Error("Use up to two documents or one YouTube video, not both.");
+    throw new MaterialError(
+      "SOURCE_COMBINATION_INVALID",
+      "Use up to two documents or one YouTube video, not both.",
+    );
   }
   if (
     documents.reduce((total, source) => total + (source.size || 0), 0) >
     20 * 1024 * 1024
   ) {
-    throw new Error("Document uploads exceed 20 MiB in total.");
+    throw new MaterialError(
+      "TOTAL_SIZE_EXCEEDED",
+      "Document uploads exceed 20 MiB in total.",
+    );
   }
 }
 

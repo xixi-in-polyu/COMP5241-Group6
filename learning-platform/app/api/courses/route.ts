@@ -16,7 +16,14 @@ export async function POST(request: Request) {
   try {
     const teacher = await requireTeacherApi();
     const input = createSchema.parse(await request.json());
-    const course = await prisma.course.create({ data: { ...input, teacherId: teacher.id, phase: "Upload source materials" } });
+    const course = await prisma.course.create({
+      data: {
+        ...input,
+        teacherId: teacher.id,
+        status: "READY",
+        phase: "Ready to create assignments",
+      },
+    });
     return Response.json({ course }, { status: 201 });
   } catch (error) { return apiError(error); }
 }

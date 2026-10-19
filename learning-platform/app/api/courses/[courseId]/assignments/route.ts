@@ -1,37 +1,161 @@
 import { Prisma } from "@prisma/client";
 import { start } from "workflow/api";
+import { z } from "zod";
 import { ApiError, apiError, ownedCourse, requireTeacherApi } from "@/lib/api";
-import { isAiConfigured } from "@/lib/assignments/ai";
-import { briefSchema } from "@/lib/assignments/domain";
-import { checkAiLimit, startUsageRun } from "@/lib/assignments/usage";
+import { validateAssignmentSourceSelection } from "@/lib/assignments/staged";
+import { startUsageRun } from "@/lib/assignments/usage";
+import { validateMaterialMetadata } from "@/lib/materials/parsers";
+import { validateTranscriptMetadata } from "@/lib/materials/subtitles";
+import { parseYouTubeVideoId } from "@/lib/materials/youtube-captions";
 import { prisma } from "@/lib/prisma";
-import { generationWorkflow } from "@/workflows/assignment";
+import { assignmentIngestionWorkflow } from "@/workflows/assignment";
 
-export async function GET(_request: Request, { params }: { params: Promise<{ courseId: string }> }) {
+const fileSourceSchema = z.object({
+  kind: z.enum(["FILE", "TRANSCRIPT"]),
+  name: z.string().trim().min(1).max(255),
+  mimeType: z.string().trim().min(1),
+  size: z.number().int().positive().max(20 * 1024 * 1024),
+  blobPathname: z.string().trim().min(1),
+});
+const videoSourceSchema = z.object({
+  kind: z.literal("VIDEO"),
+  sourceUrl: z.string().url(),
+});
+const createSchema = z.object({
+  assignmentId: z.string().uuid().optional(),
+  title: z.string().trim().min(1).max(160),
+  sources: z
+    .array(z.discriminatedUnion("kind", [fileSourceSchema, videoSourceSchema]))
+    .max(2)
+    .default([]),
+});
+
+export async function GET(
+  _request: Request,
+  { params }: { params: Promise<{ courseId: string }> },
+) {
   try {
     const teacher = await requireTeacherApi();
     const { courseId } = await params;
     await ownedCourse(courseId, teacher.id);
-    return Response.json({ assignments: await prisma.assignment.findMany({ where: { courseId }, orderBy: { updatedAt: "desc" } }) });
-  } catch (error) { return apiError(error); }
+    return Response.json({
+      assignments: await prisma.assignment.findMany({
+        where: { courseId },
+        orderBy: { updatedAt: "desc" },
+      }),
+    });
+  } catch (error) {
+    return apiError(error);
+  }
 }
 
-export async function POST(request: Request, { params }: { params: Promise<{ courseId: string }> }) {
+export async function POST(
+  request: Request,
+  { params }: { params: Promise<{ courseId: string }> },
+) {
   try {
     const teacher = await requireTeacherApi();
     const { courseId } = await params;
     const course = await ownedCourse(courseId, teacher.id);
-    if (!isAiConfigured()) return Response.json({ error: "AI provider is not configured." }, { status: 503 });
-    if (course.status !== "READY") throw new ApiError(409, "Confirm course knowledge before generating an assignment.");
-    if (await prisma.assignment.count({ where: { courseId, status: "GENERATING" } })) throw new ApiError(409, "This course already has an assignment generation in progress.");
-    const brief = briefSchema.parse(await request.json());
-    const limit = await checkAiLimit(teacher.id, courseId);
-    if (!limit.allowed) return Response.json({ error: "AI usage limit reached." }, { status: 429, headers: { "retry-after": String(limit.retryAfter) } });
+    if (course.status !== "READY") {
+      throw new ApiError(409, "Finish the course setup before creating assignments.");
+    }
+    const input = createSchema.parse(await request.json());
+    validateAssignmentSourceSelection(
+      input.sources.map((source) => ({
+        kind: source.kind,
+        status: "UPLOADED" as const,
+        size: "size" in source ? source.size : undefined,
+      })),
+    );
+    const hasCourseKnowledge = Boolean(
+      await prisma.knowledgeEntity.count({
+        where: { courseId, selected: true },
+      }),
+    );
+    if (!hasCourseKnowledge && !input.sources.length) {
+      throw new ApiError(
+        422,
+        "Add a source because this course has no reusable knowledge.",
+      );
+    }
+    for (const source of input.sources) {
+      if (source.kind === "VIDEO") {
+        parseYouTubeVideoId(source.sourceUrl);
+        continue;
+      }
+      const expectedPrefix = input.assignmentId
+        ? `learning-platform/courses/${courseId}/assignments/${input.assignmentId}/`
+        : "";
+      if (!expectedPrefix || !source.blobPathname.startsWith(expectedPrefix)) {
+        throw new ApiError(422, "Invalid assignment Blob path.");
+      }
+      if (source.kind === "TRANSCRIPT") {
+        validateTranscriptMetadata(source.name, source.mimeType, source.size);
+      } else {
+        validateMaterialMetadata(source.name, source.mimeType, source.size);
+      }
+    }
+
     let assignment;
-    try { assignment = await prisma.assignment.create({ data: { courseId, title: brief.title, originalBrief: brief as Prisma.InputJsonValue } }); }
-    catch (error) { if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") throw new ApiError(409, "This course already has an assignment generation in progress."); throw error; }
-    const run = await startUsageRun(courseId, teacher.id, "generation", assignment.id);
-    const workflow = await start(generationWorkflow, [assignment.id, run.id]);
-    return Response.json({ assignmentId: assignment.id, runId: workflow.runId }, { status: 202 });
-  } catch (error) { return apiError(error); }
+    try {
+      assignment = await prisma.assignment.create({
+        data: {
+          id: input.assignmentId,
+          courseId,
+          title: input.title,
+          status: "INGESTING",
+          phase: "Processing assignment sources",
+          materials: {
+            create: input.sources.map((source) =>
+              source.kind === "VIDEO"
+                ? {
+                    name: "YouTube video",
+                    kind: "VIDEO" as const,
+                    sourceUrl: source.sourceUrl,
+                  }
+                : {
+                    name: source.name,
+                    kind: source.kind,
+                    mimeType: source.mimeType,
+                    size: source.size,
+                    blobPathname: source.blobPathname,
+                  },
+            ),
+          },
+        },
+      });
+    } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === "P2002"
+      ) {
+        throw new ApiError(
+          409,
+          "This course already has an active assignment workflow.",
+        );
+      }
+      throw error;
+    }
+    const run = await startUsageRun(
+      courseId,
+      teacher.id,
+      "assignment_ingestion",
+      assignment.id,
+    );
+    await prisma.assignment.update({
+      where: { id: assignment.id },
+      data: { ingestionRunId: run.id },
+    });
+    const workflow = await start(assignmentIngestionWorkflow, [
+      assignment.id,
+      run.id,
+    ]);
+    return Response.json(
+      { assignmentId: assignment.id, runId: workflow.runId },
+      { status: 202 },
+    );
+  } catch (error) {
+    return apiError(error);
+  }
 }

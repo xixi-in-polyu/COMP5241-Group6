@@ -11,6 +11,7 @@ const mocks = vi.hoisted(() => ({
   startUsageRun: vi.fn(),
   isAiConfigured: vi.fn(),
   startWorkflow: vi.fn(),
+  loadAssignmentKnowledgeContext: vi.fn(),
 }));
 
 vi.mock("server-only", () => ({}));
@@ -45,6 +46,9 @@ vi.mock("@/lib/prisma", () => ({
 }));
 vi.mock("@/lib/assignments/ai", () => ({
   isAiConfigured: mocks.isAiConfigured,
+}));
+vi.mock("@/lib/assignments/context", () => ({
+  loadAssignmentKnowledgeContext: mocks.loadAssignmentKnowledgeContext,
 }));
 vi.mock("@/lib/assignments/usage", () => ({
   checkAiLimit: mocks.checkAiLimit,
@@ -97,6 +101,10 @@ describe("assignment route guards", () => {
     mocks.assignmentUpdateMany.mockResolvedValue({ count: 1 });
     mocks.isAiConfigured.mockReturnValue(true);
     mocks.checkAiLimit.mockResolvedValue({ allowed: true });
+    mocks.loadAssignmentKnowledgeContext.mockResolvedValue({
+      entities: [],
+      segments: [],
+    });
   });
 
   it("returns 409 when an optimistic draft save loses the version race", async () => {

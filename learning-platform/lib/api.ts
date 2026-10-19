@@ -1,5 +1,6 @@
 import { ZodError } from "zod";
 import { authorizeApiRole } from "@/lib/auth/authorization";
+import { MaterialError } from "@/lib/materials/types";
 import { prisma } from "@/lib/prisma";
 
 export class ApiError extends Error {
@@ -28,6 +29,7 @@ export async function ownedAssignment(assignmentId: string, teacherId: string) {
 
 export function apiError(error: unknown) {
   if (error instanceof ApiError) return Response.json({ error: error.message }, { status: error.status });
+  if (error instanceof MaterialError) return Response.json({ error: error.message, code: error.code }, { status: 422 });
   if (error instanceof ZodError) return Response.json({ error: "Validation failed.", details: error.issues }, { status: 422 });
   if (error instanceof SyntaxError) return Response.json({ error: "Request body must contain valid JSON." }, { status: 422 });
   console.error(error);

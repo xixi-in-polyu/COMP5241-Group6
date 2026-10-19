@@ -2,7 +2,8 @@ import type { Prisma } from "@prisma/client";
 import { z } from "zod";
 import { ApiError, apiError, ownedAssignment, requireTeacherApi } from "@/lib/api";
 import { isAiConfigured, regenerateQuestion, validateGroundedQuestion } from "@/lib/assignments/ai";
-import { entitySchema, questionsSchema } from "@/lib/assignments/domain";
+import { loadAssignmentKnowledgeContext } from "@/lib/assignments/context";
+import { questionsSchema } from "@/lib/assignments/domain";
 import { checkAiLimit, finishUsageRun, startUsageRun } from "@/lib/assignments/usage";
 import { prisma } from "@/lib/prisma";
 
@@ -20,11 +21,10 @@ export async function POST(request: Request, { params }: { params: Promise<{ ass
     if (!current) throw new ApiError(404, "Question not found.");
     const limit = await checkAiLimit(teacher.id, assignment.courseId);
     if (!limit.allowed) return Response.json({ error: "AI usage limit reached." }, { status: 429, headers: { "retry-after": String(limit.retryAfter) } });
-    const course = await prisma.course.findUniqueOrThrow({ where: { id: assignment.courseId }, include: { entities: true, segments: true } });
-    const entities = course.entities.map((item) => entitySchema.parse({ ...item, aliases: item.aliases, evidence: item.evidence }));
-    const run = await startUsageRun(course.id, teacher.id, "question_regeneration", assignmentId); runId = run.id;
-    const candidate = await regenerateQuestion(current, input.instruction, entities, course.segments, { courseId: course.id, assignmentId, runId, operation: "question_regeneration" });
-    const diagnostics = validateGroundedQuestion(candidate, { index: 0, type: current.type, objective: current.objective, difficulty: current.difficulty, entityIds: current.entityIds, score: current.score }, entities, course.segments);
+    const { entities, segments } = await loadAssignmentKnowledgeContext(assignmentId);
+    const run = await startUsageRun(assignment.courseId, teacher.id, "question_regeneration", assignmentId); runId = run.id;
+    const candidate = await regenerateQuestion(current, input.instruction, entities, segments, { courseId: assignment.courseId, assignmentId, runId, operation: "question_regeneration" });
+    const diagnostics = validateGroundedQuestion(candidate, { index: 0, type: current.type, objective: current.objective, difficulty: current.difficulty, entityIds: current.entityIds, score: current.score }, entities, segments);
     if (diagnostics.length) throw new ApiError(422, `Candidate failed validation: ${diagnostics.join(" ")}`);
     const version = await prisma.questionVersion.create({ data: { assignmentId, questionId, instruction: input.instruction, payload: candidate as Prisma.InputJsonValue } });
     await finishUsageRun(runId, "SUCCESS");

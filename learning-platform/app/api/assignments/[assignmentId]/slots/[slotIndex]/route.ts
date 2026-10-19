@@ -1,6 +1,7 @@
 import type { Prisma } from "@prisma/client";
 import { z } from "zod";
 import { ApiError, apiError, ownedAssignment, requireTeacherApi } from "@/lib/api";
+import { loadAssignmentKnowledgeContext } from "@/lib/assignments/context";
 import { failedSlotsSchema, questionSchema, questionsSchema } from "@/lib/assignments/domain";
 import { prisma } from "@/lib/prisma";
 
@@ -35,7 +36,7 @@ export async function PUT(request: Request, { params }: { params: Promise<{ assi
     const failures = failedSlotsSchema.parse(assignment.failedSlots);
     if (!failures.some((item) => item.index === index)) throw new ApiError(404, "Failed slot not found.");
     const question = questionSchema.parse({ ...input.question, origin: "teacher_authored" });
-    const validEntityIds = new Set((await prisma.knowledgeEntity.findMany({ where: { courseId: assignment.courseId }, select: { id: true } })).map((item) => item.id));
+    const validEntityIds = new Set((await loadAssignmentKnowledgeContext(assignmentId)).entities.map((item) => item.id));
     if (question.entityIds.some((id) => !validEntityIds.has(id))) throw new ApiError(422, "Question references knowledge outside this course.");
     const questions = questionsSchema.parse(assignment.questions);
     const changed = await prisma.assignment.updateMany({ where: { id: assignmentId, version: input.version, status: "DRAFT" }, data: { questions: [...questions, question] as Prisma.InputJsonValue, failedSlots: failures.filter((item) => item.index !== index) as Prisma.InputJsonValue, version: { increment: 1 } } });
