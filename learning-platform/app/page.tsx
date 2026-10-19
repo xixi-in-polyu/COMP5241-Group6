@@ -1,21 +1,22 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent, type KeyboardEvent } from "react";
 
-type Role = "student" | "teacher";
+type Role = "student" | "teacher" | "admin";
 
-const roles: Role[] = ["student", "teacher"];
+const roles: Role[] = ["student", "teacher", "admin"];
 
 const rolePaths: Record<Role, string> = {
   student: "/student",
   teacher: "/teacher",
+  admin: "/admin",
 };
 
 const roleLabels: Record<Role, string> = {
   student: "Student",
   teacher: "Teacher",
+  admin: "Admin",
 };
 
 function isErrorResponse(value: unknown): value is { error: string } {
@@ -143,7 +144,7 @@ export default function Home() {
           </p>
           <div
             aria-labelledby="role-label"
-            className="grid grid-cols-2 gap-1 rounded-xl bg-[#e8edf3] p-1"
+            className="grid grid-cols-3 gap-1 rounded-xl bg-[#e8edf3] p-1"
             onKeyDown={handleRoleKeyDown}
             role="tablist"
           >
@@ -234,15 +235,6 @@ export default function Home() {
           {isLoading ? "Signing in..." : "Sign in"}
         </button>
         </form>
-        <p className="mt-6 text-center text-sm text-[#53657a]">
-          New to the platform?{" "}
-          <Link
-            className="font-semibold text-[#193b61] underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#193b61]"
-            href="/register"
-          >
-            Create an account
-          </Link>
-        </p>
       </section>
     </main>
   );
