@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { withWorkflow } from "workflow/next";
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -13,6 +14,7 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  serverExternalPackages: ["esbuild", "@babel/parser", "@babel/traverse", "pdfjs-dist"],
 };
 
-export default nextConfig;
+export default withWorkflow(nextConfig);

@@ -9,23 +9,32 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
+    "test:e2e": "playwright test",
     "db:generate": "prisma generate",
     "db:migrate:baseline": "prisma migrate resolve --applied 20261019045900_baseline",
-    "db:migrate:deploy": "prisma migrate deploy"
+    "db:migrate:deploy": "prisma migrate deploy",
+    "db:seed:feature": "node prisma/seed-feature.ts",
+    "test:smoke:ai-assignment": "node scripts/smoke-ai-assignment.ts"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.10.1",
     "@prisma/client": "7.10.1",
+    "@vercel/blob": "^2.8.2",
     "dotenv": "18.0.8",
+    "fflate": "^0.8.3",
+    "iconv-lite": "^0.7.3",
     "lucide-react": "^1.59.0",
     "next": "16.4.2",
     "openai": "^7.38.0",
     "pdfjs-dist": "^6.4.299",
     "react": "19.3.0",
     "react-dom": "19.3.0",
-    "react-pdf": "^11.0.0"
+    "react-pdf": "^11.0.0",
+    "workflow": "^4.8.13",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@playwright/test": "^1.64.1",
     "@tailwindcss/turbopack": "^4",
     "@types/node": "22.20.5",
     "@types/react": "^19",
