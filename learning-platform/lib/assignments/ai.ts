@@ -4,6 +4,7 @@ import { randomUUID } from "node:crypto";
 import OpenAI from "openai";
 import { zodTextFormat } from "openai/helpers/zod";
 import { z } from "zod";
+import { getAiConfig, getAiProvider } from "@/lib/ai/config";
 import { entitySchema, evidenceSchema, questionSchema, type AssignmentBrief, type KnowledgeEntity, type Question, type QuestionSlot } from "./domain";
 import { finishUsageEvent, startUsageEvent } from "./usage";
 
@@ -11,20 +12,21 @@ type Segment = { id: string; materialId: string; locator: unknown; normalizedTex
 type Trace = { courseId: string; runId?: string; assignmentId?: string; operation: string; attempt?: number };
 export type Suggestion = { id: string; label: string; kind: "instruction" | "coverage"; payload: string | string[] };
 
-export function getAiProvider() { return process.env.AI_PROVIDER?.toLowerCase() === "deepseek" || (!process.env.OPENAI_API_KEY && process.env.DEEPSEEK_API_KEY) ? "deepseek" : "openai"; }
-export function isAiConfigured() { return getAiProvider() === "deepseek" ? Boolean(process.env.DEEPSEEK_API_KEY) : Boolean(process.env.OPENAI_API_KEY); }
-const selectedModel = () => getAiProvider() === "deepseek" ? process.env.DEEPSEEK_MODEL || "deepseek-chat" : process.env.OPENAI_MODEL || "gpt-4.1-mini";
+export { getAiProvider };
+export function isAiConfigured() {
+  try { return getAiConfig().configured; } catch { return false; }
+}
 
 function client() {
-  const provider = getAiProvider();
-  const apiKey = provider === "deepseek" ? process.env.DEEPSEEK_API_KEY : process.env.OPENAI_API_KEY;
-  if (!apiKey) throw new Error(`${provider === "deepseek" ? "DEEPSEEK_API_KEY" : "OPENAI_API_KEY"} is not configured.`);
-  return new OpenAI({ apiKey, maxRetries: 0, ...(provider === "deepseek" ? { baseURL: process.env.DEEPSEEK_BASE_URL || "https://api.deepseek.com" } : {}) });
+  const config = getAiConfig();
+  if (!config.configured) throw new Error("AI provider endpoint, API key, and model are not fully configured.");
+  return new OpenAI({ apiKey: config.apiKey, baseURL: config.endpoint, maxRetries: 0, defaultHeaders: config.defaultHeaders });
 }
 
 async function structured<T>(schema: z.ZodType<T>, name: string, developer: string, data: unknown, trace: Trace): Promise<T> {
-  const provider = getAiProvider();
-  const model = selectedModel();
+  const config = getAiConfig();
+  const provider = config.provider;
+  const model = config.model;
   const messages = [{ role: "developer" as const, content: developer }, { role: "user" as const, content: JSON.stringify(data) }];
   const request = { model, messages, schema: z.toJSONSchema(schema) };
   const event = await startUsageEvent({ ...trace, provider, model, request, attempt: trace.attempt });

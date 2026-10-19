@@ -24,12 +24,66 @@ npm run dev
 - `DATABASE_URL`：应用运行时使用的 PostgreSQL 连接；Neon 建议使用 pooled URL。
 - `DATABASE_URL_UNPOOLED`：Prisma migration 使用的 direct URL。
 - `BLOB_READ_WRITE_TOKEN`：Private Vercel Blob。上传路径限制在 `learning-platform/courses/{courseId}/assignments/{assignmentId}/`。
-- 一个 AI Provider：`DEEPSEEK_API_KEY` 或 `OPENAI_API_KEY`，以及对应 provider/model 配置。
+- 一个 OpenAI-compatible AI Provider：通过 `AI_PROVIDER`、`AI_ENDPOINT`、`AI_API_KEY` 和 `AI_MODEL` 配置。
 - `CRON_SECRET`：保护 Usage payload 清理接口。
 
 Blob、数据库和 AI Provider 没有本地替代器；缺少相应配置时，相关功能会明确返回 `503` 或上传错误。
 
+### AI Provider 配置
+
+所有教师生成能力和学生 Chat 共用同一组配置。`AI_ENDPOINT` 应填写 API base URL；如果误填了以 `/chat/completions` 或 `/responses` 结尾的完整路径，应用会自动移除该后缀。
+
+DeepSeek 官方：
+
+```dotenv
+AI_PROVIDER=deepseek
+AI_ENDPOINT=https://api.deepseek.com
+AI_API_KEY=你的DeepSeek API Key
+AI_MODEL=deepseek-flash
+```
+
+港理工校内 DeepSeek（具体 endpoint、Key 和模型名以学校提供的信息为准）：
+
+```dotenv
+AI_PROVIDER=polyu
+AI_ENDPOINT=https://学校提供的OpenAI兼容地址/v1
+AI_API_KEY=学校提供的Key
+AI_MODEL=学校提供的模型名
+```
+
+OpenRouter 免费模型路由：
+
+```dotenv
+AI_PROVIDER=openrouter
+AI_ENDPOINT=https://openrouter.ai/api/v1
+AI_API_KEY=你的OpenRouter API Key
+AI_MODEL=openrouter/free
+OPENROUTER_SITE_URL=http://localhost:3000
+OPENROUTER_APP_NAME=COMP5241 Learning Platform
+```
+
+也可以将 `AI_MODEL` 改为具体的 `provider/model:free` slug。OpenRouter 免费路由受可用模型、速率限制和上下文策略影响，不建议把它当成稳定的生产 SLA。
+
 ## 数据库与测试教师
+
+纯本地 PostgreSQL 可以使用 Docker 启动：
+
+```bash
+docker run --name learning-platform-postgres \
+  -e POSTGRES_PASSWORD=postgres \
+  -e POSTGRES_DB=learning_platform \
+  -p 5432:5432 \
+  -d postgres:17
+```
+
+对应 `.env.local`：
+
+```dotenv
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/learning_platform?schema=public
+DATABASE_URL_UNPOOLED=postgresql://postgres:postgres@localhost:5432/learning_platform?schema=public
+```
+
+本地 PostgreSQL 不区分 pooled/direct，因此两个变量使用相同 URL。若密码包含 `@`、`:`、`/`、`?` 等字符，需要先进行 URL encoding。使用 Neon 时，`DATABASE_URL` 填 pooled URL，`DATABASE_URL_UNPOOLED` 填 direct URL。
 
 全新数据库直接部署全部 migration：
 
@@ -53,6 +107,22 @@ npm run db:seed:feature
 ```
 
 种子账号固定为 `ai-assignment-test@local.invalid`，密码只从环境变量读取。
+
+## Vercel Blob
+
+该功能使用 Private Vercel Blob，没有本地文件存储替代器。在 Vercel 项目的 Storage 页面创建或连接一个 Private Blob store 后，Vercel 会为项目生成 `BLOB_READ_WRITE_TOKEN`。可以从 Blob store 设置复制该值，或在已经 link 的 `learning-platform/` 目录执行：
+
+```bash
+npx vercel env pull .env.local
+```
+
+然后确认 `.env.local` 包含：
+
+```dotenv
+BLOB_READ_WRITE_TOKEN=vercel_blob_rw_实际生成的值
+```
+
+`vercel env pull` 会更新目标文件，因此应先保留已有的数据库和 AI 配置。Token 只能放在 `.env.local` 或 Vercel Environment Variables 中，不得写入 `.env.example`、提交记录或浏览器端代码。
 
 ## 教师作业流程
 
