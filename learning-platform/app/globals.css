@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f3f6fa;
+  --foreground: #142f4d;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: "Avenir Next", "Segoe UI", sans-serif;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+}
+
+.study-grid {
+  background-image:
+    linear-gradient(to right, rgb(25 59 97 / 3%) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(25 59 97 / 3%) 1px, transparent 1px);
+  background-position: center;
+  background-size: 28px 28px;
+}
+
+.role-tab:hover {
+  color: #193b61;
+}
+
+.role-tab:focus-visible {
+  outline: 2px solid #1e3a5f;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
