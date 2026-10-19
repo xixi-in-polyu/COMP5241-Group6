@@ -1,4 +1,6 @@
 import { prisma } from "@/lib/prisma";
+import { createSession } from "@/lib/auth/session";
+import { isRole } from "@/lib/auth/session-core";
 
 const invalidCredentials = {
   error: "The account, password, or role does not match.",
@@ -21,7 +23,7 @@ export async function POST(request: Request) {
     !isRecord(body) ||
     typeof body.email !== "string" ||
     typeof body.password !== "string" ||
-    typeof body.role !== "string"
+    !isRole(body.role)
   ) {
     return Response.json(invalidCredentials, { status: 401 });
   }
@@ -29,16 +31,21 @@ export async function POST(request: Request) {
   try {
     const user = await prisma.user.findFirst({
       where: {
-        email: body.email,
+        email: {
+          equals: body.email.trim().toLowerCase(),
+          mode: "insensitive",
+        },
         password: body.password,
         role: body.role,
       },
-      select: { role: true },
+      select: { id: true, role: true },
     });
 
     if (!user) {
       return Response.json(invalidCredentials, { status: 401 });
     }
+
+    await createSession(user.id);
 
     return Response.json({ success: true, role: user.role });
   } catch (error) {
