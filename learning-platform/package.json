@@ -2,34 +2,39 @@
   "name": "learning-platform",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
-    "postinstall": "prisma skills sync || exit 0"
+    "db:generate": "prisma generate",
+    "db:migrate:baseline": "prisma migrate resolve --applied 20261019045900_baseline",
+    "db:migrate:deploy": "prisma migrate deploy"
   },
   "dependencies": {
-    "@prisma/client": "^6.19.3",
+    "@prisma/adapter-pg": "7.10.1",
+    "@prisma/client": "7.10.1",
+    "dotenv": "18.0.8",
     "lucide-react": "^1.59.0",
     "next": "16.4.2",
     "openai": "^7.38.0",
     "pdfjs-dist": "^6.4.299",
-    "prisma": "^6.19.3",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "react-pdf": "^11.0.0"
   },
   "devDependencies": {
     "@tailwindcss/turbopack": "^4",
-    "@types/node": "^20",
+    "@types/node": "22.20.5",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.4.2",
+    "prisma": "7.10.1",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "vitest": "^3.2.4"
+    "vitest": "5.0.5"
   }
 }
