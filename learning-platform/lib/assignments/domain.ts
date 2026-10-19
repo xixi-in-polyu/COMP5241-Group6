@@ -5,6 +5,8 @@ export const locatorSchema = z.object({
   page: z.number().int().positive().optional(),
   slide: z.number().int().positive().optional(),
   paragraph: z.number().int().positive().optional(),
+  startMs: z.number().int().nonnegative().optional(),
+  endMs: z.number().int().positive().optional(),
 });
 
 export const evidenceSchema = z.object({
