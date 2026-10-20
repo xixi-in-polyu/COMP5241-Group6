@@ -3,7 +3,6 @@ import { ApiError, apiError, ownedAssignment, requireTeacherApi } from "@/lib/ap
 import { validateAssignmentSourceSelection } from "@/lib/assignments/staged";
 import { validateMaterialMetadata } from "@/lib/materials/parsers";
 import { validateTranscriptMetadata } from "@/lib/materials/subtitles";
-import { parseYouTubeVideoId } from "@/lib/materials/youtube-captions";
 import { prisma } from "@/lib/prisma";
 import { assignmentMaterialReadyHook } from "@/workflows/hooks";
 
@@ -14,11 +13,7 @@ const fileSchema = z.object({
   size: z.number().int().positive().max(20 * 1024 * 1024),
   blobPathname: z.string().trim().min(1),
 });
-const videoSchema = z.object({
-  kind: z.literal("VIDEO"),
-  sourceUrl: z.string().url(),
-});
-const schema = z.discriminatedUnion("kind", [fileSchema, videoSchema]);
+const schema = fileSchema;
 
 export async function POST(
   request: Request,
@@ -43,29 +38,17 @@ export async function POST(
       ...current,
       { kind: input.kind, status: "UPLOADED", size: "size" in input ? input.size : undefined },
     ]);
-    if (input.kind === "VIDEO") {
-      parseYouTubeVideoId(input.sourceUrl);
+    const prefix = `learning-platform/courses/${assignment.courseId}/assignments/${assignmentId}/`;
+    if (!input.blobPathname.startsWith(prefix)) {
+      throw new ApiError(422, "Invalid assignment Blob path.");
+    }
+    if (input.kind === "TRANSCRIPT") {
+      validateTranscriptMetadata(input.name, input.mimeType, input.size);
     } else {
-      const prefix = `learning-platform/courses/${assignment.courseId}/assignments/${assignmentId}/`;
-      if (!input.blobPathname.startsWith(prefix)) {
-        throw new ApiError(422, "Invalid assignment Blob path.");
-      }
-      if (input.kind === "TRANSCRIPT") {
-        validateTranscriptMetadata(input.name, input.mimeType, input.size);
-      } else {
-        validateMaterialMetadata(input.name, input.mimeType, input.size);
-      }
+      validateMaterialMetadata(input.name, input.mimeType, input.size);
     }
     await prisma.assignmentMaterial.create({
-      data:
-        input.kind === "VIDEO"
-          ? {
-              assignmentId,
-              name: "YouTube video",
-              kind: "VIDEO",
-              sourceUrl: input.sourceUrl,
-            }
-          : { assignmentId, ...input },
+      data: { assignmentId, ...input },
     });
     await assignmentMaterialReadyHook.resume(assignment.workflowHookToken, {
       reason: input.kind === "TRANSCRIPT" ? "transcript-added" : "material-replaced",

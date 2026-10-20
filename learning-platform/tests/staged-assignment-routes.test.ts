@@ -114,25 +114,22 @@ describe("staged assignment routes", () => {
     expect(mocks.assignmentCreate).not.toHaveBeenCalled();
   });
 
-  it("starts ingestion for a valid public YouTube source", async () => {
-    mocks.assignmentCreate.mockResolvedValue({ id: assignmentId });
-    mocks.startUsageRun.mockResolvedValue({ id: "run-1" });
-    mocks.startWorkflow.mockResolvedValue({ runId: "workflow-1" });
+  it("rejects video link sources", async () => {
     const response = await createAssignment(
       new Request("http://localhost/api/courses/course-1/assignments", {
         method: "POST",
         body: JSON.stringify({
           assignmentId,
-          title: "Video assignment",
+          title: "Unsupported video assignment",
           sources: [{ kind: "VIDEO", sourceUrl: "https://youtu.be/EJyuu6zlQCg" }],
         }),
       }),
       { params: Promise.resolve({ courseId: "course-1" }) },
     );
 
-    expect(response.status).toBe(202);
-    expect(mocks.assignmentCreate).toHaveBeenCalledOnce();
-    expect(mocks.startWorkflow).toHaveBeenCalledOnce();
+    expect(response.status).toBe(422);
+    expect(mocks.assignmentCreate).not.toHaveBeenCalled();
+    expect(mocks.startWorkflow).not.toHaveBeenCalled();
   });
 
   it("restarts a failed assignment ingestion workflow", async () => {

@@ -31,8 +31,8 @@ export type AssignmentEntitySnapshot = KnowledgeEntity & {
 };
 
 type AssignmentSource = {
-  kind: "FILE" | "VIDEO" | "TRANSCRIPT";
-  status: "UPLOADED" | "PARSING" | "READY" | "NEEDS_INPUT" | "FAILED";
+  kind: "FILE" | "TRANSCRIPT";
+  status: "UPLOADED" | "PARSING" | "READY" | "FAILED";
   size?: number | null;
 };
 
@@ -40,11 +40,10 @@ export function validateAssignmentSourceSelection(sources: AssignmentSource[]) {
   const documents = sources.filter((source) =>
     ["FILE", "TRANSCRIPT"].includes(source.kind),
   );
-  const videos = sources.filter((source) => source.kind === "VIDEO");
-  if (documents.length > 2 || videos.length > 1 || (documents.length && videos.length)) {
+  if (documents.length !== sources.length || documents.length > 2) {
     throw new MaterialError(
       "SOURCE_COMBINATION_INVALID",
-      "Use up to two documents or one YouTube video, not both.",
+      "Use up to two source documents.",
     );
   }
   if (
@@ -64,7 +63,7 @@ export function getAssignmentSourceReadiness(
 ) {
   validateAssignmentSourceSelection(sources);
   if (!sources.length) return hasCourseKnowledge ? "ready" : "fix";
-  if (sources.some((source) => ["FAILED", "NEEDS_INPUT"].includes(source.status))) {
+  if (sources.some((source) => source.status === "FAILED")) {
     return "fix";
   }
   if (sources.some((source) => source.status !== "READY")) return "processing";

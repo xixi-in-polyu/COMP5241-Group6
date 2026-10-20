@@ -129,7 +129,6 @@ BLOB_READ_WRITE_TOKEN=vercel_blob_rw_实际生成的值
 1. 在 `/teacher/create` 只创建课程元数据。新课程会立即进入可创建作业的空工作区。
 2. 在课程页点击 **Create assignment**，选择以下一种来源：
    - 最多两个英文、机器可读的 PDF/TXT/DOCX/PPTX，总计不超过 20 MiB；
-   - 一个不超过 30 分钟、带英文字幕的公开 YouTube 视频；
    - 若课程已有确认知识，可不附加来源并复用课程知识快照。
 3. 在 **Knowledge** 审核、选择、改名、改描述、调整父级、合并或删除知识点，再确认。
 4. 在 **Brief** 设置题数、题型、难度、认知目标和覆盖范围；AI 建议只有接受后才修改 brief。
@@ -167,10 +166,7 @@ Playwright 流程需要 `SMOKE_TEACHER_EMAIL`、`SMOKE_TEACHER_PASSWORD`、`SMOK
 npm run test:smoke:ai-assignment
 ```
 
-必需变量为 `SMOKE_BASE_URL`、`SMOKE_TEACHER_EMAIL`、`SMOKE_TEACHER_PASSWORD` 和 `BLOB_READ_WRITE_TOKEN`。可选变量：
-
-- `SMOKE_YOUTUBE_URL`：应指向不超过 30 分钟且有可用英文字幕的公开视频，用于自动字幕路径。
-- `SMOKE_TRANSCRIPT_VIDEO_URL`：应指向会进入字幕修复状态的视频；脚本会上传合成 TXT transcript 并验证恢复路径。
+必需变量为 `SMOKE_BASE_URL`、`SMOKE_TEACHER_EMAIL`、`SMOKE_TEACHER_PASSWORD` 和 `BLOB_READ_WRITE_TOKEN`。
 
 Smoke 会产生真实 Blob、数据库行和 AI 调用费用，应只在隔离 Neon 分支及开发 Blob 前缀执行。当前阶段没有整门课程/整份作业删除 API，执行后的测试数据需按云资源管理流程处理。
 

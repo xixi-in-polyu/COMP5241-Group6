@@ -50,11 +50,8 @@ export async function PUT(
       where: { id: materialId },
       data: {
         ...input,
-        sourceUrl: null,
         status: "UPLOADED",
         pageCount: null,
-        durationSeconds: null,
-        captionMode: null,
         errorCode: null,
         errorDetail: null,
       },

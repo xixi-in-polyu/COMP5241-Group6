@@ -6,8 +6,6 @@ function required(name: string) { const value = process.env[name]; if (!value) t
 const email = required("SMOKE_TEACHER_EMAIL");
 const password = required("SMOKE_TEACHER_PASSWORD");
 required("BLOB_READ_WRITE_TOKEN");
-const youtubeUrl = process.env.SMOKE_YOUTUBE_URL;
-const transcriptVideoUrl = process.env.SMOKE_TRANSCRIPT_VIDEO_URL;
 
 const lesson = "Human-computer interaction studies how people understand and use interactive systems. Designers collect evidence about users, tasks, and contexts. Usability evaluation examines effectiveness, efficiency, and satisfaction. Iterative design uses findings to improve an interface and then evaluates the revision. Accessibility removes barriers so people with different abilities can complete meaningful goals. ".repeat(5);
 
@@ -73,30 +71,6 @@ for (const pair of [files.slice(0, 2), files.slice(2)]) {
   const settled = await waitFor(() => request<{ assignment: { status: string; error?: string } }>(`/api/assignments/${assignmentId}`), (value) => ["AWAITING_ENTITY_REVIEW", "AWAITING_MATERIAL_FIX", "FAILED"].includes(value.assignment.status), `assignment ${assignmentId}`);
   if (settled.assignment.status !== "AWAITING_ENTITY_REVIEW") throw new Error(`Ingestion failed: ${settled.assignment.status} ${settled.assignment.error || ""}`);
 }
-
-async function createVideoAssignment(sourceUrl: string, manualTranscript: boolean) {
-  const created = await request<{ course: { id: string } }>("/api/courses", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ title: manualTranscript ? "Transcript recovery smoke" : "YouTube captions smoke", description: "YouTube source integration smoke test." }) });
-  courseIds.push(created.course.id);
-  const assignmentId = crypto.randomUUID();
-  assignmentIds.push(assignmentId);
-  await request(`/api/courses/${created.course.id}/assignments`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ assignmentId, title: manualTranscript ? "Transcript recovery assignment" : "YouTube captions assignment", sources: [{ kind: "VIDEO", sourceUrl }] }) });
-  const settled = await waitFor(() => request<{ assignment: { status: string; error?: string; materials: Array<{ id: string; kind: string; status: string }> } }>(`/api/assignments/${assignmentId}`), (value) => ["AWAITING_ENTITY_REVIEW", "AWAITING_MATERIAL_FIX", "FAILED"].includes(value.assignment.status), `video assignment ${assignmentId}`);
-  if (!manualTranscript) {
-    if (settled.assignment.status !== "AWAITING_ENTITY_REVIEW") throw new Error(`YouTube caption ingestion failed: ${settled.assignment.status} ${settled.assignment.error || ""}`);
-    return;
-  }
-  if (settled.assignment.status !== "AWAITING_MATERIAL_FIX") throw new Error(`Expected transcript recovery state, received ${settled.assignment.status}.`);
-  const video = settled.assignment.materials.find((material) => material.kind === "VIDEO" && ["FAILED", "NEEDS_INPUT"].includes(material.status));
-  if (!video) throw new Error("Transcript recovery did not expose a failed video material.");
-  const body = Buffer.from(lesson);
-  const blob = await put(`learning-platform/courses/${created.course.id}/assignments/${assignmentId}/smoke/manual-transcript.txt`, body, { access: "private", contentType: "text/plain", addRandomSuffix: true });
-  await request(`/api/assignments/${assignmentId}/transcript`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ materialId: video.id, name: "manual-transcript.txt", mimeType: "text/plain", size: body.byteLength, blobPathname: blob.pathname }) });
-  const recovered = await waitFor(() => request<{ assignment: { status: string; error?: string } }>(`/api/assignments/${assignmentId}`), (value) => ["AWAITING_ENTITY_REVIEW", "FAILED"].includes(value.assignment.status), `transcript recovery ${assignmentId}`);
-  if (recovered.assignment.status !== "AWAITING_ENTITY_REVIEW") throw new Error(`Transcript recovery failed: ${recovered.assignment.error || recovered.assignment.status}`);
-}
-
-if (youtubeUrl) await createVideoAssignment(youtubeUrl, false);
-if (transcriptVideoUrl) await createVideoAssignment(transcriptVideoUrl, true);
 
 for (const assignmentId of assignmentIds) {
   const review = await request<{ assignment: { entityRevision: number; entities: unknown[] } }>(`/api/assignments/${assignmentId}`);

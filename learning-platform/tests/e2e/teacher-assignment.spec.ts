@@ -22,6 +22,11 @@ test("teacher saves, submits, and sees an immutable assignment", async ({ page }
   await page.waitForURL(/\/teacher$/, { timeout: 30_000 });
   await expect(page).toHaveURL(/\/teacher$/);
 
+  await page.goto(`/teacher/courses/${courseId}/assignments/create`);
+  await expect(page.getByRole("button", { name: /Documents/ })).toBeVisible();
+  await expect(page.getByRole("button", { name: /Course knowledge/ })).toBeVisible();
+  await expect(page.getByRole("button", { name: /YouTube/ })).toHaveCount(0);
+
   await page.goto(`/teacher/courses/${courseId}/assignments/${assignmentId}`);
   await expect(page.getByRole("heading", { name: "Twenty-question smoke assignment" })).toBeVisible();
   await expect(page.getByRole("navigation", { name: "Assignment workflow" })).toBeVisible();

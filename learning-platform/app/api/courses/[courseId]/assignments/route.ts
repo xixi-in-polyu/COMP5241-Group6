@@ -7,7 +7,6 @@ import { validateAssignmentSourceSelection } from "@/lib/assignments/staged";
 import { startUsageRun } from "@/lib/assignments/usage";
 import { validateMaterialMetadata } from "@/lib/materials/parsers";
 import { validateTranscriptMetadata } from "@/lib/materials/subtitles";
-import { parseYouTubeVideoId } from "@/lib/materials/youtube-captions";
 import { prisma } from "@/lib/prisma";
 import { assignmentIngestionWorkflow } from "@/workflows/assignment";
 
@@ -18,15 +17,11 @@ const fileSourceSchema = z.object({
   size: z.number().int().positive().max(20 * 1024 * 1024),
   blobPathname: z.string().trim().min(1),
 });
-const videoSourceSchema = z.object({
-  kind: z.literal("VIDEO"),
-  sourceUrl: z.string().url(),
-});
 const createSchema = z.object({
   assignmentId: z.string().uuid().optional(),
   title: z.string().trim().min(1).max(160),
   sources: z
-    .array(z.discriminatedUnion("kind", [fileSourceSchema, videoSourceSchema]))
+    .array(fileSourceSchema)
     .max(2)
     .default([]),
 });
@@ -82,11 +77,6 @@ export async function POST(
     }
     const verifiedSources = [];
     for (const source of input.sources) {
-      if (source.kind === "VIDEO") {
-        parseYouTubeVideoId(source.sourceUrl);
-        verifiedSources.push(source);
-        continue;
-      }
       const expectedPrefix = input.assignmentId
         ? `learning-platform/courses/${courseId}/assignments/${input.assignmentId}/`
         : "";
@@ -118,21 +108,13 @@ export async function POST(
           status: "INGESTING",
           phase: "Processing assignment sources",
           materials: {
-            create: verifiedSources.map((source) =>
-              source.kind === "VIDEO"
-                ? {
-                    name: "YouTube video",
-                    kind: "VIDEO" as const,
-                    sourceUrl: source.sourceUrl,
-                  }
-                : {
-                    name: source.name,
-                    kind: source.kind,
-                    mimeType: source.mimeType,
-                    size: source.size,
-                    blobPathname: source.blobPathname,
-                  },
-            ),
+            create: verifiedSources.map((source) => ({
+              name: source.name,
+              kind: source.kind,
+              mimeType: source.mimeType,
+              size: source.size,
+              blobPathname: source.blobPathname,
+            })),
           },
         },
       });

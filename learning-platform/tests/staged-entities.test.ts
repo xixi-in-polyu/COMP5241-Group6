@@ -70,22 +70,23 @@ describe("assignment knowledge snapshots", () => {
 });
 
 describe("assignment source workflow", () => {
-  it("allows either two documents or one video, but never both", () => {
+  it("allows at most two source documents", () => {
     expect(() => validateAssignmentSourceSelection([
       { kind: "FILE", status: "UPLOADED", size: 1 },
       { kind: "TRANSCRIPT", status: "UPLOADED", size: 1 },
     ])).not.toThrow();
     expect(() => validateAssignmentSourceSelection([
       { kind: "FILE", status: "UPLOADED", size: 1 },
-      { kind: "VIDEO", status: "UPLOADED" },
-    ])).toThrow(/not both/);
+      { kind: "FILE", status: "UPLOADED", size: 1 },
+      { kind: "TRANSCRIPT", status: "UPLOADED", size: 1 },
+    ])).toThrow(/up to two/);
   });
 
   it("requires a source only when the course has no reusable knowledge", () => {
     expect(getAssignmentSourceReadiness([], true)).toBe("ready");
     expect(getAssignmentSourceReadiness([], false)).toBe("fix");
     expect(getAssignmentSourceReadiness([
-      { kind: "VIDEO", status: "NEEDS_INPUT" },
+      { kind: "FILE", status: "FAILED", size: 10 },
     ], true)).toBe("fix");
     expect(getAssignmentSourceReadiness([
       { kind: "FILE", status: "PARSING", size: 10 },
