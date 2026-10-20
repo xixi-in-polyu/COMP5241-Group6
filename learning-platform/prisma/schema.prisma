@@ -41,7 +41,6 @@ enum MaterialStatus {
   UPLOADED
   PARSING
   READY
-  NEEDS_INPUT
   FAILED
 }
 
@@ -59,7 +58,6 @@ enum AssignmentStatus {
 
 enum AssignmentMaterialKind {
   FILE
-  VIDEO
   TRANSCRIPT
 }
 
@@ -189,25 +187,21 @@ model Assignment {
 }
 
 model AssignmentMaterial {
-  id                 String                    @id @default(uuid())
-  assignmentId       String
-  name               String
-  kind               AssignmentMaterialKind
-  mimeType           String?
-  size               Int?
-  blobPathname       String?                   @unique
-  sourceUrl          String?
-  pageCount          Int?
-  durationSeconds    Int?
-  captionMode        String?
-  captionAttemptedAt DateTime?
-  status             MaterialStatus            @default(UPLOADED)
-  errorCode          String?
-  errorDetail        String?
-  createdAt          DateTime                  @default(now())
-  updatedAt          DateTime                  @updatedAt
-  assignment         Assignment                @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
-  segments           AssignmentSourceSegment[]
+  id           String                    @id @default(uuid())
+  assignmentId String
+  name         String
+  kind         AssignmentMaterialKind
+  mimeType     String?
+  size         Int?
+  blobPathname String?                   @unique
+  pageCount    Int?
+  status       MaterialStatus            @default(UPLOADED)
+  errorCode    String?
+  errorDetail  String?
+  createdAt    DateTime                  @default(now())
+  updatedAt    DateTime                  @updatedAt
+  assignment   Assignment                @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  segments     AssignmentSourceSegment[]
 
   @@index([assignmentId, status])
   @@index([assignmentId, kind])

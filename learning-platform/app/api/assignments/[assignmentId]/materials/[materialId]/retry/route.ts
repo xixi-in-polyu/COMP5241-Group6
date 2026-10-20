@@ -20,7 +20,7 @@ export async function POST(
       where: { id: materialId, assignmentId },
     });
     if (!material) throw new ApiError(404, "Assignment material not found.");
-    if (!["FAILED", "NEEDS_INPUT"].includes(material.status)) {
+    if (material.status !== "FAILED") {
       throw new ApiError(409, "Only failed materials can be retried.");
     }
     await prisma.assignmentMaterial.update({
@@ -28,7 +28,7 @@ export async function POST(
       data: { status: "UPLOADED", errorCode: null, errorDetail: null },
     });
     await assignmentMaterialReadyHook.resume(assignment.workflowHookToken, {
-      reason: material.kind === "VIDEO" ? "captions-retry" : "document-retry",
+      reason: "document-retry",
     });
     return Response.json({ status: "PROCESSING" }, { status: 202 });
   } catch (error) {

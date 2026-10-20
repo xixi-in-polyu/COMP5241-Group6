@@ -2,7 +2,7 @@ import { head } from "@vercel/blob";
 import type { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { describeError, type DescribedError } from "@/lib/errors";
-import { extractEntities, generateQuestion, normalizeTranscript, reviewQuestions, validateGroundedQuestion } from "@/lib/assignments/ai";
+import { extractEntities, generateQuestion, reviewQuestions, validateGroundedQuestion } from "@/lib/assignments/ai";
 import { loadAssignmentKnowledgeContext } from "@/lib/assignments/context";
 import { briefSchema, createQuestionSlots, entitySchema, failedSlotsSchema, questionsSchema, type FailedSlot, type KnowledgeEntity, type Question, type QuestionSlot } from "@/lib/assignments/domain";
 import { getAssignmentSourceReadiness, mergeAssignmentEntities, snapshotCourseEntities, validateAssignmentSourceSelection, type AssignmentEntitySnapshot } from "@/lib/assignments/staged";
@@ -11,7 +11,6 @@ import { parseMaterial, validateMaterialMetadata } from "@/lib/materials/parsers
 import { mapBlobMaterialError } from "@/lib/materials/blob-errors";
 import { parseSubtitles, validateTranscriptMetadata } from "@/lib/materials/subtitles";
 import { MaterialError } from "@/lib/materials/types";
-import { fetchYouTubeCaptions } from "@/lib/materials/youtube-captions";
 import { segmentUnits } from "@/lib/materials/segment";
 import { assignmentEntityReviewHook, assignmentMaterialReadyHook } from "./hooks";
 
@@ -183,7 +182,6 @@ export async function assignmentIngestionWorkflow(
       const hook = assignmentMaterialReadyHook.create({ token });
       const result = await processAssignmentMaterialsStep(
         assignmentId,
-        usageRunId,
         token,
       );
       if (result === "ready") {
@@ -225,7 +223,6 @@ export async function assignmentIngestionWorkflow(
 
 async function processAssignmentMaterialsStep(
   assignmentId: string,
-  usageRunId: string,
   hookToken: string,
 ) {
   "use step";
@@ -258,82 +255,8 @@ async function processAssignmentMaterialsStep(
           status: "PARSING",
           errorCode: null,
           errorDetail: null,
-          ...(material.kind === "VIDEO" ? { captionAttemptedAt: new Date() } : {}),
         },
       });
-      if (material.kind === "VIDEO") {
-        const result = await fetchYouTubeCaptions(material.sourceUrl || "", {
-          onAttempt: async (attempt) => {
-            await prisma.usageEvent.create({
-              data: {
-                runId: usageRunId,
-                courseId: assignment.courseId,
-                assignmentId,
-                category: "media",
-                operation: attempt.operation,
-                status: attempt.status,
-                attempt: attempt.attempt,
-                durationMs: attempt.durationMs,
-                errorCode: attempt.errorCode,
-                errorDetail: attempt.errorDetail,
-                metadata: json(
-                  attempt.retryReason
-                    ? { retryReason: attempt.retryReason }
-                    : {},
-                ),
-                completedAt: new Date(),
-              },
-            });
-          },
-        });
-        const segmented = segmentUnits(result.units);
-        let normalized = segmented.map((segment) => ({
-          ...segment,
-          normalizedText: segment.text,
-          normalizationStatus: "raw",
-        }));
-        if (result.mode === "automatic_caption") {
-          try {
-            const corrected = await normalizeTranscript(
-              normalized.map((segment) => ({
-                id: segment.hash,
-                text: segment.text,
-              })),
-              {
-                courseId: assignment.courseId,
-                assignmentId,
-                runId: usageRunId,
-                operation: "transcript_normalization",
-              },
-            );
-            const byId = new Map(
-              corrected.map((segment) => [segment.id, segment.text]),
-            );
-            normalized = normalized.map((segment) => ({
-              ...segment,
-              normalizedText: byId.get(segment.hash) || segment.text,
-              normalizationStatus: "normalized",
-            }));
-          } catch {
-            normalized = normalized.map((segment) => ({
-              ...segment,
-              normalizationStatus: "warning",
-            }));
-          }
-        }
-        await saveAssignmentSegments(assignmentId, material.id, normalized);
-        await prisma.assignmentMaterial.update({
-          where: { id: material.id },
-          data: {
-            name: result.title,
-            status: "READY",
-            durationSeconds: result.durationSeconds,
-            captionMode: result.mode,
-          },
-        });
-        continue;
-      }
-
       if (!material.blobPathname) {
         throw new MaterialError(
           "BLOB_REFERENCE_MISSING",
@@ -386,17 +309,10 @@ async function processAssignmentMaterialsStep(
       });
     } catch (error) {
       const failure = mapBlobMaterialError(error, "Source processing failed.");
-      const needsInput =
-        material.kind === "VIDEO" &&
-        [
-          "YOUTUBE_CAPTIONS_REQUIRED",
-          "YOUTUBE_ACCESS_BLOCKED",
-          "YOUTUBE_CAPTION_INVALID",
-        ].includes(failure.code);
       await prisma.assignmentMaterial.update({
         where: { id: material.id },
         data: {
-          status: needsInput ? "NEEDS_INPUT" : "FAILED",
+          status: "FAILED",
           errorCode: failure.code,
           errorDetail: failure.message,
         },
@@ -423,7 +339,7 @@ async function processAssignmentMaterialsStep(
         status: "AWAITING_MATERIAL_FIX",
         phase: sourceMissing
           ? "Add a source before continuing"
-          : "Retry, replace, remove, or provide a transcript",
+          : "Retry, replace, or remove failed materials",
         workflowHookToken: hookToken,
       },
     });

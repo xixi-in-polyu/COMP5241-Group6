@@ -6,7 +6,6 @@ export type SourceUnit = { locator: Locator; text: string };
 export type ParsedMaterial = {
   units: SourceUnit[];
   pageCount?: number;
-  durationSeconds?: number;
 };
 
 export class MaterialError extends Error {
