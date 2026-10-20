@@ -68,6 +68,12 @@ jobs:
           .vercel/.env.production.local
           DATABASE_URL BLOB_READ_WRITE_TOKEN
           AI_PROVIDER AI_ENDPOINT AI_API_KEY AI_MODEL CRON_SECRET
+      - name: Generate Prisma client
+        working-directory: ${{ env.APP_DIRECTORY }}
+        env:
+          DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL_UNPOOLED }}
+          DATABASE_URL_UNPOOLED: ${{ secrets.PRODUCTION_DATABASE_URL_UNPOOLED }}
+        run: npm run db:generate
       - name: Build Production artifact
         working-directory: ${{ env.APP_DIRECTORY }}
         env:
