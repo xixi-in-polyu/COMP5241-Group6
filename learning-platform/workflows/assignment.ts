@@ -1,9 +1,10 @@
 import { head } from "@vercel/blob";
 import type { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
+import { describeError, type DescribedError } from "@/lib/errors";
 import { extractEntities, generateQuestion, normalizeTranscript, reviewQuestions, validateGroundedQuestion } from "@/lib/assignments/ai";
 import { loadAssignmentKnowledgeContext } from "@/lib/assignments/context";
-import { briefSchema, createQuestionSlots, entitySchema, failedSlotsSchema, questionsSchema, type FailedSlot, type Question, type QuestionSlot } from "@/lib/assignments/domain";
+import { briefSchema, createQuestionSlots, entitySchema, failedSlotsSchema, questionsSchema, type FailedSlot, type KnowledgeEntity, type Question, type QuestionSlot } from "@/lib/assignments/domain";
 import { getAssignmentSourceReadiness, mergeAssignmentEntities, snapshotCourseEntities, validateAssignmentSourceSelection, type AssignmentEntitySnapshot } from "@/lib/assignments/staged";
 import { finishUsageRun } from "@/lib/assignments/usage";
 import { parseMaterial, validateMaterialMetadata } from "@/lib/materials/parsers";
@@ -16,6 +17,52 @@ import { assignmentEntityReviewHook, assignmentMaterialReadyHook } from "./hooks
 
 const json = (value: unknown) => value as Prisma.InputJsonValue;
 
+const TRANSACTION_OPTIONS = { maxWait: 10_000, timeout: 30_000 } as const;
+
+type HierarchicalEntity = { id: string; parentId: string | null };
+
+/**
+ * Order entities so that every parent is written before its children. This
+ * keeps the write to one `createMany` per hierarchy level instead of one
+ * statement per row, which used to exceed the default 5s Prisma interactive
+ * transaction timeout and rolled the whole ingestion back.
+ */
+function groupByHierarchy<T extends HierarchicalEntity>(entities: T[]): T[][] {
+  const byId = new Map(entities.map((entity) => [entity.id, entity]));
+  const normalized = entities.map((entity) =>
+    entity.parentId && byId.has(entity.parentId)
+      ? entity
+      : ({ ...entity, parentId: null } as T),
+  );
+  const depthCache = new Map<string, number>();
+  const depthOf = (entity: T) => {
+    const cached = depthCache.get(entity.id);
+    if (cached !== undefined) return cached;
+    const visited = new Set<string>([entity.id]);
+    let depth = 0;
+    let parentId = entity.parentId;
+    while (parentId && !visited.has(parentId)) {
+      const parent = byId.get(parentId);
+      if (!parent) break;
+      visited.add(parentId);
+      depth += 1;
+      parentId = parent.parentId;
+    }
+    depthCache.set(entity.id, depth);
+    return depth;
+  };
+  const levels = new Map<number, T[]>();
+  for (const entity of normalized) {
+    const depth = depthOf(entity);
+    const bucket = levels.get(depth);
+    if (bucket) bucket.push(entity);
+    else levels.set(depth, [entity]);
+  }
+  return [...levels.entries()]
+    .sort(([left], [right]) => left - right)
+    .map(([, bucket]) => bucket);
+}
+
 export async function ingestionWorkflow(courseId: string, usageRunId: string) {
   "use workflow";
   try {
@@ -24,11 +71,20 @@ export async function ingestionWorkflow(courseId: string, usageRunId: string) {
       await finishIngestionStep(courseId, usageRunId, false);
       return { courseId, status: "AWAITING_MATERIAL_FIX" as const };
     }
-    await extractEntitiesStep(courseId, usageRunId);
+    const entities = await extractCourseEntitiesStep(courseId, usageRunId);
+    await persistCourseEntitiesStep(courseId, entities);
     await finishUsageRunStep(usageRunId, true);
     return { courseId, status: "AWAITING_ENTITY_REVIEW" as const };
   } catch (error) {
-    await failCourseStep(courseId, usageRunId, error instanceof Error ? error.message : "Course ingestion failed.");
+    const failure = describeError(error);
+    console.error("[course-ingestion] workflow failed", {
+      courseId,
+      usageRunId,
+      name: failure.name,
+      message: failure.message,
+      stack: failure.stack,
+    });
+    await failCourseStep(courseId, usageRunId, failure.message);
     throw error;
   }
 }
@@ -66,18 +122,36 @@ async function parseMaterialsStep(courseId: string) {
   return { ready: true };
 }
 
-async function extractEntitiesStep(courseId: string, usageRunId: string) {
+async function extractCourseEntitiesStep(courseId: string, usageRunId: string) {
   "use step";
   await prisma.course.update({ where: { id: courseId }, data: { status: "EXTRACTING_ENTITIES", phase: "Extracting grounded knowledge entities" } });
   const course = await prisma.course.findUniqueOrThrow({ where: { id: courseId }, include: { segments: true, materials: true } });
   const entities = await extractEntities(course.segments, new Map(course.materials.map((item) => [item.id, item.name])), { courseId, runId: usageRunId, operation: "entity_extraction" });
   if (!entities.length) throw new Error("No grounded knowledge entities could be extracted.");
+  return entities;
+}
+
+async function persistCourseEntitiesStep(courseId: string, entities: KnowledgeEntity[]) {
+  "use step";
   await prisma.$transaction(async (tx) => {
     await tx.knowledgeEntity.deleteMany({ where: { courseId } });
-    for (const entity of entities) await tx.knowledgeEntity.create({ data: { id: entity.id, courseId, name: entity.name, description: entity.description, aliases: json(entity.aliases), importance: entity.importance, selected: entity.selected, evidence: json(entity.evidence) } });
-    for (const entity of entities.filter((item) => item.parentId)) await tx.knowledgeEntity.update({ where: { id: entity.id }, data: { parentId: entity.parentId } });
+    for (const level of groupByHierarchy(entities)) {
+      await tx.knowledgeEntity.createMany({
+        data: level.map((entity) => ({
+          id: entity.id,
+          courseId,
+          parentId: entity.parentId,
+          name: entity.name,
+          description: entity.description,
+          aliases: json(entity.aliases),
+          importance: entity.importance,
+          selected: entity.selected,
+          evidence: json(entity.evidence),
+        })),
+      });
+    }
     await tx.course.update({ where: { id: courseId }, data: { status: "AWAITING_ENTITY_REVIEW", phase: "Review and confirm the knowledge graph", entityRevision: { increment: 1 } } });
-  });
+  }, TRANSACTION_OPTIONS);
 }
 
 async function finishIngestionStep(courseId: string, usageRunId: string, success: boolean) {
@@ -121,9 +195,13 @@ export async function assignmentIngestionWorkflow(
     }
     if (!ready) throw new Error("Material repair retry limit reached.");
 
-    const revision = await extractAssignmentEntitiesStep(
+    const entities = await extractAssignmentEntitiesStep(
       assignmentId,
       usageRunId,
+    );
+    const revision = await persistAssignmentEntitiesStep(
+      assignmentId,
+      entities,
     );
     const token = `assignment-entity-review:${assignmentId}:${revision}`;
     const hook = assignmentEntityReviewHook.create({ token });
@@ -132,11 +210,15 @@ export async function assignmentIngestionWorkflow(
     await readyAssignmentStep(assignmentId, usageRunId);
     return { assignmentId, status: "READY_TO_GENERATE" as const };
   } catch (error) {
-    await failStagedAssignmentStep(
+    const failure = describeError(error);
+    console.error("[assignment-ingestion] workflow failed", {
       assignmentId,
       usageRunId,
-      error instanceof Error ? error.message : "Assignment ingestion failed.",
-    );
+      name: failure.name,
+      message: failure.message,
+      stack: failure.stack,
+    });
+    await failStagedAssignmentStep(assignmentId, usageRunId, failure);
     throw error;
   }
 }
@@ -429,7 +511,15 @@ async function extractAssignmentEntitiesStep(
   if (!merged.length) {
     throw new Error("No grounded knowledge entities are available.");
   }
-  await replaceAssignmentEntities(assignmentId, merged);
+  return merged;
+}
+
+async function persistAssignmentEntitiesStep(
+  assignmentId: string,
+  entities: AssignmentEntitySnapshot[],
+) {
+  "use step";
+  await replaceAssignmentEntities(assignmentId, entities);
   const updated = await prisma.assignment.update({
     where: { id: assignmentId },
     data: { entityRevision: { increment: 1 } },
@@ -444,28 +534,23 @@ async function replaceAssignmentEntities(
 ) {
   await prisma.$transaction(async (tx) => {
     await tx.assignmentKnowledgeEntity.deleteMany({ where: { assignmentId } });
-    for (const entity of entities) {
-      await tx.assignmentKnowledgeEntity.create({
-        data: {
+    for (const level of groupByHierarchy(entities)) {
+      await tx.assignmentKnowledgeEntity.createMany({
+        data: level.map((entity) => ({
           id: entity.id,
           assignmentId,
           sourceCourseEntityId: entity.sourceCourseEntityId,
+          parentId: entity.parentId,
           name: entity.name,
           description: entity.description,
           aliases: json(entity.aliases),
           importance: entity.importance,
           selected: entity.selected,
           evidence: json(entity.evidence),
-        },
+        })),
       });
     }
-    for (const entity of entities.filter((item) => item.parentId)) {
-      await tx.assignmentKnowledgeEntity.update({
-        where: { id: entity.id },
-        data: { parentId: entity.parentId },
-      });
-    }
-  });
+  }, TRANSACTION_OPTIONS);
 }
 
 async function waitForAssignmentEntityReviewStep(
@@ -500,7 +585,7 @@ async function readyAssignmentStep(assignmentId: string, usageRunId: string) {
 async function failStagedAssignmentStep(
   assignmentId: string,
   usageRunId: string,
-  error: string,
+  failure: DescribedError,
 ) {
   "use step";
   const latestFailure = await prisma.usageEvent.findFirst({
@@ -508,13 +593,15 @@ async function failStagedAssignmentStep(
     orderBy: { createdAt: "desc" },
     select: { operation: true, errorCode: true, errorDetail: true },
   });
-  const resolvedError = latestFailure?.errorDetail || error;
+  const resolvedError = latestFailure?.errorDetail || failure.message;
   console.error("[assignment-ingestion] workflow failed", {
     assignmentId,
     usageRunId,
+    name: failure.name,
     operation: latestFailure?.operation,
     errorCode: latestFailure?.errorCode,
     error: resolvedError,
+    stack: failure.stack,
   });
   await prisma.assignment.update({
     where: { id: assignmentId },
