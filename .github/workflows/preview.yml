@@ -1,0 +1,250 @@
+name: Preview
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, reopened, synchronize, labeled, unlabeled]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: preview-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: "22"
+  APP_DIRECTORY: learning-platform
+  VERCEL_ORG_ID: ${{ vars.PREVIEW_VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ vars.PREVIEW_VERCEL_PROJECT_ID }}
+
+jobs:
+  preview-gate:
+    name: preview-gate
+    runs-on: ubuntu-24.04
+    environment: preview
+    steps:
+      - name: Decide whether Preview should run
+        id: mode
+        env:
+          MODE: ${{ vars.PREVIEW_DEPLOYMENT_MODE || 'off' }}
+          INTERNAL_PR: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+          MANUAL_LABEL: ${{ contains(github.event.pull_request.labels.*.name, 'deploy-preview') }}
+        run: |
+          deploy=false
+          reason="Preview is disabled."
+          if [[ "$INTERNAL_PR" != "true" ]]; then
+            reason="Fork pull requests do not receive Preview credentials."
+          elif [[ "$MODE" == "auto" ]]; then
+            deploy=true
+            reason="Automatic Preview is enabled."
+          elif [[ "$MODE" == "manual" && "$MANUAL_LABEL" == "true" ]]; then
+            deploy=true
+            reason="The deploy-preview label requested a Preview."
+          elif [[ "$MODE" == "manual" ]]; then
+            reason="Preview is in manual mode; add the deploy-preview label to run it."
+          fi
+          echo "deploy=$deploy" >> "$GITHUB_OUTPUT"
+          echo "reason=$reason" >> "$GITHUB_OUTPUT"
+          echo "### Preview gate" >> "$GITHUB_STEP_SUMMARY"
+          echo "$reason" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Check out repository
+        if: steps.mode.outputs.deploy == 'true'
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        if: steps.mode.outputs.deploy == 'true'
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: ${{ env.APP_DIRECTORY }}/package-lock.json
+
+      - name: Install dependencies
+        if: steps.mode.outputs.deploy == 'true'
+        working-directory: ${{ env.APP_DIRECTORY }}
+        run: npm ci
+
+      - name: Validate Preview configuration
+        if: steps.mode.outputs.deploy == 'true'
+        env:
+          NEON_API_KEY: ${{ secrets.PREVIEW_NEON_API_KEY }}
+          VERCEL_TOKEN: ${{ secrets.PREVIEW_VERCEL_TOKEN }}
+          NEON_PROJECT_ID: ${{ vars.NEON_CI_PROJECT_ID }}
+          NEON_PARENT_BRANCH_ID: ${{ vars.NEON_CI_PARENT_BRANCH_ID }}
+        run: |
+          missing=()
+          for name in NEON_API_KEY VERCEL_TOKEN NEON_PROJECT_ID NEON_PARENT_BRANCH_ID VERCEL_ORG_ID VERCEL_PROJECT_ID; do
+            [[ -n "${!name}" ]] || missing+=("$name")
+          done
+          if (( ${#missing[@]} )); then
+            echo "Missing Preview configuration: ${missing[*]}" >&2
+            exit 1
+          fi
+
+      - name: Remove the previous PR database branch
+        if: steps.mode.outputs.deploy == 'true'
+        working-directory: ${{ env.APP_DIRECTORY }}
+        env:
+          NEON_API_KEY: ${{ secrets.PREVIEW_NEON_API_KEY }}
+          NEON_PROJECT_ID: ${{ vars.NEON_CI_PROJECT_ID }}
+          BRANCH_NAME: preview/pr-${{ github.event.pull_request.number }}
+        run: |
+          branch_id=$(npx neon branches list --project-id "$NEON_PROJECT_ID" --output json | jq -r --arg name "$BRANCH_NAME" '.[] | select(.name == $name) | .id' | head -n 1)
+          if [[ -n "$branch_id" ]]; then
+            npx neon branches delete "$branch_id" --project-id "$NEON_PROJECT_ID"
+          fi
+
+      - name: Calculate database branch expiry
+        if: steps.mode.outputs.deploy == 'true'
+        id: expiry
+        run: echo "value=$(date -u --date '+7 days' +'%Y-%m-%dT%H:%M:%SZ')" >> "$GITHUB_OUTPUT"
+
+      - name: Create isolated Preview database branch
+        if: steps.mode.outputs.deploy == 'true'
+        id: neon
+        continue-on-error: true
+        uses: neondatabase/create-branch-action@45dc7a8a626b375bdbdabbc0b56ceb28e81b239d # v6.0.1
+        with:
+          project_id: ${{ vars.NEON_CI_PROJECT_ID }}
+          parent_branch: ${{ vars.NEON_CI_PARENT_BRANCH_ID }}
+          branch_name: preview/pr-${{ github.event.pull_request.number }}
+          api_key: ${{ secrets.PREVIEW_NEON_API_KEY }}
+          expires_at: ${{ steps.expiry.outputs.value }}
+          suspend_timeout: 300
+
+      - name: Classify a Neon branch creation failure
+        if: steps.mode.outputs.deploy == 'true' && steps.neon.outcome == 'failure'
+        id: neon_failure
+        working-directory: ${{ env.APP_DIRECTORY }}
+        env:
+          NEON_API_KEY: ${{ secrets.PREVIEW_NEON_API_KEY }}
+          NEON_PROJECT_ID: ${{ vars.NEON_CI_PROJECT_ID }}
+        run: |
+          count=$(npx neon branches list --project-id "$NEON_PROJECT_ID" --output json | jq 'length')
+          if (( count >= 10 )); then
+            echo "quota=true" >> "$GITHUB_OUTPUT"
+            echo "Neon branch capacity is exhausted; Preview is advisory for this run." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "Neon branch creation failed for a non-quota reason." >&2
+            exit 1
+          fi
+
+      - name: Generate the Preview test password
+        if: steps.mode.outputs.deploy == 'true' && steps.neon.outcome == 'success'
+        run: |
+          password=$(openssl rand -base64 30 | tr -d '\n')
+          echo "::add-mask::$password"
+          echo "SMOKE_TEACHER_PASSWORD=$password" >> "$GITHUB_ENV"
+
+      - name: Apply migrations and seed the E2E fixture
+        if: steps.mode.outputs.deploy == 'true' && steps.neon.outcome == 'success'
+        working-directory: ${{ env.APP_DIRECTORY }}
+        env:
+          DATABASE_URL: ${{ steps.neon.outputs.db_url_pooled }}
+          DATABASE_URL_UNPOOLED: ${{ steps.neon.outputs.db_url }}
+        run: |
+          npm run db:migrate:deploy
+          npm run db:generate
+          npm run db:seed:e2e
+
+      - name: Pull Preview project settings
+        if: steps.mode.outputs.deploy == 'true' && steps.neon.outcome == 'success'
+        working-directory: ${{ env.APP_DIRECTORY }}
+        env:
+          VERCEL_TOKEN: ${{ secrets.PREVIEW_VERCEL_TOKEN }}
+        run: npx vercel pull --yes --environment=preview --token="$VERCEL_TOKEN"
+
+      - name: Build Preview artifact
+        if: steps.mode.outputs.deploy == 'true' && steps.neon.outcome == 'success'
+        working-directory: ${{ env.APP_DIRECTORY }}
+        env:
+          VERCEL_TOKEN: ${{ secrets.PREVIEW_VERCEL_TOKEN }}
+          DATABASE_URL: ${{ steps.neon.outputs.db_url_pooled }}
+        run: npx vercel build --token="$VERCEL_TOKEN" --build-env DATABASE_URL="$DATABASE_URL"
+
+      - name: Deploy Preview artifact
+        if: steps.mode.outputs.deploy == 'true' && steps.neon.outcome == 'success'
+        id: deploy
+        working-directory: ${{ env.APP_DIRECTORY }}
+        env:
+          VERCEL_TOKEN: ${{ secrets.PREVIEW_VERCEL_TOKEN }}
+          DATABASE_URL: ${{ steps.neon.outputs.db_url_pooled }}
+        run: |
+          set +e
+          deployment_url=$(npx vercel deploy --prebuilt --archive=tgz --token="$VERCEL_TOKEN" --env DATABASE_URL="$DATABASE_URL" 2>vercel-deploy.log)
+          status=$?
+          set -e
+          if (( status != 0 )); then
+            if grep -Eqi '429|rate.?limit|too many requests|deployment.*limit|quota|DEPLOYMENT_DISABLED' vercel-deploy.log; then
+              echo "quota=true" >> "$GITHUB_OUTPUT"
+              echo "Vercel deployment quota is exhausted; Preview is advisory for this run." >> "$GITHUB_STEP_SUMMARY"
+              exit 0
+            fi
+            cat vercel-deploy.log >&2
+            exit "$status"
+          fi
+          echo "url=$deployment_url" >> "$GITHUB_OUTPUT"
+          echo "quota=false" >> "$GITHUB_OUTPUT"
+
+      - name: Install Playwright Chromium
+        if: steps.deploy.outputs.url != ''
+        working-directory: ${{ env.APP_DIRECTORY }}
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Preview E2E
+        if: steps.deploy.outputs.url != ''
+        working-directory: ${{ env.APP_DIRECTORY }}
+        env:
+          SMOKE_BASE_URL: ${{ steps.deploy.outputs.url }}
+          SMOKE_TEACHER_EMAIL: ai-assignment-test@local.invalid
+          SMOKE_COURSE_ID: 20000000-0000-4000-8000-000000000001
+          SMOKE_ASSIGNMENT_ID: 30000000-0000-4000-8000-000000000001
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+        run: npm run test:e2e
+
+      - name: Publish Preview URL on the pull request
+        if: steps.deploy.outputs.url != ''
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
+        env:
+          PREVIEW_URL: ${{ steps.deploy.outputs.url }}
+        with:
+          script: |
+            const marker = '<!-- learning-platform-preview -->';
+            const body = `${marker}\nPreview: ${process.env.PREVIEW_URL}\n\nDatabase and account data are synthetic and isolated to this pull request.`;
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            const existing = comments.find((comment) => comment.body?.includes(marker));
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }
+
+      - name: Upload Playwright diagnostics
+        if: failure() && steps.mode.outputs.deploy == 'true'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: playwright-pr-${{ github.event.pull_request.number }}
+          path: |
+            learning-platform/playwright-report
+            learning-platform/test-results
+          if-no-files-found: ignore
+          retention-days: 14

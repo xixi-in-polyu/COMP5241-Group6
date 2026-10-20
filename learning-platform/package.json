@@ -8,12 +8,16 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:e2e": "playwright test",
+    "ci:migrations:check": "node scripts/check-migrations.mjs",
     "db:generate": "prisma generate",
     "db:migrate:baseline": "prisma migrate resolve --applied 20261019045900_baseline",
     "db:migrate:deploy": "prisma migrate deploy",
     "db:seed:feature": "node prisma/seed-feature.ts",
+    "db:seed:e2e": "node prisma/seed-e2e.ts",
+    "db:seed:upgrade": "node prisma/seed-upgrade.ts",
     "test:smoke:ai-assignment": "node scripts/smoke-ai-assignment.ts"
   },
   "dependencies": {
@@ -42,9 +46,14 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.4.2",
+    "neon": "8.8.0",
     "prisma": "7.10.1",
     "tailwindcss": "^4",
     "typescript": "^5",
+    "vercel": "64.7.0",
     "vitest": "5.0.5"
+  },
+  "overrides": {
+    "tar": "7.5.22"
   }
 }
