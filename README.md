@@ -219,6 +219,8 @@ Secrets 必须是项目专用、最小权限凭据，不使用个人日常 Token
 
 Preview 只包含 `db:seed:e2e` 生成的合成账号、课程、作业和题目，不允许复制教师、学生或其他生产数据，也不配置生产 AI、Blob 或 Cron 凭据。Vercel CLI 始终在 `learning-platform/` 执行，该目录内完成项目 link；项目 Root Directory 保持 `.`。
 
+Preview 与 Production Vercel 项目关闭 Vercel Git 自动部署，由 GitHub Actions 作为唯一部署入口，避免同一次 push 重复构建和消耗配额。
+
 `PREVIEW_DEPLOYMENT_MODE`：
 
 - `auto`：所有同仓库 PR 自动部署；fork PR 仍只运行无密钥 CI。
