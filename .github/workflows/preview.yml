@@ -114,8 +114,7 @@ jobs:
           parent_branch: ${{ vars.NEON_CI_PARENT_BRANCH_ID }}
           branch_name: preview/pr-${{ github.event.pull_request.number }}
           api_key: ${{ secrets.PREVIEW_NEON_API_KEY }}
-          expires_at: ${{ steps.expiry.outputs.value }}
-          suspend_timeout: 300
+          suspend_timeout: 0
 
       - name: Classify a Neon branch creation failure
         if: steps.mode.outputs.deploy == 'true' && steps.neon.outcome == 'failure'
@@ -133,6 +132,16 @@ jobs:
             echo "Neon branch creation failed for a non-quota reason." >&2
             exit 1
           fi
+
+      - name: Expire the Preview database branch
+        if: steps.mode.outputs.deploy == 'true' && steps.neon.outcome == 'success'
+        working-directory: ${{ env.APP_DIRECTORY }}
+        env:
+          NEON_API_KEY: ${{ secrets.PREVIEW_NEON_API_KEY }}
+          NEON_PROJECT_ID: ${{ vars.NEON_CI_PROJECT_ID }}
+          BRANCH_NAME: preview/pr-${{ github.event.pull_request.number }}
+          EXPIRES_AT: ${{ steps.expiry.outputs.value }}
+        run: npx neon branches set-expiration "$BRANCH_NAME" --project-id "$NEON_PROJECT_ID" --expires-at "$EXPIRES_AT"
 
       - name: Generate the Preview test password
         if: steps.mode.outputs.deploy == 'true' && steps.neon.outcome == 'success'
