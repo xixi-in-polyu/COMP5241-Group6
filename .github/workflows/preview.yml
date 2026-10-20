@@ -108,7 +108,7 @@ jobs:
         if: steps.mode.outputs.deploy == 'true'
         id: neon
         continue-on-error: true
-        uses: neondatabase/create-branch-action@45dc7a8a626b375bdbdabbc0b56ceb28e81b239d # v6.0.1
+        uses: neondatabase/create-branch-action@72ed4f69a12b6be9c16aebfad893f6a21e9aba8b # v6.4.0
         with:
           project_id: ${{ vars.NEON_CI_PROJECT_ID }}
           parent_branch: ${{ vars.NEON_CI_PARENT_BRANCH_ID }}
@@ -229,7 +229,7 @@ jobs:
 
       - name: Publish Preview URL on the pull request
         if: steps.deploy.outputs.url != ''
-        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         env:
           PREVIEW_URL: ${{ steps.deploy.outputs.url }}
         with:
@@ -260,7 +260,7 @@ jobs:
 
       - name: Upload Playwright diagnostics
         if: failure() && steps.mode.outputs.deploy == 'true'
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: playwright-pr-${{ github.event.pull_request.number }}
           path: |
