@@ -1,0 +1,168 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: "22"
+  APP_DIRECTORY: learning-platform
+  CI_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/learning_platform?schema=public
+
+jobs:
+  quality:
+    name: quality
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: ${{ env.APP_DIRECTORY }}/package-lock.json
+      - name: Install dependencies
+        working-directory: ${{ env.APP_DIRECTORY }}
+        run: npm ci
+      - name: Generate Prisma client
+        working-directory: ${{ env.APP_DIRECTORY }}
+        env:
+          DATABASE_URL: ${{ env.CI_DATABASE_URL }}
+          DATABASE_URL_UNPOOLED: ${{ env.CI_DATABASE_URL }}
+        run: npm run db:generate
+      - name: Check changed migrations
+        if: github.event_name != 'workflow_dispatch'
+        working-directory: ${{ env.APP_DIRECTORY }}
+        env:
+          MIGRATION_BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: npm run ci:migrations:check -- "$MIGRATION_BASE"
+      - name: Lint
+        working-directory: ${{ env.APP_DIRECTORY }}
+        run: npm run lint
+      - name: Typecheck
+        working-directory: ${{ env.APP_DIRECTORY }}
+        run: npm run typecheck
+      - name: Unit tests
+        working-directory: ${{ env.APP_DIRECTORY }}
+        run: npm test
+      - name: Production build
+        working-directory: ${{ env.APP_DIRECTORY }}
+        env:
+          DATABASE_URL: ${{ env.CI_DATABASE_URL }}
+          DATABASE_URL_UNPOOLED: ${{ env.CI_DATABASE_URL }}
+          NEXT_TELEMETRY_DISABLED: "1"
+        run: npm run build
+
+  migration-fresh:
+    name: migration-fresh
+    runs-on: ubuntu-24.04
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: learning_platform
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d learning_platform"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: ${{ env.APP_DIRECTORY }}/package-lock.json
+      - name: Install dependencies
+        working-directory: ${{ env.APP_DIRECTORY }}
+        run: npm ci
+      - name: Apply every migration to an empty database
+        working-directory: ${{ env.APP_DIRECTORY }}
+        env:
+          DATABASE_URL: ${{ env.CI_DATABASE_URL }}
+          DATABASE_URL_UNPOOLED: ${{ env.CI_DATABASE_URL }}
+        run: npm run db:migrate:deploy
+
+  migration-upgrade:
+    name: migration-upgrade
+    runs-on: ubuntu-24.04
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: learning_platform
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d learning_platform"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - name: Check out proposed revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: current
+          persist-credentials: false
+      - name: Check out current main revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.base.sha || github.event.before || 'main' }}
+          path: base
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: current/${{ env.APP_DIRECTORY }}/package-lock.json
+      - name: Install dependencies
+        working-directory: current/${{ env.APP_DIRECTORY }}
+        run: npm ci
+      - name: Generate Prisma client
+        working-directory: current/${{ env.APP_DIRECTORY }}
+        env:
+          DATABASE_URL: ${{ env.CI_DATABASE_URL }}
+          DATABASE_URL_UNPOOLED: ${{ env.CI_DATABASE_URL }}
+        run: npm run db:generate
+      - name: Apply the base revision migrations
+        working-directory: current/${{ env.APP_DIRECTORY }}
+        env:
+          DATABASE_URL: ${{ env.CI_DATABASE_URL }}
+          DATABASE_URL_UNPOOLED: ${{ env.CI_DATABASE_URL }}
+          CI_MIGRATIONS_PATH: ${{ github.workspace }}/base/${{ env.APP_DIRECTORY }}/prisma/migrations
+        run: npx prisma migrate deploy --config scripts/prisma-ci.config.ts
+      - name: Seed synthetic pre-upgrade data
+        working-directory: current/${{ env.APP_DIRECTORY }}
+        env:
+          DATABASE_URL: ${{ env.CI_DATABASE_URL }}
+          DATABASE_URL_UNPOOLED: ${{ env.CI_DATABASE_URL }}
+        run: npm run db:seed:upgrade
+      - name: Apply the proposed revision migrations
+        working-directory: current/${{ env.APP_DIRECTORY }}
+        env:
+          DATABASE_URL: ${{ env.CI_DATABASE_URL }}
+          DATABASE_URL_UNPOOLED: ${{ env.CI_DATABASE_URL }}
+        run: npm run db:migrate:deploy

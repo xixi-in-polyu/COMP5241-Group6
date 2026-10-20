@@ -1,0 +1,43 @@
+name: Preview Cleanup
+
+on:
+  pull_request:
+    branches: [main]
+    types: [closed]
+
+permissions:
+  contents: read
+
+jobs:
+  delete-preview-database:
+    runs-on: ubuntu-24.04
+    environment: preview
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: learning-platform/package-lock.json
+      - name: Install dependencies
+        working-directory: learning-platform
+        run: npm ci
+      - name: Delete Preview database branch
+        working-directory: learning-platform
+        env:
+          NEON_API_KEY: ${{ secrets.PREVIEW_NEON_API_KEY }}
+          NEON_PROJECT_ID: ${{ vars.NEON_CI_PROJECT_ID }}
+          BRANCH_NAME: preview/pr-${{ github.event.pull_request.number }}
+        run: |
+          if [[ -z "$NEON_API_KEY" || -z "$NEON_PROJECT_ID" ]]; then
+            echo "Preview Neon configuration is absent; TTL cleanup remains the fallback." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          branch_id=$(npx neon branches list --project-id "$NEON_PROJECT_ID" --output json | jq -r --arg name "$BRANCH_NAME" '.[] | select(.name == $name) | .id' | head -n 1)
+          if [[ -n "$branch_id" ]]; then
+            npx neon branches delete "$branch_id" --project-id "$NEON_PROJECT_ID"
+          fi
