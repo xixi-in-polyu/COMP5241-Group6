@@ -178,7 +178,14 @@ jobs:
         env:
           VERCEL_TOKEN: ${{ secrets.PREVIEW_VERCEL_TOKEN }}
           DATABASE_URL: ${{ steps.neon.outputs.db_url_pooled }}
-        run: npx vercel build --token="$VERCEL_TOKEN" --build-env DATABASE_URL="$DATABASE_URL"
+        run: |
+          if [[ ! -f .vercel/.env.preview.local ]]; then
+            echo "vercel pull did not produce .vercel/.env.preview.local" >&2
+            exit 1
+          fi
+          sed -i '/^DATABASE_URL=/d' .vercel/.env.preview.local
+          printf 'DATABASE_URL=%s\n' "$DATABASE_URL" >> .vercel/.env.preview.local
+          npx vercel build --token="$VERCEL_TOKEN"
 
       - name: Deploy Preview artifact
         if: steps.mode.outputs.deploy == 'true' && steps.neon.outcome == 'success'
