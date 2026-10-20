@@ -99,13 +99,22 @@ jobs:
         run: |
           expires_at=$(date -u --date '+72 hours' +'%Y-%m-%dT%H:%M:%SZ')
           branch_name="backup/release-${GITHUB_SHA::12}"
-          npx neon branches create \
+          existing=$(npx neon branches list \
             --project-id "$NEON_PROJECT_ID" \
-            --parent "$NEON_BRANCH_ID" \
-            --name "$branch_name" \
-            --expires-at "$expires_at" \
-            --no-compute \
-            --no-secrets
+            --output json \
+            | jq -r --arg name "$branch_name" '.[] | select(.name == $name) | .id' \
+            | head -n 1)
+          if [[ -n "$existing" ]]; then
+            echo "Reusing the recovery branch \`$branch_name\` created by the previous attempt for this commit." >> "$GITHUB_STEP_SUMMARY"
+          else
+            npx neon branches create \
+              --project-id "$NEON_PROJECT_ID" \
+              --parent "$NEON_BRANCH_ID" \
+              --name "$branch_name" \
+              --expires-at "$expires_at" \
+              --no-compute \
+              --no-secrets
+          fi
           echo "name=$branch_name" >> "$GITHUB_OUTPUT"
           echo "expires_at=$expires_at" >> "$GITHUB_OUTPUT"
       - name: Deploy Production migrations
