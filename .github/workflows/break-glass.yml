@@ -1,0 +1,106 @@
+name: Break Glass Production
+
+on:
+  workflow_dispatch:
+    inputs:
+      commit_sha:
+        description: Full commit SHA at the current main head
+        required: true
+        type: string
+      reason:
+        description: Incident reason and linked recovery record
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  deployments: write
+
+concurrency:
+  group: production
+  cancel-in-progress: false
+
+jobs:
+  emergency-deploy:
+    if: vars.BREAK_GLASS_ENABLED == 'true' && github.actor == 'xixi-in-polyu'
+    runs-on: ubuntu-24.04
+    environment: production-emergency
+    env:
+      VERCEL_ORG_ID: ${{ vars.PRODUCTION_VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ vars.PRODUCTION_VERCEL_PROJECT_ID }}
+    steps:
+      - name: Validate emergency request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REQUESTED_SHA: ${{ inputs.commit_sha }}
+        run: |
+          [[ "$REQUESTED_SHA" =~ ^[0-9a-f]{40}$ ]] || { echo "A full commit SHA is required." >&2; exit 1; }
+          git -c protocol.version=2 ls-remote "https://x-access-token:$GH_TOKEN@github.com/$GITHUB_REPOSITORY.git" refs/heads/main | grep -q "^$REQUESTED_SHA" || {
+            echo "Break glass can deploy only the current main head." >&2
+            exit 1
+          }
+          {
+            echo "### Break-glass activation"
+            echo "- Actor: $GITHUB_ACTOR"
+            echo "- Commit: \`$REQUESTED_SHA\`"
+            echo "- Reason: ${{ inputs.reason }}"
+            echo "- Required follow-up: disable BREAK_GLASS_ENABLED and rotate emergency credentials."
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Check out approved commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.commit_sha }}
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: learning-platform/package-lock.json
+      - name: Install dependencies
+        working-directory: learning-platform
+        run: npm ci
+      - name: Pull and build Production artifact
+        working-directory: learning-platform
+        env:
+          VERCEL_TOKEN: ${{ secrets.PRODUCTION_VERCEL_TOKEN }}
+        run: |
+          npx vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+          npx vercel build --prod --token="$VERCEL_TOKEN"
+      - name: Create a 72-hour Neon emergency backup
+        working-directory: learning-platform
+        env:
+          NEON_API_KEY: ${{ secrets.PRODUCTION_NEON_API_KEY }}
+          NEON_PROJECT_ID: ${{ vars.NEON_PRODUCTION_PROJECT_ID }}
+          NEON_BRANCH_ID: ${{ vars.NEON_PRODUCTION_BRANCH_ID }}
+        run: |
+          [[ -n "$NEON_API_KEY" && -n "$NEON_PROJECT_ID" && -n "$NEON_BRANCH_ID" ]] || {
+            echo "Missing Neon recovery configuration." >&2
+            exit 1
+          }
+          expires_at=$(date -u --date '+72 hours' +'%Y-%m-%dT%H:%M:%SZ')
+          branch_name="backup/emergency-${GITHUB_SHA::12}-${GITHUB_RUN_ID}"
+          npx neon branches create \
+            --project-id "$NEON_PROJECT_ID" \
+            --parent "$NEON_BRANCH_ID" \
+            --name "$branch_name" \
+            --expires-at "$expires_at" \
+            --no-compute \
+            --no-secrets
+          {
+            echo "- Neon recovery branch: \`$branch_name\`"
+            echo "- Recovery branch expiry: $expires_at"
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Apply migrations
+        working-directory: learning-platform
+        env:
+          DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL_UNPOOLED }}
+          DATABASE_URL_UNPOOLED: ${{ secrets.PRODUCTION_DATABASE_URL_UNPOOLED }}
+        run: npm run db:migrate:deploy
+      - name: Deploy and promote emergency release
+        working-directory: learning-platform
+        env:
+          VERCEL_TOKEN: ${{ secrets.PRODUCTION_VERCEL_TOKEN }}
+        run: |
+          deployment_url=$(npx vercel deploy --prebuilt --prod --archive=tgz --token="$VERCEL_TOKEN")
+          echo "Emergency deployment: $deployment_url" >> "$GITHUB_STEP_SUMMARY"
