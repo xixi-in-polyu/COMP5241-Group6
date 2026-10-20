@@ -1,0 +1,161 @@
+name: Production
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  deployments: write
+
+concurrency:
+  group: production
+  cancel-in-progress: false
+
+env:
+  NODE_VERSION: "22"
+  APP_DIRECTORY: learning-platform
+  VERCEL_ORG_ID: ${{ vars.PRODUCTION_VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ vars.PRODUCTION_VERCEL_PROJECT_ID }}
+
+jobs:
+  deploy-production:
+    if: vars.PRODUCTION_DEPLOYMENTS_ENABLED == 'true' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    environment:
+      name: production
+      url: ${{ steps.candidate.outputs.url }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: ${{ env.APP_DIRECTORY }}/package-lock.json
+      - name: Install dependencies
+        working-directory: ${{ env.APP_DIRECTORY }}
+        run: npm ci
+      - name: Validate Production configuration
+        env:
+          VERCEL_TOKEN: ${{ secrets.PRODUCTION_VERCEL_TOKEN }}
+          DATABASE_URL_UNPOOLED: ${{ secrets.PRODUCTION_DATABASE_URL_UNPOOLED }}
+          NEON_API_KEY: ${{ secrets.PRODUCTION_NEON_API_KEY }}
+          NEON_PROJECT_ID: ${{ vars.NEON_PRODUCTION_PROJECT_ID }}
+          NEON_BRANCH_ID: ${{ vars.NEON_PRODUCTION_BRANCH_ID }}
+        run: |
+          missing=()
+          for name in VERCEL_TOKEN DATABASE_URL_UNPOOLED NEON_API_KEY NEON_PROJECT_ID NEON_BRANCH_ID VERCEL_ORG_ID VERCEL_PROJECT_ID; do
+            [[ -n "${!name}" ]] || missing+=("$name")
+          done
+          if (( ${#missing[@]} )); then
+            echo "Missing Production configuration: ${missing[*]}" >&2
+            exit 1
+          fi
+      - name: Pull Production project settings
+        working-directory: ${{ env.APP_DIRECTORY }}
+        env:
+          VERCEL_TOKEN: ${{ secrets.PRODUCTION_VERCEL_TOKEN }}
+        run: npx vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+      - name: Verify required Production variables
+        working-directory: ${{ env.APP_DIRECTORY }}
+        run: >-
+          node scripts/check-deployment-env.mjs
+          .vercel/.env.production.local
+          DATABASE_URL BLOB_READ_WRITE_TOKEN
+          AI_PROVIDER AI_ENDPOINT AI_API_KEY AI_MODEL CRON_SECRET
+      - name: Build Production artifact
+        working-directory: ${{ env.APP_DIRECTORY }}
+        env:
+          VERCEL_TOKEN: ${{ secrets.PRODUCTION_VERCEL_TOKEN }}
+        run: npx vercel build --prod --token="$VERCEL_TOKEN"
+      - name: Record the current Production deployment
+        id: previous
+        env:
+          VERCEL_TOKEN: ${{ secrets.PRODUCTION_VERCEL_TOKEN }}
+        run: |
+          response=$(curl -fsS \
+            -H "Authorization: Bearer $VERCEL_TOKEN" \
+            "https://api.vercel.com/v6/deployments?projectId=$VERCEL_PROJECT_ID&teamId=$VERCEL_ORG_ID&target=production&state=READY&limit=1")
+          previous_url=$(jq -r '.deployments[0].url // empty' <<< "$response")
+          echo "url=$previous_url" >> "$GITHUB_OUTPUT"
+      - name: Create a 72-hour Neon release backup
+        id: backup
+        working-directory: ${{ env.APP_DIRECTORY }}
+        env:
+          NEON_API_KEY: ${{ secrets.PRODUCTION_NEON_API_KEY }}
+          NEON_PROJECT_ID: ${{ vars.NEON_PRODUCTION_PROJECT_ID }}
+          NEON_BRANCH_ID: ${{ vars.NEON_PRODUCTION_BRANCH_ID }}
+        run: |
+          expires_at=$(date -u --date '+72 hours' +'%Y-%m-%dT%H:%M:%SZ')
+          branch_name="backup/release-${GITHUB_SHA::12}"
+          npx neon branches create \
+            --project-id "$NEON_PROJECT_ID" \
+            --parent "$NEON_BRANCH_ID" \
+            --name "$branch_name" \
+            --expires-at "$expires_at" \
+            --no-compute \
+            --no-secrets
+          echo "name=$branch_name" >> "$GITHUB_OUTPUT"
+          echo "expires_at=$expires_at" >> "$GITHUB_OUTPUT"
+      - name: Deploy Production migrations
+        working-directory: ${{ env.APP_DIRECTORY }}
+        env:
+          DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL_UNPOOLED }}
+          DATABASE_URL_UNPOOLED: ${{ secrets.PRODUCTION_DATABASE_URL_UNPOOLED }}
+        run: npm run db:migrate:deploy
+      - name: Deploy an unpromoted Production candidate
+        id: candidate
+        working-directory: ${{ env.APP_DIRECTORY }}
+        env:
+          VERCEL_TOKEN: ${{ secrets.PRODUCTION_VERCEL_TOKEN }}
+        run: |
+          candidate_url=$(npx vercel deploy --prebuilt --prod --skip-domain --archive=tgz --token="$VERCEL_TOKEN")
+          echo "url=$candidate_url" >> "$GITHUB_OUTPUT"
+      - name: Verify the Production candidate
+        env:
+          CANDIDATE_URL: ${{ steps.candidate.outputs.url }}
+          BYPASS_SECRET: ${{ secrets.PRODUCTION_AUTOMATION_BYPASS_SECRET }}
+        run: |
+          headers=()
+          if [[ -n "$BYPASS_SECRET" ]]; then
+            headers+=( -H "x-vercel-protection-bypass: $BYPASS_SECRET" )
+          fi
+          for attempt in {1..12}; do
+            if curl -fsS "${headers[@]}" "$CANDIDATE_URL/" >/dev/null && \
+               [[ "$(curl -fsS "${headers[@]}" "$CANDIDATE_URL/api/health" | jq -r '.status')" == "ok" ]]; then
+              break
+            fi
+            if (( attempt == 12 )); then
+              echo "Production candidate did not become healthy." >&2
+              exit 1
+            fi
+            sleep 5
+          done
+          auth_status=$(curl -sS -o /dev/null -w '%{http_code}' "${headers[@]}" "$CANDIDATE_URL/api/auth/session")
+          [[ "$auth_status" == "401" ]] || { echo "Unexpected anonymous session status: $auth_status" >&2; exit 1; }
+      - name: Promote the verified candidate
+        working-directory: ${{ env.APP_DIRECTORY }}
+        env:
+          VERCEL_TOKEN: ${{ secrets.PRODUCTION_VERCEL_TOKEN }}
+          CANDIDATE_URL: ${{ steps.candidate.outputs.url }}
+        run: npx vercel promote "$CANDIDATE_URL" --yes --token="$VERCEL_TOKEN"
+      - name: Publish deployment summary
+        env:
+          CANDIDATE_URL: ${{ steps.candidate.outputs.url }}
+          PREVIOUS_URL: ${{ steps.previous.outputs.url }}
+          BACKUP_BRANCH: ${{ steps.backup.outputs.name }}
+          BACKUP_EXPIRES: ${{ steps.backup.outputs.expires_at }}
+        run: |
+          {
+            echo "### Production deployment"
+            echo "- Commit: \`$GITHUB_SHA\`"
+            echo "- Promoted deployment: $CANDIDATE_URL"
+            echo "- Previous deployment: ${PREVIOUS_URL:-not available}"
+            echo "- Neon recovery branch: \`$BACKUP_BRANCH\`"
+            echo "- Recovery branch expiry: $BACKUP_EXPIRES"
+          } >> "$GITHUB_STEP_SUMMARY"
