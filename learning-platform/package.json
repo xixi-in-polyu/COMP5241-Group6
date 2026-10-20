@@ -50,7 +50,7 @@
     "neon": "8.8.0",
     "prisma": "7.10.1",
     "tailwindcss": "^4",
-    "typescript": "^5",
+    "typescript": "^7",
     "vercel": "64.7.0",
     "vitest": "5.0.5"
   },
