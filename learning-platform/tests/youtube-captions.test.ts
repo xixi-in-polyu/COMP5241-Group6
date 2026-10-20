@@ -53,6 +53,11 @@ describe("YouTube caption adapter", () => {
   it("accepts supported URL forms and rejects arbitrary hosts", () => {
     const id = "EJyuu6zlQCg";
     expect(parseYouTubeVideoId(`https://www.youtube.com/watch?v=${id}`)).toBe(id);
+    expect(
+      parseYouTubeVideoId(
+        `https://www.youtube.com/watch?v=${id}&source_ve_path=MjM4NTE&embeds_referring_euri=https%3A%2F%2Fcanvas.polyu.edu.hk%2F`,
+      ),
+    ).toBe(id);
     expect(parseYouTubeVideoId(`https://youtu.be/${id}`)).toBe(id);
     expect(parseYouTubeVideoId(`https://youtube.com/shorts/${id}`)).toBe(id);
     expect(parseYouTubeVideoId(`https://youtube.com/embed/${id}`)).toBe(id);
@@ -114,6 +119,33 @@ describe("YouTube caption adapter", () => {
       { attempt: 1, status: "provider_error" },
       { attempt: 2, status: "success" },
     ]);
+  });
+
+  it("uses the final caption timestamp when duration metadata is missing", async () => {
+    getBasicInfo.mockResolvedValue({
+      ...info([
+        {
+          base_url: "https://www.youtube.com/api/timedtext?v=test",
+          language_code: "en",
+          kind: "asr",
+        },
+      ]),
+      basic_info: {
+        title: "Lesson",
+        is_live: false,
+        is_live_content: false,
+      },
+    });
+    const request = vi
+      .fn<typeof fetch>()
+      .mockResolvedValue(new Response(captionPayload, { status: 200 }));
+
+    const result = await fetchYouTubeCaptions(
+      "https://www.youtube.com/watch?v=EJyuu6zlQCg",
+      { fetch: request },
+    );
+
+    expect(result.durationSeconds).toBe(5);
   });
 
   it("requires an exposed English caption track", async () => {

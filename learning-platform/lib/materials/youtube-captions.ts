@@ -95,13 +95,14 @@ export async function fetchYouTubeCaptions(
     () => loadVideo(videoId, request),
     options.onAttempt,
   );
-  const durationSeconds = Math.ceil(Number(info.basic_info.duration || 0));
-  if (
-    !durationSeconds ||
-    durationSeconds > MAX_DURATION_SECONDS ||
-    info.basic_info.is_live ||
-    info.basic_info.is_live_content
-  ) {
+  let durationSeconds = parseDurationSeconds(info.basic_info.duration);
+  if (info.basic_info.is_live || info.basic_info.is_live_content) {
+    throw new MaterialError(
+      "YOUTUBE_DURATION_EXCEEDED",
+      "Only non-live YouTube videos up to 30 minutes are supported.",
+    );
+  }
+  if (durationSeconds > MAX_DURATION_SECONDS) {
     throw new MaterialError(
       "YOUTUBE_DURATION_EXCEEDED",
       "Only non-live YouTube videos up to 30 minutes are supported.",
@@ -129,6 +130,17 @@ export async function fetchYouTubeCaptions(
     () => fetchCaptionUnits(track, request),
     options.onAttempt,
   );
+  // YouTube occasionally omits videoDetails.lengthSeconds even though the
+  // video and its complete caption track are available. The final cue gives
+  // us a bounded fallback without treating missing metadata as an over-limit
+  // video.
+  durationSeconds ||= captionDurationSeconds(units);
+  if (!durationSeconds || durationSeconds > MAX_DURATION_SECONDS) {
+    throw new MaterialError(
+      "YOUTUBE_DURATION_EXCEEDED",
+      "Only non-live YouTube videos up to 30 minutes are supported.",
+    );
+  }
   return {
     videoId,
     title: info.basic_info.title || `YouTube ${videoId}`,
@@ -136,6 +148,21 @@ export async function fetchYouTubeCaptions(
     mode,
     units,
   };
+}
+
+function parseDurationSeconds(value: unknown) {
+  const duration = Number(value);
+  return Number.isFinite(duration) && duration > 0 ? Math.ceil(duration) : 0;
+}
+
+function captionDurationSeconds(units: SourceUnit[]) {
+  const lastEndMs = units.reduce((latest, unit) => {
+    const endMs = Number(
+      "endMs" in unit.locator ? unit.locator.endMs : 0,
+    );
+    return Number.isFinite(endMs) ? Math.max(latest, endMs) : latest;
+  }, 0);
+  return Math.ceil(lastEndMs / 1000);
 }
 
 async function loadVideo(videoId: string, request: typeof fetch) {
