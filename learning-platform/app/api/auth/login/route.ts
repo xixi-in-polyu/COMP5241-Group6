@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma";
-import { createSession } from "@/lib/auth/session";
+import { createSession, deleteSession } from "@/lib/auth/session";
 import { isRole } from "@/lib/auth/session-core";
+import { hashPassword, isPasswordHash, verifyPassword } from "@/lib/auth/password";
+import { normalizeEmail } from "@/lib/auth/email";
 
 const invalidCredentials = {
   error: "The account, password, or role does not match.",
@@ -28,21 +30,33 @@ export async function POST(request: Request) {
     return Response.json(invalidCredentials, { status: 401 });
   }
 
+  const email = normalizeEmail(body.email);
+  if (!email) {
+    return Response.json(invalidCredentials, { status: 401 });
+  }
+
   try {
     const user = await prisma.user.findFirst({
       where: {
         email: {
-          equals: body.email.trim().toLowerCase(),
+          equals: email,
           mode: "insensitive",
         },
-        password: body.password,
         role: body.role,
       },
-      select: { id: true, role: true },
+      select: { id: true, role: true, password: true },
     });
 
-    if (!user) {
+    if (!user || !(await verifyPassword(body.password, user.password))) {
+      await deleteSession();
       return Response.json(invalidCredentials, { status: 401 });
+    }
+
+    if (!isPasswordHash(user.password)) {
+      await prisma.user.update({
+        where: { id: user.id },
+        data: { password: await hashPassword(body.password) },
+      });
     }
 
     await createSession(user.id);

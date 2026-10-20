@@ -3,10 +3,10 @@ import { createHash, randomBytes } from "node:crypto";
 export const SESSION_COOKIE_NAME = "learning_platform_session";
 export const SESSION_MAX_AGE_SECONDS = 60 * 60 * 24 * 7;
 
-export type Role = "student" | "teacher" | "admin";
+export type Role = "student" | "teacher";
 
 export function isRole(value: unknown): value is Role {
-  return value === "student" || value === "teacher" || value === "admin";
+  return value === "student" || value === "teacher";
 }
 
 export function createSessionToken() {

@@ -8,7 +8,6 @@ import type { Role } from "@/lib/auth/session-core";
 const rolePaths: Record<Role, string> = {
   student: "/student",
   teacher: "/teacher",
-  admin: "/admin",
 };
 
 export async function requirePageRole(role: Role) {
