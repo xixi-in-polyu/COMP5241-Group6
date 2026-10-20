@@ -1,16 +1,21 @@
 import { expect, test } from "@playwright/test";
 
+function requiredEnvironment(name: string) {
+  const value = process.env[name];
+  if (!value) throw new Error(`${name} is required for the Preview E2E test.`);
+  return value;
+}
+
 test("teacher saves, submits, and sees an immutable assignment", async ({ page }) => {
-  const email = process.env.SMOKE_TEACHER_EMAIL;
-  const password = process.env.SMOKE_TEACHER_PASSWORD;
-  const courseId = process.env.SMOKE_COURSE_ID;
-  const assignmentId = process.env.SMOKE_ASSIGNMENT_ID;
-  test.skip(!email || !password || !courseId || !assignmentId, "Cloud smoke credentials and resource IDs are required.");
+  const email = requiredEnvironment("SMOKE_TEACHER_EMAIL");
+  const password = requiredEnvironment("SMOKE_TEACHER_PASSWORD");
+  const courseId = requiredEnvironment("SMOKE_COURSE_ID");
+  const assignmentId = requiredEnvironment("SMOKE_ASSIGNMENT_ID");
 
   await page.goto("/");
   await page.getByRole("tab", { name: "Teacher" }).click();
-  await page.getByLabel("Email").fill(email!);
-  await page.getByLabel("Password").fill(password!);
+  await page.getByLabel("Email").fill(email);
+  await page.getByLabel("Password").fill(password);
   await page.getByRole("button", { name: "Sign in" }).click();
   await expect(page).toHaveURL(/\/teacher$/);
 
