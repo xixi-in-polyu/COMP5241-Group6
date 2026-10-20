@@ -1,8 +1,7 @@
 import OpenAI from "openai";
 
 import { authorizeApiRole } from "@/lib/auth/authorization";
-
-const MODEL = "nvidia/nemotron-3.5-super-vl:free";
+import { getAiConfig } from "@/lib/ai/config";
 
 const SYSTEM_PROMPT = [
   "You are a friendly, patient course teaching assistant.",
@@ -59,22 +58,31 @@ export async function POST(request: Request) {
     );
   }
 
-  const apiKey = process.env.OPENAI_API_KEY;
-  const baseURL = process.env.OPENAI_BASE_URL;
+  let config;
+  try {
+    config = getAiConfig();
+  } catch (error) {
+    console.error("Chat API provider configuration is invalid:", error);
+    return Response.json({ error: "Chat service is not configured." }, { status: 500 });
+  }
 
-  if (!apiKey || !baseURL) {
-    console.error("Chat API configuration is missing OPENAI_API_KEY or OPENAI_BASE_URL.");
+  if (!config.configured) {
+    console.error("Chat API provider endpoint, API key, or model is missing.");
     return Response.json(
       { error: "Chat service is not configured." },
       { status: 500 },
     );
   }
 
-  const client = new OpenAI({ apiKey, baseURL });
+  const client = new OpenAI({
+    apiKey: config.apiKey,
+    baseURL: config.endpoint,
+    defaultHeaders: config.defaultHeaders,
+  });
 
   try {
     const completion = await client.chat.completions.create({
-      model: MODEL,
+      model: config.model,
       messages: [
         { role: "system", content: SYSTEM_PROMPT },
         ...body.messages,
