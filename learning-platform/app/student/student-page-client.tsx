@@ -147,8 +147,9 @@ export default function StudentPage({ courses, assignments, student }: { courses
             </h1>
             <Link
               href="/mini-courses"
-              className="ml-auto mr-2 inline-flex h-8 items-center rounded-lg border border-slate-200 px-3 text-xs font-semibold text-[#24496f] hover:bg-slate-50"
+              className="ml-auto mr-2 inline-flex h-11 items-center gap-2 rounded-xl bg-[#193b61] px-4 text-sm font-semibold text-white shadow-[0_4px_12px_-6px_rgba(25,59,97,0.5)] transition-colors hover:bg-[#244d78]"
             >
+              <BookOpen className="size-4" aria-hidden="true" />
               Mini-courses
             </Link>
           </header>

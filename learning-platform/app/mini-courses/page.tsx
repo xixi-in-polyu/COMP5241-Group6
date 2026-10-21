@@ -31,9 +31,9 @@ export default async function MiniCoursesPage() {
           </div>
           <Link
             href="/mini-courses/create"
-            className="inline-flex min-h-9 items-center gap-1.5 rounded-xl bg-[#193b61] px-3 text-sm font-semibold text-white hover:bg-[#244d78]"
+            className="inline-flex min-h-12 items-center gap-2 rounded-xl bg-[#193b61] px-5 text-base font-semibold text-white shadow-[0_6px_16px_-6px_rgba(25,59,97,0.55)] transition-colors hover:bg-[#244d78] focus-ring"
           >
-            <Plus className="size-4" aria-hidden="true" />
+            <Plus className="size-5" aria-hidden="true" />
             New mini-course
           </Link>
         </div>
@@ -44,12 +44,19 @@ export default async function MiniCoursesPage() {
       </header>
 
       {courses.length === 0 ? (
-        <Card className="mt-6 p-8 text-center">
-          <BookOpen className="mx-auto size-6 text-[#7b91a6]" aria-hidden="true" />
-          <p className="mt-3 text-sm font-medium text-[#142f4d]">No mini-courses yet</p>
-          <p className="mt-1 text-xs text-[#6a7c90]">
+        <Card className="mt-6 p-10 text-center">
+          <BookOpen className="mx-auto size-7 text-[#7b91a6]" aria-hidden="true" />
+          <p className="mt-3 text-base font-semibold text-[#142f4d]">No mini-courses yet</p>
+          <p className="mt-1 text-sm text-[#6a7c90]">
             Create one from a document, a set of links, or an empty outline.
           </p>
+          <Link
+            href="/mini-courses/create"
+            className="mt-5 inline-flex min-h-12 items-center gap-2 rounded-xl bg-[#193b61] px-5 text-base font-semibold text-white shadow-[0_6px_16px_-6px_rgba(25,59,97,0.55)] transition-colors hover:bg-[#244d78] focus-ring"
+          >
+            <Plus className="size-5" aria-hidden="true" />
+            Create your first mini-course
+          </Link>
         </Card>
       ) : (
         <ul className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
