@@ -145,6 +145,12 @@ export default function StudentPage({ courses, assignments, student }: { courses
               />
               <span>Learning Platform</span>
             </h1>
+            <Link
+              href="/mini-courses"
+              className="ml-auto mr-2 inline-flex h-8 items-center rounded-lg border border-slate-200 px-3 text-xs font-semibold text-[#24496f] hover:bg-slate-50"
+            >
+              Mini-courses
+            </Link>
           </header>
 
           <div className="grid min-h-0 flex-1 grid-rows-[minmax(0,1.45fr)_minmax(0,1fr)] gap-4">

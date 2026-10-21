@@ -14,6 +14,9 @@ model User {
   sessions  Session[]
   courses   Course[]
   usageRuns UsageRun[]
+
+  miniCourses       MiniCourse[]
+  miniCourseAiUsage MiniCourseAiUsage[]
 }
 
 model Session {
@@ -404,4 +407,109 @@ model UsageBucket {
 
   @@unique([teacherId, windowKind, windowKey])
   @@index([courseId, updatedAt])
+}
+
+enum MiniCourseStatus {
+  DRAFT
+  PUBLISHED
+}
+
+enum MiniCourseLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum LearnerBackground {
+  BEGINNER
+  EXPERIENCED
+}
+
+enum MiniCourseBlockType {
+  HEADING
+  TEXT
+  IMAGE
+  VIDEO
+  FILE
+  ACTIVITY
+  SUMMARY
+}
+
+/// A short, structured course: chapters of written sections, owned by one user.
+model MiniCourse {
+  id              String            @id @default(uuid())
+  ownerId         String
+  title           String
+  summary         String            @default("")
+  audience        String            @default("")
+  subject         String            @default("")
+  objectives      Json              @default("[]")
+  resources       Json              @default("[]")
+  level           MiniCourseLevel   @default(BEGINNER)
+  background      LearnerBackground @default(EXPERIENCED)
+  durationMinutes Int               @default(30)
+  language        String            @default("en")
+  status          MiniCourseStatus  @default(DRAFT)
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  owner           User              @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  chapters        MiniCourseChapter[]
+  aiUsage         MiniCourseAiUsage[]
+
+  @@index([ownerId, updatedAt])
+  @@index([ownerId, status])
+}
+
+model MiniCourseChapter {
+  id         String          @id @default(uuid())
+  courseId   String
+  ordinal    Int
+  title      String
+  objectives Json            @default("[]")
+  resources  Json            @default("[]")
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+  course     MiniCourse      @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  blocks     MiniCourseBlock[]
+
+  @@unique([courseId, ordinal])
+  @@index([courseId])
+}
+
+/// One content block; `payload` carries the type-specific data as JSON.
+model MiniCourseBlock {
+  id        String              @id @default(uuid())
+  chapterId String
+  ordinal   Int
+  type      MiniCourseBlockType
+  payload   Json                @default("{}")
+  createdAt DateTime            @default(now())
+  updatedAt DateTime            @updatedAt
+  chapter   MiniCourseChapter   @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+
+  @@unique([chapterId, ordinal])
+  @@index([chapterId])
+}
+
+/// One AI generation attempt made on behalf of a mini-course.
+/// `courseId` stays optional because drafting happens before the course exists.
+model MiniCourseAiUsage {
+  id           String     @id @default(uuid())
+  courseId     String?
+  userId       String
+  operation    String
+  provider     String
+  model        String
+  status       String
+  inputTokens  Int?
+  outputTokens Int?
+  totalTokens  Int?
+  durationMs   Int?
+  errorDetail  String?
+  createdAt    DateTime   @default(now())
+  course       MiniCourse? @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([courseId, createdAt])
+  @@index([userId, createdAt])
 }
