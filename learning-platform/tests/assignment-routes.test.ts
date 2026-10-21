@@ -4,6 +4,7 @@ const mocks = vi.hoisted(() => ({
   requireTeacherApi: vi.fn(),
   ownedAssignment: vi.fn(),
   assignmentUpdateMany: vi.fn(),
+  interactiveLabFindMany: vi.fn(),
   entityFindMany: vi.fn(),
   leaseDeleteMany: vi.fn(),
   leaseCreate: vi.fn(),
@@ -37,6 +38,7 @@ vi.mock("@/lib/api", () => {
 vi.mock("@/lib/prisma", () => ({
   prisma: {
     assignment: { updateMany: mocks.assignmentUpdateMany },
+    interactiveLab: { findMany: mocks.interactiveLabFindMany },
     knowledgeEntity: { findMany: mocks.entityFindMany },
     assignmentSlotLease: {
       deleteMany: mocks.leaseDeleteMany,
@@ -99,6 +101,7 @@ describe("assignment route guards", () => {
     mocks.ownedAssignment.mockResolvedValue(assignment());
     mocks.entityFindMany.mockResolvedValue([]);
     mocks.assignmentUpdateMany.mockResolvedValue({ count: 1 });
+    mocks.interactiveLabFindMany.mockResolvedValue([]);
     mocks.isAiConfigured.mockReturnValue(true);
     mocks.checkAiLimit.mockResolvedValue({ allowed: true });
     mocks.loadAssignmentKnowledgeContext.mockResolvedValue({
@@ -157,6 +160,26 @@ describe("assignment route guards", () => {
       { params: Promise.resolve({ assignmentId }) },
     );
 
+    expect(response.status).toBe(422);
+    expect(mocks.assignmentUpdateMany).not.toHaveBeenCalled();
+  });
+
+  it("blocks submission while an active Lab has no approved current version", async () => {
+    mocks.interactiveLabFindMany.mockResolvedValue([{ generationStatus: "FAILED", activeVersionId: null, approvedVersionId: null }]);
+    const response = await submitAssignment(
+      new Request(`http://localhost/api/assignments/${assignmentId}/submit`, { method: "POST", body: JSON.stringify({ version: 3 }) }),
+      { params: Promise.resolve({ assignmentId }) },
+    );
+    expect(response.status).toBe(422);
+    expect(mocks.assignmentUpdateMany).not.toHaveBeenCalled();
+  });
+
+  it("blocks submission while an active Lab version is unapproved", async () => {
+    mocks.interactiveLabFindMany.mockResolvedValue([{ generationStatus: "IDLE", activeVersionId: "version-2", approvedVersionId: "version-1" }]);
+    const response = await submitAssignment(
+      new Request(`http://localhost/api/assignments/${assignmentId}/submit`, { method: "POST", body: JSON.stringify({ version: 3 }) }),
+      { params: Promise.resolve({ assignmentId }) },
+    );
     expect(response.status).toBe(422);
     expect(mocks.assignmentUpdateMany).not.toHaveBeenCalled();
   });

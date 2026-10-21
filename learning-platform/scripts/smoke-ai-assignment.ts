@@ -78,9 +78,36 @@ for (const assignmentId of assignmentIds) {
   await request(`/api/assignments/${assignmentId}/entities/confirm`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ revision: saved.revision }) });
   await waitFor(() => request<{ assignment: { status: string } }>(`/api/assignments/${assignmentId}`), (value) => value.assignment.status === "READY_TO_GENERATE", `brief readiness ${assignmentId}`);
 }
-await request(`/api/assignments/${assignmentIds[0]}/generate`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ title: "Twenty-question smoke assignment", instructions: "Create grounded questions covering definitions and applied usability decisions.", count: 20, types: ["single_choice", "multi_choice", "fill_blank", "short_answer"], difficulty: { easy: 30, medium: 50, hard: 20 }, objectives: ["knowledge", "comprehension", "application"], coverageEntityIds: [] }) });
+await request(`/api/assignments/${assignmentIds[0]}/generate`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ title: "Twenty-question smoke assignment", instructions: "Create grounded questions covering definitions and applied usability decisions.", count: 20, types: ["single_choice", "multi_choice", "fill_blank", "short_answer"], difficulty: { easy: 30, medium: 50, hard: 20 }, objectives: ["knowledge", "comprehension", "application"], coverageEntityIds: [], interactiveLab: { enabled: true, instructions: "请自动选择最合适的互动形式，帮助学生理解可用性评估；学生看到的内容必须是英文。", componentType: "auto" } }) });
 const assignment = await waitFor(() => request<{ assignment: { status: string; questions: unknown[]; failedSlots: unknown[]; error?: string } }>(`/api/assignments/${assignmentIds[0]}`), (value) => value.assignment.status !== "GENERATING", "20-question assignment", 600_000);
 if (assignment.assignment.status !== "DRAFT") throw new Error(`Generation failed: ${assignment.assignment.error || assignment.assignment.status}`);
+
+type SmokeLabVersion = { id: string; actualType: string; payload: unknown };
+type SmokeLab = { id: string; generationStatus: string; generationError?: string | null; activeVersionId?: string | null; versions: SmokeLabVersion[] };
+type SmokeDraft = { assignment: { version: number; questions: unknown[]; interactiveLabs: SmokeLab[] } };
+const explicitLabTypes = ["flashcards", "matching", "ordering", "categorization", "timeline", "slider_explorer", "quick_check"] as const;
+let labDraft = await request<SmokeDraft>(`/api/assignments/${assignmentIds[0]}`);
+const labId = labDraft.assignment.interactiveLabs.find((lab) => !lab.generationError)?.id;
+if (!labId) throw new Error("Initial Auto Interactive Lab did not produce a successful version.");
+const autoLab = labDraft.assignment.interactiveLabs.find((lab) => lab.id === labId)!;
+const autoVersion = autoLab.versions.find((version) => version.id === autoLab.activeVersionId);
+if (!autoVersion || !explicitLabTypes.includes(autoVersion.actualType as typeof explicitLabTypes[number])) throw new Error(`Auto returned an unsupported Lab type: ${autoVersion?.actualType || "none"}.`);
+if (/[\u3400-\u9fff]/u.test(JSON.stringify(autoVersion.payload))) throw new Error("Auto Lab contained Chinese student-facing output.");
+
+for (const componentType of explicitLabTypes) {
+  const before = labDraft.assignment.interactiveLabs.find((lab) => lab.id === labId)!;
+  await request(`/api/assignments/${assignmentIds[0]}/interactive-labs/${labId}/versions`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ assignmentVersion: labDraft.assignment.version, instruction: `Create a concise ${componentType.replaceAll("_", " ")} activity about usability evaluation.`, componentType }) });
+  labDraft = await waitFor(() => request<SmokeDraft>(`/api/assignments/${assignmentIds[0]}`), (value) => {
+    const lab = value.assignment.interactiveLabs.find((item) => item.id === labId);
+    return Boolean(lab && lab.generationStatus !== "GENERATING" && (lab.generationStatus === "FAILED" || lab.activeVersionId !== before.activeVersionId));
+  }, `${componentType} Interactive Lab`);
+  const lab = labDraft.assignment.interactiveLabs.find((item) => item.id === labId)!;
+  if (lab.generationStatus === "FAILED") throw new Error(`${componentType} generation failed after automatic repair: ${lab.generationError || "unknown error"}`);
+  const version = lab.versions.find((item) => item.id === lab.activeVersionId);
+  if (version?.actualType !== componentType) throw new Error(`Requested ${componentType}, received ${version?.actualType || "none"}.`);
+  if (/[\u3400-\u9fff]/u.test(JSON.stringify(version.payload))) throw new Error(`${componentType} contained Chinese student-facing output.`);
+}
+await request(`/api/assignments/${assignmentIds[0]}/interactive-labs/${labId}/approve`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ assignmentVersion: labDraft.assignment.version }) });
 const current = await request<{ assignment: { version: number; questions: unknown[] } }>(`/api/assignments/${assignmentIds[0]}`);
 const savedDraft = await request<{ version: number }>(`/api/assignments/${assignmentIds[0]}`, { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ version: current.assignment.version, questions: current.assignment.questions }) });
 await request(`/api/assignments/${assignmentIds[0]}/submit`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ version: savedDraft.version }) });
