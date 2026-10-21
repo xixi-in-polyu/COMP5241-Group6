@@ -2,9 +2,9 @@ import { head } from "@vercel/blob";
 import type { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { describeError, type DescribedError } from "@/lib/errors";
-import { extractEntities, generateQuestion, reviewQuestions, validateGroundedQuestion } from "@/lib/assignments/ai";
+import { extractEntities, generateInteractiveLab, generateQuestion, reviewQuestions, validateGroundedQuestion } from "@/lib/assignments/ai";
 import { loadAssignmentKnowledgeContext } from "@/lib/assignments/context";
-import { briefSchema, createQuestionSlots, entitySchema, failedSlotsSchema, questionsSchema, type FailedSlot, type KnowledgeEntity, type Question, type QuestionSlot } from "@/lib/assignments/domain";
+import { briefSchema, createQuestionSlots, entitySchema, failedSlotsSchema, interactiveLabPayloadSchema, questionsSchema, type FailedSlot, type InteractiveLabComponentType, type InteractiveLabPayload, type KnowledgeEntity, type Question, type QuestionSlot } from "@/lib/assignments/domain";
 import { getAssignmentSourceReadiness, mergeAssignmentEntities, snapshotCourseEntities, validateAssignmentSourceSelection, type AssignmentEntitySnapshot } from "@/lib/assignments/staged";
 import { finishUsageRun } from "@/lib/assignments/usage";
 import { parseMaterial, validateMaterialMetadata } from "@/lib/materials/parsers";
@@ -544,13 +544,34 @@ export async function generationWorkflow(assignmentId: string, usageRunId: strin
         else failedSlots.push(result.failed!);
       }
     }
+    const lab = await generateInitialInteractiveLabStep(assignmentId, usageRunId);
     const warnings = await reviewStep(assignmentId, usageRunId, questions);
-    await finishGenerationStep(assignmentId, usageRunId, questions, failedSlots, warnings);
+    await finishGenerationStep(assignmentId, usageRunId, questions, failedSlots, warnings, lab);
     return { assignmentId, status: "DRAFT" as const };
   } catch (error) {
     await failAssignmentStep(assignmentId, usageRunId, error instanceof Error ? error.message : "Generation failed.");
     throw error;
   }
+}
+
+type InitialLabResult = { enabled: false } | { enabled: true; instruction: string; requestedType: InteractiveLabComponentType; payload?: InteractiveLabPayload; error?: string };
+
+async function generateInitialInteractiveLabStep(assignmentId: string, usageRunId: string): Promise<InitialLabResult> {
+  "use step";
+  const assignment = await prisma.assignment.findUniqueOrThrow({ where: { id: assignmentId } });
+  const brief = briefSchema.parse(assignment.originalBrief);
+  if (!brief.interactiveLab.enabled) return { enabled: false };
+  const { entities, segments } = await loadAssignmentKnowledgeContext(assignmentId);
+  let reason = "Interactive Lab generation failed.";
+  for (let attempt = 1; attempt <= 2; attempt += 1) {
+    try {
+      const payload = await generateInteractiveLab(brief.interactiveLab.instructions, brief.interactiveLab.componentType, entities, segments, { courseId: assignment.courseId, assignmentId, runId: usageRunId, operation: "interactive_lab_initial", attempt }, null, attempt === 2 ? [reason] : []);
+      return { enabled: true, instruction: brief.interactiveLab.instructions, requestedType: brief.interactiveLab.componentType, payload };
+    } catch (error) {
+      reason = error instanceof Error ? error.message : "Interactive Lab generation failed.";
+    }
+  }
+  return { enabled: true, instruction: brief.interactiveLab.instructions, requestedType: brief.interactiveLab.componentType, error: reason };
 }
 
 async function prepareGenerationStep(assignmentId: string) {
@@ -591,9 +612,19 @@ async function reviewStep(assignmentId: string, usageRunId: string, questions: Q
   }
 }
 
-async function finishGenerationStep(assignmentId: string, usageRunId: string, questions: Question[], failedSlots: FailedSlot[], warnings: string[]) {
+async function finishGenerationStep(assignmentId: string, usageRunId: string, questions: Question[], failedSlots: FailedSlot[], warnings: string[], lab: InitialLabResult) {
   "use step";
-  await prisma.assignment.update({ where: { id: assignmentId }, data: { status: "DRAFT", questions: json(questionsSchema.parse(questions)), failedSlots: json(failedSlotsSchema.parse(failedSlots)), qualityWarnings: json(warnings), error: null, version: { increment: 1 } } });
+  await prisma.$transaction(async (tx) => {
+    await tx.assignment.update({ where: { id: assignmentId }, data: { status: "DRAFT", questions: json(questionsSchema.parse(questions)), failedSlots: json(failedSlotsSchema.parse(failedSlots)), qualityWarnings: json(warnings), error: null, version: { increment: 1 } } });
+    if (lab.enabled) {
+      const created = await tx.interactiveLab.create({ data: { assignmentId, ordinal: 0, generationStatus: lab.payload ? "IDLE" : "FAILED", generationError: lab.error } });
+      if (lab.payload) {
+        const payload = interactiveLabPayloadSchema.parse(lab.payload);
+        const version = await tx.interactiveLabVersion.create({ data: { labId: created.id, sequence: 1, source: "INITIAL", instruction: lab.instruction, requestedType: lab.requestedType, actualType: payload.activity.type, payload: json(payload) } });
+        await tx.interactiveLab.update({ where: { id: created.id }, data: { activeVersionId: version.id } });
+      }
+    }
+  });
   await finishUsageRun(usageRunId, "SUCCESS");
 }
 

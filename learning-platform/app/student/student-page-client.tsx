@@ -17,51 +17,8 @@ import {
   X,
 } from "lucide-react";
 
-const courses = [
-  {
-    category: "Software engineering",
-    title: "Foundations of Software Engineering",
-    description:
-      "Explore the principles behind planning, building, and maintaining reliable software.",
-    progress: 68,
-    updated: "Last studied yesterday",
-    accent: "#284b70",
-    tint: "#edf2f7",
-  },
-  {
-    category: "Human-computer interaction",
-    title: "Designing for People",
-    description:
-      "Learn how research and thoughtful interaction design shape useful digital products.",
-    progress: 42,
-    updated: "Last studied 3 days ago",
-    accent: "#5b7186",
-    tint: "#eef2f4",
-  },
-  {
-    category: "Computer science",
-    title: "Data Structures & Algorithms",
-    description:
-      "Build a practical understanding of the structures that make programs efficient.",
-    progress: 24,
-    updated: "Last studied 1 week ago",
-    accent: "#6d7580",
-    tint: "#f0f1f2",
-  },
-];
-
-const assignments = [
-  {
-    title: "Agile team reflection",
-    course: "Foundations of Software Engineering",
-    due: "Due tomorrow",
-  },
-  {
-    title: "Heuristic evaluation",
-    course: "Designing for People",
-    due: "Due Friday",
-  },
-];
+type StudentCourse = { id: string; category: string; title: string; description: string; updated: string };
+type StudentAssignment = { id: string; title: string; course: string; labCount: number };
 
 const cardStyle =
   "rounded-2xl border border-slate-200 bg-white shadow-sm transition-shadow duration-200 hover:shadow-md";
@@ -75,7 +32,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
-export default function StudentPage() {
+export default function StudentPage({ courses, assignments, student }: { courses: StudentCourse[]; assignments: StudentAssignment[]; student: { id: string; email: string } }) {
   const profileMenuRef = useRef<HTMLDivElement>(null);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -204,7 +161,7 @@ export default function StudentPage() {
                 </h2>
               </div>
 
-              <div className="grid min-h-0 flex-1 grid-cols-3 gap-4">
+              <div className="grid min-h-0 flex-1 grid-cols-3 gap-4 overflow-y-auto pr-1">
                 {courses.map((course) => (
                   <article
                     className={`${panelStyle} group flex h-full max-h-[290px] min-h-0 flex-col p-4 transition-shadow duration-200 hover:shadow-md`}
@@ -213,7 +170,7 @@ export default function StudentPage() {
                     <div className="flex min-h-7 items-center">
                       <span
                         className="max-w-full truncate rounded-full px-2.5 py-1 text-[11px] font-medium leading-4 text-[#365575]"
-                        style={{ backgroundColor: course.tint }}
+                        style={{ backgroundColor: "#edf2f7" }}
                       >
                         {course.category}
                       </span>
@@ -229,14 +186,14 @@ export default function StudentPage() {
                       <div className="mb-2 flex items-center justify-between text-xs">
                         <span className={secondaryText}>Progress</span>
                         <span className={`font-semibold tabular-nums ${primaryText}`}>
-                          {course.progress}%
+                          0%
                         </span>
                       </div>
                       <div
-                        aria-label={`${course.progress}% complete`}
+                        aria-label="Practice progress is stored per Lab"
                         aria-valuemax={100}
                         aria-valuemin={0}
-                        aria-valuenow={course.progress}
+                        aria-valuenow={0}
                         className={`h-2 overflow-hidden rounded-full ${
                           isDark ? "bg-slate-700" : "bg-slate-100"
                         }`}
@@ -245,8 +202,8 @@ export default function StudentPage() {
                         <div
                           className="h-full rounded-full"
                           style={{
-                            width: `${course.progress}%`,
-                            backgroundColor: course.accent,
+                            width: "0%",
+                            backgroundColor: "#284b70",
                           }}
                         />
                       </div>
@@ -261,7 +218,7 @@ export default function StudentPage() {
                               ? "border-slate-600 bg-slate-800 text-slate-100 hover:bg-slate-700"
                               : "border-slate-200 bg-white text-[#24496f] hover:border-[#c8d9e8] hover:bg-[#e8eef4]"
                           }`}
-                          href="/student/course/1"
+                          href={`/student/courses/${course.id}`}
                         >
                           Continue
                           <ArrowRight
@@ -284,13 +241,13 @@ export default function StudentPage() {
                 className={`mb-3 shrink-0 text-xl font-bold tracking-[-0.01em] ${primaryText}`}
                 id="assignments-heading"
               >
-                Pending Assignments
+                Interactive Labs
               </h2>
-              <div className="grid min-h-0 flex-1 grid-cols-[repeat(auto-fit,minmax(min(100%,300px),360px))] justify-start gap-2">
+              <div className="grid min-h-0 flex-1 grid-cols-[repeat(auto-fit,minmax(min(100%,300px),360px))] justify-start gap-2 overflow-y-auto pr-1">
                 {assignments.map((assignment) => (
                   <article
                     className={`${panelStyle} flex h-full max-h-[180px] min-h-0 flex-col items-stretch justify-between gap-3 p-3`}
-                    key={assignment.title}
+                    key={assignment.id}
                   >
                     <div className="flex min-w-0 items-start gap-3">
                       <span
@@ -314,14 +271,10 @@ export default function StudentPage() {
                     <div className="flex w-full items-center justify-between gap-2">
                       <span
                         className={`shrink-0 rounded-full px-2.5 py-1 text-xs font-medium ${
-                          assignment.due.toLowerCase().includes("today")
-                            ? "bg-red-50 text-red-700"
-                            : assignment.due.toLowerCase().includes("tomorrow")
-                              ? "bg-amber-50 text-amber-800"
-                              : "bg-blue-50 text-blue-700"
+                          "bg-blue-50 text-blue-700"
                         }`}
                       >
-                        {assignment.due}
+                        {assignment.labCount} Lab{assignment.labCount === 1 ? "" : "s"}
                       </span>
                       <Link
                         className={`inline-flex min-h-9 shrink-0 items-center gap-1 rounded-lg border px-3 text-xs font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#193b61] ${
@@ -329,7 +282,7 @@ export default function StudentPage() {
                             ? "border-slate-600 text-slate-100 hover:bg-slate-700"
                             : "border-slate-200 text-[#24496f] hover:bg-slate-50"
                         }`}
-                        href="/student/course/1/assignment"
+                        href={`/student/assignments/${assignment.id}`}
                       >
                         Start
                         <ArrowRight aria-hidden="true" className="size-3.5" />
@@ -352,7 +305,7 @@ export default function StudentPage() {
               onClick={() => setIsProfileOpen((open) => !open)}
               type="button"
             >
-              st
+              {student.email.slice(0, 2)}
             </button>
 
             {isProfileOpen && (
@@ -365,9 +318,9 @@ export default function StudentPage() {
                 role="menu"
               >
                 <div className="border-b border-slate-200 pb-3">
-                  <p className={`text-sm font-semibold ${primaryText}`}>stu001</p>
+                  <p className={`text-sm font-semibold ${primaryText}`}>{student.id}</p>
                   <p className={`mt-1 text-xs ${secondaryText}`}>
-                    student001@polyu.hk
+                    {student.email}
                   </p>
                 </div>
                 <button

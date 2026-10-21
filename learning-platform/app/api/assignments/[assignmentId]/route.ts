@@ -22,6 +22,7 @@ export async function GET(_request: Request, { params }: { params: Promise<{ ass
           where: { status: "CANDIDATE" },
           orderBy: { createdAt: "desc" },
         },
+        interactiveLabs: { orderBy: [{ archivedAt: "asc" }, { ordinal: "asc" }], include: { versions: { orderBy: { sequence: "desc" } } } },
         course: { include: { entities: true } },
       },
     });

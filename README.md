@@ -1,8 +1,9 @@
 # COMP5241 Group 6 — Learning Platform
 
-基于 Next.js 16、Prisma 和 PostgreSQL 的学习平台。教师端支持按课程管理多份作业，并通过 `Sources → Knowledge → Brief → Draft` 四步流程生成有证据依据的题目。
+基于 Next.js 16、Prisma 和 PostgreSQL 的学习平台。
 
-当前阶段实现教师端作业生成与审核；学生答题端和互动游戏不在本功能范围内。
+测试生成功能相关：
+教师端支持按课程管理多份作业，并通过 `Sources → Knowledge → Brief → Draft` 四步流程生成有证据依据的题目和 Interactive Labs；学生端可运行已审批的本地练习活动。
 
 ## 本地启动
 
@@ -131,9 +132,11 @@ BLOB_READ_WRITE_TOKEN=vercel_blob_rw_实际生成的值
    - 最多两个英文、机器可读的 PDF/TXT/DOCX/PPTX，总计不超过 20 MiB；
    - 若课程已有确认知识，可不附加来源并复用课程知识快照。
 3. 在 **Knowledge** 审核、选择、改名、改描述、调整父级、合并或删除知识点，再确认。
-4. 在 **Brief** 设置题数、题型、难度、认知目标和覆盖范围；AI 建议只有接受后才修改 brief。
-5. 在 **Draft** 编辑、排序、删除或手工新增题目，恢复失败槽，或为不满意的题目生成候选版本。
-6. **Save** 后仍可编辑；**Submit** 后作业永久锁定。
+4. 在 **Brief** 设置题数、题型、难度、认知目标和覆盖范围；可开启 Interactive Lab、输入中英文自然语言指令，并选择 `Auto` 或七种明确活动类型。AI 建议只有接受后才修改 brief。
+5. 在 **Draft** 编辑题目，并管理最多 3 个未归档 Lab。每个 Lab 只有一个活动，拥有独立版本历史、审批、排序和归档状态；更新与首次生成失败时模型会自动修复重试一次。
+6. 所有未归档 Lab 必须有已审批的当前版本才能 **Submit**；提交后题目和 Lab 永久锁定。
+
+学生端 `/student` 展示所有 READY 课程。只有包含已审批 Lab 的已提交作业会显示在 Interactive Labs 中；练习不计分，回答、浏览位置、hint 和完成状态只保存在当前浏览器的 `localStorage`，可随时 Reset。
 
 已完成的步骤可通过 Tab 只读回看。处理中的步骤显示 spinner，未来步骤不可进入。切换 Tab 不会清除尚未保存的 Brief/Draft 本地状态。
 
@@ -160,7 +163,7 @@ Playwright 流程需要 `SMOKE_TEACHER_EMAIL`、`SMOKE_TEACHER_PASSWORD`、`SMOK
 
 ### 真实云 smoke
 
-真实 smoke 会创建隔离课程和作业，上传合成的 PDF/TXT/DOCX/PPTX，审核知识，生成 20 道题，Save、Submit，并验证提交后锁定：
+真实 smoke 会创建隔离课程和作业，上传合成的 PDF/TXT/DOCX/PPTX，审核知识，生成 20 道题，并以中文指令验证 Auto 路由、七种明确 Lab 类型和英文输出（生成请求启用内部自动修复），最后审批 Lab、Save、Submit 并验证提交后锁定：
 
 ```bash
 npm run test:smoke:ai-assignment
@@ -281,4 +284,8 @@ Break-glass 默认关闭。事件中只有 `xixi-in-polyu` 能以当前 `main` �
 | `/teacher/courses/{courseId}` | 作业列表；旧课程材料恢复/知识确认入口 |
 | `/teacher/courses/{courseId}/assignments/create` | 作业 Sources 步骤 |
 | `/teacher/courses/{courseId}/assignments/{assignmentId}` | 四步作业工作台 |
-| `/student` | 现有学生工作区（本功能未扩展） |
+| `/student` | READY 课程与已发布 Interactive Labs |
+| `/student/courses/{courseId}` | 课程内已发布的 Lab 作业 |
+| `/student/assignments/{assignmentId}` | 多 Lab 练习运行时与本地进度 |
+| `/api/assignments/{assignmentId}/interactive-labs/**` | 教师 Lab 创建、更新、历史、审批、归档及排序 |
+| `/api/student/assignments/{assignmentId}/interactive-labs` | 脱敏后的学生 Lab 内容 |

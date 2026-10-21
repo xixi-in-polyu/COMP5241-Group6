@@ -73,6 +73,30 @@ enum UsageRunStatus {
   FAILED
 }
 
+enum InteractiveLabGenerationStatus {
+  IDLE
+  GENERATING
+  FAILED
+}
+
+enum InteractiveLabVersionSource {
+  INITIAL
+  ADD
+  UPDATE
+  RESTORE
+}
+
+enum InteractiveLabComponentType {
+  auto
+  flashcards
+  matching
+  ordering
+  categorization
+  timeline
+  slider_explorer
+  quick_check
+}
+
 model Course {
   id             String            @id @default(uuid())
   teacherId      String
@@ -181,9 +205,50 @@ model Assignment {
   usageRuns         UsageRun[]
   usageEvents       UsageEvent[]
   slotLeases        AssignmentSlotLease[]
+  interactiveLabs   InteractiveLab[]
 
   @@index([courseId, updatedAt])
   @@index([courseId, status])
+}
+
+model InteractiveLab {
+  id                String                  @id @default(uuid())
+  assignmentId      String
+  ordinal           Int
+  generationStatus  InteractiveLabGenerationStatus @default(IDLE)
+  generationError   String?
+  activeVersionId   String?                 @unique
+  approvedVersionId String?                 @unique
+  approvedAt        DateTime?
+  archivedAt        DateTime?
+  createdAt         DateTime                @default(now())
+  updatedAt         DateTime                @updatedAt
+  assignment        Assignment              @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  versions          InteractiveLabVersion[] @relation("InteractiveLabVersions")
+  activeVersion     InteractiveLabVersion?  @relation("InteractiveLabActiveVersion", fields: [activeVersionId], references: [id], onDelete: SetNull)
+  approvedVersion   InteractiveLabVersion?  @relation("InteractiveLabApprovedVersion", fields: [approvedVersionId], references: [id], onDelete: SetNull)
+
+  @@index([assignmentId, archivedAt, ordinal])
+  @@index([assignmentId, generationStatus])
+}
+
+model InteractiveLabVersion {
+  id                  String         @id @default(uuid())
+  labId               String
+  sequence            Int
+  source              InteractiveLabVersionSource
+  instruction         String
+  requestedType       InteractiveLabComponentType
+  actualType          InteractiveLabComponentType
+  payload             Json
+  restoredFromVersion String?
+  createdAt           DateTime       @default(now())
+  lab                 InteractiveLab   @relation("InteractiveLabVersions", fields: [labId], references: [id], onDelete: Cascade)
+  activeFor           InteractiveLab?  @relation("InteractiveLabActiveVersion")
+  approvedFor         InteractiveLab?  @relation("InteractiveLabApprovedVersion")
+
+  @@unique([labId, sequence])
+  @@index([labId, createdAt])
 }
 
 model AssignmentMaterial {

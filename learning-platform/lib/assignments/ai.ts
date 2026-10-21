@@ -5,7 +5,7 @@ import OpenAI from "openai";
 import { zodTextFormat } from "openai/helpers/zod";
 import { z } from "zod";
 import { getAiConfig, getAiProvider } from "@/lib/ai/config";
-import { entitySchema, evidenceSchema, questionSchema, type AssignmentBrief, type KnowledgeEntity, type Question, type QuestionSlot } from "./domain";
+import { entitySchema, evidenceSchema, interactiveLabPayloadSchema, questionSchema, validateInteractiveLab, type AssignmentBrief, type InteractiveLabComponentType, type InteractiveLabPayload, type KnowledgeEntity, type Question, type QuestionSlot } from "./domain";
 import { finishUsageEvent, startUsageEvent } from "./usage";
 
 type Segment = { id: string; materialId: string; locator: unknown; normalizedText: string };
@@ -103,8 +103,39 @@ export async function generateQuestion(slot: QuestionSlot, brief: AssignmentBrie
 
 export async function regenerateQuestion(current: Question, instruction: string, entities: KnowledgeEntity[], segments: Segment[], trace: Trace) {
   const slot: QuestionSlot = { index: 0, type: current.type, objective: current.objective, difficulty: current.difficulty, entityIds: current.entityIds, score: current.score };
-  const candidate = await generateQuestion(slot, { title: "Regeneration", instructions: instruction, count: 1, types: [slot.type], objectives: [slot.objective], difficulty: { easy: slot.difficulty === "easy" ? 100 : 0, medium: slot.difficulty === "medium" ? 100 : 0, hard: slot.difficulty === "hard" ? 100 : 0 }, coverageEntityIds: slot.entityIds }, entities, segments, trace);
+  const candidate = await generateQuestion(slot, { title: "Regeneration", instructions: instruction, count: 1, types: [slot.type], objectives: [slot.objective], difficulty: { easy: slot.difficulty === "easy" ? 100 : 0, medium: slot.difficulty === "medium" ? 100 : 0, hard: slot.difficulty === "hard" ? 100 : 0 }, coverageEntityIds: slot.entityIds, interactiveLab: { enabled: false, instructions: "", componentType: "auto" } }, entities, segments, trace);
   return { ...candidate, id: current.id };
+}
+
+export async function generateInteractiveLab(
+  instruction: string,
+  requestedType: InteractiveLabComponentType,
+  entities: KnowledgeEntity[],
+  segments: Segment[],
+  trace: Trace,
+  current: InteractiveLabPayload | null,
+  priorErrors: string[] = [],
+) {
+  const selected = entities.filter((entity) => entity.selected);
+  const relevantSegments = segments.filter((segment) => selected.some((entity) => entity.evidence.some((evidence) => evidence.segmentId === segment.id)));
+  const developer = [
+    "Create exactly one English interactive learning activity from the supplied teacher instruction and grounded course evidence.",
+    "Return schemaVersion 1 and exactly one activity. Never emit HTML, JavaScript, URLs, markdown links, formulas, or executable expressions.",
+    requestedType === "auto" ? "Choose the single best activity type for the learning goal." : `The activity type must be ${requestedType}.`,
+    "Use only supplied entity and evidence IDs. Every factual claim, answer, order, category, pair, and checkpoint explanation must be supported by the cited evidence.",
+    "For an update, preserve useful unaffected content and stable IDs unless the instruction requires changing them. Output must be English even when the instruction is not.",
+  ].join(" ");
+  const payload = await structured(interactiveLabPayloadSchema, "interactive_lab", developer, {
+    instruction,
+    requestedType,
+    current,
+    priorErrors,
+    entities: selected,
+    segments: relevantSegments,
+  }, trace);
+  const errors = validateInteractiveLab(payload, requestedType, entities);
+  if (errors.length) throw new Error(errors.join(" "));
+  return payload;
 }
 
 const reviewSchema = z.object({ warnings: z.array(z.object({ questionId: z.string().uuid(), warning: z.string() })) });
