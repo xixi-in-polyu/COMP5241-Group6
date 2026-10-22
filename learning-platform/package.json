@@ -19,6 +19,7 @@
     "db:seed:e2e": "node prisma/seed-e2e.ts",
     "db:seed:feature": "node prisma/seed-feature.ts",
     "db:seed:upgrade": "node prisma/seed-upgrade.ts",
+    "db:seed:mini": "node prisma/seed-mini-courses.ts",
     "test:smoke:ai-assignment": "node scripts/smoke-ai-assignment.ts"
   },
   "dependencies": {

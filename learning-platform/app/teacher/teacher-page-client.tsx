@@ -23,7 +23,7 @@ export default function TeacherPage() {
     <div className="mx-auto max-w-6xl">
       <header className="mb-9 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
         <div><h1 className="font-serif text-3xl tracking-[-0.03em] text-[#142f4d]">Teacher workspace</h1><p className="mt-2 text-slate-600">Build grounded assignments from your course materials.</p></div>
-        <div className="flex gap-3"><LogoutButton className="inline-flex min-h-11 items-center rounded-xl border border-slate-300 px-4 text-sm font-semibold text-[#24496f]"/><Link href="/teacher/create" className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-[#193b61] px-4 text-sm font-semibold text-white"><Plus className="size-4"/>Create course</Link></div>
+        <div className="flex gap-3"><Link href="/mini-courses" className="inline-flex min-h-12 items-center gap-2 rounded-xl border border-[#193b61] bg-white px-5 text-base font-semibold text-[#193b61] shadow-[0_4px_12px_-6px_rgba(25,59,97,0.4)] transition-colors hover:bg-[#f2f6fb]"><BookOpen className="size-5"/>Mini-courses</Link><LogoutButton className="inline-flex min-h-11 items-center rounded-xl border border-slate-300 px-4 text-sm font-semibold text-[#24496f]"/><Link href="/teacher/create" className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-[#193b61] px-4 text-sm font-semibold text-white"><Plus className="size-4"/>Create course</Link></div>
       </header>
       {loading && <p className="flex items-center gap-2 text-slate-600"><LoaderCircle className="size-4 animate-spin"/>Loading courses…</p>}
       {error && <p className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">{error}</p>}
