@@ -1,27 +1,17 @@
 import { notFound, redirect } from "next/navigation";
 
 import { getAuthenticatedUser } from "@/lib/auth/session";
-import { getMiniCourse } from "@/lib/mini-courses/queries";
-
-import { EditCourseClient } from "./edit-course-client";
+import { getCourseByLegacyId, getOwnedCourse } from "@/lib/courses/queries";
 
 export const instant = false;
 
-export default async function EditMiniCoursePage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function LegacyEditMiniCoursePage({ params }: { params: Promise<{ id: string }> }) {
   const user = await getAuthenticatedUser();
-  if (!user) {
-    redirect("/");
-  }
-
+  if (!user) redirect("/");
   const { id } = await params;
-  const course = await getMiniCourse(user.id, id);
-  if (!course) {
-    notFound();
-  }
-
-  return <EditCourseClient initial={course} />;
+  const direct = await getOwnedCourse(user.id, id);
+  if (direct) redirect(`/courses/${direct.id}/edit`);
+  const mapped = await getCourseByLegacyId(user.id, id);
+  if (!mapped) notFound();
+  redirect(`/courses/${mapped.id}/edit`);
 }

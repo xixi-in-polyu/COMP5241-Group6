@@ -7,15 +7,16 @@ import { Loader2, Plus, Sparkles, Trash2 } from "lucide-react";
 import { BlockListEditor } from "@/app/components/mini-course/block-list-editor";
 import { MaterialsEditor } from "@/app/components/mini-course/materials-editor";
 import { Badge, Card } from "@/app/components/mini-course/ui";
+import { CourseMaterialsEditor } from "@/app/components/course-materials-editor";
 import { BACKGROUNDS, LEVELS } from "@/lib/mini-courses/labels";
 import type {
   LearnerBackground,
-  MiniCourse,
-  MiniCourseBlock,
-  MiniCourseChapter,
-  MiniCourseLevel,
-  MiniCourseResource,
-} from "@/lib/mini-courses/types";
+  CourseBlock as MiniCourseBlock,
+  CourseChapter as MiniCourseChapter,
+  CourseLevel as MiniCourseLevel,
+  CourseResource as MiniCourseResource,
+  UnifiedCourse,
+} from "@/lib/courses/types";
 
 function blankChapter(index: number): MiniCourseChapter {
   return {
@@ -23,6 +24,7 @@ function blankChapter(index: number): MiniCourseChapter {
     title: `Chapter ${index + 1}`,
     objectives: [],
     resources: [],
+    materials: [],
     blocks: [
       { id: crypto.randomUUID(), type: "heading", text: `Chapter ${index + 1}` },
       { id: crypto.randomUUID(), type: "text", text: "" },
@@ -30,25 +32,27 @@ function blankChapter(index: number): MiniCourseChapter {
   };
 }
 
-export function EditCourseClient({ initial }: { initial: MiniCourse }) {
-  const [saved, setSaved] = useState<MiniCourse>(initial);
-  const [draft, setDraft] = useState<MiniCourse>(initial);
+export function EditCourseClient({ initial }: { initial: UnifiedCourse }) {
+  const [saved, setSaved] = useState<UnifiedCourse>(initial);
+  const [draft, setDraft] = useState<UnifiedCourse>(initial);
   const [busy, setBusy] = useState<"save" | "ai" | "status" | "">("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const [shareUrl, setShareUrl] = useState("");
 
   const dirty = useMemo(
     () => JSON.stringify(saved) !== JSON.stringify(draft),
     [saved, draft],
   );
 
-  function patch(changes: Partial<MiniCourse>) {
-    setDraft((current) => ({ ...current, ...changes }));
+  function patch(changes: Partial<UnifiedCourse>) {
+    setDraft((current) => ({ ...current, ...changes, publicationStatus: "draft" }));
   }
 
   function patchChapter(index: number, changes: Partial<MiniCourseChapter>) {
     setDraft((current) => ({
       ...current,
+      publicationStatus: "draft",
       chapters: current.chapters.map((chapter, i) =>
         i === index ? { ...chapter, ...changes } : chapter,
       ),
@@ -64,10 +68,10 @@ export function EditCourseClient({ initial }: { initial: MiniCourse }) {
     patch({ chapters });
   }
 
-  async function persist(nextStatus?: "draft" | "published") {
+  async function persist() {
     const body = {
       title: draft.title,
-      summary: draft.summary,
+      description: draft.description,
       subject: draft.subject,
       audience: draft.audience,
       objectives: draft.objectives,
@@ -77,15 +81,15 @@ export function EditCourseClient({ initial }: { initial: MiniCourse }) {
       language: draft.language,
       resources: draft.resources,
       chapters: draft.chapters.map((chapter) => ({
+        id: chapter.id,
         title: chapter.title,
         objectives: chapter.objectives,
         resources: chapter.resources,
         blocks: chapter.blocks,
       })),
-      ...(nextStatus ? { status: nextStatus } : {}),
     };
 
-    const response = await fetch(`/api/mini-courses/${initial.id}`, {
+    const response = await fetch(`/api/courses/${initial.id}`, {
       method: "PATCH",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(body),
@@ -94,10 +98,19 @@ export function EditCourseClient({ initial }: { initial: MiniCourse }) {
     if (!response.ok) {
       throw new Error(data.error || "Could not save the mini-course.");
     }
-    const course = data.course as MiniCourse;
+    const course = data.course as UnifiedCourse;
     setSaved(course);
     setDraft(course);
     return course;
+  }
+
+  async function refresh() {
+    const response = await fetch(`/api/courses/${initial.id}`);
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(data.error || "Could not refresh the course.");
+    const course = data.course as UnifiedCourse;
+    setSaved(course);
+    setDraft(course);
   }
 
   async function save() {
@@ -119,9 +132,16 @@ export function EditCourseClient({ initial }: { initial: MiniCourse }) {
     setError("");
     setMessage("");
     try {
-      const next = draft.status === "published" ? "draft" : "published";
-      await persist(next);
-      setMessage(next === "published" ? "Published." : "Moved back to draft.");
+      if (dirty) await persist();
+      const publishing = draft.publicationStatus !== "published";
+      const response = await fetch(`/api/courses/${initial.id}/publish`, {
+        method: publishing ? "POST" : "DELETE",
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(data.error || "Could not update the publication status.");
+      setShareUrl(typeof data.shareUrl === "string" ? data.shareUrl : "");
+      await refresh();
+      setMessage(publishing ? "Published with a new private share link." : "Moved back to draft. The old link is no longer valid.");
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Could not update the status.");
     } finally {
@@ -146,10 +166,6 @@ export function EditCourseClient({ initial }: { initial: MiniCourse }) {
           level: draft.level,
           objectives: draft.objectives,
           chapterTopics: draft.chapters.map((chapter) => chapter.title),
-          sources: draft.resources.map((resource) => ({
-            label: resource.title || resource.url || "Material",
-            text: "",
-          })),
         }),
       });
       const data = await response.json().catch(() => ({}));
@@ -165,6 +181,7 @@ export function EditCourseClient({ initial }: { initial: MiniCourse }) {
 
       setDraft((current) => ({
         ...current,
+        publicationStatus: "draft",
         chapters: current.chapters.map((chapter, index) => {
           const result = generated[index];
           if (!result) return chapter;
@@ -202,17 +219,17 @@ export function EditCourseClient({ initial }: { initial: MiniCourse }) {
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <Link
-            href="/mini-courses"
+            href="/courses"
             className="text-xs font-medium text-[#6a7c90] hover:text-[#193b61]"
           >
-            ← Back to mini-courses
+            ← Back to courses
           </Link>
           <div className="mt-1 flex flex-wrap items-center gap-2">
             <h1 className="text-xl font-semibold tracking-[-0.01em] text-[#142f4d]">
-              {draft.title || "Untitled mini-course"}
+              {draft.title || "Untitled course"}
             </h1>
-            <Badge tone={draft.status === "published" ? "success" : "warning"}>
-              {draft.status === "published" ? "Published" : "Draft"}
+            <Badge tone={draft.publicationStatus === "published" ? "success" : "warning"}>
+              {draft.publicationStatus === "published" ? "Published" : "Draft"}
             </Badge>
             {dirty ? <Badge tone="info">Unsaved changes</Badge> : null}
           </div>
@@ -220,7 +237,7 @@ export function EditCourseClient({ initial }: { initial: MiniCourse }) {
 
         <div className="flex flex-wrap items-center gap-2">
           <Link
-            href={`/mini-courses/${initial.id}`}
+            href={`/courses/${initial.id}`}
             className="inline-flex min-h-8 items-center rounded-lg border border-[#c6d2df] bg-white px-2.5 text-xs font-semibold text-[#193b61] hover:bg-[#f7f9fb]"
           >
             Preview
@@ -231,7 +248,7 @@ export function EditCourseClient({ initial }: { initial: MiniCourse }) {
             disabled={busy !== ""}
             className="inline-flex min-h-8 items-center rounded-lg border border-[#c6d2df] bg-white px-2.5 text-xs font-semibold text-[#193b61] hover:bg-[#f7f9fb] disabled:opacity-50"
           >
-            {draft.status === "published" ? "Back to draft" : "Publish"}
+            {draft.publicationStatus === "published" ? "Unpublish" : "Publish"}
           </button>
           <button
             type="button"
@@ -248,6 +265,11 @@ export function EditCourseClient({ initial }: { initial: MiniCourse }) {
       {message ? (
         <p className="mt-3 rounded-lg bg-[#e5f2ea] px-3 py-2 text-xs font-medium text-[#1c6b43]">
           {message}
+        </p>
+      ) : null}
+      {shareUrl ? (
+        <p className="mt-2 text-xs text-[#24496f]">
+          Share link: <a className="font-semibold underline" href={shareUrl}>{shareUrl}</a>
         </p>
       ) : null}
       {error ? (
@@ -272,8 +294,8 @@ export function EditCourseClient({ initial }: { initial: MiniCourse }) {
             <textarea
               className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm leading-6"
               rows={3}
-              value={draft.summary}
-              onChange={(event) => patch({ summary: event.target.value })}
+              value={draft.description}
+              onChange={(event) => patch({ description: event.target.value })}
             />
           </label>
           <div className="grid gap-3 sm:grid-cols-4">
@@ -335,6 +357,12 @@ export function EditCourseClient({ initial }: { initial: MiniCourse }) {
 
       <Card className="mt-4 p-5">
         <MaterialsEditor resources={draft.resources} onChange={(resources) => patch({ resources })} />
+      </Card>
+
+      <Card className="mt-4 p-5">
+        <p className="text-sm font-semibold text-[#142f4d]">Course files</p>
+        <p className="mt-1 text-xs leading-5 text-[#6a7c90]">Upload replacement source files and regenerate the course details and chapter outline from the beginning.</p>
+        <Link href={`/courses/create?draftId=${initial.id}`} className="mt-3 inline-flex rounded-lg bg-[#193b61] px-3 py-2 text-xs font-semibold text-white">Re-upload and regenerate</Link>
       </Card>
 
       <div className="mt-4 flex flex-wrap items-center justify-between gap-2">
@@ -420,11 +448,29 @@ export function EditCourseClient({ initial }: { initial: MiniCourse }) {
                   heading="Chapter materials"
                   hint="Shown with this chapter only."
                 />
+                <div className="mt-3 border-t border-slate-100 pt-3">
+                  <CourseMaterialsEditor
+                    courseId={initial.id}
+                    chapterId={chapter.id}
+                    materials={chapter.materials}
+                    selectionMaterials={[...draft.materials, ...draft.chapters.flatMap((item) => item.materials)]}
+                    ensureCourse={async () => initial.id}
+                    onRefresh={async () => refresh()}
+                  />
+                </div>
               </div>
             </details>
           </Card>
         ))}
       </div>
+
+      {draft.ownerRole === "teacher" ? (
+        <Card className="mt-4 p-5">
+          <h2 className="text-sm font-semibold text-[#142f4d]">Teacher tools</h2>
+          <p className="mt-1 text-xs text-[#6a7c90]">Knowledge and assignments are managed separately and do not change publication status.</p>
+          <Link href={`/teacher/courses/${initial.id}`} className="mt-3 inline-flex rounded-lg border border-[#c6d2df] px-3 py-2 text-xs font-semibold text-[#193b61]">Open Knowledge & Assignments</Link>
+        </Card>
+      ) : null}
     </main>
   );
 }

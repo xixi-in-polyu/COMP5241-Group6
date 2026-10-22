@@ -10,11 +10,11 @@ import {
   FileText,
   FlaskConical,
   Moon,
+  Plus,
   Settings,
   Send,
   Sparkles,
   Sun,
-  Upload,
   X,
 } from "lucide-react";
 
@@ -130,12 +130,12 @@ export default function StudentPage({ courses, assignments, student }: { courses
 
   return (
     <main
-      className={`h-screen overflow-hidden p-3 text-slate-800 sm:p-4 ${
+      className={`min-h-screen p-3 text-slate-800 sm:p-4 ${
         isDark ? "bg-slate-950" : "bg-slate-50"
       }`}
       data-theme={isDark ? "dark" : "light"}
     >
-      <div className="mx-auto flex h-full max-w-[1900px] gap-4">
+      <div className="mx-auto flex max-w-[1900px] items-start gap-4">
         <section className="flex min-w-0 flex-1 flex-col gap-4">
           <header className="flex h-12 shrink-0 items-center border-b border-slate-200">
             <h1 className="flex items-center gap-2 text-lg font-semibold leading-6 text-[#7791aa]">
@@ -153,19 +153,12 @@ export default function StudentPage({ courses, assignments, student }: { courses
               <FlaskConical className="size-4" aria-hidden="true" />
               Interactive lab
             </Link>
-            <Link
-              href="/mini-courses"
-              className="mr-2 inline-flex h-11 items-center gap-2 rounded-xl bg-[#193b61] px-4 text-sm font-semibold text-white shadow-[0_4px_12px_-6px_rgba(25,59,97,0.5)] transition-colors hover:bg-[#244d78]"
-            >
-              <BookOpen className="size-4" aria-hidden="true" />
-              Mini-courses
-            </Link>
           </header>
 
-          <div className="grid min-h-0 flex-1 grid-rows-[minmax(0,1.45fr)_minmax(0,1fr)] gap-4">
+          <div className="flex flex-col gap-8">
             <section
               aria-labelledby="courses-heading"
-              className="flex min-h-0 flex-col"
+              className="flex flex-col"
             >
               <div className="mb-3 flex shrink-0 items-center justify-between">
                 <h2
@@ -176,11 +169,11 @@ export default function StudentPage({ courses, assignments, student }: { courses
                 </h2>
               </div>
 
-              <div className="grid min-h-0 flex-1 grid-cols-3 gap-4 overflow-y-auto pr-1">
+              <div className="grid auto-rows-[minmax(250px,290px)] grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
                 {courses.map((course) => (
                   <article
                     className={`${panelStyle} group flex h-full max-h-[290px] min-h-0 flex-col p-4 transition-shadow duration-200 hover:shadow-md`}
-                    key={course.title}
+                    key={course.id}
                   >
                     <div className="flex min-h-7 items-center">
                       <span
@@ -245,12 +238,37 @@ export default function StudentPage({ courses, assignments, student }: { courses
                     </div>
                   </article>
                 ))}
+
+                <Link
+                  className={`group flex h-full max-h-[290px] min-h-[250px] flex-col items-center justify-center rounded-2xl border-2 border-dashed p-6 text-center transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#193b61] ${
+                    isDark
+                      ? "border-slate-600 bg-slate-900/40 hover:border-slate-500 hover:bg-slate-800"
+                      : "border-[#b8cada] bg-white/40 hover:border-[#7791aa] hover:bg-white"
+                  }`}
+                  href="/courses/create"
+                >
+                  <span
+                    className={`grid size-14 place-items-center rounded-full transition-transform duration-200 group-hover:scale-105 ${
+                      isDark
+                        ? "bg-slate-700 text-slate-200"
+                        : "bg-[#edf2f7] text-[#587896]"
+                    }`}
+                  >
+                    <Plus aria-hidden="true" className="size-7" />
+                  </span>
+                  <span className={`mt-5 text-base font-bold ${primaryText}`}>
+                    Create your own mini-course
+                  </span>
+                  <span className={`mt-2 text-sm ${secondaryText}`}>
+                    Upload materials and build a course
+                  </span>
+                </Link>
               </div>
             </section>
 
             <section
               aria-labelledby="assignments-heading"
-              className="flex min-h-0 flex-col"
+              className="flex flex-col"
             >
               <h2
                 className={`mb-3 shrink-0 text-xl font-bold tracking-[-0.01em] ${primaryText}`}
@@ -258,7 +276,7 @@ export default function StudentPage({ courses, assignments, student }: { courses
               >
                 Interactive Labs
               </h2>
-              <div className="grid min-h-0 flex-1 grid-cols-[repeat(auto-fit,minmax(min(100%,300px),360px))] justify-start gap-2 overflow-y-auto pr-1">
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,300px),360px))] auto-rows-[minmax(140px,180px)] justify-start gap-2">
                 {assignments.map((assignment) => (
                   <article
                     className={`${panelStyle} flex h-full max-h-[180px] min-h-0 flex-col items-stretch justify-between gap-3 p-3`}
@@ -310,7 +328,7 @@ export default function StudentPage({ courses, assignments, student }: { courses
           </div>
         </section>
 
-        <aside className="flex h-full w-[320px] shrink-0 flex-col sm:w-[360px]">
+        <aside className="sticky top-4 flex w-[320px] shrink-0 flex-col sm:w-[360px]">
           <div className="relative z-20 flex h-12 shrink-0 items-center justify-end border-b border-slate-200" ref={profileMenuRef}>
             <button
               aria-expanded={isProfileOpen}
@@ -477,19 +495,6 @@ export default function StudentPage({ courses, assignments, student }: { courses
               }`}
               onSubmit={handleSendMessage}
             >
-              <div className="mb-2">
-                <button
-                  className={`inline-flex min-h-7 items-center gap-1 rounded-full border px-2.5 text-[10px] font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#193b61] ${
-                    isDark
-                      ? "border-slate-600 text-slate-200 hover:bg-slate-700"
-                      : "border-slate-200 bg-white text-slate-600 hover:bg-slate-50"
-                  }`}
-                  type="button"
-                >
-                  <Upload aria-hidden="true" className="size-3" />
-                  Create a Mini-Course
-                </button>
-              </div>
               <label className="sr-only" htmlFor="assistant-message">
                 What do you want to learn today?
               </label>
