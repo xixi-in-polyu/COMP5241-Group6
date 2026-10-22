@@ -5,6 +5,7 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { LogoutButton } from "@/app/components/logout-button";
 import {
   ArrowRight,
+  AudioLines,
   BookOpen,
   Clock3,
   FileText,
@@ -152,6 +153,13 @@ export default function StudentPage({ courses, assignments, student }: { courses
             >
               <FlaskConical className="size-4" aria-hidden="true" />
               Interactive lab
+            </Link>
+            <Link
+              href="/audio"
+              className="mr-2 inline-flex h-11 items-center gap-2 rounded-xl border border-[#193b61] bg-white px-4 text-sm font-semibold text-[#193b61] transition-colors hover:bg-slate-100"
+            >
+              <AudioLines className="size-4" aria-hidden="true" />
+              Audio explanation
             </Link>
           </header>
 
