@@ -84,27 +84,20 @@ export async function PUT(
       });
       if (!locked.count) throw new ApiError(409, "Knowledge changed in another session.");
       await tx.assignmentKnowledgeEntity.deleteMany({ where: { assignmentId } });
-      for (const entity of input.entities) {
-        await tx.assignmentKnowledgeEntity.create({
-          data: {
-            id: entity.id,
-            assignmentId,
-            name: entity.name,
-            description: entity.description,
-            aliases: entity.aliases as Prisma.InputJsonValue,
-            importance: entity.importance,
-            selected: entity.selected,
-            evidence: entity.evidence as Prisma.InputJsonValue,
-          },
-        });
-      }
-      for (const entity of input.entities.filter((item) => item.parentId)) {
-        await tx.assignmentKnowledgeEntity.update({
-          where: { id: entity.id },
-          data: { parentId: entity.parentId },
-        });
-      }
-    });
+      await tx.assignmentKnowledgeEntity.createMany({
+        data: input.entities.map((entity) => ({
+          id: entity.id,
+          assignmentId,
+          parentId: entity.parentId,
+          name: entity.name,
+          description: entity.description,
+          aliases: entity.aliases as Prisma.InputJsonValue,
+          importance: entity.importance,
+          selected: entity.selected,
+          evidence: entity.evidence as Prisma.InputJsonValue,
+        })),
+      });
+    }, { maxWait: 10_000, timeout: 30_000 });
     return Response.json({ revision: assignment.entityRevision + 1 });
   } catch (error) {
     return apiError(error);

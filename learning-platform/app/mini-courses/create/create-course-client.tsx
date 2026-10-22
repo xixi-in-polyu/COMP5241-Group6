@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, ArrowRight, Loader2, Sparkles, Wand2 } from "lucide-react";
 
 import { MaterialsEditor } from "@/app/components/mini-course/materials-editor";
+import { CourseMaterialsEditor } from "@/app/components/course-materials-editor";
 import { Badge, Card } from "@/app/components/mini-course/ui";
 import { BACKGROUNDS, BLOCK_TYPE_LABELS, LEVELS } from "@/lib/mini-courses/labels";
 import type {
@@ -14,6 +15,7 @@ import type {
   MiniCourseLevel,
   MiniCourseResource,
 } from "@/lib/mini-courses/types";
+import type { CourseMaterial, UnifiedCourse } from "@/lib/courses/types";
 
 type Suggestion = {
   title: string;
@@ -57,8 +59,10 @@ function blankOutline(title: string): OutlineChapter {
   };
 }
 
-export function CreateCourseClient() {
+export function CreateCourseClient({ initialDraftId = null }: { initialDraftId?: string | null }) {
   const router = useRouter();
+  const [draftId, setDraftId] = useState<string | null>(initialDraftId);
+  const [materials, setMaterials] = useState<CourseMaterial[]>([]);
   const [step, setStep] = useState<1 | 2 | 3>(1);
 
   // Materials come first: they are what the AI reads to fill the form below.
@@ -87,6 +91,37 @@ export function CreateCourseClient() {
   const [error, setError] = useState("");
   const [fieldError, setFieldError] = useState("");
 
+  useEffect(() => {
+    if (!initialDraftId) return;
+    let active = true;
+    void fetch(`/api/courses/${initialDraftId}`)
+      .then(async (response) => {
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(data.error || "Could not load the course draft.");
+        if (!active) return;
+        const course = data.course as UnifiedCourse & { pastedNotes?: string };
+        setMaterials(course.materials);
+        setNotes(course.pastedNotes ?? "");
+        setTitle(course.title);
+        setSubject(course.subject);
+        setSummary(course.description);
+        setAudience(course.audience);
+        setLevel(course.level);
+        setBackground(course.background);
+        setDurationMinutes(course.durationMinutes);
+        setLanguage(course.language);
+        setObjectives(course.objectives);
+        setResources(course.resources as MiniCourseResource[]);
+        setTopics(course.chapters.map((chapter) => chapter.title));
+        setChapterCount(Math.max(1, course.chapters.length || 4));
+        setIncludeReview(false);
+      })
+      .catch((reason) => {
+        if (active) setError(reason instanceof Error ? reason.message : "Could not load the course draft.");
+      });
+    return () => { active = false; };
+  }, [initialDraftId]);
+
   const plannedTopics = [
     ...Array.from({ length: chapterCount }, (_, index) => {
       const topic = (topics[index] ?? "").trim();
@@ -95,15 +130,67 @@ export function CreateCourseClient() {
     ...(includeReview ? [language === "zh" ? "复习与延伸" : "Review & extension"] : []),
   ];
 
-  const sources = [
-    ...(notes.trim() ? [{ label: "Pasted notes", title: "", url: "", text: notes }] : []),
-    ...resources.map((resource) => ({
-      label: resource.title || resource.url || "Material",
-      title: resource.title,
-      url: resource.url,
-      text: "",
-    })),
-  ];
+  function payload(chapters = outline) {
+    return {
+      title: title.trim() || "Untitled course",
+      description: summary,
+      subject,
+      audience,
+      objectives,
+      level,
+      background,
+      durationMinutes,
+      language,
+      resources: resources.filter((resource) => resource.url.trim()),
+      chapters: (chapters ?? []).map((chapter) => ({
+        title: chapter.title,
+        objectives: [],
+        resources: [],
+        blocks: chapter.blocks,
+      })),
+      pastedNotes: notes,
+    };
+  }
+
+  async function readCourse(id: string) {
+    const response = await fetch(`/api/courses/${id}`);
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(data.error || "Could not refresh the course.");
+    setMaterials((data.course as UnifiedCourse).materials);
+  }
+
+  async function ensureDraft(sync = false) {
+    if (draftId) {
+      if (sync) {
+        const response = await fetch(`/api/courses/${draftId}`, {
+          method: "PATCH",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(payload()),
+        });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(data.error || "Could not save the draft.");
+        setMaterials((data.course as UnifiedCourse).materials);
+      }
+      return draftId;
+    }
+    const response = await fetch("/api/courses", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(payload()),
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(data.error || "Could not create the course draft.");
+    const course = data.course as UnifiedCourse;
+    setDraftId(course.id);
+    setMaterials(course.materials);
+    return course.id;
+  }
+
+  useEffect(() => {
+    if (!draftId || !materials.some((item) => item.status === "uploaded" || item.status === "parsing")) return;
+    const timer = setInterval(() => void readCourse(draftId).catch(() => undefined), 2_000);
+    return () => clearInterval(timer);
+  }, [draftId, materials]);
 
   function addObjective() {
     const value = objectiveDraft.trim();
@@ -122,10 +209,11 @@ export function CreateCourseClient() {
     setBusy("draft");
     setError("");
     try {
+      const courseId = await ensureDraft(true);
       const response = await fetch("/api/ai/course-draft", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ language, title, sources }),
+        body: JSON.stringify({ courseId, language, title }),
       });
       const data = await response.json().catch(() => ({}));
       if (!response.ok) {
@@ -181,10 +269,12 @@ export function CreateCourseClient() {
     setBusy("outline");
     setError("");
     try {
+      const courseId = await ensureDraft(true);
       const response = await fetch("/api/ai/course-chapters", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
+          courseId,
           language,
           title,
           subject,
@@ -192,7 +282,6 @@ export function CreateCourseClient() {
           level,
           objectives,
           chapterTopics: plannedTopics,
-          sources,
         }),
       });
       const data = await response.json().catch(() => ({}));
@@ -225,33 +314,17 @@ export function CreateCourseClient() {
     setBusy("create");
     setError("");
     try {
-      const response = await fetch("/api/mini-courses", {
-        method: "POST",
+      const id = await ensureDraft();
+      const response = await fetch(`/api/courses/${id}`, {
+        method: "PATCH",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-          title,
-          summary,
-          subject,
-          audience,
-          objectives,
-          level,
-          background,
-          durationMinutes,
-          language,
-          resources,
-          chapters: outline.map((chapter) => ({
-            title: chapter.title,
-            objectives: [],
-            resources: [],
-            blocks: chapter.blocks,
-          })),
-        }),
+        body: JSON.stringify(payload(outline)),
       });
       const data = await response.json().catch(() => ({}));
       if (!response.ok) {
         throw new Error(data.error || "Could not create the mini-course.");
       }
-      router.push(`/mini-courses/${data.course.id}/edit`);
+      router.push(`/courses/${data.course.id}/edit`);
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Could not create the mini-course.");
       setBusy("");
@@ -263,7 +336,7 @@ export function CreateCourseClient() {
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#54738f]">
-            New mini-course
+            {initialDraftId ? "Regenerate course" : "New course"}
           </p>
           <h1 className="mt-1 text-2xl font-semibold tracking-[-0.02em] text-[#142f4d]">
             {step === 1 ? "Materials and basics" : step === 2 ? "Learning design" : "Outline"}
@@ -298,8 +371,8 @@ export function CreateCourseClient() {
               <div>
                 <h2 className="text-sm font-semibold text-[#142f4d]">Course materials</h2>
                 <p className="mt-1 text-xs leading-5 text-[#6a7c90]">
-                  Optional. Paste the notes the course should be based on, or add links — the AI can
-                  draft the details below from them, or you can fill everything in by hand.
+                  Optional. Paste notes or upload files for AI grounding. Links are published as
+                  learning resources only and are never fetched or sent to AI.
                 </p>
               </div>
               <button
@@ -325,6 +398,9 @@ export function CreateCourseClient() {
             />
             <div className="mt-3">
               <MaterialsEditor resources={resources} onChange={setResources} showHeading={false} />
+            </div>
+            <div className="mt-4 border-t border-slate-100 pt-4">
+              <CourseMaterialsEditor courseId={draftId} materials={materials} selectionMaterials={materials} showAiSelection ensureCourse={() => ensureDraft(true)} onRefresh={readCourse} />
             </div>
 
             {suggestion ? (
@@ -542,7 +618,7 @@ export function CreateCourseClient() {
             ) : null}
 
             <div className="mt-5 flex items-center justify-between">
-              <Link href="/mini-courses" className="text-sm font-semibold text-[#24496f] hover:underline">
+              <Link href="/courses" className="text-sm font-semibold text-[#24496f] hover:underline">
                 Cancel
               </Link>
               <button

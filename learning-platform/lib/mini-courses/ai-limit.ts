@@ -23,14 +23,22 @@ export async function checkMiniCourseAiLimit(userId: string): Promise<void> {
   const dailyLimit = Number(process.env.AI_DAILY_LIMIT || 200);
 
   const now = Date.now();
-  const [hourCount, dayCount] = await Promise.all([
+  const [legacyHourCount, legacyDayCount, courseHourCount, courseDayCount] = await Promise.all([
     prisma.miniCourseAiUsage.count({
       where: { userId, createdAt: { gte: new Date(now - HOUR_MS) } },
     }),
     prisma.miniCourseAiUsage.count({
       where: { userId, createdAt: { gte: new Date(now - DAY_MS) } },
     }),
+    prisma.usageEvent.count({
+      where: { course: { ownerId: userId }, category: "ai", createdAt: { gte: new Date(now - HOUR_MS) } },
+    }),
+    prisma.usageEvent.count({
+      where: { course: { ownerId: userId }, category: "ai", createdAt: { gte: new Date(now - DAY_MS) } },
+    }),
   ]);
+  const hourCount = legacyHourCount + courseHourCount;
+  const dayCount = legacyDayCount + courseDayCount;
 
   if (hourCount >= hourlyLimit) {
     throw new ApiError(429, `AI limit reached (${hourlyLimit} requests per hour). Try again later.`);

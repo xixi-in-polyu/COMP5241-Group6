@@ -19,8 +19,15 @@ describe("material parsing", () => {
     expect(result.units[0].text).toContain("interactive systems");
   });
 
-  it("rejects text with insufficient extractable English", async () => {
-    await expect(parseMaterial(strToU8("图片文字"), "notes.txt")).rejects.toMatchObject({ code: "INSUFFICIENT_ENGLISH_TEXT" });
+  it("rejects text with insufficient extractable content", async () => {
+    await expect(parseMaterial(strToU8("图片文字"), "notes.txt")).rejects.toMatchObject({ code: "INSUFFICIENT_EXTRACTABLE_TEXT" });
+  });
+
+  it("accepts useful Chinese and mixed-language text", async () => {
+    const chinese = "人机交互设计需要理解用户目标、任务流程和使用环境，通过调研、原型和可用性测试持续改进产品体验。".repeat(4);
+    const mixed = `${"interactive design research evaluates real user tasks and improves usable systems through evidence ".repeat(3)}中文摘要`;
+    await expect(parseMaterial(strToU8(chinese), "chinese.txt")).resolves.toBeDefined();
+    await expect(parseMaterial(strToU8(mixed), "mixed.txt")).resolves.toBeDefined();
   });
 
   it("extracts DOCX paragraphs and PPTX slides", async () => {

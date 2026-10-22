@@ -37,10 +37,16 @@ function decodeText(buffer: Uint8Array) {
   return iconv.decode(Buffer.from(buffer[0] === 0xef && buffer[1] === 0xbb && buffer[2] === 0xbf ? buffer.slice(3) : buffer), "utf8");
 }
 
-function assertUsefulEnglish(units: SourceUnit[]) {
+function assertUsefulText(units: SourceUnit[]) {
   const text = units.map((unit) => unit.text).join(" ");
   const latinWords = text.match(/[A-Za-z]{2,}/g)?.length ?? 0;
-  if (text.trim().length < 120 || latinWords < 20) throw new MaterialError("INSUFFICIENT_ENGLISH_TEXT", "The document does not contain enough machine-readable English text.");
+  const cjkCharacters = text.match(/[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]/g)?.length ?? 0;
+  if (text.replace(/\s/g, "").length < 120 || (latinWords < 20 && cjkCharacters < 80)) {
+    throw new MaterialError(
+      "INSUFFICIENT_EXTRACTABLE_TEXT",
+      "The document does not contain enough machine-readable English or Chinese text.",
+    );
+  }
 }
 
 async function parsePdf(buffer: Uint8Array): Promise<ParsedMaterial> {
@@ -55,7 +61,7 @@ async function parsePdf(buffer: Uint8Array): Promise<ParsedMaterial> {
     const text = content.items.map((item) => "str" in item ? item.str : "").join(" ").replace(/\s+/g, " ").trim();
     if (text) units.push({ locator: { label: `Page ${pageNumber}`, page: pageNumber }, text });
   }
-  assertUsefulEnglish(units);
+  assertUsefulText(units);
   return { units, pageCount: document.numPages };
 }
 
@@ -65,7 +71,7 @@ function parseDocx(buffer: Uint8Array): ParsedMaterial {
   if (!document) throw new MaterialError("OFFICE_PACKAGE_INVALID", "DOCX is missing word/document.xml.");
   const paragraphs = Array.from(strFromU8(document).matchAll(/<w:p(?:\s[^>]*)?>([\s\S]*?)<\/w:p>/g));
   const units = paragraphs.map((match, index) => ({ locator: { label: `Paragraph ${index + 1}`, paragraph: index + 1 }, text: xmlText(match[1], "w:t") })).filter((unit) => unit.text);
-  assertUsefulEnglish(units);
+  assertUsefulText(units);
   return { units, pageCount: Math.max(1, Math.ceil(units.reduce((sum, unit) => sum + unit.text.length, 0) / 3_000)) };
 }
 
@@ -74,14 +80,14 @@ function parsePptx(buffer: Uint8Array): ParsedMaterial {
   const names = Object.keys(files).filter((name) => /^ppt\/slides\/slide\d+\.xml$/.test(name)).sort((a, b) => Number(a.match(/\d+/)?.[0]) - Number(b.match(/\d+/)?.[0]));
   if (names.length > 100) throw new MaterialError("PAGE_LIMIT_EXCEEDED", "Presentation exceeds 100 slides.");
   const units = names.map((name, index) => ({ locator: { label: `Slide ${index + 1}`, slide: index + 1 }, text: xmlText(strFromU8(files[name]), "a:t") })).filter((unit) => unit.text);
-  assertUsefulEnglish(units);
+  assertUsefulText(units);
   return { units, pageCount: names.length };
 }
 
 function parsePlainText(buffer: Uint8Array): ParsedMaterial {
   const text = decodeText(buffer).replace(/\r/g, "").trim();
   const units = text.split(/\n\s*\n/).map((value, index) => ({ locator: { label: `Paragraph ${index + 1}`, paragraph: index + 1 }, text: value.trim() })).filter((unit) => unit.text);
-  assertUsefulEnglish(units);
+  assertUsefulText(units);
   return { units, pageCount: Math.max(1, Math.ceil(text.length / 3_000)) };
 }
 

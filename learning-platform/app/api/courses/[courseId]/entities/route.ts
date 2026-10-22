@@ -36,9 +36,20 @@ export async function PUT(request: Request, { params }: { params: Promise<{ cour
       const locked = await tx.course.updateMany({ where: { id: courseId, entityRevision: input.revision, status: "AWAITING_ENTITY_REVIEW" }, data: { entityRevision: { increment: 1 } } });
       if (!locked.count) throw new ApiError(409, "Knowledge changed in another session. Refresh before saving.");
       await tx.knowledgeEntity.deleteMany({ where: { courseId } });
-      for (const item of input.entities) await tx.knowledgeEntity.create({ data: { id: item.id, courseId, name: item.name, description: item.description, aliases: item.aliases as Prisma.InputJsonValue, importance: item.importance, selected: item.selected, evidence: item.evidence as Prisma.InputJsonValue } });
-      for (const item of input.entities.filter((entity) => entity.parentId)) await tx.knowledgeEntity.update({ where: { id: item.id }, data: { parentId: item.parentId } });
-    });
+      await tx.knowledgeEntity.createMany({
+        data: input.entities.map((item) => ({
+          id: item.id,
+          courseId,
+          parentId: item.parentId,
+          name: item.name,
+          description: item.description,
+          aliases: item.aliases as Prisma.InputJsonValue,
+          importance: item.importance,
+          selected: item.selected,
+          evidence: item.evidence as Prisma.InputJsonValue,
+        })),
+      });
+    }, { maxWait: 10_000, timeout: 30_000 });
     return Response.json({ revision: course.entityRevision + 1 });
   } catch (error) { return apiError(error); }
 }

@@ -1,29 +1,31 @@
-import { z } from "zod";
-import { apiError, requireTeacherApi } from "@/lib/api";
-import { prisma } from "@/lib/prisma";
+import { apiError } from "@/lib/api";
+import { assertCourseWritesEnabled, requireCourseUser } from "@/lib/courses/auth";
+import { createUnifiedCourse } from "@/lib/courses/content";
+import { getOwnedCourse, listOwnedCourses } from "@/lib/courses/queries";
+import { courseCreateSchema } from "@/lib/courses/validation";
 
-const createSchema = z.object({ title: z.string().trim().min(1).max(120), category: z.string().trim().max(80).optional(), description: z.string().trim().max(4_000).default("") });
-
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const teacher = await requireTeacherApi();
-    const courses = await prisma.course.findMany({ where: { teacherId: teacher.id }, include: { _count: { select: { materials: true, assignments: true } } }, orderBy: { updatedAt: "desc" } });
-    return Response.json({ courses });
-  } catch (error) { return apiError(error); }
+    const user = await requireCourseUser();
+    const url = new URL(request.url);
+    const includeArchived = url.searchParams.get("scope") === "archived";
+    return Response.json({ courses: await listOwnedCourses(user.id, includeArchived) });
+  } catch (error) {
+    return apiError(error);
+  }
 }
 
 export async function POST(request: Request) {
   try {
-    const teacher = await requireTeacherApi();
-    const input = createSchema.parse(await request.json());
-    const course = await prisma.course.create({
-      data: {
-        ...input,
-        teacherId: teacher.id,
-        status: "READY",
-        phase: "Ready to create assignments",
-      },
-    });
-    return Response.json({ course }, { status: 201 });
-  } catch (error) { return apiError(error); }
+    assertCourseWritesEnabled();
+    const user = await requireCourseUser();
+    const raw = await request.json() as Record<string, unknown>;
+    const input = courseCreateSchema.parse({ ...raw, subject: raw.subject ?? raw.category ?? "" });
+    const created = await createUnifiedCourse(user, input);
+    return Response.json({ course: await getOwnedCourse(user.id, created.id) }, { status: 201 });
+  } catch (error) {
+    const response = apiError(error);
+    if (response.status === 503) response.headers.set("Retry-After", "300");
+    return response;
+  }
 }

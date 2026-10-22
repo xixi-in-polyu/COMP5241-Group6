@@ -16,19 +16,24 @@ export async function requireTeacherApi() {
 export async function ownedCourse(courseId: string, teacherId: string) {
   const course = await prisma.course.findUnique({ where: { id: courseId } });
   if (!course) throw new ApiError(404, "Course not found.");
-  if (course.teacherId !== teacherId) throw new ApiError(403, "You do not have access to this course.");
+  if ((course.ownerId ?? course.teacherId) !== teacherId) throw new ApiError(403, "You do not have access to this course.");
   return course;
 }
 
 export async function ownedAssignment(assignmentId: string, teacherId: string) {
   const assignment = await prisma.assignment.findUnique({ where: { id: assignmentId }, include: { course: true } });
   if (!assignment) throw new ApiError(404, "Assignment not found.");
-  if (assignment.course.teacherId !== teacherId) throw new ApiError(403, "You do not have access to this assignment.");
+  if ((assignment.course.ownerId ?? assignment.course.teacherId) !== teacherId) throw new ApiError(403, "You do not have access to this assignment.");
   return assignment;
 }
 
 export function apiError(error: unknown) {
-  if (error instanceof ApiError) return Response.json({ error: error.message }, { status: error.status });
+  if (error instanceof ApiError) {
+    return Response.json(
+      { error: error.message },
+      { status: error.status, headers: error.status === 503 ? { "Retry-After": "300" } : undefined },
+    );
+  }
   if (error instanceof MaterialError) return Response.json({ error: error.message, code: error.code }, { status: 422 });
   if (error instanceof ZodError) return Response.json({ error: "Validation failed.", details: error.issues }, { status: 422 });
   if (error instanceof SyntaxError) return Response.json({ error: "Request body must contain valid JSON." }, { status: 422 });

@@ -96,6 +96,7 @@ async function parseMaterialsStep(courseId: string) {
   await prisma.course.update({ where: { id: courseId }, data: { status: "INGESTING", phase: "Parsing source materials", error: null } });
   for (const material of course.materials.filter((item) => item.status === "UPLOADED")) {
     try {
+      if (!material.blobPathname) throw new MaterialError("BLOB_NOT_FOUND", "Material file is unavailable.");
       await prisma.courseMaterial.update({ where: { id: material.id }, data: { status: "PARSING", errorCode: null, errorDetail: null } });
       validateMaterialMetadata(material.name, material.mimeType, material.size);
       const blob = await head(material.blobPathname);
@@ -149,7 +150,7 @@ async function persistCourseEntitiesStep(courseId: string, entities: KnowledgeEn
         })),
       });
     }
-    await tx.course.update({ where: { id: courseId }, data: { status: "AWAITING_ENTITY_REVIEW", phase: "Review and confirm the knowledge graph", entityRevision: { increment: 1 } } });
+    await tx.course.update({ where: { id: courseId }, data: { status: "AWAITING_ENTITY_REVIEW", phase: "Review and confirm the knowledge graph", knowledgeStale: false, entityRevision: { increment: 1 } } });
   }, TRANSACTION_OPTIONS);
 }
 

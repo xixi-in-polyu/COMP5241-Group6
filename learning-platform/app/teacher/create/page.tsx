@@ -1,10 +1,5 @@
-import { requirePageRole } from "@/lib/auth/authorization";
+import { redirect } from "next/navigation";
 
-import CreateCoursePageClient from "./create-course-page-client";
-
-export const instant = false;
-
-export default async function CreateCoursePage() {
-  await requirePageRole("teacher");
-  return <CreateCoursePageClient />;
+export default function LegacyTeacherCreatePage() {
+  redirect("/courses/create");
 }
