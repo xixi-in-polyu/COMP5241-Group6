@@ -18,6 +18,10 @@ npm run dev
 
 打开 [http://localhost:3000](http://localhost:3000)。不要提交 `.env.local`、`.vercel`、`.neon`、上传文件或任何凭据。
 
+## Interactive Learning
+
+从登录页选择 **Explore interactive learning**，或学生首页选择 **Interactive lab**，即可进入 `/interactive-learning`。可靠性实验无需登录；需求访谈和 TypeScript 代码工作坊要求学生登录，并使用上方配置的 AI Provider。该功能集成在 Next.js 应用中，不需要单独运行 Python 或 Streamlit。
+
 ### 必需的云配置
 
 在 `learning-platform/.env.local` 中配置：

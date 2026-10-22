@@ -234,6 +234,12 @@ export default function Home() {
           {isLoading ? "Signing in..." : "Sign in"}
         </button>
         </form>
+        <Link
+          className="mt-5 block rounded-xl border border-[#193b61] bg-white px-4 py-3 text-center text-sm font-semibold text-[#193b61] transition-colors hover:bg-[#edf2f7]"
+          href="/interactive-learning"
+        >
+          Explore interactive learning
+        </Link>
         <p className="mt-6 text-center text-sm text-[#53657a]">
           New to the platform?{" "}
           <Link
