@@ -7,13 +7,14 @@ datasource db {
 }
 
 model User {
-  id        String     @id @default(uuid())
-  email     String     @unique
-  password  String
-  role      String
-  sessions  Session[]
-  courses   Course[]
-  usageRuns UsageRun[]
+  id            String     @id @default(uuid())
+  email         String     @unique
+  password      String
+  role          String
+  sessions      Session[]
+  ownedCourses  Course[]   @relation("CourseOwner")
+  taughtCourses Course[]   @relation("CourseTeacher")
+  usageRuns     UsageRun[]
 
   miniCourses       MiniCourse[]
   miniCourseAiUsage MiniCourseAiUsage[]
@@ -41,10 +42,28 @@ enum CourseStatus {
 }
 
 enum MaterialStatus {
+  UPLOADING
   UPLOADED
   PARSING
   READY
+  DOWNLOAD_ONLY
   FAILED
+}
+
+enum CoursePublicationStatus {
+  DRAFT
+  PUBLISHED
+}
+
+enum CourseMaterialKind {
+  FILE
+  TEXT
+}
+
+enum CourseResourceKind {
+  LINK
+  VIDEO
+  FILE
 }
 
 enum AssignmentStatus {
@@ -101,47 +120,120 @@ enum InteractiveLabComponentType {
 }
 
 model Course {
-  id             String            @id @default(uuid())
-  teacherId      String
-  title          String
-  category       String?
-  description    String            @default("")
-  status         CourseStatus      @default(INGESTING)
-  phase          String            @default("Waiting for material processing")
-  entityRevision Int               @default(0)
-  error          String?
-  createdAt      DateTime          @default(now())
-  updatedAt      DateTime          @updatedAt
-  teacher        User              @relation(fields: [teacherId], references: [id], onDelete: Restrict)
-  materials      CourseMaterial[]
-  segments       SourceSegment[]
-  entities       KnowledgeEntity[]
-  assignments    Assignment[]
-  usageRuns      UsageRun[]
-  usageEvents    UsageEvent[]
-  usageBuckets   UsageBucket[]
+  id                   String                  @id @default(uuid())
+  ownerId              String?
+  teacherId            String?
+  title                String
+  category             String?
+  description          String                  @default("")
+  subject              String                  @default("")
+  audience             String                  @default("")
+  objectives           Json                    @default("[]")
+  level                MiniCourseLevel         @default(BEGINNER)
+  background           LearnerBackground       @default(EXPERIENCED)
+  durationMinutes      Int                     @default(30)
+  language             String                  @default("en")
+  publicationStatus    CoursePublicationStatus @default(DRAFT)
+  shareTokenHash       String?                 @unique
+  archivedAt           DateTime?
+  legacyMiniCourseId   String?                 @unique
+  status               CourseStatus            @default(INGESTING)
+  phase                String                  @default("Waiting for material processing")
+  entityRevision       Int                     @default(0)
+  knowledgeStale       Boolean                 @default(false)
+  aiSelectionConfirmed Boolean                 @default(false)
+  error                String?
+  createdAt            DateTime                @default(now())
+  updatedAt            DateTime                @updatedAt
+  owner                User?                   @relation("CourseOwner", fields: [ownerId], references: [id], onDelete: Restrict)
+  teacher              User?                   @relation("CourseTeacher", fields: [teacherId], references: [id], onDelete: Restrict)
+  materials            CourseMaterial[]
+  resources            CourseResource[]
+  chapters             CourseChapter[]
+  segments             SourceSegment[]
+  entities             KnowledgeEntity[]
+  assignments          Assignment[]
+  usageRuns            UsageRun[]
+  usageEvents          UsageEvent[]
+  usageBuckets         UsageBucket[]
 
+  @@index([ownerId, archivedAt, updatedAt])
+  @@index([ownerId, publicationStatus])
   @@index([teacherId, updatedAt])
   @@index([teacherId, status])
 }
 
 model CourseMaterial {
-  id           String          @id @default(uuid())
+  id           String             @id @default(uuid())
   courseId     String
+  chapterId    String?
+  kind         CourseMaterialKind @default(FILE)
   name         String
   mimeType     String
   size         Int
-  blobPathname String          @unique
-  status       MaterialStatus  @default(UPLOADED)
+  blobPathname String?            @unique
+  textContent  String?
+  aiSelected   Boolean            @default(true)
+  status       MaterialStatus     @default(UPLOADED)
   pageCount    Int?
   errorCode    String?
   errorDetail  String?
-  createdAt    DateTime        @default(now())
-  updatedAt    DateTime        @updatedAt
-  course       Course          @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+  course       Course             @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  chapter      CourseChapter?     @relation(fields: [chapterId], references: [id], onDelete: Cascade)
   segments     SourceSegment[]
 
   @@index([courseId, status])
+  @@index([chapterId])
+}
+
+model CourseResource {
+  id        String             @id @default(uuid())
+  courseId  String
+  chapterId String?
+  kind      CourseResourceKind
+  title     String             @default("")
+  url       String
+  ordinal   Int
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+  course    Course             @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  chapter   CourseChapter?     @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+
+  @@unique([courseId, chapterId, ordinal])
+  @@index([courseId, chapterId])
+}
+
+model CourseChapter {
+  id         String           @id @default(uuid())
+  courseId   String
+  ordinal    Int
+  title      String
+  objectives Json             @default("[]")
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @updatedAt
+  course     Course           @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  blocks     CourseBlock[]
+  resources  CourseResource[]
+  materials  CourseMaterial[]
+
+  @@unique([courseId, ordinal])
+  @@index([courseId])
+}
+
+model CourseBlock {
+  id        String              @id @default(uuid())
+  chapterId String
+  ordinal   Int
+  type      MiniCourseBlockType
+  payload   Json                @default("{}")
+  createdAt DateTime            @default(now())
+  updatedAt DateTime            @updatedAt
+  chapter   CourseChapter       @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+
+  @@unique([chapterId, ordinal])
+  @@index([chapterId])
 }
 
 model SourceSegment {
@@ -215,28 +307,28 @@ model Assignment {
 }
 
 model InteractiveLab {
-  id                String                  @id @default(uuid())
+  id                String                         @id @default(uuid())
   assignmentId      String
   ordinal           Int
   generationStatus  InteractiveLabGenerationStatus @default(IDLE)
   generationError   String?
-  activeVersionId   String?                 @unique
-  approvedVersionId String?                 @unique
+  activeVersionId   String?                        @unique
+  approvedVersionId String?                        @unique
   approvedAt        DateTime?
   archivedAt        DateTime?
-  createdAt         DateTime                @default(now())
-  updatedAt         DateTime                @updatedAt
-  assignment        Assignment              @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
-  versions          InteractiveLabVersion[] @relation("InteractiveLabVersions")
-  activeVersion     InteractiveLabVersion?  @relation("InteractiveLabActiveVersion", fields: [activeVersionId], references: [id], onDelete: SetNull)
-  approvedVersion   InteractiveLabVersion?  @relation("InteractiveLabApprovedVersion", fields: [approvedVersionId], references: [id], onDelete: SetNull)
+  createdAt         DateTime                       @default(now())
+  updatedAt         DateTime                       @updatedAt
+  assignment        Assignment                     @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  versions          InteractiveLabVersion[]        @relation("InteractiveLabVersions")
+  activeVersion     InteractiveLabVersion?         @relation("InteractiveLabActiveVersion", fields: [activeVersionId], references: [id], onDelete: SetNull)
+  approvedVersion   InteractiveLabVersion?         @relation("InteractiveLabApprovedVersion", fields: [approvedVersionId], references: [id], onDelete: SetNull)
 
   @@index([assignmentId, archivedAt, ordinal])
   @@index([assignmentId, generationStatus])
 }
 
 model InteractiveLabVersion {
-  id                  String         @id @default(uuid())
+  id                  String                      @id @default(uuid())
   labId               String
   sequence            Int
   source              InteractiveLabVersionSource
@@ -245,10 +337,10 @@ model InteractiveLabVersion {
   actualType          InteractiveLabComponentType
   payload             Json
   restoredFromVersion String?
-  createdAt           DateTime       @default(now())
-  lab                 InteractiveLab   @relation("InteractiveLabVersions", fields: [labId], references: [id], onDelete: Cascade)
-  activeFor           InteractiveLab?  @relation("InteractiveLabActiveVersion")
-  approvedFor         InteractiveLab?  @relation("InteractiveLabApprovedVersion")
+  createdAt           DateTime                    @default(now())
+  lab                 InteractiveLab              @relation("InteractiveLabVersions", fields: [labId], references: [id], onDelete: Cascade)
+  activeFor           InteractiveLab?             @relation("InteractiveLabActiveVersion")
+  approvedFor         InteractiveLab?             @relation("InteractiveLabApprovedVersion")
 
   @@unique([labId, sequence])
   @@index([labId, createdAt])
@@ -437,22 +529,22 @@ enum MiniCourseBlockType {
 
 /// A short, structured course: chapters of written sections, owned by one user.
 model MiniCourse {
-  id              String            @id @default(uuid())
+  id              String              @id @default(uuid())
   ownerId         String
   title           String
-  summary         String            @default("")
-  audience        String            @default("")
-  subject         String            @default("")
-  objectives      Json              @default("[]")
-  resources       Json              @default("[]")
-  level           MiniCourseLevel   @default(BEGINNER)
-  background      LearnerBackground @default(EXPERIENCED)
-  durationMinutes Int               @default(30)
-  language        String            @default("en")
-  status          MiniCourseStatus  @default(DRAFT)
-  createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @updatedAt
-  owner           User              @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  summary         String              @default("")
+  audience        String              @default("")
+  subject         String              @default("")
+  objectives      Json                @default("[]")
+  resources       Json                @default("[]")
+  level           MiniCourseLevel     @default(BEGINNER)
+  background      LearnerBackground   @default(EXPERIENCED)
+  durationMinutes Int                 @default(30)
+  language        String              @default("en")
+  status          MiniCourseStatus    @default(DRAFT)
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+  owner           User                @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   chapters        MiniCourseChapter[]
   aiUsage         MiniCourseAiUsage[]
 
@@ -461,15 +553,15 @@ model MiniCourse {
 }
 
 model MiniCourseChapter {
-  id         String          @id @default(uuid())
+  id         String            @id @default(uuid())
   courseId   String
   ordinal    Int
   title      String
-  objectives Json            @default("[]")
-  resources  Json            @default("[]")
-  createdAt  DateTime        @default(now())
-  updatedAt  DateTime        @updatedAt
-  course     MiniCourse      @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  objectives Json              @default("[]")
+  resources  Json              @default("[]")
+  createdAt  DateTime          @default(now())
+  updatedAt  DateTime          @updatedAt
+  course     MiniCourse        @relation(fields: [courseId], references: [id], onDelete: Cascade)
   blocks     MiniCourseBlock[]
 
   @@unique([courseId, ordinal])
@@ -494,7 +586,7 @@ model MiniCourseBlock {
 /// One AI generation attempt made on behalf of a mini-course.
 /// `courseId` stays optional because drafting happens before the course exists.
 model MiniCourseAiUsage {
-  id           String     @id @default(uuid())
+  id           String      @id @default(uuid())
   courseId     String?
   userId       String
   operation    String
@@ -506,9 +598,9 @@ model MiniCourseAiUsage {
   totalTokens  Int?
   durationMs   Int?
   errorDetail  String?
-  createdAt    DateTime   @default(now())
+  createdAt    DateTime    @default(now())
   course       MiniCourse? @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([courseId, createdAt])
   @@index([userId, createdAt])
