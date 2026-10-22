@@ -1,13 +1,13 @@
 import { z } from "zod";
 
 import { apiError } from "@/lib/api";
-import { requireMiniCourseUser, requireOwnedMiniCourse } from "@/lib/mini-courses/api-auth";
 import { checkMiniCourseAiLimit } from "@/lib/mini-courses/ai-limit";
 import { structured, truncateMaterials } from "@/lib/mini-courses/ai";
+import { loadCourseAiSources } from "@/lib/courses/ai-sources";
+import { assertCourseWritesEnabled, requireCourseUser, requireOwnedCourse } from "@/lib/courses/auth";
 
 const requestSchema = z.object({
-  // Optional: the wizard asks for chapter bodies before the course row exists.
-  courseId: z.string().min(1).optional(),
+  courseId: z.string().uuid(),
   language: z.enum(["en", "zh"]),
   title: z.string().max(200).default(""),
   subject: z.string().max(120).default(""),
@@ -60,11 +60,10 @@ Rules:
 
 export async function POST(request: Request) {
   try {
-    const user = await requireMiniCourseUser();
+    assertCourseWritesEnabled();
+    const user = await requireCourseUser();
     const input = requestSchema.parse(await request.json());
-    if (input.courseId) {
-      await requireOwnedMiniCourse(input.courseId, user.id);
-    }
+    await requireOwnedCourse(input.courseId, user.id);
     await checkMiniCourseAiLimit(user.id);
 
     const result = await structured({
@@ -81,16 +80,17 @@ export async function POST(request: Request) {
           objectives: input.objectives,
         },
         chapterTopics: input.chapterTopics,
-        materials: truncateMaterials(
-          input.sources.map((source) => ({ label: source.label, text: source.text })),
-        ),
+        materials: truncateMaterials([
+          ...(await loadCourseAiSources(input.courseId)),
+          ...input.sources.map((source) => ({ label: source.label, text: source.text })),
+        ]),
       },
       // Five chapters of two sections is roughly 1.5k output tokens; the extra
       // headroom covers providers that spend part of the budget reasoning.
       maxTokens: 8_000,
       operation: "course_chapters",
       userId: user.id,
-      courseId: input.courseId ?? null,
+      courseId: input.courseId,
     });
 
     // The author's plan owns the titles; the model owns the prose.

@@ -4,14 +4,10 @@ import { getAiConfig } from "@/lib/ai/config";
 import { prisma } from "@/lib/prisma";
 
 /**
- * Records one AI attempt against a mini-course.
- *
- * Deliberately a separate table from UsageEvent: that one requires a Course
- * foreign key, and mini-courses are not Course rows. Same database, same
- * provider/model fields, no change to existing tables.
+ * Records one course-authoring AI attempt in the unified usage log.
  */
 export async function recordMiniCourseAiUsage(input: {
-  courseId?: string | null;
+  courseId: string;
   userId: string;
   operation: "course_draft" | "course_chapters";
   status: "SUCCESS" | "FAILED";
@@ -30,20 +26,31 @@ export async function recordMiniCourseAiUsage(input: {
   }
 
   try {
-    await prisma.miniCourseAiUsage.create({
-      data: {
-        courseId: input.courseId ?? null,
-        userId: input.userId,
-        operation: input.operation,
-        provider,
-        model,
-        status: input.status,
-        inputTokens: input.usage?.inputTokens ?? null,
-        outputTokens: input.usage?.outputTokens ?? null,
-        totalTokens: input.usage?.totalTokens ?? null,
-        durationMs: input.durationMs,
-        errorDetail: input.errorDetail?.slice(0, 800) ?? null,
-      },
+    if (input.courseId) {
+      const unified = await prisma.course.findUnique({ where: { id: input.courseId }, select: { id: true } });
+      if (unified) {
+        await prisma.usageEvent.create({
+          data: {
+            courseId: unified.id,
+            category: "ai",
+            operation: input.operation,
+            provider,
+            model,
+            status: input.status.toLowerCase(),
+            durationMs: input.durationMs,
+            inputTokens: input.usage?.inputTokens ?? null,
+            outputTokens: input.usage?.outputTokens ?? null,
+            totalTokens: input.usage?.totalTokens ?? null,
+            errorDetail: input.errorDetail?.slice(0, 800) ?? null,
+            completedAt: new Date(),
+          },
+        });
+        return;
+      }
+    }
+    console.warn("[course-ai-usage] skipped usage without a unified course", {
+      operation: input.operation,
+      userId: input.userId,
     });
   } catch (error) {
     console.error("[mini-course-ai-usage] could not record usage:", error);

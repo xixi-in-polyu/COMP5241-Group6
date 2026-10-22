@@ -1,6 +1,7 @@
 import { handleUpload, type HandleUploadBody } from "@vercel/blob/client";
 import { z } from "zod";
-import { apiError, ownedCourse, requireTeacherApi } from "@/lib/api";
+import { ApiError, apiError, ownedAssignment } from "@/lib/api";
+import { assertCourseWritesEnabled, requireCourseUser, requireOwnedCourse } from "@/lib/courses/auth";
 
 const payloadSchema = z.object({
   courseId: z.string().uuid(),
@@ -19,15 +20,21 @@ const allowed = [
 
 export async function POST(request: Request) {
   try {
+    assertCourseWritesEnabled();
     if (!process.env.BLOB_READ_WRITE_TOKEN) return Response.json({ error: "Private Blob is not configured." }, { status: 503 });
-    const teacher = await requireTeacherApi();
+    const user = await requireCourseUser();
     const body = await request.json() as HandleUploadBody;
     const response = await handleUpload({
       body,
       request,
       onBeforeGenerateToken: async (pathname, raw) => {
         const input = payloadSchema.parse(JSON.parse(raw || "{}"));
-        await ownedCourse(input.courseId, teacher.id);
+        await requireOwnedCourse(input.courseId, user.id);
+        if (input.assignmentId) {
+          if (user.role !== "teacher") throw new ApiError(403, "Teacher access required.");
+          const assignment = await ownedAssignment(input.assignmentId, user.id);
+          if (assignment.courseId !== input.courseId) throw new ApiError(422, "Assignment does not belong to this course.");
+        }
         const prefix = input.assignmentId
           ? `learning-platform/courses/${input.courseId}/assignments/${input.assignmentId}/`
           : `learning-platform/courses/${input.courseId}/`;

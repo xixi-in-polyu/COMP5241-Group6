@@ -32,7 +32,7 @@ export type AssignmentEntitySnapshot = KnowledgeEntity & {
 
 type AssignmentSource = {
   kind: "FILE" | "TRANSCRIPT";
-  status: "UPLOADED" | "PARSING" | "READY" | "FAILED";
+  status: "UPLOADING" | "UPLOADED" | "PARSING" | "READY" | "DOWNLOAD_ONLY" | "FAILED";
   size?: number | null;
 };
 

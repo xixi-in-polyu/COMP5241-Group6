@@ -1,48 +1,94 @@
 import { del, head } from "@vercel/blob";
 import { start } from "workflow/api";
 import { z } from "zod";
-import { ApiError, apiError, ownedCourse, requireTeacherApi } from "@/lib/api";
-import { validateMaterialMetadata } from "@/lib/materials/parsers";
-import { startUsageRun } from "@/lib/assignments/usage";
+
+import { ApiError, apiError } from "@/lib/api";
+import { assertCourseWritesEnabled, requireCourseUser, requireOwnedCourse } from "@/lib/courses/auth";
 import { prisma } from "@/lib/prisma";
-import { ingestionWorkflow } from "@/workflows/assignment";
+import { validateMaterialMetadata } from "@/lib/materials/parsers";
+import { courseMaterialParsingWorkflow } from "@/workflows/course-material";
 
-const replaceSchema = z.object({ name: z.string().min(1), mimeType: z.string().min(1), size: z.number().int().positive(), blobPathname: z.string().min(1) });
-
-export async function PUT(request: Request, { params }: { params: Promise<{ courseId: string; materialId: string }> }) {
-  try {
-    const teacher = await requireTeacherApi();
-    const { courseId, materialId } = await params;
-    const course = await ownedCourse(courseId, teacher.id);
-    if (course.status !== "AWAITING_MATERIAL_FIX") throw new ApiError(409, "Materials are locked in the current state.");
-    const before = await prisma.courseMaterial.findFirst({ where: { id: materialId, courseId } });
-    if (!before) throw new ApiError(404, "Material not found.");
-    const input = replaceSchema.parse(await request.json());
-    if (!input.blobPathname.startsWith(`learning-platform/courses/${courseId}/`)) throw new ApiError(422, "Invalid Blob path.");
-    const blob = await head(input.blobPathname);
-    validateMaterialMetadata(input.name, blob.contentType || input.mimeType, blob.size);
-    const others = await prisma.courseMaterial.aggregate({ where: { courseId, id: { not: materialId } }, _sum: { size: true } });
-    if ((others._sum.size || 0) + blob.size > 20 * 1024 * 1024) throw new ApiError(422, "Course documents must total no more than 20 MiB.");
-    await prisma.courseMaterial.update({ where: { id: materialId }, data: { name: input.name, mimeType: blob.contentType || input.mimeType, size: blob.size, blobPathname: blob.pathname, status: "UPLOADED", errorCode: null, errorDetail: null } });
-    if (before.blobPathname !== blob.pathname) await del(before.blobPathname).catch(() => undefined);
-    return Response.json({ materialId });
-  } catch (error) { return apiError(error); }
-}
+const replacementSchema = z.object({
+  name: z.string().trim().min(1).max(255),
+  mimeType: z.string().min(1),
+  size: z.number().int().positive(),
+  blobPathname: z.string().min(1),
+});
 
 export async function DELETE(_request: Request, { params }: { params: Promise<{ courseId: string; materialId: string }> }) {
   try {
-    const teacher = await requireTeacherApi();
+    assertCourseWritesEnabled();
+    const user = await requireCourseUser();
     const { courseId, materialId } = await params;
-    const course = await ownedCourse(courseId, teacher.id);
-    if (course.status !== "AWAITING_MATERIAL_FIX") throw new ApiError(409, "Materials are locked in the current state.");
-    if (await prisma.courseMaterial.count({ where: { courseId } }) <= 1) throw new ApiError(422, "A course must retain at least one material.");
+    await requireOwnedCourse(courseId, user.id);
     const material = await prisma.courseMaterial.findFirst({ where: { id: materialId, courseId } });
     if (!material) throw new ApiError(404, "Material not found.");
-    await prisma.courseMaterial.delete({ where: { id: materialId } });
-    await del(material.blobPathname).catch(() => undefined);
-    await prisma.course.update({ where: { id: courseId }, data: { status: "INGESTING", phase: "Continuing with remaining materials" } });
-    const run = await startUsageRun(courseId, teacher.id, "ingestion");
-    const workflow = await start(ingestionWorkflow, [courseId, run.id]);
-    return Response.json({ runId: workflow.runId }, { status: 202 });
-  } catch (error) { return apiError(error); }
+    await prisma.$transaction([
+      prisma.sourceSegment.deleteMany({ where: { materialId } }),
+      prisma.courseMaterial.delete({ where: { id: materialId } }),
+      prisma.course.update({
+        where: { id: courseId },
+        data: {
+          publicationStatus: "DRAFT",
+          shareTokenHash: null,
+          knowledgeStale: user.role === "teacher",
+          aiSelectionConfirmed: false,
+        },
+      }),
+    ]);
+    if (material.blobPathname) await del(material.blobPathname).catch(() => undefined);
+    return Response.json({ ok: true });
+  } catch (error) {
+    return apiError(error);
+  }
 }
+
+export async function POST(_request: Request, { params }: { params: Promise<{ courseId: string; materialId: string }> }) {
+  try {
+    assertCourseWritesEnabled();
+    const user = await requireCourseUser();
+    const { courseId, materialId } = await params;
+    await requireOwnedCourse(courseId, user.id);
+    const material = await prisma.courseMaterial.findFirst({ where: { id: materialId, courseId, kind: "FILE" } });
+    if (!material) throw new ApiError(404, "Material not found.");
+    await prisma.courseMaterial.update({ where: { id: materialId }, data: { status: "UPLOADED", errorCode: null, errorDetail: null } });
+    const workflow = await start(courseMaterialParsingWorkflow, [materialId]);
+    return Response.json({ runId: workflow.runId }, { status: 202 });
+  } catch (error) {
+    return apiError(error);
+  }
+}
+
+export async function PATCH(request: Request, { params }: { params: Promise<{ courseId: string; materialId: string }> }) {
+  let newPath = "";
+  let persisted = false;
+  try {
+    assertCourseWritesEnabled();
+    const user = await requireCourseUser();
+    const { courseId, materialId } = await params;
+    await requireOwnedCourse(courseId, user.id);
+    const input = replacementSchema.parse(await request.json());
+    if (!input.blobPathname.startsWith(`learning-platform/courses/${courseId}/`)) throw new ApiError(422, "Invalid Blob path.");
+    const current = await prisma.courseMaterial.findFirst({ where: { id: materialId, courseId, kind: "FILE" } });
+    if (!current) throw new ApiError(404, "Material not found.");
+    const blob = await head(input.blobPathname);
+    newPath = blob.pathname;
+    validateMaterialMetadata(input.name, blob.contentType || input.mimeType, blob.size);
+    const otherBytes = await prisma.courseMaterial.aggregate({ where: { courseId, kind: "FILE", id: { not: materialId } }, _sum: { size: true } });
+    if ((otherBytes._sum.size ?? 0) + blob.size > 100 * 1024 * 1024) throw new ApiError(422, "Course files must total no more than 100 MiB.");
+    await prisma.$transaction([
+      prisma.sourceSegment.deleteMany({ where: { materialId } }),
+      prisma.courseMaterial.update({ where: { id: materialId }, data: { name: input.name, mimeType: blob.contentType || input.mimeType, size: blob.size, blobPathname: blob.pathname, status: "UPLOADED", pageCount: null, errorCode: null, errorDetail: null } }),
+      prisma.course.update({ where: { id: courseId }, data: { publicationStatus: "DRAFT", shareTokenHash: null, knowledgeStale: user.role === "teacher", aiSelectionConfirmed: false } }),
+    ]);
+    persisted = true;
+    if (current.blobPathname && current.blobPathname !== blob.pathname) await del(current.blobPathname).catch(() => undefined);
+    const workflow = await start(courseMaterialParsingWorkflow, [materialId]);
+    return Response.json({ runId: workflow.runId }, { status: 202 });
+  } catch (error) {
+    if (newPath && !persisted) await del(newPath).catch(() => undefined);
+    return apiError(error);
+  }
+}
+
+export const PUT = PATCH;

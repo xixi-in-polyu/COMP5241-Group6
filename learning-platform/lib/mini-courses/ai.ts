@@ -6,6 +6,7 @@ import { zodTextFormat } from "openai/helpers/zod";
 
 import { ApiError } from "@/lib/api";
 import { getAiConfig } from "@/lib/ai/config";
+import { truncateCourseSources } from "@/lib/courses/source-budget";
 import { recordMiniCourseAiUsage } from "./ai-usage";
 
 /**
@@ -61,7 +62,7 @@ export async function structured<T>(input: {
   maxTokens: number;
   operation: AiOperation;
   userId: string;
-  courseId?: string | null;
+  courseId: string;
 }): Promise<T> {
   const started = Date.now();
 
@@ -83,7 +84,7 @@ export async function structured<T>(input: {
         throw new Error(`The provider did not return ${input.name}.`);
       }
       await recordMiniCourseAiUsage({
-        courseId: input.courseId ?? null,
+        courseId: input.courseId,
         userId: input.userId,
         operation: input.operation,
         status: "SUCCESS",
@@ -117,7 +118,7 @@ export async function structured<T>(input: {
     );
 
     await recordMiniCourseAiUsage({
-      courseId: input.courseId ?? null,
+      courseId: input.courseId,
       userId: input.userId,
       operation: input.operation,
       status: "SUCCESS",
@@ -135,7 +136,7 @@ export async function structured<T>(input: {
       throw error;
     }
     await recordMiniCourseAiUsage({
-      courseId: input.courseId ?? null,
+      courseId: input.courseId,
       userId: input.userId,
       operation: input.operation,
       status: "FAILED",
@@ -153,10 +154,5 @@ export function truncateMaterials(
   perMaterial = 6_000,
   total = 18_000,
 ): { label: string; text: string }[] {
-  let budget = total;
-  return sources.map((source) => {
-    const used = source.text.slice(0, Math.max(0, Math.min(perMaterial, budget)));
-    budget -= used.length;
-    return { label: source.label, text: used };
-  });
+  return truncateCourseSources(sources, perMaterial, total);
 }

@@ -1,11 +1,13 @@
 import { z } from "zod";
 
 import { apiError } from "@/lib/api";
-import { requireMiniCourseUser } from "@/lib/mini-courses/api-auth";
 import { checkMiniCourseAiLimit } from "@/lib/mini-courses/ai-limit";
 import { structured, truncateMaterials } from "@/lib/mini-courses/ai";
+import { loadCourseAiSources } from "@/lib/courses/ai-sources";
+import { assertCourseWritesEnabled, requireCourseUser, requireOwnedCourse } from "@/lib/courses/auth";
 
 const requestSchema = z.object({
+  courseId: z.string().uuid(),
   language: z.enum(["en", "zh"]),
   title: z.string().max(200).default(""),
   sources: z
@@ -51,9 +53,12 @@ Rules:
 
 export async function POST(request: Request) {
   try {
-    const user = await requireMiniCourseUser();
+    assertCourseWritesEnabled();
+    const user = await requireCourseUser();
     const input = requestSchema.parse(await request.json());
+    await requireOwnedCourse(input.courseId, user.id);
     await checkMiniCourseAiLimit(user.id);
+    const storedSources = await loadCourseAiSources(input.courseId);
 
     const result = await structured({
       schema: resultSchema,
@@ -63,18 +68,16 @@ export async function POST(request: Request) {
         language: input.language,
         requestedTitle: input.title || null,
         materials: truncateMaterials(
-          input.sources.map((source) => ({
+          [...storedSources, ...input.sources.map((source) => ({
             label: source.title || source.label,
             text: source.text,
-          })),
+          }))],
         ).map((source) => ({ label: source.label, text: source.text })),
-        materialLinks: input.sources
-          .filter((source) => source.url)
-          .map((source) => ({ title: source.title, url: source.url })),
       },
       maxTokens: 2_000,
       operation: "course_draft",
       userId: user.id,
+      courseId: input.courseId,
     });
 
     return Response.json({
