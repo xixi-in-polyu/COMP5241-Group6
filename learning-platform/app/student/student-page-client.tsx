@@ -8,6 +8,7 @@ import {
   BookOpen,
   Clock3,
   FileText,
+  FlaskConical,
   Moon,
   Settings,
   Send,
@@ -146,8 +147,15 @@ export default function StudentPage({ courses, assignments, student }: { courses
               <span>Learning Platform</span>
             </h1>
             <Link
+              href="/interactive-learning"
+              className="ml-auto mr-2 inline-flex h-11 items-center gap-2 rounded-xl border border-[#193b61] bg-white px-4 text-sm font-semibold text-[#193b61] transition-colors hover:bg-slate-100"
+            >
+              <FlaskConical className="size-4" aria-hidden="true" />
+              Interactive lab
+            </Link>
+            <Link
               href="/mini-courses"
-              className="ml-auto mr-2 inline-flex h-11 items-center gap-2 rounded-xl bg-[#193b61] px-4 text-sm font-semibold text-white shadow-[0_4px_12px_-6px_rgba(25,59,97,0.5)] transition-colors hover:bg-[#244d78]"
+              className="mr-2 inline-flex h-11 items-center gap-2 rounded-xl bg-[#193b61] px-4 text-sm font-semibold text-white shadow-[0_4px_12px_-6px_rgba(25,59,97,0.5)] transition-colors hover:bg-[#244d78]"
             >
               <BookOpen className="size-4" aria-hidden="true" />
               Mini-courses
