@@ -1,7 +1,6 @@
 "use client";
 
 import { LogOut } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 type LogoutButtonProps = {
@@ -10,7 +9,6 @@ type LogoutButtonProps = {
 };
 
 export function LogoutButton({ className, role }: LogoutButtonProps) {
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
 
@@ -25,8 +23,9 @@ export function LogoutButton({ className, role }: LogoutButtonProps) {
         throw new Error("Logout failed");
       }
 
-      router.replace("/");
-      router.refresh();
+      // Leave the app entirely so cached pages cannot be restored with the
+      // "back" button after signing out.
+      window.location.replace("/");
     } catch {
       setHasError(true);
     } finally {

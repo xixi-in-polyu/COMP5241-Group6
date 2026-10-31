@@ -21,6 +21,19 @@ describe("student Interactive Lab API", () => {
   it("returns only an approved active version without grounding or teacher metadata", async () => {
     const response = await GET(new Request("http://localhost/api/student/assignments/assignment-1/interactive-labs"), { params: Promise.resolve({ assignmentId: "assignment-1" }) });
     expect(response.status).toBe(200);
+    expect(mocks.assignmentFindFirst).toHaveBeenCalledWith(
+      expect.objectContaining({
+        where: {
+          id: "assignment-1",
+          status: "SUBMITTED",
+          course: {
+            status: "READY",
+            publicationStatus: "PUBLISHED",
+            archivedAt: null,
+          },
+        },
+      }),
+    );
     const body = await response.json();
     expect(body.labs).toHaveLength(1);
     expect(body.labs[0].payload.activity).not.toHaveProperty("evidenceRefs");

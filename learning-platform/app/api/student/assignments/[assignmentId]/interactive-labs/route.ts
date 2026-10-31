@@ -7,7 +7,15 @@ export async function GET(_request: Request, { params }: { params: Promise<{ ass
   if (authorization.response) return authorization.response;
   const { assignmentId } = await params;
   const assignment = await prisma.assignment.findFirst({
-    where: { id: assignmentId, status: "SUBMITTED", course: { status: "READY" } },
+    where: {
+      id: assignmentId,
+      status: "SUBMITTED",
+      course: {
+        status: "READY",
+        publicationStatus: "PUBLISHED",
+        archivedAt: null,
+      },
+    },
     select: {
       id: true,
       title: true,

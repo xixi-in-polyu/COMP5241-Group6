@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState, type FormEvent, type KeyboardEvent } from "react";
 
 type Role = "student" | "teacher";
@@ -37,7 +36,6 @@ function isSuccessResponse(value: unknown): value is { role: Role } {
 }
 
 export default function Home() {
-  const router = useRouter();
   const [role, setRole] = useState<Role>("student");
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
@@ -98,7 +96,8 @@ export default function Home() {
         return;
       }
 
-      router.push(rolePaths[result.role]);
+      // Full navigation so no state from a previous session survives sign-in.
+      window.location.assign(rolePaths[result.role]);
     } catch {
       setErrorMsg("Unable to sign in right now. Please try again.");
     } finally {

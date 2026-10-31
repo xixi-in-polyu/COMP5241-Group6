@@ -10,6 +10,7 @@ import type { courseCreateSchema } from "./validation";
 
 type CourseInput = z.infer<typeof courseCreateSchema>;
 const json = (value: unknown) => value as Prisma.InputJsonValue;
+export const COURSE_CONTENT_TRANSACTION_OPTIONS = { maxWait: 10_000, timeout: 30_000 } as const;
 
 const level = (value: CourseInput["level"]) => value.toUpperCase() as "BEGINNER" | "INTERMEDIATE" | "ADVANCED";
 const background = (value: CourseInput["background"]) => value.toUpperCase() as "BEGINNER" | "EXPERIENCED";
@@ -59,7 +60,7 @@ export async function createUnifiedCourse(owner: { id: string; role: string }, i
     });
     await replaceCourseContent(tx, course.id, input, false);
     return course;
-  });
+  }, COURSE_CONTENT_TRANSACTION_OPTIONS);
 }
 
 export async function replaceCourseContent(

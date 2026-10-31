@@ -13,6 +13,8 @@ const eslintConfig = defineConfig([
     "build/**",
     "app/.well-known/workflow/**",
     "next-env.d.ts",
+    // Vendored pdf.js worker copied from node_modules (served as a static asset).
+    "public/pdf.worker.min.mjs",
   ]),
 ]);
 
