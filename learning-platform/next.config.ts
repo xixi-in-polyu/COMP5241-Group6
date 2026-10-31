@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import path from "path";
 import { withWorkflow } from "workflow/next";
 
 const nextConfig: NextConfig = {
@@ -7,6 +8,8 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {
+    root: path.resolve(__dirname),
+    
     rules: {
       "*.css": {
         loaders: ["@tailwindcss/turbopack"],

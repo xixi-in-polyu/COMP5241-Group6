@@ -2,7 +2,7 @@ import { entitySchema } from "@/lib/assignments/domain";
 import { serializeAssignment } from "@/lib/assignments/serialize";
 import { apiError } from "@/lib/api";
 import { assertCourseWritesEnabled, requireCourseUser, requireOwnedCourse } from "@/lib/courses/auth";
-import { replaceCourseContent } from "@/lib/courses/content";
+import { COURSE_CONTENT_TRANSACTION_OPTIONS, replaceCourseContent } from "@/lib/courses/content";
 import { getOwnedCourse } from "@/lib/courses/queries";
 import { COURSE_INCLUDE, serializeCourse } from "@/lib/courses/serialize";
 import { courseCreateSchema, coursePatchSchema } from "@/lib/courses/validation";
@@ -52,7 +52,10 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ co
       Object.keys(raw).flatMap((key) => key in patch ? [[key, patch[key as keyof typeof patch]]] : []),
     );
     const input = courseCreateSchema.parse({ ...current, ...explicitPatch });
-    await prisma.$transaction((tx) => replaceCourseContent(tx, courseId, input));
+    await prisma.$transaction(
+      (tx) => replaceCourseContent(tx, courseId, input),
+      COURSE_CONTENT_TRANSACTION_OPTIONS,
+    );
     return Response.json({ course: await getOwnedCourse(user.id, courseId) });
   } catch (error) {
     const response = apiError(error);

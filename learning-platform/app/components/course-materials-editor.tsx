@@ -5,6 +5,7 @@ import { Check, FileText, LoaderCircle, Trash2, Upload } from "lucide-react";
 import { useMemo, useState } from "react";
 
 import type { CourseMaterial } from "@/lib/courses/types";
+import { BLOB_UPLOAD_ACCESS } from "@/lib/uploads/access";
 
 const ACCEPT = ".pdf,.txt,.docx,.pptx";
 
@@ -59,7 +60,7 @@ export function CourseMaterialsEditor({
           `learning-platform/courses/${id}/${crypto.randomUUID()}/${file.name}`,
           file,
           {
-            access: "private",
+            access: BLOB_UPLOAD_ACCESS,
             handleUploadUrl: "/api/uploads/token",
             clientPayload: JSON.stringify({
               courseId: id,
