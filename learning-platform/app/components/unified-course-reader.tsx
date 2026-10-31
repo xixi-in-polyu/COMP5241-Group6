@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 
 import { BlockView } from "@/app/components/mini-course/block-view";
+import { MaterialsAutoRefresh } from "@/app/components/materials-auto-refresh";
 import type { UnifiedCourse } from "@/lib/courses/types";
 
 export function UnifiedCourseReader({
@@ -19,6 +20,11 @@ export function UnifiedCourseReader({
 }) {
   return (
     <main className="mx-auto w-full max-w-5xl px-5 py-8 sm:px-8" id="course-top">
+      <MaterialsAutoRefresh
+        active={course.materials.some(
+          (material) => material.status === "uploaded" || material.status === "parsing",
+        )}
+      />
       <header className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
         <div className="flex flex-wrap gap-2 text-xs font-semibold text-[#54738f]">
           <span className="rounded-full bg-[#eef2f6] px-2.5 py-1">
@@ -61,24 +67,36 @@ export function UnifiedCourseReader({
         <section className="mt-6 rounded-2xl border border-slate-200 bg-white p-5">
           <h2 className="text-sm font-semibold text-[#142f4d]">Course materials</h2>
           <ul className="mt-3 space-y-2">
-            {course.materials
-              .filter((item) => item.status === "ready" || item.status === "download_only")
-              .map((material) => (
+            {course.materials.map((material) => {
+              const downloadable = material.status === "ready" || material.status === "download_only";
+              return (
                 <li
                   className="flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 p-3"
                   key={material.id}
                 >
                   <FileText className="size-4 text-[#24496f]" />
                   <span className="min-w-0 flex-1 truncate text-sm">{material.name}</span>
-                  <a
-                    className="inline-flex items-center gap-1 text-xs font-semibold text-[#24496f]"
-                    href={materialDownload(material.id)}
-                  >
-                    <Download className="size-3.5" />
-                    Download
-                  </a>
+                  {downloadable ? (
+                    <a
+                      className="inline-flex items-center gap-1 text-xs font-semibold text-[#24496f]"
+                      href={materialDownload(material.id)}
+                    >
+                      <Download className="size-3.5" />
+                      Download
+                    </a>
+                  ) : material.status === "failed" ? (
+                    <span
+                      className="text-xs font-semibold text-[#a3232b]"
+                      title={material.errorDetail ?? undefined}
+                    >
+                      Could not process
+                    </span>
+                  ) : (
+                    <span className="text-xs font-medium text-[#6a7c90]">Processing…</span>
+                  )}
                 </li>
-              ))}
+              );
+            })}
             {course.resources.map((resource) => (
               <li
                 className="flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 p-3"

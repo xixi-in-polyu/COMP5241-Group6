@@ -5,19 +5,23 @@ import { head } from "@vercel/blob";
 import { ApiError } from "@/lib/api";
 import { safeDownloadName } from "./security";
 
-export async function materialDownloadResponse(material: {
-  kind: "FILE" | "TEXT";
-  name: string;
-  mimeType: string;
-  blobPathname: string | null;
-  textContent: string | null;
-}) {
+export async function materialDownloadResponse(
+  material: {
+    kind: "FILE" | "TEXT";
+    name: string;
+    mimeType: string;
+    blobPathname: string | null;
+    textContent: string | null;
+  },
+  options: { disposition?: "attachment" | "inline" } = {},
+) {
   const filename = safeDownloadName(material.name);
+  const disposition = options.disposition === "inline" ? "inline" : "attachment";
   if (material.kind === "TEXT") {
     return new Response(material.textContent ?? "", {
       headers: {
         "content-type": "text/plain; charset=utf-8",
-        "content-disposition": `attachment; filename*=UTF-8''${encodeURIComponent(filename)}`,
+        "content-disposition": `${disposition}; filename*=UTF-8''${encodeURIComponent(filename)}`,
         "x-content-type-options": "nosniff",
       },
     });
@@ -34,7 +38,7 @@ export async function materialDownloadResponse(material: {
     headers: {
       "content-type": blob.contentType || material.mimeType || "application/octet-stream",
       "content-length": String(blob.size),
-      "content-disposition": `attachment; filename*=UTF-8''${encodeURIComponent(filename)}`,
+      "content-disposition": `${disposition}; filename*=UTF-8''${encodeURIComponent(filename)}`,
       "x-content-type-options": "nosniff",
       "cache-control": "private, no-store",
     },
