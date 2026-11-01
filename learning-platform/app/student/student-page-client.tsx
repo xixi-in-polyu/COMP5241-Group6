@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { AccountMenu } from "@/app/components/account-menu";
 import { WorkspaceHeader } from "@/app/components/workspace-header";
-import { ArrowRight, Clock3, FileText, FlaskConical, Plus } from "lucide-react";
+import { ArrowRight, AudioLines, Clock3, FileText, FlaskConical, Plus } from "lucide-react";
 
 type StudentCourse = { id: string; category: string; title: string; description: string; updated: string };
 type StudentAssignment = { id: string; title: string; course: string; labCount: number };
@@ -16,7 +16,16 @@ export default function StudentPage({ courses, assignments, student }: { courses
     <main className="min-h-screen bg-slate-50 p-4 text-slate-800 sm:p-6">
       <div className="mx-auto flex w-full max-w-[1900px] flex-col">
         <WorkspaceHeader homeHref="/student">
-          <AccountMenu user={student} />
+          <div className="flex items-center gap-2">
+            <Link
+              className="inline-flex h-10 shrink-0 items-center gap-2 rounded-xl border border-[#193b61] bg-white px-3 text-sm font-semibold text-[#193b61] transition-colors hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#193b61] sm:px-4"
+              href="/audio"
+            >
+              <AudioLines aria-hidden="true" className="size-4" />
+              <span className="hidden sm:inline">Audio explanation</span>
+            </Link>
+            <AccountMenu user={student} />
+          </div>
         </WorkspaceHeader>
 
         <div className="mt-6 flex items-start gap-4">
