@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, Check, CheckCircle2, ChevronDown, FileText, GripVertical, Lightbulb, LoaderCircle, Pencil, Plus, RefreshCw, Save, Send, Sparkles, Trash2, Upload, WandSparkles, X } from "lucide-react";
 import { type FormEvent, useCallback, useEffect, useMemo, useState } from "react";
 import InteractiveLabsPanel, { type Lab } from "./interactive-labs-panel";
+import { getBriefPlanningErrors } from "@/lib/assignments/domain";
 import { BLOB_UPLOAD_ACCESS } from "@/lib/uploads/access";
 
 type QuestionType = "single_choice" | "multi_choice" | "fill_blank" | "short_answer";
@@ -212,6 +213,7 @@ function BriefPanel({ assignmentId, assignment, editable, onRefresh, onNotice }:
   const easyEnd = brief.difficulty.easy;
   const mediumEnd = brief.difficulty.easy + brief.difficulty.medium;
   const visibleSuggestions = suggestions.filter((suggestion) => suggestion.kind === "instruction");
+  const planningErrors = getBriefPlanningErrors(brief);
   const applySuggestion = (suggestion: Suggestion) => {
     if (suggestion.kind !== "instruction") return;
     setBrief({ ...brief, instructions: suggestion.payload as string });
@@ -270,8 +272,9 @@ function BriefPanel({ assignmentId, assignment, editable, onRefresh, onNotice }:
         </div>
         <BriefChecks label="Question types" values={["single_choice", "multi_choice", "fill_blank", "short_answer"]} selected={brief.types} disabled={!editable} onChange={(values) => setBrief({ ...brief, types: values as QuestionType[] })} />
         <BriefChecks label="Cognitive objectives" values={["knowledge", "comprehension", "application", "synthesis", "innovation"]} selected={brief.objectives} disabled={!editable} onChange={(values) => setBrief({ ...brief, objectives: values as Question["objective"][] })} />
+        {!!planningErrors.length && <div role="alert" className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-xs leading-5 text-amber-800"><b className="block text-sm text-amber-900">Adjust the assessment plan</b>{planningErrors.map((error) => <p key={error} className="mt-1">{error}</p>)}</div>}
       </div>
-      <div className="flex flex-wrap items-center justify-between gap-3 border-t border-slate-200 bg-slate-50/70 px-6 py-4"><span className="text-xs text-slate-500">{selectedEntities.length} approved concepts · {brief.count} requested questions</span>{editable && <button disabled={!!busy || !brief.types.length || !brief.objectives.length || (brief.interactiveLab.enabled && !brief.interactiveLab.instructions.trim())} onClick={() => void act("Starting generation", async () => { await api(`/api/assignments/${assignmentId}/generate`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ ...brief, coverageEntityIds: [] }) }); await onRefresh(); })} className="inline-flex items-center gap-2 rounded-lg bg-[#193b61] px-4 py-2.5 text-sm font-semibold text-white disabled:opacity-50">{brief.interactiveLab.enabled ? "Generate assessment + lab" : "Generate assessment"} <Sparkles className="size-4" /></button>}</div>
+      <div className="flex flex-wrap items-center justify-between gap-3 border-t border-slate-200 bg-slate-50/70 px-6 py-4"><span className="text-xs text-slate-500">{selectedEntities.length} approved concepts · {brief.count} requested questions</span>{editable && <button disabled={!!busy || !brief.types.length || !brief.objectives.length || !!planningErrors.length || (brief.interactiveLab.enabled && !brief.interactiveLab.instructions.trim())} onClick={() => void act("Starting generation", async () => { await api(`/api/assignments/${assignmentId}/generate`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ ...brief, coverageEntityIds: [] }) }); await onRefresh(); })} className="inline-flex items-center gap-2 rounded-lg bg-[#193b61] px-4 py-2.5 text-sm font-semibold text-white disabled:opacity-50">{brief.interactiveLab.enabled ? "Generate assessment + lab" : "Generate assessment"} <Sparkles className="size-4" /></button>}</div>
     </div>
     <aside className="sticky top-5 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"><p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#54738f]">Grounding</p><h3 className="mt-2 text-lg font-semibold text-[#142f4d]">Evidence stays attached</h3><p className="mt-1 text-xs leading-5 text-slate-500">Every generated question must point back to approved knowledge.</p><div className="mt-4 max-h-[520px] overflow-y-auto pr-1">{selectedEntities.map((entity) => <div key={entity.id} className="grid grid-cols-[18px_1fr] gap-x-2 border-b border-slate-100 py-3 text-xs"><CheckCircle2 className="size-4 text-emerald-600" /><span className="font-semibold text-slate-700">{entity.name}</span><small className="col-start-2 mt-1 text-[10px] text-slate-400">{entity.evidence[0]?.locator || "Course knowledge"}</small></div>)}</div></aside>
   </section>;

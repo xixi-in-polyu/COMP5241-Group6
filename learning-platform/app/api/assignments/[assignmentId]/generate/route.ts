@@ -2,7 +2,7 @@ import { Prisma } from "@prisma/client";
 import { start } from "workflow/api";
 import { ApiError, apiError, ownedAssignment, requireTeacherApi } from "@/lib/api";
 import { isAiConfigured } from "@/lib/assignments/ai";
-import { briefSchema } from "@/lib/assignments/domain";
+import { briefSchema, getBriefPlanningErrors } from "@/lib/assignments/domain";
 import { checkAiLimit, startUsageRun } from "@/lib/assignments/usage";
 import { prisma } from "@/lib/prisma";
 import { generationWorkflow } from "@/workflows/assignment";
@@ -22,6 +22,8 @@ export async function POST(
       throw new ApiError(409, "Confirm assignment knowledge before generating.");
     }
     const brief = briefSchema.parse(await request.json());
+    const planningErrors = getBriefPlanningErrors(brief);
+    if (planningErrors.length) throw new ApiError(422, planningErrors.join(" "));
     const selected = await prisma.assignmentKnowledgeEntity.findMany({
       where: { assignmentId, selected: true },
       select: { id: true },
