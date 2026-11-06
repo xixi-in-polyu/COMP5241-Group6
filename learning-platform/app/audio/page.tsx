@@ -6,6 +6,6 @@ export const metadata = { title: "Audio explanation" };
 export const instant = false;
 
 export default async function AudioPage() {
-  await requirePageRole("student");
-  return <AudioExplanation />;
+  const student = await requirePageRole("student");
+  return <AudioExplanation studentId={student.id} />;
 }
