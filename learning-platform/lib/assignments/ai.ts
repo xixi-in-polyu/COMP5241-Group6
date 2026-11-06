@@ -5,7 +5,7 @@ import OpenAI from "openai";
 import { zodTextFormat } from "openai/helpers/zod";
 import { z } from "zod";
 import { getAiConfig, getAiProvider } from "@/lib/ai/config";
-import { entitySchema, evidenceSchema, interactiveLabPayloadSchema, questionSchema, validateInteractiveLab, type AssignmentBrief, type InteractiveLabComponentType, type InteractiveLabPayload, type KnowledgeEntity, type Question, type QuestionSlot } from "./domain";
+import { entitySchema, evidenceSchema, getDifficultySpecification, interactiveLabPayloadSchema, questionDifficultyRules, questionSchema, validateInteractiveLab, type AssignmentBrief, type InteractiveLabComponentType, type InteractiveLabPayload, type KnowledgeEntity, type Question, type QuestionSlot } from "./domain";
 import { finishUsageEvent, startUsageEvent } from "./usage";
 
 type Segment = { id: string; materialId: string; locator: unknown; normalizedText: string };
@@ -80,6 +80,8 @@ const generatedSchema = z.object({ question: z.object({ prompt: z.string().min(1
 export function validateGroundedQuestion(question: Question, slot: QuestionSlot, entities: KnowledgeEntity[], segments: Segment[]) {
   const errors: string[] = [];
   if (question.type !== slot.type || question.objective !== slot.objective || question.difficulty !== slot.difficulty) errors.push("Question does not match its assigned slot.");
+  const difficultyRule = questionDifficultyRules[slot.type][slot.difficulty];
+  if (!difficultyRule || !difficultyRule.objectives.includes(slot.objective)) errors.push("Question slot uses an incompatible type, objective, and difficulty combination.");
   const structural = questionSchema.safeParse(question);
   if (!structural.success) errors.push(...structural.error.issues.map((issue) => issue.message));
   if (new Set(question.options.map((option) => option.trim().toLowerCase())).size !== question.options.length) errors.push("Options must be unique.");
@@ -97,7 +99,7 @@ export function validateGroundedQuestion(question: Question, slot: QuestionSlot,
 
 export async function generateQuestion(slot: QuestionSlot, brief: AssignmentBrief, entities: KnowledgeEntity[], segments: Segment[], trace: Trace, priorErrors: string[] = []): Promise<Question> {
   const relevant = entities.filter((item) => slot.entityIds.includes(item.id));
-  const result = await structured(generatedSchema, "assessment_question", "Generate exactly one English assessment question matching the immutable slot. The answer and explanation must be supported by supplied evidence. Copy evidence IDs exactly. Single/multi choice uses option letters as answers; open questions have no options.", { brief, slot, priorErrors, entities: relevant, segments: segments.filter((segment) => relevant.some((entity) => entity.evidence.some((evidence) => evidence.segmentId === segment.id))) }, trace);
+  const result = await structured(generatedSchema, "assessment_question", "Generate exactly one English assessment question matching the immutable slot and its explicit difficulty specification. Difficulty must come from cognitive demand, reasoning, transfer, and knowledge integration—not obscure vocabulary, unsupported knowledge, trick wording, or ambiguity. The answer and explanation must be supported by supplied evidence. Copy evidence IDs exactly. Single/multi choice uses option letters as answers; open questions have no options.", { brief, slot, difficultySpecification: getDifficultySpecification(slot), priorErrors, entities: relevant, segments: segments.filter((segment) => relevant.some((entity) => entity.evidence.some((evidence) => evidence.segmentId === segment.id))) }, trace);
   return questionSchema.parse({ ...result.question, id: randomUUID(), origin: "ai_generated", type: slot.type, objective: slot.objective, difficulty: slot.difficulty, entityIds: slot.entityIds, score: slot.score, warnings: [] });
 }
 
@@ -141,7 +143,8 @@ export async function generateInteractiveLab(
 const reviewSchema = z.object({ warnings: z.array(z.object({ questionId: z.string().uuid(), warning: z.string() })) });
 export async function reviewQuestions(questions: Question[], entities: KnowledgeEntity[], segments: Segment[], trace: Trace) {
   if (!questions.length) return [];
-  const result = await structured(reviewSchema, "quality_review", "Review whether each answer and explanation is grounded in cited evidence. Return only material warnings; do not rewrite questions.", { questions, entities, segments }, trace);
+  const difficultySpecifications = questions.map((question) => ({ questionId: question.id, specification: getDifficultySpecification(question) }));
+  const result = await structured(reviewSchema, "quality_review", "Review whether each answer and explanation is grounded in cited evidence and whether the actual cognitive demand matches its difficulty specification. Flag questions that are easier or harder than labeled, use an incompatible task for the question type, rely on ambiguity or obscure wording, contain weak distractors, or require unsupported knowledge. Return only material warnings; do not rewrite questions.", { questions, difficultySpecifications, entities, segments }, trace);
   return result.warnings.map((item) => `${item.questionId}: ${item.warning}`);
 }
 

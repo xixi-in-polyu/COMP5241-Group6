@@ -277,6 +277,85 @@ export function validateInteractiveLab(payload: InteractiveLabPayload, requested
 
 export type QuestionSlot = Omit<FailedSlot, "reason">;
 
+type DifficultyRule = {
+  objectives: Objective[];
+  criteria: string[];
+};
+
+export const questionDifficultyRules: Record<QuestionType, Partial<Record<Difficulty, DifficultyRule>>> = {
+  single_choice: {
+    easy: {
+      objectives: ["knowledge", "comprehension"],
+      criteria: ["Use one concept and direct recall or basic understanding.", "Make the correct answer explicit in the evidence and the distractors clearly incorrect."],
+    },
+    medium: {
+      objectives: ["comprehension", "application"],
+      criteria: ["Use a paraphrased or simple applied scenario requiring one reasoning step.", "Use plausible distractors based on common misunderstandings."],
+    },
+    hard: {
+      objectives: ["application", "synthesis"],
+      criteria: ["Use a novel scenario requiring multiple reasoning steps or integration of supplied concepts.", "Make alternatives plausible but distinguishable by conditions in the evidence; do not use trick wording."],
+    },
+  },
+  multi_choice: {
+    easy: {
+      objectives: ["knowledge", "comprehension"],
+      criteria: ["Ask learners to identify multiple facts explicitly supported by one concept.", "Keep incorrect options clearly unsupported."],
+    },
+    medium: {
+      objectives: ["comprehension", "application"],
+      criteria: ["Require each statement to be checked against a rule or a simple scenario.", "Include plausible but incomplete alternatives."],
+    },
+    hard: {
+      objectives: ["application", "synthesis"],
+      criteria: ["Require independent multi-step evaluation of every option across the supplied concepts.", "Use exceptions or interacting conditions without introducing ambiguity."],
+    },
+  },
+  fill_blank: {
+    easy: {
+      objectives: ["knowledge"],
+      criteria: ["Ask for one explicit term or value with strong contextual cues and one unambiguous answer."],
+    },
+    medium: {
+      objectives: ["comprehension", "application"],
+      criteria: ["Require a paraphrased concept, simple calculation, or one-step application with an objectively gradable answer."],
+    },
+  },
+  short_answer: {
+    easy: {
+      objectives: ["knowledge", "comprehension"],
+      criteria: ["Ask for a definition, list, or explanation of one concept with one or two expected answer points."],
+    },
+    medium: {
+      objectives: ["comprehension", "application"],
+      criteria: ["Ask learners to compare or apply concepts in a given scenario with two or three expected answer points."],
+    },
+    hard: {
+      objectives: ["application", "synthesis", "innovation"],
+      criteria: ["Require analysis, design, evaluation, or justification in a novel scenario.", "Integrate supplied concepts and require a reasoned answer with explicit evidence and trade-offs."],
+    },
+  },
+};
+
+export function getDifficultySpecification(slot: Pick<QuestionSlot, "type" | "objective" | "difficulty" | "entityIds">) {
+  const rule = questionDifficultyRules[slot.type][slot.difficulty];
+  const criteria = rule?.criteria ?? [
+    `This legacy ${slot.type.replaceAll("_", " ")} and ${slot.difficulty} combination is not used for new assignment plans.`,
+    "Keep the answer objectively gradable and flag the combination for teacher review.",
+  ];
+  return {
+    target: slot.difficulty,
+    questionType: slot.type,
+    objective: slot.objective,
+    knowledgeSpan: slot.entityIds.length,
+    criteria,
+    safeguards: [
+      "Difficulty must come from cognitive demand, knowledge integration, reasoning, and transfer—not obscure vocabulary or confusing wording.",
+      "Stay completely within the supplied course evidence and make the answer unambiguous.",
+    ],
+  };
+}
+
 function difficultyCounts(count: number, mix: AssignmentBrief["difficulty"]) {
   const exact = (["easy", "medium", "hard"] as const).map((name) => ({
     name,
@@ -295,21 +374,50 @@ function difficultyCounts(count: number, mix: AssignmentBrief["difficulty"]) {
   return Object.fromEntries(exact.map(({ name, count: value }) => [name, value])) as Record<Difficulty, number>;
 }
 
+export function getBriefPlanningErrors(brief: Pick<AssignmentBrief, "count" | "types" | "objectives" | "difficulty">) {
+  const counts = difficultyCounts(brief.count, brief.difficulty);
+  return (["easy", "medium", "hard"] as const).flatMap((difficulty) => {
+    if (!counts[difficulty]) return [];
+    const supported = brief.types.some((type) => {
+      const rule = questionDifficultyRules[type][difficulty];
+      return rule?.objectives.some((objective) => brief.objectives.includes(objective));
+    });
+    if (supported) return [];
+    return [`No selected question type and cognitive objective can produce ${difficulty} questions. Adjust the difficulty mix, question types, or objectives.`];
+  });
+}
+
 export function createQuestionSlots(brief: AssignmentBrief, selectedEntityIds: string[]): QuestionSlot[] {
-  const coverage = brief.coverageEntityIds.length ? brief.coverageEntityIds : selectedEntityIds;
+  const coverage = [...new Set(brief.coverageEntityIds.length ? brief.coverageEntityIds : selectedEntityIds)];
   if (!coverage.length) throw new Error("Select at least one knowledge entity before generating an assignment.");
+  const planningErrors = getBriefPlanningErrors(brief);
+  if (planningErrors.length) throw new Error(planningErrors.join(" "));
   const counts = difficultyCounts(brief.count, brief.difficulty);
   const difficulties = (["easy", "medium", "hard"] as const).flatMap((difficulty) =>
     Array.from({ length: counts[difficulty] }, () => difficulty),
   );
-  return Array.from({ length: brief.count }, (_, index) => ({
-    index,
-    type: brief.types[index % brief.types.length],
-    objective: brief.objectives[index % brief.objectives.length],
-    difficulty: difficulties[index] ?? "medium",
-    entityIds: [coverage[index % coverage.length]],
-    score: Math.max(1, Math.floor(100 / brief.count)),
-  }));
+  const positions: Record<Difficulty, number> = { easy: 0, medium: 0, hard: 0 };
+  return Array.from({ length: brief.count }, (_, index) => {
+    const difficulty = difficulties[index] ?? "medium";
+    const position = positions[difficulty]++;
+    const compatibleTypes = brief.types.filter((type) => {
+      const rule = questionDifficultyRules[type][difficulty];
+      return rule?.objectives.some((objective) => brief.objectives.includes(objective));
+    });
+    const type = compatibleTypes[position % compatibleTypes.length];
+    const allowedObjectives = questionDifficultyRules[type][difficulty]!.objectives.filter((objective) => brief.objectives.includes(objective));
+    const objective = allowedObjectives[Math.floor(position / compatibleTypes.length) % allowedObjectives.length];
+    const requestedEntityCount = difficulty === "hard" || ["synthesis", "innovation"].includes(objective) ? 2 : 1;
+    const entityIds = Array.from({ length: Math.min(requestedEntityCount, coverage.length) }, (_, offset) => coverage[(index + offset) % coverage.length]);
+    return {
+      index,
+      type,
+      objective,
+      difficulty,
+      entityIds,
+      score: Math.max(1, Math.floor(100 / brief.count)),
+    };
+  });
 }
 
 export function validateDraft(questions: unknown, failedSlots: unknown) {
