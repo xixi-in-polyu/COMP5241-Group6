@@ -30,19 +30,13 @@ export default function PdfViewer({
   return (
     <Document
       file={fileUrl}
-      suspense={false}
       onLoadSuccess={onLoadSuccess}
       onLoadError={onLoadError}
       loading={<p className="p-8 text-sm text-slate-500">Opening PDF...</p>}
-      error={<p className="p-8 text-sm text-rose-700">This PDF could not be opened.</p>}
     >
       <Page
         pageNumber={currentPage}
         width={Math.min(760, typeof window === "undefined" ? 760 : window.innerWidth - 80) * zoom}
-        suspense={false}
-        onLoadError={onLoadError}
-        onRenderError={onLoadError}
-        error={<p className="p-8 text-sm text-rose-700">This PDF page could not be displayed.</p>}
         renderTextLayer
         renderAnnotationLayer
       />
