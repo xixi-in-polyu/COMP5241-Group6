@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { briefSchema, createQuestionSlots, questionSchema, validateDraft } from "@/lib/assignments/domain";
+import { briefSchema, createQuestionSlots, getBriefPlanningErrors, getDifficultySpecification, questionSchema, questionDifficultyRules, validateDraft } from "@/lib/assignments/domain";
 
 const brief = briefSchema.parse({
   title: "Grounded assessment",
@@ -20,6 +20,27 @@ describe("assignment domain", () => {
     expect(first.filter((slot) => slot.difficulty === "easy")).toHaveLength(2);
     expect(first.filter((slot) => slot.difficulty === "medium")).toHaveLength(4);
     expect(first.filter((slot) => slot.difficulty === "hard")).toHaveLength(1);
+    expect(first.at(-1)?.entityIds).toHaveLength(2);
+    for (const slot of first) expect(questionDifficultyRules[slot.type][slot.difficulty]?.objectives).toContain(slot.objective);
+  });
+
+  it("rejects a requested difficulty with no compatible type and objective", () => {
+    const invalid = briefSchema.parse({ ...brief, count: 1, types: ["fill_blank"], objectives: ["knowledge"], difficulty: { easy: 0, medium: 0, hard: 100 } });
+    expect(getBriefPlanningErrors(invalid)).toEqual([expect.stringContaining("hard")]);
+    expect(() => createQuestionSlots(invalid, [crypto.randomUUID()])).toThrow(/hard/);
+  });
+
+  it("plans hard synthesis as a multi-concept short answer with an explicit rubric", () => {
+    const synthesis = briefSchema.parse({ ...brief, count: 1, types: ["short_answer"], objectives: ["synthesis"], difficulty: { easy: 0, medium: 0, hard: 100 } });
+    const slot = createQuestionSlots(synthesis, [crypto.randomUUID(), crypto.randomUUID(), crypto.randomUUID()])[0];
+    expect(slot).toMatchObject({ type: "short_answer", objective: "synthesis", difficulty: "hard" });
+    expect(slot.entityIds).toHaveLength(2);
+    expect(getDifficultySpecification(slot).criteria.join(" ")).toMatch(/analysis|design|evaluation|justification/i);
+  });
+
+  it("does not assign hard difficulty to fill blanks when a supported type is selected", () => {
+    const mixed = briefSchema.parse({ ...brief, count: 2, types: ["fill_blank", "short_answer"], objectives: ["application"], difficulty: { easy: 0, medium: 0, hard: 100 } });
+    expect(createQuestionSlots(mixed, [crypto.randomUUID(), crypto.randomUUID()]).map((slot) => slot.type)).toEqual(["short_answer", "short_answer"]);
   });
 
   it("requires evidence for AI questions but not teacher-authored questions", () => {
