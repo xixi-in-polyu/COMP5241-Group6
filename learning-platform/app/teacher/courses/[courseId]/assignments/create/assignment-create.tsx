@@ -6,6 +6,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { type FormEvent, useCallback, useEffect, useState } from "react";
 
+import { BLOB_UPLOAD_ACCESS } from "@/lib/uploads/access";
+
 type Course = {
   id: string;
   title: string;
@@ -87,26 +89,31 @@ export default function AssignmentCreate({ courseId }: { courseId: string }) {
     setUploading(true);
     const uploaded: UploadedDocument[] = [];
     const failures: UploadFailure[] = [];
-    for (const file of selected) {
-      try {
-        const mimeType = fileMime(file);
-        const blob = await upload(
-          `learning-platform/courses/${courseId}/assignments/${assignmentId}/${crypto.randomUUID()}/${file.name}`,
-          file,
-          {
-            access: "private",
-            handleUploadUrl: "/api/uploads/token",
-            clientPayload: JSON.stringify({ courseId, assignmentId, contentType: mimeType, size: file.size }),
-          },
-        );
-        uploaded.push({ id: crypto.randomUUID(), kind: "FILE", name: file.name, mimeType, size: file.size, blobPathname: blob.pathname });
-      } catch (error) {
-        failures.push({ id: crypto.randomUUID(), name: file.name, message: error instanceof Error ? error.message : "Upload failed." });
+    try {
+      for (const file of selected) {
+        try {
+          const mimeType = fileMime(file);
+          const blob = await upload(
+            `learning-platform/courses/${courseId}/assignments/${assignmentId}/${crypto.randomUUID()}/${file.name}`,
+            file,
+            {
+              access: BLOB_UPLOAD_ACCESS,
+              handleUploadUrl: "/api/uploads/token",
+              clientPayload: JSON.stringify({ courseId, assignmentId, contentType: mimeType, size: file.size }),
+            },
+          );
+          uploaded.push({ id: crypto.randomUUID(), kind: "FILE", name: file.name, mimeType, size: file.size, blobPathname: blob.pathname });
+        } catch (error) {
+          failures.push({ id: crypto.randomUUID(), name: file.name, message: error instanceof Error ? error.message : "Upload failed." });
+        }
       }
+      setDocuments((current) => [...current, ...uploaded]);
+      setUploadFailures(failures);
+    } catch (error) {
+      setNotice(error instanceof Error ? error.message : "Could not upload the files.");
+    } finally {
+      setUploading(false);
     }
-    setDocuments((current) => [...current, ...uploaded]);
-    setUploadFailures(failures);
-    setUploading(false);
   }
 
   async function submit(event: FormEvent) {

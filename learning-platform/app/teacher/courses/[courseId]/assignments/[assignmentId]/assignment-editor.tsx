@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, Check, CheckCircle2, ChevronDown, FileText, GripVertical, Lightbulb, LoaderCircle, Pencil, Plus, RefreshCw, Save, Send, Sparkles, Trash2, Upload, WandSparkles, X } from "lucide-react";
 import { type FormEvent, useCallback, useEffect, useMemo, useState } from "react";
 import InteractiveLabsPanel, { type Lab } from "./interactive-labs-panel";
+import { BLOB_UPLOAD_ACCESS } from "@/lib/uploads/access";
 
 type QuestionType = "single_choice" | "multi_choice" | "fill_blank" | "short_answer";
 type Question = { id: string; origin: "ai_generated" | "teacher_authored"; type: QuestionType; objective: "knowledge" | "comprehension" | "application" | "synthesis" | "innovation"; difficulty: "easy" | "medium" | "hard"; entityIds: string[]; prompt: string; options: string[]; answer: string; explanation: string; score: number; evidenceRefs: string[]; warnings: string[] };
@@ -129,7 +130,7 @@ function SourcesPanel({ courseId, assignmentId, assignment, editable, onRefresh,
   async function act(label: string, task: () => Promise<void>) { setBusy(label); onNotice(""); try { await task(); await onRefresh(); window.setTimeout(() => void onRefresh(), 1200); window.setTimeout(() => void onRefresh(), 3000); } catch (error) { onNotice(error instanceof Error ? error.message : "Source action failed."); } finally { setBusy(""); } }
   async function uploadFile(file: File) {
     const mimeType = sourceMime(file);
-    const blob = await upload(`learning-platform/courses/${courseId}/assignments/${assignmentId}/${crypto.randomUUID()}/${file.name}`, file, { access: "private", handleUploadUrl: "/api/uploads/token", clientPayload: JSON.stringify({ courseId, assignmentId, contentType: mimeType, size: file.size }) });
+    const blob = await upload(`learning-platform/courses/${courseId}/assignments/${assignmentId}/${crypto.randomUUID()}/${file.name}`, file, { access: BLOB_UPLOAD_ACCESS, handleUploadUrl: "/api/uploads/token", clientPayload: JSON.stringify({ courseId, assignmentId, contentType: mimeType, size: file.size }) });
     return { kind: "FILE", name: file.name, mimeType, size: file.size, blobPathname: blob.pathname };
   }
   const processing = ["INGESTING", "EXTRACTING_ENTITIES"].includes(assignment.status);

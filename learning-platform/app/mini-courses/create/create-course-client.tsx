@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, ArrowRight, Loader2, Sparkles, Wand2 } from "lucide-react";
@@ -90,6 +90,44 @@ export function CreateCourseClient({ initialDraftId = null }: { initialDraftId?:
   const [busy, setBusy] = useState<"" | "draft" | "outline" | "create">("");
   const [error, setError] = useState("");
   const [fieldError, setFieldError] = useState("");
+
+  const resetWizard = useCallback(() => {
+    setDraftId(null);
+    setMaterials([]);
+    setStep(1);
+    setNotes("");
+    setResources([]);
+    setSuggestion(null);
+    setTitle("");
+    setSubject("");
+    setSummary("");
+    setAudience("");
+    setLevel("beginner");
+    setBackground("beginner");
+    setDurationMinutes(30);
+    setLanguage("en");
+    setObjectives([]);
+    setObjectiveDraft("");
+    setChapterCount(4);
+    setTopics(["", "", "", ""]);
+    setIncludeReview(true);
+    setOutline(null);
+    setBusy("");
+    setError("");
+    setFieldError("");
+  }, []);
+
+  const hasShownRef = useRef(false);
+
+  useEffect(() => {
+    if (!hasShownRef.current) {
+      hasShownRef.current = true;
+      return;
+    }
+    // Next keeps this route mounted, so resetting when the page is shown again
+    // makes each visit start a new course instead of reusing the last input.
+    if (!initialDraftId) queueMicrotask(() => resetWizard());
+  }, [initialDraftId, resetWizard]);
 
   useEffect(() => {
     if (!initialDraftId) return;
@@ -324,9 +362,14 @@ export function CreateCourseClient({ initialDraftId = null }: { initialDraftId?:
       if (!response.ok) {
         throw new Error(data.error || "Could not create the mini-course.");
       }
+      // Next keeps this route mounted for back/forward navigation, so clear the
+      // wizard before leaving. Otherwise the next "Create course" restores this
+      // course's data and the buttons stay disabled by the stale busy state.
+      if (!initialDraftId) resetWizard();
       router.push(`/courses/${data.course.id}/edit`);
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Could not create the mini-course.");
+    } finally {
       setBusy("");
     }
   }
@@ -709,7 +752,7 @@ export function CreateCourseClient({ initialDraftId = null }: { initialDraftId?:
               <button
                 type="button"
                 onClick={writeMyself}
-                disabled={busy !== ""}
+                disabled={busy === "outline"}
                 className="inline-flex min-h-10 items-center gap-2 rounded-xl bg-[#193b61] px-4 text-sm font-semibold text-white disabled:opacity-50"
               >
                 Create the outline myself
@@ -717,7 +760,7 @@ export function CreateCourseClient({ initialDraftId = null }: { initialDraftId?:
               <button
                 type="button"
                 onClick={generateOutline}
-                disabled={busy !== ""}
+                disabled={busy === "outline"}
                 className="inline-flex min-h-10 items-center gap-2 rounded-xl border border-[#c6d2df] bg-white px-3 text-sm font-semibold text-[#193b61] disabled:opacity-50"
               >
                 {busy === "outline" ? (
@@ -798,7 +841,7 @@ export function CreateCourseClient({ initialDraftId = null }: { initialDraftId?:
               <button
                 type="button"
                 onClick={generateOutline}
-                disabled={busy !== ""}
+                disabled={busy === "outline" || busy === "create"}
                 className="inline-flex min-h-10 items-center gap-2 rounded-xl border border-[#c6d2df] bg-white px-3 text-sm font-semibold text-[#193b61] disabled:opacity-50"
               >
                 <Wand2 className="size-4" aria-hidden="true" />
@@ -807,7 +850,7 @@ export function CreateCourseClient({ initialDraftId = null }: { initialDraftId?:
               <button
                 type="button"
                 onClick={create}
-                disabled={busy !== ""}
+                disabled={busy === "outline" || busy === "create"}
                 className="inline-flex min-h-10 items-center gap-2 rounded-xl bg-[#193b61] px-4 text-sm font-semibold text-white disabled:opacity-50"
               >
                 {busy === "create" ? (

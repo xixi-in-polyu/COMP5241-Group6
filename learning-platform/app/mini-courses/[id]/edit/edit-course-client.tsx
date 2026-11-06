@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { Loader2, Plus, Sparkles, Trash2 } from "lucide-react";
+import { Download, FileText, Loader2, Plus, Sparkles, Trash2 } from "lucide-react";
 
 import { BlockListEditor } from "@/app/components/mini-course/block-list-editor";
 import { MaterialsEditor } from "@/app/components/mini-course/materials-editor";
@@ -214,6 +214,8 @@ export function EditCourseClient({ initial }: { initial: UnifiedCourse }) {
     patchChapter(index, { resources });
   }
 
+  const courseFiles = draft.materials.filter((material) => material.kind === "file");
+
   return (
     <main className="mx-auto w-full max-w-4xl px-5 py-8 sm:px-8">
       <div className="flex flex-wrap items-start justify-between gap-3">
@@ -362,6 +364,38 @@ export function EditCourseClient({ initial }: { initial: UnifiedCourse }) {
       <Card className="mt-4 p-5">
         <p className="text-sm font-semibold text-[#142f4d]">Course files</p>
         <p className="mt-1 text-xs leading-5 text-[#6a7c90]">Upload replacement source files and regenerate the course details and chapter outline from the beginning.</p>
+        {courseFiles.length ? (
+          <ul className="mt-3 space-y-2">
+            {courseFiles.map((material) => {
+              const downloadable = material.status === "ready" || material.status === "download_only";
+              return (
+                <li
+                  key={material.id}
+                  className="flex flex-wrap items-center gap-3 rounded-xl border border-slate-200 bg-[#fbfcfe] px-3 py-2.5"
+                >
+                  <FileText className="size-4 shrink-0 text-[#54738f]" aria-hidden="true" />
+                  <span className="min-w-0 flex-1 truncate text-sm font-medium text-[#193b61]">{material.name}</span>
+                  <span className="shrink-0 text-xs text-slate-500">
+                    {(material.size / 1024 / 1024).toFixed(2)} MiB · {material.status.replaceAll("_", " ")}
+                  </span>
+                  {downloadable ? (
+                    <a
+                      className="inline-flex shrink-0 items-center gap-1 text-xs font-semibold text-[#24496f] hover:underline"
+                      href={`/api/courses/${initial.id}/materials/${material.id}/download`}
+                    >
+                      <Download className="size-3.5" aria-hidden="true" />
+                      Download
+                    </a>
+                  ) : null}
+                </li>
+              );
+            })}
+          </ul>
+        ) : (
+          <p className="mt-3 rounded-xl border border-dashed border-slate-300 px-4 py-3 text-xs text-slate-500">
+            No course files yet. Upload a PDF, DOCX, PPTX or TXT file to ground the course.
+          </p>
+        )}
         <Link href={`/courses/create?draftId=${initial.id}`} className="mt-3 inline-flex rounded-lg bg-[#193b61] px-3 py-2 text-xs font-semibold text-white">Re-upload and regenerate</Link>
       </Card>
 

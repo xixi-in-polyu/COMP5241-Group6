@@ -1,7 +1,8 @@
 import { handleUpload, type HandleUploadBody } from "@vercel/blob/client";
 import { z } from "zod";
-import { ApiError, apiError, ownedAssignment } from "@/lib/api";
+import { ApiError, apiError } from "@/lib/api";
 import { assertCourseWritesEnabled, requireCourseUser, requireOwnedCourse } from "@/lib/courses/auth";
+import { prisma } from "@/lib/prisma";
 
 const payloadSchema = z.object({
   courseId: z.string().uuid(),
@@ -32,8 +33,13 @@ export async function POST(request: Request) {
         await requireOwnedCourse(input.courseId, user.id);
         if (input.assignmentId) {
           if (user.role !== "teacher") throw new ApiError(403, "Teacher access required.");
-          const assignment = await ownedAssignment(input.assignmentId, user.id);
-          if (assignment.courseId !== input.courseId) throw new ApiError(422, "Assignment does not belong to this course.");
+          const assignment = await prisma.assignment.findUnique({
+            where: { id: input.assignmentId },
+            select: { courseId: true },
+          });
+          if (assignment && assignment.courseId !== input.courseId) {
+            throw new ApiError(422, "Assignment does not belong to this course.");
+          }
         }
         const prefix = input.assignmentId
           ? `learning-platform/courses/${input.courseId}/assignments/${input.assignmentId}/`
