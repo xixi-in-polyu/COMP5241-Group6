@@ -7,6 +7,7 @@ import { zodTextFormat } from "openai/helpers/zod";
 import { ApiError } from "@/lib/api";
 import { getAiConfig } from "@/lib/ai/config";
 import { truncateCourseSources } from "@/lib/courses/source-budget";
+import { promptSchema } from "@/lib/ai/schema-prompt";
 import { recordMiniCourseAiUsage } from "./ai-usage";
 
 /**
@@ -98,24 +99,57 @@ export async function structured<T>(input: {
       return input.schema.parse(response.output_parsed);
     }
 
-    const response = await openai.chat.completions.create({
-      model: config.model,
-      messages: [
-        {
-          role: "system",
-          content: `${input.developer}\nReturn only JSON matching this schema: ${JSON.stringify(
-            z.toJSONSchema(input.schema),          )}`,
-        },
-        { role: "user", content: JSON.stringify(input.data) },
-      ],
-      response_format: { type: "json_object" },
-      temperature: 0.2,
-      max_tokens: input.maxTokens,
-    });
+    const conversation: {
+      role: "system" | "user" | "assistant";
+      content: string;
+    }[] = [
+      { role: "system", content: `${input.developer}\n\n${promptSchema(input.schema)}` },
+      { role: "user", content: JSON.stringify(input.data) },
+    ];
 
-    const parsed = input.schema.parse(
-      parseJsonLoose(response.choices[0]?.message.content ?? ""),
-    );
+    const ask = () =>
+      openai.chat.completions.create({
+        model: config.model,
+        messages: conversation,
+        response_format: { type: "json_object" },
+        temperature: 0.2,
+        max_tokens: input.maxTokens,
+      });
+
+    let response = await ask();
+    let parsed: T;
+
+    try {
+      parsed = input.schema.parse(
+        parseJsonLoose(response.choices[0]?.message.content ?? ""),
+      );
+    } catch (error) {
+      // A weaker provider sometimes returns truncated or malformed JSON, or
+      // drops a required field. The chance of recovering is high when the
+      // concrete complaint is repeated back, so spend one extra round before
+      // giving up. Anything other than a bad reply already threw above.
+      const complaint =
+        error instanceof z.ZodError
+          ? error.issues
+              .map((issue) => `${issue.path.join(".") || "(root)"}: ${issue.message}`)
+              .join("; ")
+          : `the reply was not valid JSON (${error instanceof Error ? error.message : String(error)})`;
+      const rejected = response.choices[0]?.message.content?.trim() ?? "";
+      console.warn(
+        `[mini-course-ai:${input.operation}] retrying after a rejected reply: ${complaint}`,
+      );
+      if (rejected) {
+        conversation.push({ role: "assistant", content: rejected });
+      }
+      conversation.push({
+        role: "user",
+        content: `That reply was rejected: ${complaint}. Return the corrected JSON object only. Every string value must be valid JSON — escape double quotes and do not put raw line breaks inside a string — and every field listed in "required" must be present.`,
+      });
+      response = await ask();
+      parsed = input.schema.parse(
+        parseJsonLoose(response.choices[0]?.message.content ?? ""),
+      );
+    }
 
     await recordMiniCourseAiUsage({
       courseId: input.courseId,

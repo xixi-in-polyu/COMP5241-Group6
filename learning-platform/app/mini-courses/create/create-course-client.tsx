@@ -324,7 +324,13 @@ export function CreateCourseClient({ initialDraftId = null }: { initialDraftId?:
       });
       const data = await response.json().catch(() => ({}));
       if (!response.ok) {
-        throw new Error(data.error || "The AI service is not available right now.");
+        // Surface the first validation issue: "Validation failed." alone tells the
+        // author nothing about which field the form sent wrong.
+        const issue = Array.isArray(data.details) ? data.details[0] : null;
+        const suffix = issue
+          ? ` (${(issue.path ?? []).join(".") || "body"}: ${issue.message})`
+          : "";
+        throw new Error(`${data.error || "The AI service is not available right now."}${suffix}`);
       }
       const chapters = data.chapters as {
         title: string;
