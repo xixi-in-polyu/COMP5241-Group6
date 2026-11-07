@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, ArrowRight, Loader2, Sparkles, Wand2 } from "lucide-react";
 
-import { MaterialsEditor } from "@/app/components/mini-course/materials-editor";
 import { CourseMaterialsEditor } from "@/app/components/course-materials-editor";
 import { Badge, Card } from "@/app/components/mini-course/ui";
 import { BACKGROUNDS, BLOCK_TYPE_LABELS, LEVELS } from "@/lib/mini-courses/labels";
@@ -420,8 +419,7 @@ export function CreateCourseClient({ initialDraftId = null }: { initialDraftId?:
               <div>
                 <h2 className="text-sm font-semibold text-[#142f4d]">Course materials</h2>
                 <p className="mt-1 text-xs leading-5 text-[#6a7c90]">
-                  Optional. Paste notes or upload files for AI grounding. Links are published as
-                  learning resources only and are never fetched or sent to AI.
+                  Optional. Paste notes or upload files for AI grounding.
                 </p>
               </div>
               <button
@@ -445,9 +443,6 @@ export function CreateCourseClient({ initialDraftId = null }: { initialDraftId?:
               onChange={(event) => setNotes(event.target.value)}
               placeholder="Paste lecture notes, a transcript, or a source summary…"
             />
-            <div className="mt-3">
-              <MaterialsEditor resources={resources} onChange={setResources} showHeading={false} />
-            </div>
             <div className="mt-4 border-t border-slate-100 pt-4">
               <CourseMaterialsEditor courseId={draftId} materials={materials} selectionMaterials={materials} showAiSelection ensureCourse={() => ensureDraft(true)} onRefresh={readCourse} />
             </div>
