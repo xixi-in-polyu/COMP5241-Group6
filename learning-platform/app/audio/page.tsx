@@ -7,5 +7,5 @@ export const instant = false;
 
 export default async function AudioPage() {
   const student = await requirePageRole("student");
-  return <AudioExplanation user={student} />;
+  return <AudioExplanation studentId={student.id} user={student} />;
 }

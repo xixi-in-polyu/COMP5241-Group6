@@ -11,8 +11,9 @@ import {
   type ScenarioRequester,
   type ScenarioResult,
 } from "@/lib/interactive-learning/scenarios";
+import GameClient from "@/app/video-lessons/game-client";
 
-type Tab = "requirements" | "reliability" | "workshop";
+type Tab = "lifecycle" | "requirements" | "reliability" | "workshop";
 type ChatMessage = { role: "user" | "assistant"; content: string };
 type DefectReport = {
   scenario: string;
@@ -39,6 +40,7 @@ const initialClientMessage = `Hello! We need a system to help us manage our staf
 Could you help me figure out what details we should decide for each of these?`;
 
 const tabs: { id: Tab; label: string }[] = [
+  { id: "lifecycle", label: "SDLC Game" },
   { id: "requirements", label: "Requirements Analysis" },
   { id: "reliability", label: "Reliability Lab" },
   { id: "workshop", label: "Code Workshop" },
@@ -611,7 +613,7 @@ function WorkshopTab() {
 }
 
 export default function InteractiveLearning() {
-  const [activeTab, setActiveTab] = useState<Tab>("requirements");
+  const [activeTab, setActiveTab] = useState<Tab | null>(null);
 
   return (
     <PageShell breadcrumbs={[{ label: "Interactive lab" }]} homeHref="/">
@@ -622,7 +624,8 @@ export default function InteractiveLearning() {
               Interactive Learning
             </h1>
             <p className="mt-1 text-sm text-slate-600">
-              Practice requirements discovery, reliability testing, and code review.
+              Practice the software development lifecycle, requirements discovery,
+              reliability testing, and code review.
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -670,15 +673,18 @@ export default function InteractiveLearning() {
             </button>
           ))}
         </div>
-        <div
-          aria-labelledby={`tab-${activeTab}`}
-          id={`panel-${activeTab}`}
-          role="tabpanel"
-        >
-          {activeTab === "requirements" && <RequirementsTab />}
-          {activeTab === "reliability" && <ReliabilityTab />}
-          {activeTab === "workshop" && <WorkshopTab />}
-        </div>
+        {activeTab && (
+          <div
+            aria-labelledby={`tab-${activeTab}`}
+            id={`panel-${activeTab}`}
+            role="tabpanel"
+          >
+            {activeTab === "lifecycle" && <GameClient />}
+            {activeTab === "requirements" && <RequirementsTab />}
+            {activeTab === "reliability" && <ReliabilityTab />}
+            {activeTab === "workshop" && <WorkshopTab />}
+          </div>
+        )}
       </div>
     </PageShell>
   );

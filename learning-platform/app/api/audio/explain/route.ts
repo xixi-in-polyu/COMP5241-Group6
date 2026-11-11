@@ -5,7 +5,7 @@ import { getAiConfig } from "@/lib/ai/config";
 import { requirePageRole } from "@/lib/auth/authorization";
 
 const inputSchema = z.object({
-  pageText: z.string().min(1).max(30_000),
+  pageText: z.string().min(1).max(100_000),
   pageNumber: z.number().int().positive(),
   pageCount: z.number().int().positive(),
   previousPageText: z.string().max(1_200).default(""),
@@ -17,6 +17,12 @@ const outputSchema = z.object({
   continuesNextPage: z.boolean(),
 });
 type Explanation = z.infer<typeof outputSchema>;
+
+function limitContext(value: string, maximum: number) {
+  if (value.length <= maximum) return value;
+  const suffixLength = Math.floor(maximum / 5);
+  return `${value.slice(0, maximum - suffixLength)}\n...\n${value.slice(-suffixLength)}`;
+}
 
 function parseResponse(value: string): Explanation {
   const unfenced = value.trim().replace(/^```(?:json)?\s*/i, "").replace(/```$/i, "").trim();
@@ -62,7 +68,7 @@ Return only JSON with exactly: {"explanation":"...","continuesNextPage":true|fal
           content: JSON.stringify({
             currentPage: input.pageNumber,
             totalPages: input.pageCount,
-            pageText: input.pageText,
+            pageText: limitContext(input.pageText, 30_000),
             previousPageContext: input.previousPageText.slice(-1_200),
             nextPageContext: input.nextPageText.slice(0, 1_200),
           }),
@@ -78,7 +84,13 @@ Return only JSON with exactly: {"explanation":"...","continuesNextPage":true|fal
         finishReason: response.choices[0]?.finish_reason,
         model: config.model,
       });
-      return Response.json({ error: "The AI provider returned an empty explanation." }, { status: 502 });
+      return Response.json(
+        {
+          code: "NO_EXPLAINABLE_TEXT",
+          error: "no explanable text found in pdf",
+        },
+        { status: 422 },
+      );
     }
     return Response.json(parseResponse(content));
   } catch (error) {

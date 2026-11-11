@@ -5,6 +5,13 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { PageShell } from "@/app/components/page-shell";
 import { ArrowLeft, ArrowRight, AudioLines, BookOpen, FileUp, Pause, Play, RotateCcw, Volume2 } from "lucide-react";
 
+import {
+  createAudioFingerprint,
+  listAudioHistory,
+  saveAudioHistoryDocument,
+  type AudioHistoryDocument,
+  type SavedExplanation,
+} from "./audio-history";
 import type { PdfDocument } from "./pdf-viewer";
 
 const PdfViewer = dynamic(() => import("./pdf-viewer"), {
@@ -17,8 +24,19 @@ const PdfViewer = dynamic(() => import("./pdf-viewer"), {
 });
 
 type PdfPage = { text: string; pageNumber: number };
-type Explanation = { explanation: string; continuesNextPage: boolean };
+type Explanation = SavedExplanation;
 type SpeechWord = { text: string; start: number; end: number };
+const noExplainableTextMessage = "no explanable text found in pdf";
+
+function limitContext(value: string, maximum: number) {
+  if (value.length <= maximum) return value;
+  const suffixLength = Math.floor(maximum / 5);
+  return `${value.slice(0, maximum - suffixLength)}\n...\n${value.slice(-suffixLength)}`;
+}
+
+function getTimestamp() {
+  return new Date().getTime();
+}
 
 function isExplanation(value: unknown): value is Explanation {
   return (
@@ -29,19 +47,24 @@ function isExplanation(value: unknown): value is Explanation {
   );
 }
 
-export default function AudioExplanation({ user }: { user: { id: string; email: string } }) {
+export default function AudioExplanation({ studentId, user }: { studentId: string; user: { id: string; email: string } }) {
   const [fileUrl, setFileUrl] = useState("");
   const [fileName, setFileName] = useState("");
+  const [history, setHistory] = useState<AudioHistoryDocument[]>([]);
+  const [currentDocumentId, setCurrentDocumentId] = useState("");
+  const [isHistoryOpen, setIsHistoryOpen] = useState(true);
   const [pages, setPages] = useState<PdfPage[]>([]);
   const [pdfPages, setPdfPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [explanation, setExplanation] = useState<Explanation | null>(null);
+  const [noExplainableText, setNoExplainableText] = useState(false);
   const [isExplaining, setIsExplaining] = useState(false);
   const [error, setError] = useState("");
   const [isPlaying, setIsPlaying] = useState(false);
   const [wordIndex, setWordIndex] = useState(-1);
   const [pdfZoom, setPdfZoom] = useState(1);
   const pdfDocumentRef = useRef<PdfDocument | null>(null);
+  const speechRequestRef = useRef(0);
   const speechText = explanation?.explanation ?? "";
   const words = useMemo<SpeechWord[]>(() => {
     const matches = [...speechText.matchAll(/\S+/g)];
@@ -54,13 +77,51 @@ export default function AudioExplanation({ user }: { user: { id: string; email: 
   const speechSegments = useMemo(() => speechText.split(/(\s+)/), [speechText]);
 
   useEffect(() => {
+    let active = true;
+    void listAudioHistory(studentId)
+      .then((documents) => {
+        if (active) setHistory(documents);
+      })
+      .catch(() => {
+        if (active) setError("Saved audio history could not be loaded.");
+      });
+    return () => {
+      active = false;
+    };
+  }, [studentId]);
+
+  useEffect(() => {
     return () => {
       window.speechSynthesis.cancel();
       if (fileUrl) URL.revokeObjectURL(fileUrl);
     };
   }, [fileUrl]);
 
-  function handleFile(file: File | undefined) {
+  function applySavedExplanation(document: AudioHistoryDocument, pageNumber: number) {
+    const saved = document.explanations[String(pageNumber)] ?? null;
+    setExplanation(saved);
+    setNoExplainableText(false);
+    setWordIndex(-1);
+  }
+
+  function openDocument(document: AudioHistoryDocument) {
+    stopSpeech();
+    setError("");
+    setCurrentDocumentId(document.id);
+    setFileName(document.name);
+    setFileUrl((previous) => {
+      if (previous) URL.revokeObjectURL(previous);
+      return URL.createObjectURL(new Blob([document.pdfData], { type: "application/pdf" }));
+    });
+    setPages([]);
+    setPdfPages(document.pageCount);
+    setCurrentPage(1);
+    setPdfZoom(1);
+    pdfDocumentRef.current = null;
+    applySavedExplanation(document, 1);
+  }
+
+  async function handleFile(file: File | undefined) {
     if (!file) return;
     if (file.type !== "application/pdf") {
       setError("Please choose a PDF study material.");
@@ -71,25 +132,56 @@ export default function AudioExplanation({ user }: { user: { id: string; email: 
     setWordIndex(-1);
     setError("");
     setExplanation(null);
+    setNoExplainableText(false);
     setPages([]);
     pdfDocumentRef.current = null;
     setCurrentPage(1);
     setPdfPages(0);
     setPdfZoom(1);
-    setFileName(file.name);
+    try {
+      const fingerprint = await createAudioFingerprint(file);
+      const existing = (await listAudioHistory(studentId)).find((document) => document.fingerprint === fingerprint);
+      if (existing) {
+        openDocument(existing);
+        return;
+      }
+      const document: AudioHistoryDocument = {
+        id: crypto.randomUUID(),
+        name: file.name,
+        size: file.size,
+        fingerprint,
+        pageCount: 0,
+        pdfData: await file.arrayBuffer(),
+        explanations: {},
+        updatedAt: getTimestamp(),
+      };
+      await saveAudioHistoryDocument(studentId, document);
+      setHistory((documents) => [document, ...documents]);
+      setCurrentDocumentId(document.id);
+      setFileName(file.name);
+    } catch (caught) {
+      setError(caught instanceof Error ? caught.message : "The PDF could not be saved.");
+      return;
+    }
     setFileUrl((previous) => {
       if (previous) URL.revokeObjectURL(previous);
       return URL.createObjectURL(file);
     });
   }
 
-  function handleDocumentLoad(pdf: PdfDocument) {
+  async function handleDocumentLoad(pdf: PdfDocument) {
     setPdfPages(pdf.numPages);
     pdfDocumentRef.current = pdf;
     setPages(Array.from({ length: pdf.numPages }, (_, index) => ({
       pageNumber: index + 1,
       text: "",
     })));
+    const document = history.find((item) => item.id === currentDocumentId);
+    if (document && document.pageCount !== pdf.numPages) {
+      const updated = { ...document, pageCount: pdf.numPages, updatedAt: getTimestamp() };
+      await saveAudioHistoryDocument(studentId, updated);
+      setHistory((documents) => documents.map((item) => item.id === updated.id ? updated : item));
+    }
   }
 
   async function extractPageText(pageNumber: number) {
@@ -105,6 +197,13 @@ export default function AudioExplanation({ user }: { user: { id: string; email: 
   }
 
   async function explainPage() {
+    const document = history.find((item) => item.id === currentDocumentId);
+    const saved = document?.explanations[String(currentPage)];
+    if (saved) {
+      stopSpeech();
+      setExplanation(saved);
+      return;
+    }
     const contextPageNumbers = [currentPage - 1, currentPage, currentPage + 1]
       .filter((pageNumber) => pageNumber >= 1 && pageNumber <= pdfPages);
     setIsExplaining(true);
@@ -121,7 +220,8 @@ export default function AudioExplanation({ user }: { user: { id: string; email: 
       );
       const page = extracted.find((item) => item.pageNumber === currentPage);
       if (!page?.text) {
-        throw new Error("This page does not contain selectable text, so it cannot be explained.");
+        setNoExplainableText(true);
+        return;
       }
       const previousPageText = extracted.find((item) => item.pageNumber === currentPage - 1)?.text ?? "";
       const nextPageText = extracted.find((item) => item.pageNumber === currentPage + 1)?.text ?? "";
@@ -129,14 +229,25 @@ export default function AudioExplanation({ user }: { user: { id: string; email: 
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          pageText: page.text,
+          pageText: limitContext(page.text, 100_000),
           pageNumber: currentPage,
           pageCount: pdfPages,
-          previousPageText,
-          nextPageText,
+          previousPageText: previousPageText.slice(-1_200),
+          nextPageText: nextPageText.slice(0, 1_200),
         }),
       });
       const result: unknown = await response.json();
+      if (
+        typeof result === "object" &&
+        result !== null &&
+        "code" in result &&
+        result.code === "NO_EXPLAINABLE_TEXT"
+      ) {
+        setError("");
+        setExplanation(null);
+        setNoExplainableText(true);
+        return;
+      }
       if (!response.ok || !isExplanation(result)) {
         throw new Error(
           typeof result === "object" && result !== null && "error" in result
@@ -144,7 +255,17 @@ export default function AudioExplanation({ user }: { user: { id: string; email: 
             : "The page could not be explained.",
         );
       }
+      setNoExplainableText(false);
       setExplanation(result);
+      if (document) {
+        const updated = {
+          ...document,
+          explanations: { ...document.explanations, [String(currentPage)]: result },
+          updatedAt: getTimestamp(),
+        };
+        await saveAudioHistoryDocument(studentId, updated);
+        setHistory((documents) => documents.map((item) => item.id === updated.id ? updated : item));
+      }
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : "The page could not be explained.");
     } finally {
@@ -153,34 +274,46 @@ export default function AudioExplanation({ user }: { user: { id: string; email: 
   }
 
   function stopSpeech() {
+    speechRequestRef.current += 1;
     window.speechSynthesis.cancel();
     setIsPlaying(false);
     setWordIndex(-1);
   }
 
   function pauseSpeech() {
+    speechRequestRef.current += 1;
     window.speechSynthesis.cancel();
     setIsPlaying(false);
   }
 
   function playSpeech() {
     if (!speechText) return;
+    const requestId = speechRequestRef.current + 1;
+    speechRequestRef.current = requestId;
     window.speechSynthesis.cancel();
+    setError("");
     const startWord = wordIndex >= 0 ? wordIndex : 0;
     const startOffset = words[startWord]?.start ?? 0;
     const remainingText = speechText.slice(startOffset);
     const utterance = new SpeechSynthesisUtterance(remainingText);
     utterance.rate = 0.95;
-    utterance.onstart = () => setIsPlaying(true);
+    utterance.onstart = () => {
+      if (speechRequestRef.current !== requestId) return;
+      setIsPlaying(true);
+    };
     utterance.onend = () => {
+      if (speechRequestRef.current !== requestId) return;
       setIsPlaying(false);
       setWordIndex(-1);
     };
-    utterance.onerror = () => {
+    utterance.onerror = (event) => {
+      if (speechRequestRef.current !== requestId) return;
       setIsPlaying(false);
-      setError("The browser could not play the explanation.");
+      if (event.error === "canceled" || event.error === "interrupted") return;
+      setError("The browser could not play the explanation. Please try Play again.");
     };
     utterance.onboundary = (event) => {
+      if (speechRequestRef.current !== requestId) return;
       if (typeof event.charIndex !== "number") return;
       const absoluteOffset = startOffset + event.charIndex;
       const activeWord = words.reduce(
@@ -195,13 +328,69 @@ export default function AudioExplanation({ user }: { user: { id: string; email: 
   function changePage(nextPage: number) {
     stopSpeech();
     setCurrentPage(nextPage);
-    setExplanation(null);
+    const document = history.find((item) => item.id === currentDocumentId);
+    setExplanation(document?.explanations[String(nextPage)] ?? null);
+    setNoExplainableText(false);
     setError("");
   }
 
   return (
     <PageShell breadcrumbs={[{ label: "Audio explanation" }]} homeHref="/student" user={user}>
       <div className="mx-auto max-w-[1300px]">
+
+        <aside
+          aria-label="Audio explanation history"
+          className={`fixed left-0 top-24 z-30 rounded-r-2xl border border-l-0 border-slate-200 bg-white shadow-lg transition-[width] duration-200 ${
+            isHistoryOpen ? "w-72" : "w-12"
+          }`}
+        >
+          <button
+            type="button"
+            className="flex h-12 w-full items-center justify-center border-b border-slate-200 text-sm font-semibold text-[#193b61] hover:bg-slate-50"
+            onClick={() => setIsHistoryOpen((open) => !open)}
+            aria-expanded={isHistoryOpen}
+          >
+            {isHistoryOpen ? "Audio history" : ">"}
+          </button>
+          {isHistoryOpen ? (
+            <div className="max-h-[calc(100vh-10rem)] overflow-y-auto p-3">
+              <p className="mb-3 text-xs leading-5 text-slate-500">
+                Saved PDFs and explained pages are available here next time.
+              </p>
+              {history.length ? (
+                <ul className="space-y-2">
+                  {history.map((document) => {
+                    const explainedPages = Object.keys(document.explanations).length;
+                    return (
+                      <li key={document.id}>
+                        <button
+                          type="button"
+                          onClick={() => openDocument(document)}
+                          className={`w-full rounded-xl border p-3 text-left transition-colors hover:bg-slate-50 ${
+                            currentDocumentId === document.id
+                              ? "border-[#193b61] bg-blue-50"
+                              : "border-slate-200"
+                          }`}
+                        >
+                          <span className="block truncate text-sm font-semibold text-[#193b61]">
+                            {document.name}
+                          </span>
+                          <span className="mt-1 block text-xs text-slate-500">
+                            {explainedPages} of {document.pageCount || "..."} pages explained
+                          </span>
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              ) : (
+                <p className="rounded-xl bg-slate-50 p-3 text-xs leading-5 text-slate-500">
+                  Uploaded PDFs will appear here.
+                </p>
+              )}
+            </div>
+          ) : null}
+        </aside>
 
         <section className="mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
           <div className="flex flex-wrap items-center justify-between gap-4">
@@ -225,7 +414,7 @@ export default function AudioExplanation({ user }: { user: { id: string; email: 
             <div>
               <span className="mx-auto grid size-14 place-items-center rounded-2xl bg-[#d6efe4] text-[#2f6e56]"><BookOpen className="size-7" aria-hidden="true" /></span>
               <p className="mt-3 font-semibold">Upload study material to begin</p>
-              <p className="mt-1 text-sm text-slate-500">Your PDF is processed in this browser session and is not saved by this feature.</p>
+              <p className="mt-1 text-sm text-slate-500">Your PDF and saved explanations are kept in this browser for your account.</p>
             </div>
           </section>
         ) : (
@@ -265,7 +454,9 @@ export default function AudioExplanation({ user }: { user: { id: string; email: 
                 <Volume2 className="size-5 text-[#54738f]" aria-hidden="true" />
               </div>
               <div className="mt-4 min-h-44 flex-1 rounded-xl bg-[#f3f6fa] p-4 text-base leading-8 text-slate-700">
-                {speechText ? (() => {
+                {noExplainableText ? (
+                  <p className="text-sm leading-6 text-slate-500">{noExplainableTextMessage}</p>
+                ) : speechText ? (() => {
                   let wordNumber = 0;
                   return speechSegments.map((segment, index) => {
                     if (/^\s+$/.test(segment)) return <span key={`${segment}-${index}`}>{segment}</span>;
