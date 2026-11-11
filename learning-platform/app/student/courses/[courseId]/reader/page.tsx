@@ -40,8 +40,8 @@ export default async function CourseReaderPage({
 
   return (
     <main className="flex h-screen flex-col overflow-hidden bg-slate-50 p-4 text-slate-800 sm:p-6">
-      <div className="mx-auto flex min-h-0 w-full max-w-[1900px] flex-1 flex-col">
-        <WorkspaceHeader homeHref="/student">
+      <div className="mx-auto flex min-h-0 w-full max-w-[1280px] flex-1 flex-col">
+        <WorkspaceHeader breadcrumbs={[{ href: `/student/courses/${course.id}`, label: course.title }, { label: "Reader" }]} homeHref="/student">
           <AccountMenu user={student} />
         </WorkspaceHeader>
 

@@ -1,10 +1,10 @@
 "use client";
 
 import { upload } from "@vercel/blob/client";
-import Link from "next/link";
-import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, Check, CheckCircle2, ChevronDown, FileText, GripVertical, Lightbulb, LoaderCircle, Pencil, Plus, RefreshCw, Save, Send, Sparkles, Trash2, Upload, WandSparkles, X } from "lucide-react";
+import { ArrowDown, ArrowRight, ArrowUp, Check, CheckCircle2, ChevronDown, FileText, GripVertical, Lightbulb, LoaderCircle, Pencil, Plus, RefreshCw, Save, Send, Sparkles, Trash2, Upload, WandSparkles, X } from "lucide-react";
 import { type FormEvent, useCallback, useEffect, useMemo, useState } from "react";
 import InteractiveLabsPanel, { type Lab } from "./interactive-labs-panel";
+import { PageShell } from "@/app/components/page-shell";
 import { BLOB_UPLOAD_ACCESS } from "@/lib/uploads/access";
 
 type QuestionType = "single_choice" | "multi_choice" | "fill_blank" | "short_answer";
@@ -41,7 +41,19 @@ function answerAfterOptionRemoval(answer: string, removedIndex: number) {
   return answer.split(",").map((value) => value.trim().toUpperCase()).filter(Boolean).map((letter) => letter.charCodeAt(0) - 65).filter((index) => index >= 0 && index !== removedIndex).map((index) => String.fromCharCode(65 + (index > removedIndex ? index - 1 : index))).join(", ");
 }
 
-export default function AssignmentEditor({ courseId, assignmentId }: { courseId: string; assignmentId: string }) {
+function statusClasses(status: string) {
+  if (status === "READY" || status === "SUBMITTED" || status === "APPROVED") return "bg-[#d6efe4] text-[#2f6e56]";
+  if (status === "FAILED" || status === "REJECTED") return "bg-[#fbd9d2] text-[#a8452f]";
+  if (status === "DRAFT" || status.startsWith("AWAITING")) return "bg-[#fbeec2] text-[#8a6410]";
+  return "bg-[#d9e9f7] text-[#2d5f8a]";
+}
+
+function statusLabel(status: string) {
+  const words = status.toLowerCase().replaceAll("_", " ");
+  return words.charAt(0).toUpperCase() + words.slice(1);
+}
+
+export default function AssignmentEditor({ courseId, assignmentId, user }: { courseId: string; assignmentId: string; user: { id: string; email: string } }) {
   const [assignment, setAssignment] = useState<Assignment | null>(null); const [questions, setQuestions] = useState<Question[]>([]); const [dirty, setDirty] = useState(false); const [busy, setBusy] = useState(""); const [notice, setNotice] = useState(""); const [manualSlot, setManualSlot] = useState<number | null>(null); const [manualDraft, setManualDraft] = useState<Question>(() => emptyQuestion()); const [regenInstructions, setRegenInstructions] = useState<Record<string, string>>({}); const [activeStep, setActiveStep] = useState<number | null>(null); const [draftTab, setDraftTab] = useState<"questions" | "labs">("questions");
   const refresh = useCallback(async (preserveLocal = false) => { const result = await api<{ assignment: Assignment }>(`/api/assignments/${assignmentId}`); setAssignment(result.assignment); if (!preserveLocal) { setQuestions(result.assignment.questions); setDirty(false); } }, [assignmentId]);
   useEffect(() => { queueMicrotask(() => void refresh().catch((error) => setNotice(error.message))); }, [refresh]);
@@ -54,14 +66,13 @@ export default function AssignmentEditor({ courseId, assignmentId }: { courseId:
   function addQuestion() { if (!assignment) return; setQuestions((items) => [...items, emptyQuestion(assignment.entities.find((item) => item.selected)?.id)]); setDirty(true); }
   async function run(label: string, task: () => Promise<void>, shouldRefresh = true) { setBusy(label); setNotice(""); try { await task(); if (shouldRefresh) await refresh(dirty); } catch (error) { setNotice(error instanceof Error ? error.message : "Action failed."); } finally { setBusy(""); } }
   async function save() { await run("Saving draft", async () => { const result = await api<{ version: number }>(`/api/assignments/${assignmentId}`, { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ version: assignment!.version, questions }) }); setAssignment((value) => value ? { ...value, version: result.version, questions } : value); setDirty(false); }, false); }
-  if (!assignment) return <main className="grid min-h-screen place-items-center bg-slate-50"><LoaderCircle className="size-7 animate-spin"/></main>;
+  if (!assignment) return <PageShell breadcrumbs={[{ label: "Assignment" }]} homeHref="/teacher" user={user}><div className="grid min-h-[60vh] place-items-center"><LoaderCircle className="size-7 animate-spin" /></div></PageShell>;
   const currentStep = assignmentStep(assignment);
   const viewedStep = activeStep ?? currentStep;
   if (viewedStep !== 3 || !["DRAFT", "SUBMITTED"].includes(assignment.status)) {
-    return <WorkflowPage courseId={courseId} assignment={assignment} assignmentId={assignmentId} currentStep={currentStep} viewedStep={viewedStep} onStep={setActiveStep} onRefresh={() => refresh(dirty)} />;
+    return <WorkflowPage courseId={courseId} assignment={assignment} assignmentId={assignmentId} currentStep={currentStep} viewedStep={viewedStep} onStep={setActiveStep} onRefresh={() => refresh(dirty)} user={user} />;
   }
-  return <main className="min-h-screen bg-slate-50 px-5 py-8 text-slate-800"><div className="mx-auto max-w-6xl">
-    <Link href={`/teacher/courses/${courseId}`} className="inline-flex items-center gap-2 text-sm font-medium text-[#24496f]"><ArrowLeft className="size-4"/>Course workspace</Link>
+  return <PageShell breadcrumbs={[{ href: `/teacher/courses/${courseId}`, label: assignment.course.title ?? "Course" }, { label: assignment.title }]} homeHref="/teacher" user={user}><div className="mx-auto w-full max-w-5xl">
     <WorkflowTabs currentStep={currentStep} viewedStep={viewedStep} onStep={setActiveStep} />
     <header className="mt-5 flex flex-col justify-between gap-5 rounded-2xl bg-[#17324f] px-6 py-6 text-white shadow-sm lg:flex-row lg:items-center"><div><p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#a9bfd3]">03 · Review draft</p><h1 className="mt-2 text-2xl font-semibold tracking-tight">{assignment.title}</h1><p className="mt-1 text-xs text-[#bdccda]">Version {assignment.version} · {locked ? `Submitted ${new Date(assignment.submittedAt!).toLocaleString()}` : dirty ? "Unsaved changes" : "Draft saved"}</p></div><dl className="grid grid-cols-3 gap-2 sm:grid-cols-5">{[["Requested", assignment.originalBrief?.count ?? 0], ["Questions", questions.length], ["Total score", total], ["Failed", assignment.failedSlots.length], ["Warnings", assignment.qualityWarnings.length]].map(([label, value]) => <div key={label} className="min-w-20 rounded-xl border border-white/15 bg-white/5 px-3 py-2.5 text-center"><dd className="text-lg font-semibold text-white">{value}</dd><dt className="mt-0.5 text-[9px] uppercase tracking-wider text-[#bdccda]">{label}</dt></div>)}</dl></header>
     {notice && <p role="status" className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800">{notice}</p>}
@@ -74,7 +85,7 @@ export default function AssignmentEditor({ courseId, assignmentId }: { courseId:
     <div role="tabpanel" hidden={draftTab !== "labs"}><InteractiveLabsPanel assignmentId={assignmentId} assignmentVersion={assignment.version} labs={assignment.interactiveLabs ?? []} evidence={assignment.entities.flatMap((entity) => entity.evidence)} locked={locked} onRefresh={() => refresh(dirty)} onNotice={setNotice} /></div>
     <section role="tabpanel" hidden={draftTab !== "questions"} className="mt-4"><div className="space-y-3">{questions.map((question, index) => <QuestionCard key={question.id} question={question} index={index} count={questions.length} locked={locked} dirty={dirty} candidate={assignment.questionVersions.find((item) => item.questionId === question.id)} instruction={regenInstructions[question.id] || ""} entities={assignment.entities} onInstruction={(value) => setRegenInstructions((items) => ({ ...items, [question.id]: value }))} onChange={(values) => update(question.id, values)} onMove={(delta) => { const next = [...questions]; const target = index + delta; if (target < 0 || target >= next.length) return; [next[index], next[target]] = [next[target], next[index]]; setQuestions(next); setDirty(true); }} onDelete={() => { setQuestions((items) => items.filter((item) => item.id !== question.id)); setDirty(true); }} onRegenerate={() => void run("Generating candidate", async () => { await api(`/api/assignments/${assignmentId}/questions/${question.id}/candidate`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ instruction: regenInstructions[question.id] }) }); })} onResolve={(action) => void run(`${action} candidate`, async () => { await api(`/api/assignments/${assignmentId}/questions/${question.id}/candidate`, { method: "PATCH", headers: { "content-type": "application/json" }, body: JSON.stringify({ action, version: assignment.version }) }); })}/>)}{!locked && <button type="button" onClick={addQuestion} className="group flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-slate-300 bg-white/60 px-5 py-5 text-sm font-semibold text-[#54738f] transition-colors hover:border-[#9bb2c8] hover:bg-[#dfe9f2] hover:text-[#193b61] focus-visible:border-[#7f9bb5] focus-visible:bg-[#dfe9f2] focus-visible:text-[#193b61] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#dbe7f2]"><span className="grid size-7 place-items-center rounded-full border border-slate-300 bg-white transition-colors group-hover:border-[#9bb2c8] group-hover:bg-[#f4f8fb]"><Plus className="size-4" /></span>Add question</button>}</div></section>
     {busy && <div className="fixed bottom-5 right-5 flex items-center gap-2 rounded-xl bg-[#193b61] px-4 py-3 text-sm font-semibold text-white shadow-lg"><LoaderCircle className="size-4 animate-spin"/>{busy}</div>}
-  </div></main>;
+  </div></PageShell>;
 }
 
 const workflowSteps = ["Sources", "Knowledge", "Brief", "Draft"];
@@ -95,7 +106,7 @@ function WorkflowTabs({ currentStep, viewedStep, onStep, processing = false }: {
   })}</nav>;
 }
 
-function WorkflowPage({ courseId, assignmentId, assignment, currentStep, viewedStep, onStep, onRefresh }: { courseId: string; assignmentId: string; assignment: Assignment; currentStep: number; viewedStep: number; onStep: (step: number) => void; onRefresh: () => Promise<void> }) {
+function WorkflowPage({ courseId, assignmentId, assignment, currentStep, viewedStep, onStep, onRefresh, user }: { courseId: string; assignmentId: string; assignment: Assignment; currentStep: number; viewedStep: number; onStep: (step: number) => void; onRefresh: () => Promise<void>; user: { id: string; email: string } }) {
   const [notice, setNotice] = useState("");
   const [retrying, setRetrying] = useState(false);
   async function retryWorkflow() {
@@ -112,9 +123,8 @@ function WorkflowPage({ courseId, assignmentId, assignment, currentStep, viewedS
       setRetrying(false);
     }
   }
-  return <main className="min-h-screen bg-slate-50 px-5 py-8 text-slate-800"><div className="mx-auto max-w-6xl">
-    <Link href={`/teacher/courses/${courseId}`} className="inline-flex items-center gap-2 text-sm font-medium text-[#24496f]"><ArrowLeft className="size-4" />Course workspace</Link>
-    <header className="mt-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"><div className="flex flex-wrap items-start justify-between gap-4"><div><p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#54738f]">{assignment.course.title || "Assignment workflow"}</p><h1 className="mt-2 font-serif text-3xl text-[#142f4d]">{assignment.title}</h1><p className="mt-2 text-sm text-slate-600">{assignment.phase}</p></div><span className="rounded-full bg-[#edf2f7] px-3 py-1.5 text-xs font-semibold text-[#284b70]">{assignment.status.replaceAll("_", " ")}</span></div></header>
+  return <PageShell breadcrumbs={[{ href: `/teacher/courses/${courseId}`, label: assignment.course.title ?? "Course" }, { label: assignment.title }]} homeHref="/teacher" user={user}><div className="mx-auto w-full max-w-5xl">
+    <header className="mt-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"><div className="flex flex-wrap items-start justify-between gap-4"><div><p className="text-sm font-medium text-[#54738f]">{assignment.course.title || "Assignment workflow"}</p><h1 className="mt-2 text-3xl text-[#142f4d]">{assignment.title}</h1><p className="mt-2 text-sm text-slate-600">{assignment.phase}</p></div><span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold ${statusClasses(assignment.status)}`}><span className="size-1.5 rounded-full bg-current" />{statusLabel(assignment.status)}</span></div></header>
     <WorkflowTabs currentStep={currentStep} viewedStep={viewedStep} onStep={onStep} processing={["INGESTING", "EXTRACTING_ENTITIES", "GENERATING"].includes(assignment.status)} />
     {notice && <p role="alert" className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800">{notice}</p>}
     {assignment.status === "FAILED" && viewedStep === currentStep && <section className="mt-6 rounded-2xl border border-red-200 bg-white p-6"><h2 className="font-semibold text-red-800">Workflow failed</h2><p className="mt-2 text-sm text-slate-600">{assignment.error || "The workflow could not continue."}</p>{assignment.phase === "Assignment source workflow failed" && <button disabled={retrying} onClick={() => void retryWorkflow()} className="mt-4 inline-flex items-center gap-2 rounded-lg border border-red-200 bg-white px-4 py-2 text-sm font-semibold text-red-800 disabled:opacity-50">{retrying ? <LoaderCircle className="size-4 animate-spin" /> : <RefreshCw className="size-4" />}{retrying ? "Restarting…" : "Retry workflow"}</button>}</section>}
@@ -122,7 +132,7 @@ function WorkflowPage({ courseId, assignmentId, assignment, currentStep, viewedS
     {currentStep >= 1 && <div className={viewedStep === 1 ? "" : "hidden"}><KnowledgePanel key={assignment.entityRevision} assignmentId={assignmentId} assignment={assignment} editable={currentStep === 1 && assignment.status === "AWAITING_ENTITY_REVIEW"} onRefresh={onRefresh} onNotice={setNotice} /></div>}
     {currentStep >= 2 && <div className={viewedStep === 2 ? "" : "hidden"}><BriefPanel assignmentId={assignmentId} assignment={assignment} editable={currentStep === 2 && assignment.status === "READY_TO_GENERATE"} onRefresh={onRefresh} onNotice={setNotice} /></div>}
     {currentStep === 3 && <div className={viewedStep === 3 ? "" : "hidden"}><section className="mt-6 rounded-2xl border border-slate-200 bg-white p-8 text-center shadow-sm"><LoaderCircle className="mx-auto size-8 animate-spin text-[#193b61]" /><h2 className="mt-4 text-xl font-semibold text-[#193b61]">Generating grounded questions</h2><p className="mt-2 text-sm text-slate-600">Questions run in bounded batches. Each failed first attempt is repaired once automatically.</p></section></div>}
-  </div></main>;
+  </div></PageShell>;
 }
 
 function SourcesPanel({ courseId, assignmentId, assignment, editable, onRefresh, onNotice }: { courseId: string; assignmentId: string; assignment: Assignment; editable: boolean; onRefresh: () => Promise<void>; onNotice: (message: string) => void }) {

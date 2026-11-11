@@ -8,7 +8,7 @@ export default async function CreateAssignmentPage({
 }: {
   params: Promise<{ courseId: string }>;
 }) {
-  await requirePageRole("teacher");
+  const teacher = await requirePageRole("teacher");
   const { courseId } = await params;
-  return <AssignmentCreate courseId={courseId} />;
+  return <AssignmentCreate courseId={courseId} user={teacher} />;
 }

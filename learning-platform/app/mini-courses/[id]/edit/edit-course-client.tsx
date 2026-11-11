@@ -8,6 +8,8 @@ import { BlockListEditor } from "@/app/components/mini-course/block-list-editor"
 import { MaterialsEditor } from "@/app/components/mini-course/materials-editor";
 import { Badge, Card } from "@/app/components/mini-course/ui";
 import { CourseMaterialsEditor } from "@/app/components/course-materials-editor";
+import { chipTones, coverFor } from "@/app/components/course-cover";
+import { PageShell } from "@/app/components/page-shell";
 import { BACKGROUNDS, LEVELS } from "@/lib/mini-courses/labels";
 import type {
   LearnerBackground,
@@ -32,7 +34,13 @@ function blankChapter(index: number): MiniCourseChapter {
   };
 }
 
-export function EditCourseClient({ initial }: { initial: UnifiedCourse }) {
+export function EditCourseClient({
+  initial,
+  user,
+}: {
+  initial: UnifiedCourse;
+  user: { id: string; email: string; role: "student" | "teacher" };
+}) {
   const [saved, setSaved] = useState<UnifiedCourse>(initial);
   const [draft, setDraft] = useState<UnifiedCourse>(initial);
   const [busy, setBusy] = useState<"save" | "ai" | "status" | "">("");
@@ -217,16 +225,16 @@ export function EditCourseClient({ initial }: { initial: UnifiedCourse }) {
   const courseFiles = draft.materials.filter((material) => material.kind === "file");
 
   return (
-    <main className="mx-auto w-full max-w-4xl px-5 py-8 sm:px-8">
+    <PageShell
+      breadcrumbs={[{ href: `/courses/${initial.id}`, label: draft.title || "Course" }, { label: "Edit" }]}
+      homeHref={user.role === "teacher" ? "/teacher" : "/student"}
+      user={user}
+    >
+      <div className="mx-auto w-full max-w-5xl">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <Link
-            href="/courses"
-            className="text-xs font-medium text-[#6a7c90] hover:text-[#193b61]"
-          >
-            ← Back to courses
-          </Link>
-          <div className="mt-1 flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
+            {draft.subject ? <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${chipTones[coverFor({ category: draft.subject, title: draft.title }).palette]}`}>{draft.subject}</span> : null}
             <h1 className="text-xl font-semibold tracking-[-0.01em] text-[#142f4d]">
               {draft.title || "Untitled course"}
             </h1>
@@ -237,10 +245,18 @@ export function EditCourseClient({ initial }: { initial: UnifiedCourse }) {
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex flex-wrap items-center gap-3">
+          {draft.ownerRole === "teacher" ? (
+            <Link
+              href={`/teacher/courses/${initial.id}`}
+              className="inline-flex min-h-11 items-center rounded-xl bg-[#eef2f6] px-4 text-sm font-semibold text-[#1f3a56] transition-colors hover:bg-[#e2e9f1] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#193b61]"
+            >
+              Knowledge &amp; assignments
+            </Link>
+          ) : null}
           <Link
             href={`/courses/${initial.id}`}
-            className="inline-flex min-h-8 items-center rounded-lg border border-[#c6d2df] bg-white px-2.5 text-xs font-semibold text-[#193b61] hover:bg-[#f7f9fb]"
+            className="inline-flex min-h-11 items-center rounded-xl border border-[#c6d2df] bg-white px-4 text-sm font-semibold text-[#193b61] transition-colors hover:bg-[#f7f9fb] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#193b61]"
           >
             Preview
           </Link>
@@ -248,7 +264,11 @@ export function EditCourseClient({ initial }: { initial: UnifiedCourse }) {
             type="button"
             onClick={toggleStatus}
             disabled={busy !== ""}
-            className="inline-flex min-h-8 items-center rounded-lg border border-[#c6d2df] bg-white px-2.5 text-xs font-semibold text-[#193b61] hover:bg-[#f7f9fb] disabled:opacity-50"
+            className={`inline-flex min-h-11 items-center rounded-xl px-4 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#193b61] disabled:opacity-50 ${
+              draft.publicationStatus === "published"
+                ? "bg-[#fdf1e3] text-[#8a5a12] hover:bg-[#f9e6cf]"
+                : "bg-[#e7f4ea] text-[#1f6b3a] hover:bg-[#d9ecdf]"
+            }`}
           >
             {draft.publicationStatus === "published" ? "Unpublish" : "Publish"}
           </button>
@@ -256,9 +276,9 @@ export function EditCourseClient({ initial }: { initial: UnifiedCourse }) {
             type="button"
             onClick={save}
             disabled={busy !== "" || !dirty}
-            className="inline-flex min-h-8 items-center gap-1.5 rounded-lg bg-[#193b61] px-3 text-xs font-semibold text-white disabled:opacity-50"
+            className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-[#193b61] px-4 text-sm font-semibold text-white transition-colors hover:bg-[#284f77] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#193b61] disabled:opacity-50"
           >
-            {busy === "save" ? <Loader2 className="size-3.5 animate-spin" aria-hidden="true" /> : null}
+            {busy === "save" ? <Loader2 className="size-4 animate-spin" aria-hidden="true" /> : null}
             Save
           </button>
         </div>
@@ -498,13 +518,7 @@ export function EditCourseClient({ initial }: { initial: UnifiedCourse }) {
         ))}
       </div>
 
-      {draft.ownerRole === "teacher" ? (
-        <Card className="mt-4 p-5">
-          <h2 className="text-sm font-semibold text-[#142f4d]">Teacher tools</h2>
-          <p className="mt-1 text-xs text-[#6a7c90]">Knowledge and assignments are managed separately and do not change publication status.</p>
-          <Link href={`/teacher/courses/${initial.id}`} className="mt-3 inline-flex rounded-lg border border-[#c6d2df] px-3 py-2 text-xs font-semibold text-[#193b61]">Open Knowledge & Assignments</Link>
-        </Card>
-      ) : null}
-    </main>
+      </div>
+    </PageShell>
   );
 }

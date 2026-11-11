@@ -48,7 +48,7 @@ export default function CreateCoursePage() {
         </Link>
         <form onSubmit={submit} className="mt-5 space-y-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
           <header>
-            <h1 className="font-serif text-3xl text-[#142f4d]">Create a course</h1>
+            <h1 className="text-3xl text-[#142f4d]">Create a course</h1>
             <p className="mt-2 text-sm leading-6 text-slate-600">
               Set up the course workspace first. Source materials are added separately when you create each assignment.
             </p>

@@ -12,5 +12,5 @@ export default async function EditCoursePage({ params }: { params: Promise<{ id:
   const { id } = await params;
   const course = await getOwnedCourse(user.id, id);
   if (!course) notFound();
-  return <EditCourseClient initial={course} />;
+  return <EditCourseClient initial={course} user={{ email: user.email, id: user.id, role: user.role }} />;
 }

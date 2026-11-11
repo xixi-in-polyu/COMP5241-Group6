@@ -106,8 +106,8 @@ export default function Home() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-white px-5 py-10 sm:px-8">
-      <section className="w-full max-w-[460px] rounded-2xl border border-[#e2e8f0] bg-[#f3f6fa] px-6 py-8 shadow-[0_12px_36px_-24px_rgba(24,54,87,0.24)] sm:px-10 sm:py-10">
+    <main className="flex min-h-screen flex-col items-center justify-center bg-[#f4f7fb] px-5 py-10 sm:px-8">
+      <section className="w-full max-w-[460px] rounded-3xl border border-[#e3e9f1] bg-white px-6 py-8 shadow-[0_18px_48px_-28px_rgba(24,54,87,0.32)] sm:px-10 sm:py-10">
         <div className="mb-9 flex items-center justify-center gap-3">
           <span
             aria-hidden="true"
@@ -142,7 +142,7 @@ export default function Home() {
           </p>
           <div
             aria-labelledby="role-label"
-            className="grid grid-cols-2 gap-1 rounded-xl bg-[#e8edf3] p-1"
+            className="grid grid-cols-2 gap-1 rounded-xl bg-[#eef2f6] p-1"
             onKeyDown={handleRoleKeyDown}
             role="tablist"
           >
@@ -165,7 +165,7 @@ export default function Home() {
                   }}
                   className={`role-tab min-h-11 rounded-[9px] px-2 text-sm font-medium transition-colors ${
                     selected
-                      ? "bg-white text-[#193b61] shadow-[0_1px_5px_rgb(20_47_77_/_14%)]"
+                      ? "bg-[#193b61] text-white shadow-[0_1px_5px_rgb(20_47_77_/_18%)]"
                       : "text-[#53657a]"
                   }`}
                 >
@@ -191,7 +191,7 @@ export default function Home() {
             </label>
             <input
               autoComplete="email"
-              className="h-[50px] w-full rounded-xl border border-[#8799ad] bg-white px-4 text-base text-[#142f4d] outline-none transition focus:border-[#193b61] focus:ring-4 focus:ring-[#dce7f2]"
+              className="h-[50px] w-full rounded-xl border border-[#c6d2df] bg-white px-4 text-base text-[#142f4d] outline-none transition focus:border-[#193b61] focus:ring-4 focus:ring-[#d9e9f7]"
               id="email"
               name="email"
               placeholder="name@polyu.hk"
@@ -209,7 +209,7 @@ export default function Home() {
             </label>
             <input
               autoComplete="current-password"
-              className="h-[50px] w-full rounded-xl border border-[#8799ad] bg-white px-4 text-base text-[#142f4d] outline-none transition focus:border-[#193b61] focus:ring-4 focus:ring-[#dce7f2]"
+              className="h-[50px] w-full rounded-xl border border-[#c6d2df] bg-white px-4 text-base text-[#142f4d] outline-none transition focus:border-[#193b61] focus:ring-4 focus:ring-[#d9e9f7]"
               id="password"
               name="password"
               placeholder="Enter your password"

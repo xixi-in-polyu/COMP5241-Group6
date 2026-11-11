@@ -19,7 +19,7 @@ export function UnifiedCourseReader({
   materialDownload: (materialId: string) => string;
 }) {
   return (
-    <main className="mx-auto w-full max-w-5xl px-5 py-8 sm:px-8" id="course-top">
+    <div className="mx-auto w-full max-w-5xl" id="course-top">
       <MaterialsAutoRefresh
         active={course.materials.some(
           (material) => material.status === "uploaded" || material.status === "parsing",
@@ -232,6 +232,6 @@ export function UnifiedCourseReader({
           ) : null}
         </div>
       </div>
-    </main>
+    </div>
   );
 }
