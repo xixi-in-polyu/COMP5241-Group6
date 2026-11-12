@@ -2,10 +2,10 @@ import "server-only";
 
 import { z } from "zod";
 import OpenAI from "openai";
-import { zodTextFormat } from "openai/helpers/zod";
+import { zodResponseFormat, zodTextFormat } from "openai/helpers/zod";
 
 import { ApiError } from "@/lib/api";
-import { getAiConfig } from "@/lib/ai/config";
+import { getAiConfig, type AiConfig } from "@/lib/ai/config";
 import { truncateCourseSources } from "@/lib/courses/source-budget";
 import { promptSchema } from "@/lib/ai/schema-prompt";
 import { recordMiniCourseAiUsage } from "./ai-usage";
@@ -23,6 +23,23 @@ import { recordMiniCourseAiUsage } from "./ai-usage";
 const NO_API = "The AI service is not available right now. Please try again later.";
 
 export type AiOperation = "course_draft" | "course_chapters";
+
+type ConversationMessage = {
+  role: "developer" | "system" | "user" | "assistant";
+  content: string;
+};
+
+type TokenUsage = {
+  inputTokens?: number;
+  outputTokens?: number;
+  totalTokens?: number;
+};
+
+type ModelReply = {
+  raw: string;
+  finishReason: string;
+  usage: TokenUsage;
+};
 
 function client() {
   const config = getAiConfig();
@@ -42,6 +59,9 @@ function client() {
 
 function parseJsonLoose(raw: string): unknown {
   const trimmed = raw.trim();
+  if (!trimmed) {
+    throw new Error("model returned empty output");
+  }
   const unfenced = trimmed.replace(/^```(?:json)?\s*/i, "").replace(/```$/i, "").trim();
   try {
     return JSON.parse(unfenced);
@@ -53,6 +73,72 @@ function parseJsonLoose(raw: string): unknown {
     }
     throw new Error("model returned non-JSON output");
   }
+}
+
+function complaintFor(error: unknown, finishReason: string): string {
+  if (finishReason === "length" || finishReason === "max_output_tokens") {
+    return "the reply reached its output-token limit before producing valid JSON";
+  }
+  if (error instanceof z.ZodError) {
+    return error.issues
+      .map((issue) => `${issue.path.join(".") || "(root)"}: ${issue.message}`)
+      .join("; ");
+  }
+  return `the reply was not valid JSON (${error instanceof Error ? error.message : String(error)})`;
+}
+
+function addUsage(total: TokenUsage, usage: TokenUsage): TokenUsage {
+  const add = (left?: number, right?: number) =>
+    left === undefined && right === undefined ? undefined : (left ?? 0) + (right ?? 0);
+  return {
+    inputTokens: add(total.inputTokens, usage.inputTokens),
+    outputTokens: add(total.outputTokens, usage.outputTokens),
+    totalTokens: add(total.totalTokens, usage.totalTokens),
+  };
+}
+
+async function askWithRepair<T>(input: {
+  ask: () => Promise<ModelReply>;
+  conversation: ConversationMessage[];
+  schema: z.ZodType<T>;
+  config: AiConfig;
+  operation: AiOperation;
+}): Promise<{ parsed: T; usage: TokenUsage }> {
+  let usage: TokenUsage = {};
+
+  for (let attempt = 1; attempt <= 2; attempt += 1) {
+    const reply = await input.ask();
+    usage = addUsage(usage, reply.usage);
+    try {
+      return {
+        parsed: input.schema.parse(parseJsonLoose(reply.raw)),
+        usage,
+      };
+    } catch (error) {
+      if (attempt === 2) throw error;
+      const complaint = complaintFor(error, reply.finishReason);
+      console.warn(`[mini-course-ai:${input.operation}] retrying after a rejected reply`, {
+        provider: input.config.provider,
+        model: input.config.model,
+        structuredOutputMode: input.config.structuredOutputMode,
+        attempt,
+        finishReason: reply.finishReason,
+        contentLength: reply.raw.length,
+        trimmedContentLength: reply.raw.trim().length,
+        complaint,
+      });
+      const rejected = reply.raw.trim();
+      if (rejected) {
+        input.conversation.push({ role: "assistant", content: rejected });
+      }
+      input.conversation.push({
+        role: "user",
+        content: `That reply was rejected: ${complaint}. Return the corrected JSON object only. Every string value must be valid JSON — escape double quotes and do not put raw line breaks inside a string — and every required field must be present.`,
+      });
+    }
+  }
+
+  throw new Error("The provider did not return valid structured output.");
 }
 
 export async function structured<T>(input: {
@@ -69,86 +155,83 @@ export async function structured<T>(input: {
 
   try {
     const { config, openai } = client();
+    let result: { parsed: T; usage: TokenUsage };
 
-    const messages = [
-      { role: "developer" as const, content: input.developer },
-      { role: "user" as const, content: JSON.stringify(input.data) },
-    ];
-
-    if (config.provider === "openai") {
-      const response = await openai.responses.parse({
-        model: config.model,
-        input: messages,
-        text: { format: zodTextFormat(input.schema, input.name) },
-      });
-      if (!response.output_parsed) {
-        throw new Error(`The provider did not return ${input.name}.`);
-      }
-      await recordMiniCourseAiUsage({
-        courseId: input.courseId,
-        userId: input.userId,
+    if (config.structuredOutputMode === "responses-json-schema") {
+      const conversation: ConversationMessage[] = [
+        { role: "developer", content: input.developer },
+        { role: "user", content: JSON.stringify(input.data) },
+      ];
+      result = await askWithRepair({
+        schema: input.schema,
+        config,
         operation: input.operation,
-        status: "SUCCESS",
-        durationMs: Date.now() - started,
-        usage: {
-          inputTokens: response.usage?.input_tokens,
-          outputTokens: response.usage?.output_tokens,
-          totalTokens: response.usage?.total_tokens,
+        conversation,
+        ask: async () => {
+          const response = await openai.responses.create({
+            model: config.model,
+            input: conversation,
+            text: { format: zodTextFormat(input.schema, input.name) },
+            max_output_tokens: input.maxTokens,
+            ...(config.provider === "deepseek"
+              ? { reasoning: { effort: "none" as const } }
+              : {}),
+          });
+          return {
+            raw: response.output_text,
+            finishReason: response.incomplete_details?.reason ?? response.status ?? "unknown",
+            usage: {
+              inputTokens: response.usage?.input_tokens,
+              outputTokens: response.usage?.output_tokens,
+              totalTokens: response.usage?.total_tokens,
+            },
+          };
         },
       });
-      return input.schema.parse(response.output_parsed);
-    }
-
-    const conversation: {
-      role: "system" | "user" | "assistant";
-      content: string;
-    }[] = [
-      { role: "system", content: `${input.developer}\n\n${promptSchema(input.schema)}` },
-      { role: "user", content: JSON.stringify(input.data) },
-    ];
-
-    const ask = () =>
-      openai.chat.completions.create({
-        model: config.model,
-        messages: conversation,
-        response_format: { type: "json_object" },
-        temperature: 0.2,
-        max_tokens: input.maxTokens,
+    } else {
+      const strictSchema = config.structuredOutputMode === "chat-json-schema";
+      const conversation: ConversationMessage[] = [
+        {
+          role: "system",
+          content: strictSchema
+            ? `${input.developer}\n\nReturn only the JSON object required by the response schema.`
+            : `${input.developer}\n\n${promptSchema(input.schema)}`,
+        },
+        { role: "user", content: JSON.stringify(input.data) },
+      ];
+      result = await askWithRepair({
+        schema: input.schema,
+        config,
+        operation: input.operation,
+        conversation,
+        ask: async () => {
+          const request = {
+            model: config.model,
+            messages: conversation.filter(
+              (message): message is ConversationMessage & { role: "system" | "user" | "assistant" } =>
+                message.role !== "developer",
+            ),
+            response_format: strictSchema
+              ? zodResponseFormat(input.schema, input.name)
+              : { type: "json_object" as const },
+            temperature: 0.2,
+            max_tokens: input.maxTokens,
+            ...(config.provider === "openrouter"
+              ? { provider: { require_parameters: true } }
+              : {}),
+          };
+          const response = await openai.chat.completions.create(request);
+          return {
+            raw: response.choices[0]?.message.content ?? "",
+            finishReason: response.choices[0]?.finish_reason ?? "unknown",
+            usage: {
+              inputTokens: response.usage?.prompt_tokens,
+              outputTokens: response.usage?.completion_tokens,
+              totalTokens: response.usage?.total_tokens,
+            },
+          };
+        },
       });
-
-    let response = await ask();
-    let parsed: T;
-
-    try {
-      parsed = input.schema.parse(
-        parseJsonLoose(response.choices[0]?.message.content ?? ""),
-      );
-    } catch (error) {
-      // A weaker provider sometimes returns truncated or malformed JSON, or
-      // drops a required field. The chance of recovering is high when the
-      // concrete complaint is repeated back, so spend one extra round before
-      // giving up. Anything other than a bad reply already threw above.
-      const complaint =
-        error instanceof z.ZodError
-          ? error.issues
-              .map((issue) => `${issue.path.join(".") || "(root)"}: ${issue.message}`)
-              .join("; ")
-          : `the reply was not valid JSON (${error instanceof Error ? error.message : String(error)})`;
-      const rejected = response.choices[0]?.message.content?.trim() ?? "";
-      console.warn(
-        `[mini-course-ai:${input.operation}] retrying after a rejected reply: ${complaint}`,
-      );
-      if (rejected) {
-        conversation.push({ role: "assistant", content: rejected });
-      }
-      conversation.push({
-        role: "user",
-        content: `That reply was rejected: ${complaint}. Return the corrected JSON object only. Every string value must be valid JSON — escape double quotes and do not put raw line breaks inside a string — and every field listed in "required" must be present.`,
-      });
-      response = await ask();
-      parsed = input.schema.parse(
-        parseJsonLoose(response.choices[0]?.message.content ?? ""),
-      );
     }
 
     await recordMiniCourseAiUsage({
@@ -157,14 +240,10 @@ export async function structured<T>(input: {
       operation: input.operation,
       status: "SUCCESS",
       durationMs: Date.now() - started,
-      usage: {
-        inputTokens: response.usage?.prompt_tokens,
-        outputTokens: response.usage?.completion_tokens,
-        totalTokens: response.usage?.total_tokens,
-      },
+      usage: result.usage,
     });
 
-    return parsed;
+    return result.parsed;
   } catch (error) {
     if (error instanceof ApiError) {
       throw error;

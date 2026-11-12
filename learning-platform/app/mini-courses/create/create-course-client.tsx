@@ -11,6 +11,11 @@ import { WorkspaceHeader } from "@/app/components/workspace-header";
 import { CourseMaterialsEditor } from "@/app/components/course-materials-editor";
 import { Badge, Card } from "@/app/components/mini-course/ui";
 import { BACKGROUNDS, BLOCK_TYPE_LABELS, LEVELS } from "@/lib/mini-courses/labels";
+import {
+  generatedChapterTitle,
+  manualChapterTitles,
+  requestedChapterTopics,
+} from "@/lib/mini-courses/chapter-topics";
 import type {
   LearnerBackground,
   MiniCourseBlock,
@@ -168,13 +173,12 @@ export function CreateCourseClient({
     return () => { active = false; };
   }, [initialDraftId]);
 
-  const plannedTopics = [
-    ...Array.from({ length: chapterCount }, (_, index) => {
-      const topic = (topics[index] ?? "").trim();
-      return topic || (language === "zh" ? `第 ${index + 1} 章` : `Chapter ${index + 1}`);
-    }),
-    ...(includeReview ? [language === "zh" ? "复习与延伸" : "Review & extension"] : []),
-  ];
+  const plannedTopics = requestedChapterTopics({
+    topics,
+    chapterCount,
+    includeReview,
+    language,
+  });
 
   function payload(chapters = outline) {
     return {
@@ -303,7 +307,7 @@ export function CreateCourseClient({
       return;
     }
     setError("");
-    setOutline(plannedTopics.map(blankOutline));
+    setOutline(manualChapterTitles(plannedTopics, language).map(blankOutline));
     setStep(3);
   }
 
@@ -348,9 +352,18 @@ export function CreateCourseClient({
       setOutline(
         plannedTopics.map((topic, index) => {
           const chapter = chapters[index];
+          const chapterTitle = generatedChapterTitle({
+            requestedTopic: topic,
+            generatedTitle: chapter?.title,
+            index,
+            language,
+          });
           return chapter
-            ? { title: topic, blocks: blocksFromSections(topic, chapter.sections, chapter.summary) }
-            : blankOutline(topic);
+            ? {
+                title: chapterTitle,
+                blocks: blocksFromSections(chapterTitle, chapter.sections, chapter.summary),
+              }
+            : blankOutline(chapterTitle);
         }),
       );
       setStep(3);

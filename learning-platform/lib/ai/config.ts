@@ -1,4 +1,8 @@
 export type AiProvider = "openai" | "deepseek" | "polyu" | "openrouter";
+export type StructuredOutputMode =
+  | "responses-json-schema"
+  | "chat-json-schema"
+  | "chat-json-object";
 
 type Environment = Record<string, string | undefined>;
 
@@ -7,6 +11,7 @@ export type AiConfig = {
   apiKey: string;
   endpoint: string;
   model: string;
+  structuredOutputMode: StructuredOutputMode;
   defaultHeaders?: Record<string, string>;
   configured: boolean;
 };
@@ -17,6 +22,35 @@ const providers = new Set<AiProvider>([
   "polyu",
   "openrouter",
 ]);
+
+const structuredOutputModes = new Set<StructuredOutputMode>([
+  "responses-json-schema",
+  "chat-json-schema",
+  "chat-json-object",
+]);
+
+function getStructuredOutputMode(
+  provider: AiProvider,
+  environment: Environment,
+): StructuredOutputMode {
+  const requested = environment.AI_STRUCTURED_OUTPUT_MODE?.trim().toLowerCase();
+  if (requested && requested !== "auto") {
+    if (!structuredOutputModes.has(requested as StructuredOutputMode)) {
+      throw new Error(
+        `Unsupported AI_STRUCTURED_OUTPUT_MODE "${requested}". Use auto, responses-json-schema, chat-json-schema, or chat-json-object.`,
+      );
+    }
+    return requested as StructuredOutputMode;
+  }
+
+  if (provider === "openai" || provider === "deepseek") {
+    return "responses-json-schema";
+  }
+  if (provider === "openrouter") {
+    return "chat-json-schema";
+  }
+  return "chat-json-object";
+}
 
 export function getAiProvider(environment: Environment = process.env): AiProvider {
   const requested = environment.AI_PROVIDER?.trim().toLowerCase();
@@ -63,6 +97,7 @@ export function getAiConfig(environment: Environment = process.env): AiConfig {
   const endpoint = normalizeEndpoint(environment.AI_ENDPOINT || providerEndpoint);
   const apiKey = (environment.AI_API_KEY || providerKey || "").trim();
   const model = (environment.AI_MODEL || providerModel).trim();
+  const structuredOutputMode = getStructuredOutputMode(provider, environment);
   const defaultHeaders = provider === "openrouter"
     ? Object.fromEntries(
         [
@@ -77,6 +112,7 @@ export function getAiConfig(environment: Environment = process.env): AiConfig {
     apiKey,
     endpoint,
     model,
+    structuredOutputMode,
     ...(defaultHeaders && Object.keys(defaultHeaders).length ? { defaultHeaders } : {}),
     configured: Boolean(apiKey && endpoint && model),
   };

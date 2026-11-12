@@ -7,6 +7,7 @@ describe("AI provider configuration", () => {
       provider: "deepseek",
       endpoint: "https://api.deepseek.com",
       model: "deepseek-flash",
+      structuredOutputMode: "responses-json-schema",
       configured: true,
     });
   });
@@ -36,6 +37,7 @@ describe("AI provider configuration", () => {
       provider: "openrouter",
       endpoint: "https://openrouter.ai/api/v1",
       model: "openrouter/free",
+      structuredOutputMode: "chat-json-schema",
       defaultHeaders: {
         "HTTP-Referer": "http://localhost:3000",
         "X-Title": "Learning Platform",
@@ -56,5 +58,30 @@ describe("AI provider configuration", () => {
       model: "custom-deepseek",
       configured: true,
     });
+  });
+
+  it("uses JSON object prompting for generic PolyU-compatible gateways", () => {
+    expect(getAiConfig({
+      AI_PROVIDER: "polyu",
+      AI_ENDPOINT: "https://llm.example/v1",
+      AI_API_KEY: "test",
+      AI_MODEL: "custom-model",
+    }).structuredOutputMode).toBe("chat-json-object");
+  });
+
+  it("allows a structured-output compatibility override", () => {
+    expect(getAiConfig({
+      AI_PROVIDER: "deepseek",
+      AI_API_KEY: "test",
+      AI_STRUCTURED_OUTPUT_MODE: "chat-json-object",
+    }).structuredOutputMode).toBe("chat-json-object");
+  });
+
+  it("rejects unknown structured-output modes", () => {
+    expect(() => getAiConfig({
+      AI_PROVIDER: "openrouter",
+      AI_API_KEY: "test",
+      AI_STRUCTURED_OUTPUT_MODE: "best-effort",
+    })).toThrow("Unsupported AI_STRUCTURED_OUTPUT_MODE");
   });
 });
