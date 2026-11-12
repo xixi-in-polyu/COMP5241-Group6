@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Archive, BookOpen, LoaderCircle, Plus, RotateCcw } from "lucide-react";
+import { Archive, BookOpen, Clapperboard, LoaderCircle, Plus, RotateCcw } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AccountMenu } from "@/app/components/account-menu";
@@ -68,7 +68,16 @@ export default function TeacherPage({ teacher }: { teacher: Teacher }) {
   return <main className="min-h-screen bg-slate-50 p-4 text-slate-800 sm:p-6">
     <div className="mx-auto flex w-full max-w-[1280px] flex-col">
       <WorkspaceHeader homeHref="/teacher">
-        <AccountMenu user={teacher} />
+        <div className="flex items-center gap-2">
+          <Link
+            className="inline-flex h-10 items-center gap-2 rounded-xl border border-[#193b61] bg-white px-3 text-sm font-semibold text-[#193b61] transition-colors hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#193b61]"
+            href="/animations"
+          >
+            <Clapperboard aria-hidden="true" className="size-4" />
+            Animation
+          </Link>
+          <AccountMenu user={teacher} />
+        </div>
       </WorkspaceHeader>
 
       <div className="mt-6 flex items-start gap-4">
