@@ -11,6 +11,17 @@
   --font-sans: "Avenir Next", "Segoe UI", sans-serif;
 }
 
+@theme {
+  /* Slightly larger type scale across the app. */
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-base: 1.0625rem;
+  --text-lg: 1.1875rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.625rem;
+  --text-3xl: 2rem;
+}
+
 html,
 body {
   min-height: 100%;
@@ -30,7 +41,7 @@ body {
   background-size: 28px 28px;
 }
 
-.role-tab:hover {
+.role-tab[aria-selected="false"]:hover {
   color: #193b61;
 }
 
@@ -196,4 +207,41 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+.course-cover {
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.course-cover::after {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgb(25 59 97 / 10%) 1.5px, transparent 1.5px);
+  background-size: 15px 15px;
+  content: "";
+  opacity: 0.55;
+}
+
+.course-cover-butter {
+  background: #fbeec2;
+}
+
+.course-cover-coral {
+  background: #fbd9d2;
+}
+
+.course-cover-mint {
+  background: #d6efe4;
+}
+
+.course-cover-sky {
+  background: #d9e9f7;
+}
+
+.material-pattern {
+  background-image: radial-gradient(rgb(25 59 97 / 9%) 1.5px, transparent 1.5px);
+  background-size: 16px 16px;
 }

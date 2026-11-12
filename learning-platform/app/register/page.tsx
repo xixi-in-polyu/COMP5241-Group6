@@ -92,8 +92,8 @@ export default function RegisterPage() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-white px-5 py-10 sm:px-8">
-      <section className="w-full max-w-[460px] rounded-2xl border border-[#e2e8f0] bg-[#f3f6fa] px-6 py-8 shadow-[0_12px_36px_-24px_rgba(24,54,87,0.24)] sm:px-10 sm:py-10">
+    <main className="flex min-h-screen flex-col items-center justify-center bg-[#f4f7fb] px-5 py-10 sm:px-8">
+      <section className="w-full max-w-[460px] rounded-3xl border border-[#e3e9f1] bg-white px-6 py-8 shadow-[0_18px_48px_-28px_rgba(24,54,87,0.32)] sm:px-10 sm:py-10">
         <div className="mb-8 text-center">
           <h1 className="text-2xl font-semibold tracking-[-0.02em] text-[#193b61]">
             Create your account

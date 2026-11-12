@@ -88,14 +88,14 @@ function createMarkdownComponents(onPageChange?: (page: number) => void): Compon
       if (page) {
         if (!onPageChange) {
           return (
-            <span className="mx-0.5 inline-flex rounded-full bg-[#e8f1fb] px-1.5 py-0.5 align-baseline text-[10px] font-semibold text-[#245a94]">
+            <span className="mx-0.5 inline-flex rounded-full bg-[#d9e9f7] px-1.5 py-0.5 align-baseline text-[10px] font-semibold text-[#2d5f8a]">
               p.{page}
             </span>
           );
         }
         return (
           <button
-            className="mx-0.5 inline-flex items-center rounded-full bg-[#e8f1fb] px-1.5 py-0.5 align-baseline text-[10px] font-semibold text-[#245a94] transition-colors hover:bg-[#d3e5fa] focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[#245a94]"
+            className="mx-0.5 inline-flex items-center rounded-full bg-[#d9e9f7] px-1.5 py-0.5 align-baseline text-[10px] font-semibold text-[#2d5f8a] transition-colors hover:bg-[#c9e0f3] focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[#245a94]"
             onClick={() => onPageChange(Number(page))}
             title={`Jump to page ${page}`}
             type="button"
@@ -106,7 +106,7 @@ function createMarkdownComponents(onPageChange?: (page: number) => void): Compon
       }
       return (
         <a
-          className="text-[#245a94] underline underline-offset-2"
+          className="text-[#2d5f8a] underline underline-offset-2"
           href={href}
           rel="noreferrer"
           target="_blank"
@@ -356,7 +356,7 @@ export function CourseChat({
             <article className="flex gap-3" key={index}>
               <span
                 className={`grid size-8 shrink-0 place-items-center rounded-full text-white ${
-                  message.role === "user" ? "bg-[#f59e0b]" : "bg-[#2f80ed]"
+                  message.role === "user" ? "bg-[#e08a75]" : "bg-[#2d5f8a]"
                 }`}
               >
                 {message.role === "user" ? (
@@ -430,7 +430,7 @@ export function CourseChat({
   return (
     <section aria-label="AI study chat" className="flex h-full min-h-0 flex-col overflow-y-auto px-5 py-6">
       <div className="flex flex-col items-center text-center">
-        <span className="grid size-14 place-items-center rounded-2xl bg-[#e8f1fb] text-[#2f80ed]">
+        <span className="grid size-14 place-items-center rounded-2xl bg-[#d9e9f7] text-[#2f80ed]">
           <MessageSquare className="size-7" aria-hidden="true" />
         </span>
         <h2 className="mt-4 line-clamp-2 text-lg font-semibold text-slate-900">{displayName}</h2>

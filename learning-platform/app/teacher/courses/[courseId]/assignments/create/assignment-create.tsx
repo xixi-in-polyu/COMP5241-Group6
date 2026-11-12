@@ -1,11 +1,11 @@
 "use client";
 
 import { upload } from "@vercel/blob/client";
-import { ArrowLeft, Check, FileText, LoaderCircle, Upload } from "lucide-react";
-import Link from "next/link";
+import { Check, FileText, LoaderCircle, Upload } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { type FormEvent, useCallback, useEffect, useState } from "react";
 
+import { PageShell } from "@/app/components/page-shell";
 import { BLOB_UPLOAD_ACCESS } from "@/lib/uploads/access";
 
 type Course = {
@@ -45,7 +45,7 @@ function fileMime(file: File) {
 
 const steps = ["Sources", "Knowledge", "Brief", "Draft"];
 
-export default function AssignmentCreate({ courseId }: { courseId: string }) {
+export default function AssignmentCreate({ courseId, user }: { courseId: string; user: { id: string; email: string } }) {
   const router = useRouter();
   const [course, setCourse] = useState<Course | null>(null);
   const [loading, setLoading] = useState(true);
@@ -140,16 +140,15 @@ export default function AssignmentCreate({ courseId }: { courseId: string }) {
     }
   }
 
-  if (loading) return <main className="grid min-h-screen place-items-center bg-slate-50"><LoaderCircle className="size-7 animate-spin text-[#193b61]" /></main>;
+  if (loading) return <PageShell breadcrumbs={[{ href: `/teacher/courses/${courseId}`, label: "Course" }, { label: "Create assignment" }]} homeHref="/teacher" user={user}><div className="grid min-h-[60vh] place-items-center"><LoaderCircle className="size-7 animate-spin text-[#193b61]" /></div></PageShell>;
   const hasCourseKnowledge = Boolean(course?.entities.some((entity) => entity.selected));
 
   return (
-    <main className="min-h-screen bg-slate-50 px-5 py-8 text-slate-800">
-      <div className="mx-auto max-w-5xl">
-        <Link href={`/teacher/courses/${courseId}`} className="inline-flex items-center gap-2 text-sm font-medium text-[#24496f]"><ArrowLeft className="size-4" />Back to course</Link>
+    <PageShell breadcrumbs={[{ href: `/teacher/courses/${courseId}`, label: course?.title ?? "Course" }, { label: "Create assignment" }]} homeHref="/teacher" user={user}>
+      <div className="mx-auto w-full max-w-5xl">
         <header className="mt-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#54738f]">{course?.title ?? "Course"}</p>
-          <h1 className="mt-2 font-serif text-3xl text-[#142f4d]">Create assignment</h1>
+          <p className="text-sm font-medium text-[#54738f]">{course?.title ?? "Course"}</p>
+          <h1 className="mt-2 text-3xl text-[#142f4d]">Create assignment</h1>
           <p className="mt-2 text-sm text-slate-600">Start with assignment sources. You will review knowledge and the brief before any questions are generated.</p>
         </header>
         <nav aria-label="Assignment workflow" className="mt-5 grid grid-cols-4 overflow-hidden rounded-xl border border-slate-200 bg-white">
@@ -171,7 +170,7 @@ export default function AssignmentCreate({ courseId }: { courseId: string }) {
           </form>
         )}
       </div>
-    </main>
+    </PageShell>
   );
 }
 

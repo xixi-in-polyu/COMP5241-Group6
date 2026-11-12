@@ -5,6 +5,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, ArrowRight, Loader2, Sparkles, Wand2 } from "lucide-react";
 
+import { AccountMenu } from "@/app/components/account-menu";
+import { MaterialsEditor } from "@/app/components/mini-course/materials-editor";
+import { WorkspaceHeader } from "@/app/components/workspace-header";
 import { CourseMaterialsEditor } from "@/app/components/course-materials-editor";
 import { Badge, Card } from "@/app/components/mini-course/ui";
 import { BACKGROUNDS, BLOCK_TYPE_LABELS, LEVELS } from "@/lib/mini-courses/labels";
@@ -58,7 +61,13 @@ function blankOutline(title: string): OutlineChapter {
   };
 }
 
-export function CreateCourseClient({ initialDraftId = null }: { initialDraftId?: string | null }) {
+export function CreateCourseClient({
+  initialDraftId = null,
+  user,
+}: {
+  initialDraftId?: string | null;
+  user: { id: string; email: string; role: "student" | "teacher" };
+}) {
   const router = useRouter();
   const [draftId, setDraftId] = useState<string | null>(initialDraftId);
   const [materials, setMaterials] = useState<CourseMaterial[]>([]);
@@ -380,13 +389,19 @@ export function CreateCourseClient({ initialDraftId = null }: { initialDraftId?:
   }
 
   return (
-    <main className="mx-auto w-full max-w-3xl px-5 py-8 sm:px-8">
-      <header className="flex flex-wrap items-end justify-between gap-3">
+    <main className="flex h-screen flex-col overflow-hidden bg-slate-50 p-4 text-slate-800 sm:p-6">
+      <div className="mx-auto flex min-h-0 w-full max-w-[1280px] flex-1 flex-col">
+        <WorkspaceHeader
+          breadcrumbs={[{ label: initialDraftId ? "Regenerate course" : "New course" }]}
+          homeHref={user.role === "teacher" ? "/teacher" : "/student"}
+        >
+          <AccountMenu user={user} />
+        </WorkspaceHeader>
+
+        <div className="mt-5 flex min-h-0 flex-1 flex-col">
+      <header className="shrink-0 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#54738f]">
-            {initialDraftId ? "Regenerate course" : "New course"}
-          </p>
-          <h1 className="mt-1 text-2xl font-semibold tracking-[-0.02em] text-[#142f4d]">
+          <h1 className="text-2xl font-semibold tracking-[-0.02em] text-[#142f4d]">
             {step === 1 ? "Materials and basics" : step === 2 ? "Learning design" : "Outline"}
           </h1>
         </div>
@@ -397,7 +412,9 @@ export function CreateCourseClient({ initialDraftId = null }: { initialDraftId?:
               className={
                 index === step
                   ? "rounded-full bg-[#193b61] px-2.5 py-1 text-white"
-                  : "rounded-full bg-[#eef2f6] px-2.5 py-1 text-[#6a7c90]"
+                  : index < step
+                    ? "rounded-full bg-[#d6efe4] px-2.5 py-1 text-[#2f6e56]"
+                    : "rounded-full bg-[#eef2f6] px-2.5 py-1 text-[#6a7c90]"
               }
             >
               {index}. {index === 1 ? "Basics" : index === 2 ? "Design" : "Outline"}
@@ -412,9 +429,10 @@ export function CreateCourseClient({ initialDraftId = null }: { initialDraftId?:
         </p>
       ) : null}
 
+      <div className="mt-4 min-h-0 flex-1 overflow-y-auto pr-1">
       {step === 1 ? (
-        <>
-          <Card className="mt-5 p-5">
+        <div className="grid items-stretch gap-5 lg:grid-cols-2">
+          <Card className="h-full p-5">
             <div className="flex flex-wrap items-start justify-between gap-2">
               <div>
                 <h2 className="text-sm font-semibold text-[#142f4d]">Course materials</h2>
@@ -521,7 +539,7 @@ export function CreateCourseClient({ initialDraftId = null }: { initialDraftId?:
             ) : null}
           </Card>
 
-          <Card className="mt-4 p-5">
+          <Card className="h-full p-5">
             <h2 className="text-sm font-semibold text-[#142f4d]">Course details</h2>
             <div className="mt-3 space-y-3">
               <label className="block">
@@ -675,11 +693,12 @@ export function CreateCourseClient({ initialDraftId = null }: { initialDraftId?:
               </button>
             </div>
           </Card>
-        </>
+        </div>
       ) : null}
 
       {step === 2 ? (
-        <Card className="mt-5 p-5">
+        <div className="mx-auto w-full max-w-3xl">
+        <Card className="p-5">
           <h2 className="text-sm font-semibold text-[#142f4d]">Structure</h2>
           <p className="mt-1 text-xs leading-5 text-[#6a7c90]">
             Choose how many chapters the course should have, then describe each one. Leave a topic
@@ -779,10 +798,12 @@ export function CreateCourseClient({ initialDraftId = null }: { initialDraftId?:
             drafts the chapter bodies, which you can then edit.
           </p>
         </Card>
+        </div>
       ) : null}
 
       {step === 3 && outline ? (
-        <Card className="mt-5 p-5">
+        <div className="mx-auto w-full max-w-3xl">
+        <Card className="p-5">
           <h2 className="text-sm font-semibold text-[#142f4d]">
             {outline.some((chapter) => chapter.blocks.length > 2)
               ? "AI-written chapters"
@@ -862,7 +883,11 @@ export function CreateCourseClient({ initialDraftId = null }: { initialDraftId?:
             </div>
           </div>
         </Card>
+        </div>
       ) : null}
+      </div>
+        </div>
+      </div>
     </main>
   );
 }

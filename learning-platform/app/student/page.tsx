@@ -20,22 +20,8 @@ export default async function StudentPage() {
       category: true,
       description: true,
       updatedAt: true,
-      assignments: {
-        where: { status: "SUBMITTED" },
-        orderBy: { submittedAt: "desc" },
-        select: {
-          id: true,
-          title: true,
-          submittedAt: true,
-          interactiveLabs: {
-            where: { archivedAt: null },
-            select: { activeVersionId: true, approvedVersionId: true },
-          },
-        },
-      },
     },
   });
   const courses = readyCourses.map((course) => ({ id: course.id, title: course.title, category: course.category || "Course", description: course.description, updated: `Updated ${course.updatedAt.toLocaleDateString()}` }));
-  const assignments = readyCourses.flatMap((course) => course.assignments.filter((assignment) => assignment.interactiveLabs.some((lab) => lab.activeVersionId && lab.approvedVersionId === lab.activeVersionId)).map((assignment) => ({ id: assignment.id, title: assignment.title, course: course.title, labCount: assignment.interactiveLabs.filter((lab) => lab.activeVersionId && lab.approvedVersionId === lab.activeVersionId).length })));
-  return <StudentPageClient courses={courses} assignments={assignments} student={{ id: student.id, email: student.email }} />;
+  return <StudentPageClient courses={courses} student={{ id: student.id, email: student.email }} />;
 }

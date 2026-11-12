@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
 
+import { PageShell } from "@/app/components/page-shell";
+
 import {
   runEngineeringScenario,
   type ScenarioInput,
@@ -150,11 +152,11 @@ function RequirementsTab() {
               className={`max-w-[95%] whitespace-pre-wrap rounded-xl p-3 text-sm leading-6 ${
                 message.role === "assistant"
                   ? "self-start border border-slate-200 bg-white"
-                  : "self-end bg-blue-50"
+                  : "self-end bg-[#d9e9f7]"
               }`}
               key={`${message.role}-${index}`}
             >
-              <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-slate-500">
+              <p className="mb-1 text-xs font-semibold text-slate-500">
                 {message.role === "assistant" ? "Client / mentor" : "You"}
               </p>
               {message.content}
@@ -614,7 +616,7 @@ export default function InteractiveLearning() {
   const [activeTab, setActiveTab] = useState<Tab | null>(null);
 
   return (
-    <main className="min-h-screen bg-slate-50 px-4 py-8 text-slate-800 sm:px-8">
+    <PageShell breadcrumbs={[{ label: "Interactive lab" }]} homeHref="/">
       <div className="mx-auto max-w-7xl">
         <header className="mb-7 flex flex-wrap items-center justify-between gap-3">
           <div>
@@ -684,6 +686,6 @@ export default function InteractiveLearning() {
           </div>
         )}
       </div>
-    </main>
+    </PageShell>
   );
 }
