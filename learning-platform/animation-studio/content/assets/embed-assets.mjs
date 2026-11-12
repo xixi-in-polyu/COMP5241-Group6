@@ -5,7 +5,7 @@ import path from "node:path";
 
 const contentDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const projectPath = path.join(contentDir, "published.animation.json");
-const versionPath = path.join(contentDir, "versions", "published.animation-v5.json");
+const versionPath = path.join(contentDir, "versions", "published.animation-v6.json");
 
 const files = {
   "asset-deploy-bigbang": "deploy-big-bang.svg",

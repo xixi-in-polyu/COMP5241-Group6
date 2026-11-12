@@ -304,3 +304,6 @@
 .animation-studio .visual-formula .formula-stack { display: inline-flex; flex-direction: column; align-items: center; gap: .5cqw; }
 .animation-studio .visual-formula .formula-stack b { font-size: 2cqw; line-height: 1.1; font-weight: 650; letter-spacing: -.02em; }
 .animation-studio .visual-formula .formula-stack i { width: 100%; min-width: 9cqw; height: .14cqw; background: currentColor; opacity: .55; }
+
+/* Camera wrapper: animates the whole element stage, not the scene header. */
+.animation-studio .scene-stage { position: absolute; inset: 0; transform-origin: center center; will-change: transform; }

@@ -24,5 +24,14 @@ describe("published animation", () => {
     expect(images.length).toBeGreaterThanOrEqual(8);
     expect(images.every((element) => element.assetId && element.alt)).toBe(true);
     expect(images.every((element) => element.motion.ambient === "ken-burns")).toBe(true);
+    expect(
+      prepared.project.scenes.every((scene) => (scene.camera?.zoomTo ?? 1) > 1),
+    ).toBe(true);
+    expect(
+      prepared.project.scenes
+        .flatMap((scene) => scene.elements)
+        .flatMap((element) => element.motion.beats)
+        .filter((cue) => cue.preset === "move").length,
+    ).toBeGreaterThanOrEqual(3);
   });
 });

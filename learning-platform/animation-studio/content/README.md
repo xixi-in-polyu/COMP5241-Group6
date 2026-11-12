@@ -19,7 +19,7 @@ two authored layers on top of it:
 - `assets/` — eight embedded SVG illustrations used across scenes 5, 6, 8, 9,
   10 and 11, with `ken-burns` ambient motion.
 
-`versions/` keeps the v2, v3, v4, and v5 snapshots so visual changes can be compared.
+`versions/` keeps the v2–v6 snapshots so visual changes can be compared. v6 uses a white paper, camera push/pan, and image move cues.
 The studio validates the latest file on load.
 
 Do not reference files from the standalone studio's `public/` folder

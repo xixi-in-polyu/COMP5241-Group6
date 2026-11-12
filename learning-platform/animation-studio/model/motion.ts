@@ -3,7 +3,7 @@ import type { CSSProperties } from 'react';
 import type { AmbientMotion, ElementMotion, ElementType, MotionCue, MotionPreset, NarrationSegment, Scene, SceneElement } from './types';
 
 export const ENTER_PRESETS = ['fade-rise', 'spring-scale', 'wipe-reveal', 'draw'] as const;
-export const BEAT_PRESETS = ['pulse', 'lift', 'focus', 'glow', 'trace', 'count-up'] as const;
+export const BEAT_PRESETS = ['pulse', 'lift', 'focus', 'glow', 'trace', 'count-up', 'move'] as const;
 export const EXIT_PRESETS = ['fade', 'slide', 'shrink'] as const;
 export const AMBIENT_PRESETS: AmbientMotion[] = ['none', 'drift', 'breathe', 'orbit', 'ken-burns'];
 export const MOTION_PRESETS: MotionPreset[] = [...ENTER_PRESETS, ...BEAT_PRESETS, ...EXIT_PRESETS];
@@ -107,6 +107,19 @@ export function compileElementMotion(element: SceneElement, scene: Scene, time: 
     ? 0
     : linearProgress(time, exitStart, element.motion.exit.duration);
 
+  let moveX = 0;
+  let moveY = 0;
+  if (!finalLayout) {
+    element.motion.beats.forEach((cue) => {
+      if (cue.preset !== 'move') return;
+      const start = resolveCueStart(cue, scene);
+      if (start === undefined) return;
+      const progress = linearProgress(time, start, cue.duration);
+      moveX += (cue.offset?.x ?? 0) * progress;
+      moveY += (cue.offset?.y ?? 0) * progress;
+    });
+  }
+
   let activeBeatIndex = -1;
   let activeBeatProgress = 0;
   let activeBeatPreset: MotionPreset | undefined;
@@ -178,7 +191,7 @@ export function compileElementMotion(element: SceneElement, scene: Scene, time: 
     orbitDegrees: element.motion.ambient === 'orbit' && !finalLayout ? (time * 2.2) % 360 : 0,
     style: {
       opacity: Math.max(0, enterProgress * (1 - exitProgress * Math.min(1, exitIntensity))),
-      transform: `translate(${exitX}px, ${baseY + beatY + ambientIntensity}px) scale(${baseScale * beatScale * exitScale * kenBurnsScale * (element.motion.ambient === 'breathe' ? 1 + ambientIntensity : 1)})`,
+      transform: `translate(calc(${exitX}px + ${moveX}cqw), calc(${baseY + beatY + ambientIntensity}px + ${moveY}cqw)) scale(${baseScale * beatScale * exitScale * kenBurnsScale * (element.motion.ambient === 'breathe' ? 1 + ambientIntensity : 1)})`,
       clipPath: clipProgress < 1 ? `inset(0 ${100 - clipProgress * 100}% 0 0)` : undefined,
       filter: activeBeatPreset === 'glow' ? `drop-shadow(0 0 ${activeBeatProgress * 18}px var(--element-accent))` : undefined,
     },

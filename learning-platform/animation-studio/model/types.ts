@@ -31,6 +31,7 @@ export type MotionPreset =
   | 'glow'
   | 'trace'
   | 'count-up'
+  | 'move'
   | 'fade'
   | 'slide'
   | 'shrink';
@@ -48,6 +49,8 @@ export interface MotionCue {
   duration: number;
   stagger?: number;
   intensity?: number;
+  /** Move preset: canvas-percent offset accumulated while the cue runs. */
+  offset?: { x?: number; y?: number };
 }
 
 export interface ElementMotion {
@@ -189,6 +192,13 @@ export interface SceneElementItem {
   label: string;
 }
 
+export interface SceneCamera {
+  zoomFrom?: number;
+  zoomTo?: number;
+  panX?: number;
+  panY?: number;
+}
+
 export interface Scene {
   id: string;
   chapterId: string;
@@ -200,6 +210,7 @@ export interface Scene {
   knowledgeNodeIds: string[];
   transitionOut?: SceneTransition;
   captionMode: CaptionMode;
+  camera?: SceneCamera;
 }
 
 export interface Chapter {

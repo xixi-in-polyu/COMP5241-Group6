@@ -144,6 +144,12 @@ export function SceneRenderer({ project, sceneId, localTime, selectedElementId, 
     isEditorialTheme ? 'theme-light-editorial' : '',
   ].filter(Boolean).join(' ');
   const chapterAccent = isEditorialTheme ? project.theme.accent : chapter.color;
+  const camera = scene.camera;
+  const cameraTime = Math.min(1, Math.max(0, localTime / Math.max(0.001, scene.duration)));
+  const cameraProgress = finalLayout ? 0 : 0.5 - 0.5 * Math.cos(Math.PI * cameraTime);
+  const cameraZoom = camera ? (camera.zoomFrom ?? 1) + ((camera.zoomTo ?? 1) - (camera.zoomFrom ?? 1)) * cameraProgress : 1;
+  const cameraPanX = camera ? (camera.panX ?? 0) * cameraProgress : 0;
+  const cameraPanY = camera ? (camera.panY ?? 0) * cameraProgress : 0;
 
   const select = (event: MouseEvent, id: string) => {
     if (!editable) return;
@@ -166,6 +172,7 @@ export function SceneRenderer({ project, sceneId, localTime, selectedElementId, 
     fontFamily: project.theme.fontFamily,
   } as CSSProperties} onClick={() => editable && onSelectElement?.('')}>
     <header className="scene-header"><span>STORYLINE / {chapter.shortTitle.toUpperCase()}</span><span>{String(project.scenes.indexOf(scene) + 1).padStart(2, '0')} / {String(project.scenes.length).padStart(2, '0')}</span></header>
+    <div className="scene-stage" style={{ transform: `translate(${cameraPanX}%, ${cameraPanY}%) scale(${cameraZoom})`, transformOrigin: 'center center' }}>
     {scene.elements.map((item) => {
       const motion = compileElementMotion(item, scene, localTime, project.renderConfig.fps, finalLayout);
       return <div
@@ -181,5 +188,6 @@ export function SceneRenderer({ project, sceneId, localTime, selectedElementId, 
       } as CSSProperties}
       onClick={(event) => select(event, item.id)}
     ><ElementBody element={item} project={project} motion={motion} localTime={localTime} finalLayout={finalLayout} selectedItemId={selectedElementId === item.id ? selectedItemId : undefined} onSelectItem={(event, itemId) => selectItem(event, item.id, itemId)} /></div>})}
+    </div>
   </div>;
 }

@@ -55,3 +55,7 @@ artwork.
 v5 also removes the scene footer (scene title and source pages), the decorative
 background orbs/grid, and the old linear formula layout. The availability
 formula is now a real fraction: numerator over denominator with an equals sign.
+
+v6 uses a pure white paper and a slow camera push/pan on every scene. Images can
+be given a `move` beat so they shift a little when the explanation changes,
+instead of exiting and entering again.

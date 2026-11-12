@@ -65,6 +65,16 @@ export const projectValidator: ProjectValidator = {
         if (!['fade', 'slide-left', 'slide-up', 'wipe'].includes(scene.transitionOut.preset)) issues.push({ path: `${base}.transitionOut.preset`, message: 'Unsupported scene transition preset.', severity: 'error' });
         if (!Number.isFinite(scene.transitionOut.duration) || scene.transitionOut.duration <= 0 || scene.transitionOut.duration >= scene.duration) issues.push({ path: `${base}.transitionOut.duration`, message: 'Transition duration must be positive and shorter than the scene.', severity: 'error' });
       }
+      if (scene.camera) {
+        const zoomFrom = scene.camera.zoomFrom ?? 1;
+        const zoomTo = scene.camera.zoomTo ?? 1;
+        for (const [key, value] of Object.entries({ zoomFrom, zoomTo })) {
+          if (!Number.isFinite(value) || value < 1 || value > 1.2) issues.push({ path: `${base}.camera.${key}`, message: 'Camera zoom must be between 1 and 1.2.', severity: 'error' });
+        }
+        for (const [key, value] of Object.entries({ panX: scene.camera.panX ?? 0, panY: scene.camera.panY ?? 0 })) {
+          if (!Number.isFinite(value) || Math.abs(value) > 5) issues.push({ path: `${base}.camera.${key}`, message: 'Camera pan must be between -5 and 5 percent.', severity: 'error' });
+        }
+      }
       scene.elements?.forEach((element, elementIndex) => {
         const elementBase = `${base}.elements[${elementIndex}]`;
         if (!supportedElements.has(element.type)) issues.push({ path: `${base}.elements[${elementIndex}].type`, message: `Unsupported element type: ${element.type}.`, severity: 'error' });
@@ -151,6 +161,11 @@ export const projectValidator: ProjectValidator = {
             cueIds.add(cue.id);
             if (!MOTION_PRESETS.includes(cue.preset)) issues.push({ path: `${cuePath}.preset`, message: `Unsupported motion preset: ${cue.preset}.`, severity: 'error' });
             if (!Number.isFinite(cue.duration) || cue.duration <= 0) issues.push({ path: `${cuePath}.duration`, message: 'Motion duration must be greater than zero.', severity: 'error' });
+            if (cue.offset) {
+              for (const [key, value] of Object.entries({ x: cue.offset.x ?? 0, y: cue.offset.y ?? 0 })) {
+                if (!Number.isFinite(value) || Math.abs(value) > 20) issues.push({ path: `${cuePath}.offset.${key}`, message: 'Move offset must be between -20 and 20 percent.', severity: 'error' });
+              }
+            }
             const start = resolveCueStart(cue, scene);
             if (start === undefined) issues.push({ path: `${cuePath}.trigger`, message: 'Motion references an unknown narration segment.', severity: 'error' });
             else if (start < 0 || start + cue.duration > scene.duration + 0.001) issues.push({ path: cuePath, message: 'Motion cue extends outside the scene.', severity: 'error' });

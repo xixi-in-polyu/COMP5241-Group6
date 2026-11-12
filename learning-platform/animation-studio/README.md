@@ -33,6 +33,8 @@ Platform can host it without a second deployment.
 - The availability formula uses a real fraction layout (numerator over
   denominator) instead of a linear glyph row.
 - Illustrations are embedded SVG assets with a slow `ken-burns` ambient.
+- Scenes have a slow camera push/pan; a `move` beat can translate an image
+  between steps without re-entering it.
 
 ## Boundaries
 
