@@ -14,9 +14,11 @@ import type { UnifiedCourse } from "@/lib/courses/types";
 export function UnifiedCourseReader({
   course,
   materialDownload,
+  showPublicationStatus = true,
 }: {
   course: UnifiedCourse;
   materialDownload: (materialId: string) => string;
+  showPublicationStatus?: boolean;
 }) {
   return (
     <div className="mx-auto w-full max-w-5xl" id="course-top">
@@ -27,9 +29,11 @@ export function UnifiedCourseReader({
       />
       <header className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
         <div className="flex flex-wrap gap-2 text-xs font-semibold text-[#54738f]">
-          <span className="rounded-full bg-[#eef2f6] px-2.5 py-1">
-            {course.publicationStatus}
-          </span>
+          {showPublicationStatus ? (
+            <span className="rounded-full bg-[#eef2f6] px-2.5 py-1">
+              {course.publicationStatus}
+            </span>
+          ) : null}
           <span className="rounded-full bg-[#eef2f6] px-2.5 py-1">
             {course.level}
           </span>
@@ -68,7 +72,9 @@ export function UnifiedCourseReader({
           <h2 className="text-sm font-semibold text-[#142f4d]">Course materials</h2>
           <ul className="mt-3 space-y-2">
             {course.materials.map((material) => {
-              const downloadable = material.status === "ready" || material.status === "download_only";
+              const downloadable =
+                material.kind === "file" &&
+                (material.status === "ready" || material.status === "download_only");
               return (
                 <li
                   className="flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 p-3"
@@ -84,6 +90,8 @@ export function UnifiedCourseReader({
                       <Download className="size-3.5" />
                       Download
                     </a>
+                  ) : material.kind === "text" && material.status === "ready" ? (
+                    <span className="text-xs font-medium text-[#6a7c90]">Course notes</span>
                   ) : material.status === "failed" ? (
                     <span
                       className="text-xs font-semibold text-[#a3232b]"

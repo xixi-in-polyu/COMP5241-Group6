@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, Beaker } from "lucide-react";
+import { ArrowRight, Beaker, BookOpen } from "lucide-react";
 
 import { AccountMenu } from "@/app/components/account-menu";
 import { chipTones, coverFor } from "@/app/components/course-cover";
@@ -25,6 +25,7 @@ export default async function StudentCoursePage({ params }: { params: Promise<{ 
       title: true,
       description: true,
       category: true,
+      _count: { select: { chapters: true } },
       materials: {
         where: { kind: "FILE", status: { in: ["READY", "DOWNLOAD_ONLY"] } },
         orderBy: { createdAt: "asc" },
@@ -51,6 +52,16 @@ export default async function StudentCoursePage({ params }: { params: Promise<{ 
             <span className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${chipTones[coverFor({ category: course.category ?? undefined, title: course.title }).palette]}`}>{course.category || "Course"}</span>
             <h1 className="mt-2 text-3xl font-semibold text-[#142f4d]">{course.title}</h1>
             <p className="mt-2 text-sm text-slate-600">{course.description}</p>
+            <Link
+              className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-xl bg-[#193b61] px-4 text-sm font-semibold text-white transition-colors hover:bg-[#244d78] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#193b61]"
+              href={`/student/courses/${course.id}/reader?view=course`}
+            >
+              <BookOpen aria-hidden="true" className="size-4" />
+              Open mini-course
+              <span className="font-normal text-white/70">
+                {course._count.chapters} chapter{course._count.chapters === 1 ? "" : "s"}
+              </span>
+            </Link>
           </header>
 
           {course.materials.length ? (
@@ -59,11 +70,11 @@ export default async function StudentCoursePage({ params }: { params: Promise<{ 
               <div className="mt-4">
                 <Link
                   className="group block w-full max-w-3xl overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#193b61]"
-                  href={`/student/courses/${course.id}/reader`}
+                  href={`/student/courses/${course.id}/reader?view=tutor`}
                 >
                   <div className="material-pattern relative flex h-44 items-center justify-center bg-[#fdf1c7]">
                     <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-[11px] font-bold tracking-wide text-slate-700 shadow-sm">
-                      Doc chat
+                      PDF &amp; AI Tutor
                     </span>
                     <span className="grid size-20 place-items-center rounded-[28px] rounded-bl-md bg-white shadow-[0_12px_30px_rgba(15,23,42,0.14)] transition-transform duration-200 group-hover:scale-105">
                       <span className="flex items-center gap-1.5" aria-hidden="true">
@@ -74,7 +85,7 @@ export default async function StudentCoursePage({ params }: { params: Promise<{ 
                     </span>
                   </div>
                   <div className="px-5 py-4">
-                    <h3 className="text-lg font-semibold tracking-[-0.01em] text-[#142f4d]">Lecture Slides</h3>
+                    <h3 className="text-lg font-semibold tracking-[-0.01em] text-[#142f4d]">Study course materials</h3>
                   </div>
                 </Link>
               </div>
