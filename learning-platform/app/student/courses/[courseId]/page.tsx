@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { ArrowRight, Beaker } from "lucide-react";
 
 import { AccountMenu } from "@/app/components/account-menu";
+import { chipTones, coverFor } from "@/app/components/course-cover";
 import { WorkspaceHeader } from "@/app/components/workspace-header";
 import { requirePageRole } from "@/lib/auth/authorization";
 import { prisma } from "@/lib/prisma";
@@ -40,14 +41,14 @@ export default async function StudentCoursePage({ params }: { params: Promise<{ 
   const assignments = course.assignments.filter((assignment) => assignment.interactiveLabs.some((lab) => lab.activeVersionId && lab.approvedVersionId === lab.activeVersionId));
   return (
     <main className="min-h-screen bg-slate-50 p-4 text-slate-800 sm:p-6">
-      <div className="mx-auto w-full max-w-[1900px]">
-        <WorkspaceHeader homeHref="/student">
+      <div className="mx-auto w-full max-w-[1280px]">
+        <WorkspaceHeader breadcrumbs={[{ label: course.title }]} homeHref="/student">
           <AccountMenu user={student} />
         </WorkspaceHeader>
 
         <div className="mx-auto mt-6 w-full max-w-5xl">
           <header className="rounded-2xl border border-slate-200 bg-white p-6">
-            <p className="text-xs font-semibold uppercase tracking-widest text-[#54738f]">{course.category || "Course"}</p>
+            <span className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${chipTones[coverFor({ category: course.category ?? undefined, title: course.title }).palette]}`}>{course.category || "Course"}</span>
             <h1 className="mt-2 text-3xl font-semibold text-[#142f4d]">{course.title}</h1>
             <p className="mt-2 text-sm text-slate-600">{course.description}</p>
           </header>
@@ -57,10 +58,10 @@ export default async function StudentCoursePage({ params }: { params: Promise<{ 
               <h2 className="text-xl font-semibold text-[#193b61]">Course materials</h2>
               <div className="mt-4">
                 <Link
-                  className="group block w-full max-w-lg overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#193b61]"
+                  className="group block w-full max-w-3xl overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#193b61]"
                   href={`/student/courses/${course.id}/reader`}
                 >
-                  <div className="relative flex h-44 items-center justify-center bg-[#fdf1c7]">
+                  <div className="material-pattern relative flex h-44 items-center justify-center bg-[#fdf1c7]">
                     <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-[11px] font-bold tracking-wide text-slate-700 shadow-sm">
                       Doc chat
                     </span>
@@ -85,7 +86,7 @@ export default async function StudentCoursePage({ params }: { params: Promise<{ 
             <div className="mt-4 grid gap-3">
               {assignments.map((assignment) => (
                 <Link key={assignment.id} href={`/student/assignments/${assignment.id}`} className="flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:border-[#9bb2c8]">
-                  <span className="grid size-10 place-items-center rounded-xl bg-[#edf2f7] text-[#284b70]">
+                  <span className="grid size-10 place-items-center rounded-xl bg-[#d6efe4] text-[#2f6e56]">
                     <Beaker className="size-5" />
                   </span>
                   <span className="min-w-0 flex-1">
@@ -98,9 +99,12 @@ export default async function StudentCoursePage({ params }: { params: Promise<{ 
                 </Link>
               ))}
               {!assignments.length && (
-                <p className="rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-center text-sm text-slate-500">
-                  No Interactive Labs have been published yet.
-                </p>
+                <div className="flex items-center gap-4 rounded-2xl border border-dashed border-slate-300 bg-white p-6">
+                  <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-[#d6efe4] text-[#2f6e56]">
+                    <Beaker className="size-5" />
+                  </span>
+                  <p className="text-sm text-slate-500">No Interactive Labs have been published yet.</p>
+                </div>
               )}
             </div>
           </section>

@@ -7,6 +7,20 @@ import { CourseChat } from "@/app/components/course-chat";
 
 type ReaderFile = { id: string; name: string; size: number; mimeType: string };
 
+function fileTone(file: ReaderFile) {
+  const extension = file.name.split(".").pop()?.toLowerCase();
+  if (file.mimeType === "application/pdf" || extension === "pdf") {
+    return { active: "border-[#e7bdb4] bg-[#fdf3f0]", tile: "bg-[#fbd9d2] text-[#a8452f]" };
+  }
+  if (extension === "doc" || extension === "docx") {
+    return { active: "border-[#bcd6ea] bg-[#f2f7fb]", tile: "bg-[#d9e9f7] text-[#2d5f8a]" };
+  }
+  if (extension === "ppt" || extension === "pptx") {
+    return { active: "border-[#e8d59a] bg-[#fdf9ee]", tile: "bg-[#fbeec2] text-[#8a6410]" };
+  }
+  return { active: "border-[#b7ddcc] bg-[#f1f8f4]", tile: "bg-[#d6efe4] text-[#2f6e56]" };
+}
+
 export function CourseReader({
   courseId,
   courseTitle,
@@ -43,13 +57,14 @@ export function CourseReader({
           <ul className="space-y-2">
             {files.map((file) => {
               const active = file.id === current?.id;
+              const tone = fileTone(file);
               return (
                 <li key={file.id}>
                   <button
                     aria-current={active ? "page" : undefined}
                     className={`flex w-full items-start gap-3 rounded-xl border p-3 text-left transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#193b61] ${
                       active
-                        ? "border-[#c9d7e4] bg-[#eef2f6]"
+                        ? tone.active
                         : "border-slate-200 bg-white hover:border-[#c9d7e4] hover:bg-slate-50"
                     }`}
                     onClick={() => {
@@ -58,11 +73,7 @@ export function CourseReader({
                     }}
                     type="button"
                   >
-                    <span
-                      className={`grid size-9 shrink-0 place-items-center rounded-lg ${
-                        active ? "bg-white/80 text-[#284b70]" : "bg-slate-100 text-[#54738f]"
-                      }`}
-                    >
+                    <span className={`grid size-9 shrink-0 place-items-center rounded-lg ${tone.tile}`}>
                       <FileText className="size-4" aria-hidden="true" />
                     </span>
                     <span

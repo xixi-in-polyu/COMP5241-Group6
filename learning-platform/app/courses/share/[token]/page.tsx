@@ -1,5 +1,6 @@
 import { notFound, redirect } from "next/navigation";
 
+import { PageShell } from "@/app/components/page-shell";
 import { UnifiedCourseReader } from "@/app/components/unified-course-reader";
 import { getAuthenticatedUser } from "@/lib/auth/session";
 import { hashShareToken } from "@/lib/courses/security";
@@ -14,5 +15,20 @@ export default async function SharedCoursePage({ params }: { params: Promise<{ t
   const { token } = await params;
   const row = await prisma.course.findFirst({ where: { shareTokenHash: hashShareToken(token), publicationStatus: "PUBLISHED", archivedAt: null }, include: COURSE_INCLUDE });
   if (!row) notFound();
-  return <UnifiedCourseReader course={serializeCourse(row)} materialDownload={(materialId) => `/api/shared-courses/${token}/materials/${materialId}/download`}/>;
+  const course = serializeCourse(row);
+
+  return (
+    <PageShell
+      breadcrumbs={[{ label: course.title }, { label: "Shared course" }]}
+      homeHref={user.role === "teacher" ? "/teacher" : "/student"}
+      user={user}
+    >
+      <div className="mx-auto w-full max-w-5xl">
+        <UnifiedCourseReader
+          course={course}
+          materialDownload={(materialId) => `/api/shared-courses/${token}/materials/${materialId}/download`}
+        />
+      </div>
+    </PageShell>
+  );
 }

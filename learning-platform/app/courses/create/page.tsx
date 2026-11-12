@@ -7,7 +7,13 @@ export const metadata = { title: "Create course" };
 export const instant = false;
 
 export default async function CreateCoursePage({ searchParams }: { searchParams: Promise<{ draftId?: string }> }) {
-  if (!await getAuthenticatedUser()) redirect("/");
+  const user = await getAuthenticatedUser();
+  if (!user) redirect("/");
   const { draftId } = await searchParams;
-  return <CreateCourseClient initialDraftId={draftId ?? null} />;
+  return (
+    <CreateCourseClient
+      initialDraftId={draftId ?? null}
+      user={{ email: user.email, id: user.id, role: user.role }}
+    />
+  );
 }

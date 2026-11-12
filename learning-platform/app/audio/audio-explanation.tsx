@@ -1,8 +1,8 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { PageShell } from "@/app/components/page-shell";
 import { ArrowLeft, ArrowRight, AudioLines, BookOpen, FileUp, Pause, Play, RotateCcw, Volume2 } from "lucide-react";
 
 import {
@@ -47,7 +47,7 @@ function isExplanation(value: unknown): value is Explanation {
   );
 }
 
-export default function AudioExplanation({ studentId }: { studentId: string }) {
+export default function AudioExplanation({ studentId, user }: { studentId: string; user: { id: string; email: string } }) {
   const [fileUrl, setFileUrl] = useState("");
   const [fileName, setFileName] = useState("");
   const [history, setHistory] = useState<AudioHistoryDocument[]>([]);
@@ -335,18 +335,8 @@ export default function AudioExplanation({ studentId }: { studentId: string }) {
   }
 
   return (
-    <main className="min-h-screen bg-[#f3f6fa] px-4 py-5 text-[#142f4d] sm:px-8">
-      <div className="mx-auto max-w-[1500px]">
-        <header className="flex flex-wrap items-center gap-3 border-b border-slate-200 pb-4">
-          <Link href="/student" className="inline-flex items-center gap-2 text-sm font-semibold text-[#193b61] hover:text-[#244d78]">
-            <ArrowLeft className="size-4" aria-hidden="true" />
-            Student home
-          </Link>
-          <div className="ml-auto flex items-center gap-2 text-sm font-semibold text-[#54738f]">
-            <AudioLines className="size-5" aria-hidden="true" />
-            Audio explanation
-          </div>
-        </header>
+    <PageShell breadcrumbs={[{ label: "Audio explanation" }]} homeHref="/student" user={user}>
+      <div className="mx-auto max-w-[1300px]">
 
         <aside
           aria-label="Audio explanation history"
@@ -405,7 +395,6 @@ export default function AudioExplanation({ studentId }: { studentId: string }) {
         <section className="mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
-              <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#54738f]">Study material</p>
               <h1 className="mt-1 text-2xl font-semibold tracking-[-0.02em]">Listen and understand your PDF</h1>
               <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500">
                 Upload a PDF, select a page, and ask the assistant to explain it in simple spoken language.
@@ -423,7 +412,7 @@ export default function AudioExplanation({ studentId }: { studentId: string }) {
         {!fileUrl ? (
           <section className="mt-6 flex min-h-80 items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-center">
             <div>
-              <BookOpen className="mx-auto size-10 text-[#7b91a6]" aria-hidden="true" />
+              <span className="mx-auto grid size-14 place-items-center rounded-2xl bg-[#d6efe4] text-[#2f6e56]"><BookOpen className="size-7" aria-hidden="true" /></span>
               <p className="mt-3 font-semibold">Upload study material to begin</p>
               <p className="mt-1 text-sm text-slate-500">Your PDF and saved explanations are kept in this browser for your account.</p>
             </div>
@@ -459,7 +448,7 @@ export default function AudioExplanation({ studentId }: { studentId: string }) {
             <section className="order-1 flex min-h-[550px] flex-col rounded-2xl border border-slate-200 bg-white p-5 shadow-sm lg:order-2">
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#54738f]">Transcription</p>
+                  <p className="text-sm font-medium text-[#54738f]">Transcription</p>
                   <h2 className="mt-1 text-xl font-semibold">A simple explanation</h2>
                 </div>
                 <Volume2 className="size-5 text-[#54738f]" aria-hidden="true" />
@@ -496,6 +485,6 @@ export default function AudioExplanation({ studentId }: { studentId: string }) {
           </div>
         )}
       </div>
-    </main>
+    </PageShell>
   );
 }
