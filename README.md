@@ -69,6 +69,18 @@ OPENROUTER_APP_NAME=COMP5241 Learning Platform
 
 也可以将 `AI_MODEL` 改为具体的 `provider/model:free` slug。OpenRouter 免费路由受可用模型、速率限制和上下文策略影响，不建议把它当成稳定的生产 SLA。
 
+## 课程动画
+
+教师和学生共用 `/animations`。教师看到可编辑的 Storyline Studio，学生只读（播放、字幕和明暗主题）。入口在教师首页右上角的 **Animation**，以及学生首页 **More to Explore → Course animation**。
+
+当前只发布一份动画，内容来自 `learning-platform/animation-studio/content/published.animation.json`。替换步骤：
+
+1. 在 Storyline Studio 中导出项目 JSON。
+2. 覆盖上述文件。
+3. 在 `learning-platform` 运行 `npm test`；`tests/animation-publication.test.ts` 会在发布前校验项目。
+
+该功能不需要数据库、Blob 或 AI Provider 配置。编辑只保存在浏览器内存中，刷新后回到已发布版本（可导出 JSON）。服务端 TTS、MP4 导出、AI 生成和项目列表不在本次范围内。
+
 ## 数据库与测试教师
 
 纯本地 PostgreSQL 可以使用 Docker 启动：
@@ -291,5 +303,6 @@ Break-glass 默认关闭。事件中只有 `xixi-in-polyu` 能以当前 `main` �
 | `/student` | READY 课程与已发布 Interactive Labs |
 | `/student/courses/{courseId}` | 课程内已发布的 Lab 作业 |
 | `/student/assignments/{assignmentId}` | 多 Lab 练习运行时与本地进度 |
+| `/animations` | 已发布课程动画；教师可编辑，学生只读 |
 | `/api/assignments/{assignmentId}/interactive-labs/**` | 教师 Lab 创建、更新、历史、审批、归档及排序 |
 | `/api/student/assignments/{assignmentId}/interactive-labs` | 脱敏后的学生 Lab 内容 |
