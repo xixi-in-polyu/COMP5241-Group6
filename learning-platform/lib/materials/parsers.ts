@@ -51,6 +51,12 @@ function assertUsefulText(units: SourceUnit[]) {
 
 async function parsePdf(buffer: Uint8Array): Promise<ParsedMaterial> {
   if (/\/Encrypt\b/.test(Buffer.from(buffer).toString("latin1"))) throw new MaterialError("ENCRYPTED_FILE", "Encrypted PDFs are not supported.");
+  // PDF.js disables real Web Workers in Node and falls back to importing its
+  // worker module at runtime. That hidden relative import is not discovered by
+  // Vercel's serverless file tracer, so explicitly load it before the main
+  // module. The worker registers WorkerMessageHandler on globalThis, which the
+  // fake-worker path then reuses without another filesystem import.
+  await import("pdfjs-dist/legacy/build/pdf.worker.mjs");
   const pdfjs = await import("pdfjs-dist/legacy/build/pdf.mjs");
   const document = await pdfjs.getDocument({ data: buffer, useWorkerFetch: false, useSystemFonts: true }).promise;
   if (document.numPages > 100) throw new MaterialError("PAGE_LIMIT_EXCEEDED", "PDF exceeds 100 pages.");
