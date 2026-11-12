@@ -60,7 +60,7 @@ function Studio({ initialProject, readOnly, exitHref }: { initialProject: Animat
   const project = history.present;
   const [mode, setMode] = useState<'edit' | 'preview'>(readOnly ? 'preview' : 'edit');
   const [previewState, setPreviewState] = useState<'timeline' | 'final'>('timeline');
-  const [uiTheme, setUiTheme] = useState<'dark' | 'light'>(() => localStorage.getItem('storyline-ui-theme') === 'light' ? 'light' : 'dark');
+  const [uiTheme, setUiTheme] = useState<'dark' | 'light'>(() => localStorage.getItem('storyline-ui-theme') === 'dark' ? 'dark' : 'light');
   const [selectedSceneId, setSelectedSceneId] = useState(project.scenes[0].id);
   const [selectedElementId, setSelectedElementId] = useState('');
   const [selectedItemId, setSelectedItemId] = useState('');

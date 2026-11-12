@@ -8,12 +8,13 @@ const Studio = dynamic(() => import("@/animation-studio/App"), {
     <div
       style={{
         alignItems: "center",
-        color: "#8a929e",
+        color: "#64707c",
         display: "flex",
         fontFamily: "ui-monospace, monospace",
         fontSize: 12,
         height: "100%",
         justifyContent: "center",
+        background: "#eef1f4",
         letterSpacing: "0.08em",
       }}
     >

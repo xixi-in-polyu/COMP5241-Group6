@@ -286,6 +286,9 @@
 .animation-studio .ui-light .top-actions a { background: #fff; border-color: #d4dae1; color: #48515c; }
 .animation-studio .ui-light .top-actions a:hover { background: #f0f3f6; border-color: #aeb6c0; }
 
+.animation-studio .ui-light .stage-tools span { color: #667a5d; }
+.animation-studio .ui-light .stage-tools span.has-errors { color: #b4552f; }
+
 /* Platform shell: mount the studio as a full-viewport overlay. */
 .animation-studio {
   position: fixed;
