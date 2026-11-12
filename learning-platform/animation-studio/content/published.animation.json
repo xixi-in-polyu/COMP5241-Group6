@@ -1,8 +1,8 @@
 {
-  "schemaVersion": 5,
+  "schemaVersion": 3,
   "id": "project-sdlc-story",
   "title": "From Idea to Impact",
-  "description": "A source-grounded, editable visual journey through the software development lifecycle.",
+  "description": "An editable visual journey through the software development lifecycle.",
   "locale": "en-US",
   "renderConfig": {
     "fps": 30,
@@ -14,7 +14,7 @@
   "sourceDocuments": [
     {
       "id": "source-sdlc-lecture",
-      "name": "2 - Software Development Lifecycle-1.pdf",
+      "name": "Software Development Lifecycle.pdf",
       "mimeType": "application/pdf",
       "pageCount": 57,
       "importedAt": "2026-10-31T00:00:00.000Z"
@@ -243,7 +243,7 @@
       "chapterId": "ch-overview",
       "title": "A product is a living system",
       "template": "opening",
-      "duration": 58,
+      "duration": 65,
       "elements": [
         {
           "id": "s1-title",
@@ -325,16 +325,12 @@
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 57.45
+                "at": 64.55
               },
-              "duration": 0.55,
+              "duration": 0.45,
               "intensity": 1
             },
             "ambient": "none"
-          },
-          "visual": {
-            "variant": "minimal",
-            "surface": "none"
           },
           "sourcePages": [
             1,
@@ -420,16 +416,12 @@
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 57.45
+                "at": 64.55
               },
-              "duration": 0.55,
+              "duration": 0.45,
               "intensity": 1
             },
             "ambient": "breathe"
-          },
-          "visual": {
-            "variant": "minimal",
-            "surface": "outline"
           },
           "sourcePages": [
             2
@@ -541,16 +533,12 @@
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 57.45
+                "at": 64.55
               },
-              "duration": 0.55,
+              "duration": 0.45,
               "intensity": 1
             },
             "ambient": "orbit"
-          },
-          "visual": {
-            "variant": "orbital",
-            "surface": "none"
           },
           "sourcePages": [
             2
@@ -562,25 +550,25 @@
           "id": "scene-01-n1",
           "text": "Software is not born in a single moment. It moves from an uncertain idea to a system used by real people, under real pressure.",
           "start": 0,
-          "end": 14.2
+          "end": 16.25
         },
         {
           "id": "scene-01-n2",
           "text": "The software development lifecycle, or SDLC, gives that journey structure. It connects requirements, design, implementation, testing, deployment, and maintenance.",
-          "start": 14.2,
-          "end": 28.4
+          "start": 16.25,
+          "end": 32.5
         },
         {
           "id": "scene-01-n3",
           "text": "Our example is an AI tutor. Students ask questions, teachers shape the learning experience, and the team must turn both needs into dependable software.",
-          "start": 28.4,
-          "end": 42.6
+          "start": 32.5,
+          "end": 48.75
         },
         {
           "id": "scene-01-n4",
           "text": "The path looks circular because every release creates feedback. What we learn in production becomes the next requirement, and the lifecycle begins again.",
-          "start": 42.6,
-          "end": 56.8
+          "start": 48.75,
+          "end": 65
         }
       ],
       "knowledgeNodeIds": [
@@ -589,15 +577,14 @@
       "transitionOut": {
         "preset": "fade",
         "duration": 0.6
-      },
-      "captionMode": "bottom"
+      }
     },
     {
       "id": "scene-02",
       "chapterId": "ch-overview",
       "title": "One loop, many decisions",
       "template": "process",
-      "duration": 60,
+      "duration": 65,
       "elements": [
         {
           "id": "s2-title",
@@ -679,16 +666,12 @@
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 59.45
+                "at": 64.55
               },
-              "duration": 0.55,
+              "duration": 0.45,
               "intensity": 1
             },
             "ambient": "none"
-          },
-          "visual": {
-            "variant": "minimal",
-            "surface": "none"
           },
           "sourcePages": [
             2
@@ -811,16 +794,12 @@
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 59.45
+                "at": 64.55
               },
-              "duration": 0.55,
+              "duration": 0.45,
               "intensity": 1
             },
             "ambient": "none"
-          },
-          "visual": {
-            "variant": "rail",
-            "surface": "none"
           },
           "sourcePages": [
             2
@@ -905,16 +884,12 @@
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 59.45
+                "at": 64.55
               },
-              "duration": 0.55,
+              "duration": 0.45,
               "intensity": 1
             },
             "ambient": "none"
-          },
-          "visual": {
-            "variant": "minimal",
-            "surface": "none"
           },
           "sourcePages": [
             2
@@ -926,25 +901,25 @@
           "id": "scene-02-n1",
           "text": "A lifecycle is more than a checklist. Each stage answers a different question and reduces a different form of uncertainty.",
           "start": 0,
-          "end": 14.7
+          "end": 16.25
         },
         {
           "id": "scene-02-n2",
           "text": "Requirements define the desired outcome. Design explains how the system will work. Implementation turns the design into executable behavior.",
-          "start": 14.7,
-          "end": 29.4
+          "start": 16.25,
+          "end": 32.5
         },
         {
           "id": "scene-02-n3",
           "text": "Testing moves from small units to integrated modules, the complete system, and finally acceptance by customers or end users.",
-          "start": 29.4,
-          "end": 44.1
+          "start": 32.5,
+          "end": 48.75
         },
         {
           "id": "scene-02-n4",
           "text": "Deployment puts the software into its real environment. Maintenance then fixes defects, adapts to change, improves quality, and prevents future problems.",
-          "start": 44.1,
-          "end": 58.8
+          "start": 48.75,
+          "end": 65
         }
       ],
       "knowledgeNodeIds": [
@@ -953,15 +928,14 @@
       "transitionOut": {
         "preset": "fade",
         "duration": 0.6
-      },
-      "captionMode": "bottom"
+      }
     },
     {
       "id": "scene-03",
       "chapterId": "ch-discover",
       "title": "Start with the problem",
       "template": "concept",
-      "duration": 68,
+      "duration": 65,
       "elements": [
         {
           "id": "s3-title",
@@ -1043,16 +1017,12 @@
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 67.45
+                "at": 64.55
               },
-              "duration": 0.55,
+              "duration": 0.45,
               "intensity": 1
             },
             "ambient": "none"
-          },
-          "visual": {
-            "variant": "minimal",
-            "surface": "none"
           },
           "sourcePages": [
             3,
@@ -1149,16 +1119,12 @@
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 67.45
+                "at": 64.55
               },
-              "duration": 0.55,
+              "duration": 0.45,
               "intensity": 1
             },
             "ambient": "none"
-          },
-          "visual": {
-            "variant": "split",
-            "surface": "none"
           },
           "sourcePages": [
             3,
@@ -1199,7 +1165,7 @@
           "x": 67,
           "y": 11,
           "width": 28,
-          "height": 40,
+          "height": 66,
           "style": {
             "tone": "glass",
             "align": "center"
@@ -1271,16 +1237,12 @@
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 67.45
+                "at": 64.55
               },
-              "duration": 0.55,
+              "duration": 0.45,
               "intensity": 1
             },
             "ambient": "none"
-          },
-          "visual": {
-            "variant": "editorial",
-            "surface": "soft"
           },
           "sourcePages": [
             5
@@ -1292,25 +1254,25 @@
           "id": "scene-03-n1",
           "text": "Good software begins with the problem, not with a favorite solution. Teams identify the people affected, learn their workflows, and uncover the value the project must create.",
           "start": 0,
-          "end": 16.7
+          "end": 16.25
         },
         {
           "id": "scene-03-n2",
           "text": "Functional requirements describe what the system should accomplish: create an account, search content, or generate questions from a source text.",
-          "start": 16.7,
-          "end": 33.4
+          "start": 16.25,
+          "end": 32.5
         },
         {
           "id": "scene-03-n3",
           "text": "Non-functional requirements describe how well it should work: its performance, reliability, availability, usability, scalability, security, and maintainability.",
-          "start": 33.4,
-          "end": 50.1
+          "start": 32.5,
+          "end": 48.75
         },
         {
           "id": "scene-03-n4",
           "text": "Teams collect this evidence through documents, observation, interviews, surveys, workshops, and prototypes. Better questions expose pain points, exceptions, ownership, and conflicting priorities.",
-          "start": 50.1,
-          "end": 66.8
+          "start": 48.75,
+          "end": 65
         }
       ],
       "knowledgeNodeIds": [
@@ -1320,15 +1282,14 @@
       "transitionOut": {
         "preset": "fade",
         "duration": 0.6
-      },
-      "captionMode": "bottom"
+      }
     },
     {
       "id": "scene-04",
       "chapterId": "ch-discover",
       "title": "Prototype to learn",
       "template": "comparison",
-      "duration": 68,
+      "duration": 65,
       "elements": [
         {
           "id": "s4-title",
@@ -1410,16 +1371,12 @@
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 67.45
+                "at": 64.55
               },
-              "duration": 0.55,
+              "duration": 0.45,
               "intensity": 1
             },
             "ambient": "none"
-          },
-          "visual": {
-            "variant": "minimal",
-            "surface": "none"
           },
           "sourcePages": [
             11,
@@ -1528,16 +1485,12 @@
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 67.45
+                "at": 64.55
               },
-              "duration": 0.55,
+              "duration": 0.45,
               "intensity": 1
             },
             "ambient": "none"
-          },
-          "visual": {
-            "variant": "rail",
-            "surface": "none"
           },
           "sourcePages": [
             14,
@@ -1569,7 +1522,7 @@
           "x": 62,
           "y": 10,
           "width": 33,
-          "height": 40,
+          "height": 66,
           "style": {
             "tone": "glass",
             "align": "center"
@@ -1641,16 +1594,12 @@
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 67.45
+                "at": 64.55
               },
-              "duration": 0.55,
+              "duration": 0.45,
               "intensity": 1
             },
             "ambient": "none"
-          },
-          "visual": {
-            "variant": "editorial",
-            "surface": "soft"
           },
           "sourcePages": [
             11,
@@ -1667,25 +1616,25 @@
           "id": "scene-04-n1",
           "text": "Stakeholders often recognize what they need only when they can see and try something. Prototypes make requirements tangible before the team commits to full production.",
           "start": 0,
-          "end": 16.7
+          "end": 16.25
         },
         {
           "id": "scene-04-n2",
           "text": "A throwaway prototype is built quickly and discarded. An evolutionary prototype grows through feedback. An incremental prototype develops separate parts and later combines them.",
-          "start": 16.7,
-          "end": 33.4
+          "start": 16.25,
+          "end": 32.5
         },
         {
           "id": "scene-04-n3",
           "text": "Wireframes test structure, mockups test visual language, and high-fidelity prototypes test interaction. Each is an instrument for learning, not automatically a finished product.",
-          "start": 33.4,
-          "end": 50.1
+          "start": 32.5,
+          "end": 48.75
         },
         {
           "id": "scene-04-n4",
           "text": "A minimum viable product goes further. It delivers enough real value to test the business idea with real users, collect meaningful evidence, and guide the next investment.",
-          "start": 50.1,
-          "end": 66.8
+          "start": 48.75,
+          "end": 65
         }
       ],
       "knowledgeNodeIds": [
@@ -1695,8 +1644,7 @@
       "transitionOut": {
         "preset": "fade",
         "duration": 0.6
-      },
-      "captionMode": "bottom"
+      }
     },
     {
       "id": "scene-05",
@@ -1785,16 +1733,12 @@
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 64.45
+                "at": 64.55
               },
-              "duration": 0.55,
+              "duration": 0.45,
               "intensity": 1
             },
             "ambient": "none"
-          },
-          "visual": {
-            "variant": "minimal",
-            "surface": "none"
           },
           "sourcePages": [
             18
@@ -1897,16 +1841,12 @@
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 64.45
+                "at": 64.55
               },
-              "duration": 0.55,
+              "duration": 0.45,
               "intensity": 1
             },
             "ambient": "drift"
-          },
-          "visual": {
-            "variant": "diagram",
-            "surface": "none"
           },
           "sourcePages": [
             18,
@@ -1993,16 +1933,12 @@
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 64.45
+                "at": 64.55
               },
-              "duration": 0.55,
+              "duration": 0.45,
               "intensity": 1
             },
             "ambient": "none"
-          },
-          "visual": {
-            "variant": "minimal",
-            "surface": "none"
           },
           "sourcePages": [
             18
@@ -2014,25 +1950,25 @@
           "id": "scene-05-n1",
           "text": "Requirements state what the system should do. Design describes how it will do it, including components, data, interfaces, trade-offs, and responsibilities.",
           "start": 0,
-          "end": 15.95
+          "end": 16.25
         },
         {
           "id": "scene-05-n2",
           "text": "For our AI tutor, a React interface lets students type questions and view answers. It sends requests to a Python Flask application programming interface.",
-          "start": 15.95,
-          "end": 31.9
+          "start": 16.25,
+          "end": 32.5
         },
         {
           "id": "scene-05-n3",
           "text": "The backend applies business logic, calls the AI service, and stores chat history in a database. Clear interfaces let these parts evolve without becoming one tangled block.",
-          "start": 31.9,
-          "end": 47.85
+          "start": 32.5,
+          "end": 48.75
         },
         {
           "id": "scene-05-n4",
           "text": "System design is the practice of reasoning about this structure: expected scale, failure modes, data movement, security boundaries, and the compromises required by real constraints.",
-          "start": 47.85,
-          "end": 63.8
+          "start": 48.75,
+          "end": 65
         }
       ],
       "knowledgeNodeIds": [
@@ -2041,15 +1977,14 @@
       "transitionOut": {
         "preset": "fade",
         "duration": 0.6
-      },
-      "captionMode": "bottom"
+      }
     },
     {
       "id": "scene-06",
       "chapterId": "ch-build",
       "title": "Secrets stop at the boundary",
       "template": "process",
-      "duration": 60,
+      "duration": 65,
       "elements": [
         {
           "id": "s6-title",
@@ -2131,16 +2066,12 @@
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 59.45
+                "at": 64.55
               },
-              "duration": 0.55,
+              "duration": 0.45,
               "intensity": 1
             },
             "ambient": "none"
-          },
-          "visual": {
-            "variant": "minimal",
-            "surface": "none"
           },
           "sourcePages": [
             21,
@@ -2248,16 +2179,12 @@
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 59.45
+                "at": 64.55
               },
-              "duration": 0.55,
+              "duration": 0.45,
               "intensity": 1
             },
             "ambient": "none"
-          },
-          "visual": {
-            "variant": "rail",
-            "surface": "none"
           },
           "sourcePages": [
             21,
@@ -2344,16 +2271,12 @@
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 59.45
+                "at": 64.55
               },
-              "duration": 0.55,
+              "duration": 0.45,
               "intensity": 1
             },
             "ambient": "breathe"
-          },
-          "visual": {
-            "variant": "minimal",
-            "surface": "outline"
           },
           "sourcePages": [
             21,
@@ -2366,25 +2289,25 @@
           "id": "scene-06-n1",
           "text": "Implementation turns design into code, but production quality also depends on what the code refuses to expose. Secret keys are a simple and critical example.",
           "start": 0,
-          "end": 14.7
+          "end": 16.25
         },
         {
           "id": "scene-06-n2",
           "text": "During local development, a dot-env file can provide environment variables. A git-ignore rule keeps that file and other sensitive material out of version control.",
-          "start": 14.7,
-          "end": 29.4
+          "start": 16.25,
+          "end": 32.5
         },
         {
           "id": "scene-06-n3",
           "text": "The remote repository should contain code, never live credentials. In production, the hosting platform stores secrets and injects them only into the running backend.",
-          "start": 29.4,
-          "end": 44.1
+          "start": 32.5,
+          "end": 48.75
         },
         {
           "id": "scene-06-n4",
           "text": "The browser must never receive a private AI key. It calls the backend, and the backend calls the protected service. That boundary is part of the architecture.",
-          "start": 44.1,
-          "end": 58.8
+          "start": 48.75,
+          "end": 65
         }
       ],
       "knowledgeNodeIds": [
@@ -2394,15 +2317,14 @@
       "transitionOut": {
         "preset": "fade",
         "duration": 0.6
-      },
-      "captionMode": "bottom"
+      }
     },
     {
       "id": "scene-07",
       "chapterId": "ch-test",
       "title": "Test the seams",
       "template": "process",
-      "duration": 66,
+      "duration": 65,
       "elements": [
         {
           "id": "s7-title",
@@ -2484,16 +2406,12 @@
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 65.45
+                "at": 64.55
               },
-              "duration": 0.55,
+              "duration": 0.45,
               "intensity": 1
             },
             "ambient": "none"
-          },
-          "visual": {
-            "variant": "minimal",
-            "surface": "none"
           },
           "sourcePages": [
             23,
@@ -2598,16 +2516,12 @@
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 65.45
+                "at": 64.55
               },
-              "duration": 0.55,
+              "duration": 0.45,
               "intensity": 1
             },
             "ambient": "none"
-          },
-          "visual": {
-            "variant": "rail",
-            "surface": "none"
           },
           "sourcePages": [
             23,
@@ -2641,7 +2555,7 @@
           "x": 65,
           "y": 10,
           "width": 30,
-          "height": 40,
+          "height": 63,
           "style": {
             "tone": "glass",
             "align": "center"
@@ -2713,16 +2627,12 @@
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 65.45
+                "at": 64.55
               },
-              "duration": 0.55,
+              "duration": 0.45,
               "intensity": 1
             },
             "ambient": "none"
-          },
-          "visual": {
-            "variant": "editorial",
-            "surface": "soft"
           },
           "sourcePages": [
             23,
@@ -2737,25 +2647,25 @@
           "id": "scene-07-n1",
           "text": "Testing builds confidence from the inside out. Unit tests isolate a function, method, or class so a local fault is easy to identify.",
           "start": 0,
-          "end": 16.2
+          "end": 16.25
         },
         {
           "id": "scene-07-n2",
           "text": "Integration testing combines modules. Two correct components can still fail when one misunderstands the other component’s interface, data, timing, or error behavior.",
-          "start": 16.2,
-          "end": 32.4
+          "start": 16.25,
+          "end": 32.5
         },
         {
           "id": "scene-07-n3",
           "text": "System testing evaluates the complete product against its requirements, including functionality, recovery, interoperability, performance, scalability, reliability, and documentation.",
-          "start": 32.4,
-          "end": 48.6
+          "start": 32.5,
+          "end": 48.75
         },
         {
           "id": "scene-07-n4",
           "text": "Acceptance testing asks customers or end users whether the delivered system satisfies agreed criteria. Alpha testing happens with developer support; beta testing reaches a broader real audience.",
-          "start": 48.6,
-          "end": 64.8
+          "start": 48.75,
+          "end": 65
         }
       ],
       "knowledgeNodeIds": [
@@ -2764,15 +2674,14 @@
       "transitionOut": {
         "preset": "fade",
         "duration": 0.6
-      },
-      "captionMode": "bottom"
+      }
     },
     {
       "id": "scene-08",
       "chapterId": "ch-test",
       "title": "Right product. Built right.",
       "template": "comparison",
-      "duration": 68,
+      "duration": 65,
       "elements": [
         {
           "id": "s8-title",
@@ -2854,16 +2763,12 @@
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 67.45
+                "at": 64.55
               },
-              "duration": 0.55,
+              "duration": 0.45,
               "intensity": 1
             },
             "ambient": "none"
-          },
-          "visual": {
-            "variant": "minimal",
-            "surface": "none"
           },
           "sourcePages": [
             33
@@ -2958,16 +2863,12 @@
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 67.45
+                "at": 64.55
               },
-              "duration": 0.55,
+              "duration": 0.45,
               "intensity": 1
             },
             "ambient": "none"
-          },
-          "visual": {
-            "variant": "split",
-            "surface": "none"
           },
           "sourcePages": [
             30,
@@ -3057,16 +2958,12 @@
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 67.45
+                "at": 64.55
               },
-              "duration": 0.55,
+              "duration": 0.45,
               "intensity": 1
             },
             "ambient": "breathe"
-          },
-          "visual": {
-            "variant": "minimal",
-            "surface": "outline"
           },
           "sourcePages": [
             34
@@ -3078,25 +2975,25 @@
           "id": "scene-08-n1",
           "text": "Verification evaluates development work against specifications. Code review, unit tests, integration tests, and system tests help confirm that the product is built correctly.",
           "start": 0,
-          "end": 16.7
+          "end": 16.25
         },
         {
           "id": "scene-08-n2",
           "text": "Validation evaluates the product against user and business needs. Prototypes, usability studies, acceptance tests, production tests, and controlled experiments reveal whether it solves the right problem.",
-          "start": 16.7,
-          "end": 33.4
+          "start": 16.25,
+          "end": 32.5
         },
         {
           "id": "scene-08-n3",
           "text": "Confirmation testing reruns a test that previously failed to prove a fix. Regression testing checks that a change has not broken behavior that used to work.",
-          "start": 33.4,
-          "end": 50.1
+          "start": 32.5,
+          "end": 48.75
         },
         {
           "id": "scene-08-n4",
           "text": "Automation makes these checks repeatable, but it does not replace judgment. When teachers and students react to the AI tutor, their feedback creates new requirements and restarts the loop.",
-          "start": 50.1,
-          "end": 66.8
+          "start": 48.75,
+          "end": 65
         }
       ],
       "knowledgeNodeIds": [
@@ -3106,15 +3003,14 @@
       "transitionOut": {
         "preset": "fade",
         "duration": 0.6
-      },
-      "captionMode": "bottom"
+      }
     },
     {
       "id": "scene-09",
       "chapterId": "ch-operate",
       "title": "Production changes the rules",
       "template": "incident",
-      "duration": 68,
+      "duration": 65,
       "elements": [
         {
           "id": "s9-title",
@@ -3196,16 +3092,12 @@
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 67.45
+                "at": 64.55
               },
-              "duration": 0.55,
+              "duration": 0.45,
               "intensity": 1
             },
             "ambient": "none"
-          },
-          "visual": {
-            "variant": "minimal",
-            "surface": "none"
           },
           "sourcePages": [
             35,
@@ -3314,16 +3206,12 @@
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 67.45
+                "at": 64.55
               },
-              "duration": 0.55,
+              "duration": 0.45,
               "intensity": 1
             },
             "ambient": "none"
-          },
-          "visual": {
-            "variant": "rail",
-            "surface": "none"
           },
           "sourcePages": [
             41,
@@ -3413,16 +3301,12 @@
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 67.45
+                "at": 64.55
               },
-              "duration": 0.55,
+              "duration": 0.45,
               "intensity": 1
             },
             "ambient": "none"
-          },
-          "visual": {
-            "variant": "minimal",
-            "surface": "none"
           },
           "sourcePages": [
             36,
@@ -3435,25 +3319,25 @@
           "id": "scene-09-n1",
           "text": "Deployment moves software into the customer environment. Production has different data, access controls, dependencies, resource limits, traffic patterns, and external services than development.",
           "start": 0,
-          "end": 16.7
+          "end": 16.25
         },
         {
           "id": "scene-09-n2",
           "text": "Imagine a release at one in the morning. Health checks pass. At three, inefficient database queries begin exhausting resources, but no alert fires.",
-          "start": 16.7,
-          "end": 33.4
+          "start": 16.25,
+          "end": 32.5
         },
         {
           "id": "scene-09-n3",
           "text": "The team discovers the incident at ten, correlates the slowdown with the deployment, finds the missing indexes, rewrites the queries, and verifies a patch in staging.",
-          "start": 33.4,
-          "end": 50.1
+          "start": 32.5,
+          "end": 48.75
         },
         {
           "id": "scene-09-n4",
           "text": "At nine in the evening, production recovers. The technical fix matters, but so do the seven hours before discovery and the operational speed after the alarm.",
-          "start": 50.1,
-          "end": 66.8
+          "start": 48.75,
+          "end": 65
         }
       ],
       "knowledgeNodeIds": [
@@ -3463,15 +3347,14 @@
       "transitionOut": {
         "preset": "fade",
         "duration": 0.6
-      },
-      "captionMode": "bottom"
+      }
     },
     {
       "id": "scene-10",
       "chapterId": "ch-operate",
       "title": "Reliability is measurable",
       "template": "concept",
-      "duration": 72,
+      "duration": 65,
       "elements": [
         {
           "id": "s10-title",
@@ -3553,16 +3436,12 @@
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 71.45
+                "at": 64.55
               },
-              "duration": 0.55,
+              "duration": 0.45,
               "intensity": 1
             },
             "ambient": "none"
-          },
-          "visual": {
-            "variant": "minimal",
-            "surface": "none"
           },
           "sourcePages": [
             37,
@@ -3665,16 +3544,12 @@
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 71.45
+                "at": 64.55
               },
-              "duration": 0.55,
+              "duration": 0.45,
               "intensity": 1
             },
             "ambient": "none"
-          },
-          "visual": {
-            "variant": "poster",
-            "surface": "none"
           },
           "sourcePages": [
             47
@@ -3777,16 +3652,12 @@
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 71.45
+                "at": 64.55
               },
-              "duration": 0.55,
+              "duration": 0.45,
               "intensity": 1
             },
             "ambient": "breathe"
-          },
-          "visual": {
-            "variant": "poster",
-            "surface": "none"
           },
           "sourcePages": [
             46,
@@ -3800,25 +3671,25 @@
           "id": "scene-10-n1",
           "text": "Availability is the proportion of time a system is functional: uptime divided by uptime plus downtime. More nines mean less tolerated interruption.",
           "start": 0,
-          "end": 17.7
+          "end": 16.25
         },
         {
           "id": "scene-10-n2",
           "text": "Time to discover measures the visibility gap. Time to mitigate measures how quickly the team diagnoses and verifies a solution. Time to recover captures the total customer impact.",
-          "start": 17.7,
-          "end": 35.4
+          "start": 16.25,
+          "end": 32.5
         },
         {
           "id": "scene-10-n3",
           "text": "Availability is shaped by hardware, networks, bugs, maintenance, security attacks, power, capacity, configuration, external providers, and backup recovery—not by code alone.",
-          "start": 35.4,
-          "end": 53.1
+          "start": 32.5,
+          "end": 48.75
         },
         {
           "id": "scene-10-n4",
           "text": "Maintenance therefore dominates much of the lifecycle. Corrective work fixes defects; adaptive work follows environmental change; perfective work improves the product; preventive work reduces future risk.",
-          "start": 53.1,
-          "end": 70.8
+          "start": 48.75,
+          "end": 65
         }
       ],
       "knowledgeNodeIds": [
@@ -3829,15 +3700,14 @@
       "transitionOut": {
         "preset": "fade",
         "duration": 0.6
-      },
-      "captionMode": "bottom"
+      }
     },
     {
       "id": "scene-11",
       "chapterId": "ch-ship",
       "title": "Choose your risk envelope",
       "template": "comparison",
-      "duration": 62,
+      "duration": 65,
       "elements": [
         {
           "id": "s11-title",
@@ -3919,16 +3789,12 @@
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 61.45
+                "at": 64.55
               },
-              "duration": 0.55,
+              "duration": 0.45,
               "intensity": 1
             },
             "ambient": "none"
-          },
-          "visual": {
-            "variant": "minimal",
-            "surface": "none"
           },
           "sourcePages": [
             51
@@ -3957,9 +3823,9 @@
             }
           ],
           "x": 5,
-          "y": 37,
+          "y": 39,
           "width": 90,
-          "height": 24,
+          "height": 35,
           "style": {
             "tone": "glass",
             "align": "center"
@@ -4031,16 +3897,12 @@
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 61.45
+                "at": 64.55
               },
-              "duration": 0.55,
+              "duration": 0.45,
               "intensity": 1
             },
             "ambient": "none"
-          },
-          "visual": {
-            "variant": "editorial",
-            "surface": "soft"
           },
           "sourcePages": [
             52,
@@ -4055,25 +3917,25 @@
           "id": "scene-11-n1",
           "text": "A deployment strategy controls how much change reaches how many users at once. The best choice depends on business criticality, architecture, observability, and rollback speed.",
           "start": 0,
-          "end": 15.2
+          "end": 16.25
         },
         {
           "id": "scene-11-n2",
           "text": "A big bang release replaces everything at once, often with downtime. It is simple to understand but concentrates risk and demands extensive testing.",
-          "start": 15.2,
-          "end": 30.4
+          "start": 16.25,
+          "end": 32.5
         },
         {
           "id": "scene-11-n3",
           "text": "Rolling upgrades replace instances gradually. Blue-green deployment prepares a complete parallel environment, then moves traffic across and can quickly move it back.",
-          "start": 30.4,
-          "end": 45.6
+          "start": 32.5,
+          "end": 48.75
         },
         {
           "id": "scene-11-n4",
           "text": "A canary release exposes only a small population first. If metrics remain healthy, the team expands the rollout. Each strategy defines a different risk envelope.",
-          "start": 45.6,
-          "end": 60.8
+          "start": 48.75,
+          "end": 65
         }
       ],
       "knowledgeNodeIds": [
@@ -4082,8 +3944,7 @@
       "transitionOut": {
         "preset": "fade",
         "duration": 0.6
-      },
-      "captionMode": "bottom"
+      }
     },
     {
       "id": "scene-12",
@@ -4172,16 +4033,12 @@
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 64.45
+                "at": 64.55
               },
-              "duration": 0.55,
+              "duration": 0.45,
               "intensity": 1
             },
             "ambient": "none"
-          },
-          "visual": {
-            "variant": "minimal",
-            "surface": "none"
           },
           "sourcePages": [
             56,
@@ -4297,16 +4154,12 @@
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 64.45
+                "at": 64.55
               },
-              "duration": 0.55,
+              "duration": 0.45,
               "intensity": 1
             },
             "ambient": "none"
-          },
-          "visual": {
-            "variant": "rail",
-            "surface": "none"
           },
           "sourcePages": [
             56,
@@ -4393,16 +4246,12 @@
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 64.45
+                "at": 64.55
               },
-              "duration": 0.55,
+              "duration": 0.45,
               "intensity": 1
             },
             "ambient": "breathe"
-          },
-          "visual": {
-            "variant": "minimal",
-            "surface": "outline"
           },
           "sourcePages": [
             2,
@@ -4416,32 +4265,31 @@
           "id": "scene-12-n1",
           "text": "Modern delivery connects version control to continuous integration and deployment. Every commit can trigger a build, automated tests, and code-quality checks.",
           "start": 0,
-          "end": 15.95
+          "end": 16.25
         },
         {
           "id": "scene-12-n2",
           "text": "Feature flags separate deployment from release. Teams can ship dormant code, activate it for selected users, compare behavior, and turn it off without another deployment.",
-          "start": 15.95,
-          "end": 31.9
+          "start": 16.25,
+          "end": 32.5
         },
         {
           "id": "scene-12-n3",
           "text": "After rollout, engineers watch reliability, latency, errors, and user outcomes. Production evidence closes the gap between the specification and the lived experience.",
-          "start": 31.9,
-          "end": 47.85
+          "start": 32.5,
+          "end": 48.75
         },
         {
           "id": "scene-12-n4",
           "text": "The AI tutor began as a question, became a prototype, passed through architecture and tests, reached production, and generated new learning. That is why the lifecycle never really ends.",
-          "start": 47.85,
-          "end": 63.8
+          "start": 48.75,
+          "end": 65
         }
       ],
       "knowledgeNodeIds": [
         "delivery",
         "sdlc"
-      ],
-      "captionMode": "bottom"
+      ]
     }
   ],
   "assets": [],

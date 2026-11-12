@@ -11,8 +11,8 @@ versions and validates it before rendering.
 3. Run `npm test` from `learning-platform`; the publication test validates the
    project before it ships.
 
-The file currently contains the built-in SDLC example exported from the studio,
-used as a placeholder until the finished course animation is supplied.
+The file contains the finished SDLC animation exported from Storyline Studio
+(`schemaVersion: 3`). The studio migrates it to the current schema on load.
 
 Do not reference files from the standalone studio's `public/` folder
 (`/sdlc-teaching/...`, `/audio/...`). Those assets are not part of this
