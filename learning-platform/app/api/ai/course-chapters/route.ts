@@ -46,7 +46,10 @@ const DEVELOPER = `You write one chapter of a short software-development mini-co
 You receive the course plan, the single chapter topic to write, and the materials the author uploaded.
 
 Rules:
-- Write only the chapter described by chapterTopic; return a single chapter object, not a list.
+- Return a single chapter object, not a list.
+- When chapterTopic is non-empty, use it exactly as the chapter title and write that chapter.
+- When chapterTopic is empty, infer a concise, specific title from the course plan and materials.
+  Never use a generic title such as "Chapter 1" or "第 1 章".
 - The chapter has exactly 2 sections: a heading plus 80 to 140 words of prose.
 - Ground the content in the supplied materials. Where they do not cover something,
   write what follows from them without inventing facts, numbers or citations.
