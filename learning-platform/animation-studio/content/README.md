@@ -11,8 +11,10 @@ versions and validates it before rendering.
 3. Run `npm test` from `learning-platform`; the publication test validates the
    project before it ships.
 
-The file contains the finished SDLC animation exported from Storyline Studio
-(`schemaVersion: 3`). The studio migrates it to the current schema on load.
+The file contains the finished SDLC animation exported from Storyline Studio.
+The original export was `schemaVersion: 3`; this copy is migrated to schema 5
+and re-authored with a four-step visual layer for every scene (see
+`step-sheet.md`). The studio validates it on load.
 
 Do not reference files from the standalone studio's `public/` folder
 (`/sdlc-teaching/...`, `/audio/...`). Those assets are not part of this

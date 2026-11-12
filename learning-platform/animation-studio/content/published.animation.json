@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 3,
+  "schemaVersion": 5,
   "id": "project-sdlc-story",
   "title": "From Idea to Impact",
   "description": "An editable visual journey through the software development lifecycle.",
@@ -243,7 +243,7 @@
       "chapterId": "ch-overview",
       "title": "A product is a living system",
       "template": "opening",
-      "duration": 65,
+      "duration": 66.5,
       "elements": [
         {
           "id": "s1-title",
@@ -266,76 +266,21 @@
                 "type": "time",
                 "at": 0
               },
-              "duration": 1.1,
-              "stagger": 0.08,
+              "duration": 0.8,
+              "stagger": 0.1,
               "intensity": 1
             },
-            "beats": [
-              {
-                "id": "s1-title-beat-1",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-01-n1",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s1-title-beat-2",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-01-n2",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s1-title-beat-3",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-01-n3",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s1-title-beat-4",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-01-n4",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              }
-            ],
-            "exit": {
-              "id": "s1-title-exit",
-              "preset": "fade",
-              "trigger": {
-                "type": "time",
-                "at": 64.55
-              },
-              "duration": 0.45,
-              "intensity": 1
-            },
+            "beats": [],
             "ambient": "none"
           },
           "sourcePages": [
             1,
             2
-          ]
+          ],
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          }
         },
         {
           "id": "s1-badge",
@@ -357,75 +302,20 @@
                 "type": "time",
                 "at": 2
               },
-              "duration": 1.1,
-              "stagger": 0.12,
+              "duration": 0.8,
+              "stagger": 0.1,
               "intensity": 1
             },
-            "beats": [
-              {
-                "id": "s1-badge-beat-1",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-01-n1",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s1-badge-beat-2",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-01-n2",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s1-badge-beat-3",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-01-n3",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s1-badge-beat-4",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-01-n4",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              }
-            ],
-            "exit": {
-              "id": "s1-badge-exit",
-              "preset": "fade",
-              "trigger": {
-                "type": "time",
-                "at": 64.55
-              },
-              "duration": 0.45,
-              "intensity": 1
-            },
+            "beats": [],
             "ambient": "breathe"
           },
           "sourcePages": [
             2
-          ]
+          ],
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          }
         },
         {
           "id": "s1-cycle",
@@ -474,46 +364,22 @@
                 "type": "time",
                 "at": 5
               },
-              "duration": 1.1,
-              "stagger": 0.12,
+              "duration": 0.8,
+              "stagger": 0.1,
               "intensity": 1
             },
             "beats": [
-              {
-                "id": "s1-cycle-beat-1",
-                "preset": "glow",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-01-n1",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
               {
                 "id": "s1-cycle-beat-2",
                 "preset": "glow",
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-01-n2",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 0.6,
                 "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s1-cycle-beat-3",
-                "preset": "glow",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-01-n3",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.5
               },
               {
                 "id": "s1-cycle-beat-4",
@@ -521,28 +387,200 @@
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-01-n4",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 0.6,
                 "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.5
               }
             ],
-            "exit": {
-              "id": "s1-cycle-exit",
-              "preset": "fade",
-              "trigger": {
-                "type": "time",
-                "at": 64.55
-              },
-              "duration": 0.45,
-              "intensity": 1
-            },
             "ambient": "orbit"
           },
           "sourcePages": [
             2
+          ],
+          "visual": {
+            "variant": "orbital",
+            "surface": "none"
+          }
+        },
+        {
+          "id": "s1-structure",
+          "type": "badge",
+          "content": "The lifecycle gives the journey structure",
+          "x": 6,
+          "y": 52,
+          "width": 50,
+          "height": 5,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "accent": "#9FAF91",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s1-structure-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-01-n2",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s1-structure-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-01-n2",
+                  "offset": 0.25
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "exit": {
+              "id": "s1-structure-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 32.0
+              },
+              "duration": 0.35,
+              "intensity": 1
+            },
+            "ambient": "none"
+          }
+        },
+        {
+          "id": "s1-tutor",
+          "type": "cards",
+          "content": "The AI tutor",
+          "x": 6,
+          "y": 58,
+          "width": 50,
+          "height": 18,
+          "visual": {
+            "variant": "grid",
+            "surface": "soft"
+          },
+          "style": {
+            "accent": "#9FAF91",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s1-tutor-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-01-n3",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s1-tutor-beat-3",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-01-n3",
+                  "offset": 0.25
+                },
+                "duration": 0.8,
+                "stagger": 0.1,
+                "intensity": 0.6
+              }
+            ],
+            "exit": {
+              "id": "s1-tutor-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 48.3
+              },
+              "duration": 0.35,
+              "intensity": 1
+            },
+            "ambient": "none"
+          },
+          "items": [
+            {
+              "id": "s1-tutor-i1",
+              "label": "Students ask questions"
+            },
+            {
+              "id": "s1-tutor-i2",
+              "label": "Teachers shape the experience"
+            },
+            {
+              "id": "s1-tutor-i3",
+              "label": "The team builds dependably"
+            }
           ]
+        },
+        {
+          "id": "s1-feedback",
+          "type": "badge",
+          "content": "Feedback becomes the next requirement",
+          "x": 6,
+          "y": 86,
+          "width": 50,
+          "height": 6,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "accent": "#9FAF91",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s1-feedback-enter",
+              "preset": "spring-scale",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-01-n4",
+                "offset": 0
+              },
+              "duration": 0.8,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s1-feedback-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-01-n4",
+                  "offset": 0.25
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "ambient": "none"
+          }
         }
       ],
       "narration": [
@@ -577,14 +615,15 @@
       "transitionOut": {
         "preset": "fade",
         "duration": 0.6
-      }
+      },
+      "captionMode": "bottom"
     },
     {
       "id": "scene-02",
       "chapterId": "ch-overview",
       "title": "One loop, many decisions",
       "template": "process",
-      "duration": 65,
+      "duration": 66.5,
       "elements": [
         {
           "id": "s2-title",
@@ -607,75 +646,20 @@
                 "type": "time",
                 "at": 0
               },
-              "duration": 1.1,
-              "stagger": 0.08,
+              "duration": 0.8,
+              "stagger": 0.1,
               "intensity": 1
             },
-            "beats": [
-              {
-                "id": "s2-title-beat-1",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-02-n1",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s2-title-beat-2",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-02-n2",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s2-title-beat-3",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-02-n3",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s2-title-beat-4",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-02-n4",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              }
-            ],
-            "exit": {
-              "id": "s2-title-exit",
-              "preset": "fade",
-              "trigger": {
-                "type": "time",
-                "at": 64.55
-              },
-              "duration": 0.45,
-              "intensity": 1
-            },
+            "beats": [],
             "ambient": "none"
           },
           "sourcePages": [
             2
-          ]
+          ],
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          }
         },
         {
           "id": "s2-flow",
@@ -735,34 +719,22 @@
                 "type": "time",
                 "at": 4
               },
-              "duration": 1.1,
-              "stagger": 0.12,
+              "duration": 1.0,
+              "stagger": 0.1,
               "intensity": 1
             },
             "beats": [
-              {
-                "id": "s2-flow-beat-1",
-                "preset": "trace",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-02-n1",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
               {
                 "id": "s2-flow-beat-2",
                 "preset": "trace",
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-02-n2",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 1.0,
                 "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.6
               },
               {
                 "id": "s2-flow-beat-3",
@@ -770,11 +742,11 @@
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-02-n3",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 1.0,
                 "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.6
               },
               {
                 "id": "s2-flow-beat-4",
@@ -782,28 +754,22 @@
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-02-n4",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 1.0,
                 "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.6
               }
             ],
-            "exit": {
-              "id": "s2-flow-exit",
-              "preset": "fade",
-              "trigger": {
-                "type": "time",
-                "at": 64.55
-              },
-              "duration": 0.45,
-              "intensity": 1
-            },
             "ambient": "none"
           },
           "sourcePages": [
             2
-          ]
+          ],
+          "visual": {
+            "variant": "rail",
+            "surface": "none"
+          }
         },
         {
           "id": "s2-text",
@@ -825,75 +791,194 @@
                 "type": "time",
                 "at": 8
               },
-              "duration": 1.1,
+              "duration": 0.8,
+              "stagger": 0.1,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "sourcePages": [
+            2
+          ],
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          }
+        },
+        {
+          "id": "s2-stages",
+          "type": "badge",
+          "content": "Requirements → Design → Implementation",
+          "x": 5,
+          "y": 72,
+          "width": 90,
+          "height": 6,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "accent": "#9FAF91",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s2-stages-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-02-n2",
+                "offset": 0
+              },
+              "duration": 0.7,
               "stagger": 0.08,
               "intensity": 1
             },
             "beats": [
               {
-                "id": "s2-text-beat-1",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-02-n1",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s2-text-beat-2",
+                "id": "s2-stages-beat-2",
                 "preset": "pulse",
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-02-n2",
-                  "offset": 0.15
+                  "offset": 0.25
                 },
-                "duration": 1.5,
+                "duration": 0.6,
                 "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s2-text-beat-3",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-02-n3",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s2-text-beat-4",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-02-n4",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.45
               }
             ],
             "exit": {
-              "id": "s2-text-exit",
+              "id": "s2-stages-exit",
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 64.55
+                "at": 32.0
               },
-              "duration": 0.45,
+              "duration": 0.35,
+              "intensity": 1
+            },
+            "ambient": "none"
+          }
+        },
+        {
+          "id": "s2-tests",
+          "type": "cards",
+          "content": "Test at every level",
+          "x": 5,
+          "y": 74,
+          "width": 60,
+          "height": 16,
+          "visual": {
+            "variant": "editorial",
+            "surface": "soft"
+          },
+          "style": {
+            "accent": "#9FAF91",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s2-tests-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-02-n3",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s2-tests-beat-3",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-02-n3",
+                  "offset": 0.25
+                },
+                "duration": 0.8,
+                "stagger": 0.1,
+                "intensity": 0.6
+              }
+            ],
+            "exit": {
+              "id": "s2-tests-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 48.3
+              },
+              "duration": 0.35,
               "intensity": 1
             },
             "ambient": "none"
           },
-          "sourcePages": [
-            2
+          "items": [
+            {
+              "id": "s2-tests-i1",
+              "label": "Unit and integration"
+            },
+            {
+              "id": "s2-tests-i2",
+              "label": "System and acceptance"
+            }
           ]
+        },
+        {
+          "id": "s2-maintain",
+          "type": "badge",
+          "content": "Deploy, then maintain",
+          "x": 67,
+          "y": 79,
+          "width": 28,
+          "height": 8,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "accent": "#9FAF91",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s2-maintain-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-02-n4",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s2-maintain-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-02-n4",
+                  "offset": 0.25
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "ambient": "none"
+          }
         }
       ],
       "narration": [
@@ -928,14 +1013,15 @@
       "transitionOut": {
         "preset": "fade",
         "duration": 0.6
-      }
+      },
+      "captionMode": "bottom"
     },
     {
       "id": "scene-03",
       "chapterId": "ch-discover",
       "title": "Start with the problem",
       "template": "concept",
-      "duration": 65,
+      "duration": 66.5,
       "elements": [
         {
           "id": "s3-title",
@@ -958,77 +1044,22 @@
                 "type": "time",
                 "at": 0
               },
-              "duration": 1.1,
-              "stagger": 0.08,
+              "duration": 0.8,
+              "stagger": 0.1,
               "intensity": 1
             },
-            "beats": [
-              {
-                "id": "s3-title-beat-1",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-03-n1",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s3-title-beat-2",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-03-n2",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s3-title-beat-3",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-03-n3",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s3-title-beat-4",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-03-n4",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              }
-            ],
-            "exit": {
-              "id": "s3-title-exit",
-              "preset": "fade",
-              "trigger": {
-                "type": "time",
-                "at": 64.55
-              },
-              "duration": 0.45,
-              "intensity": 1
-            },
+            "beats": [],
             "ambient": "none"
           },
           "sourcePages": [
             3,
             7,
             10
-          ]
+          ],
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          }
         },
         {
           "id": "s3-compare",
@@ -1060,34 +1091,22 @@
                 "type": "time",
                 "at": 3
               },
-              "duration": 1.1,
-              "stagger": 0.12,
+              "duration": 0.8,
+              "stagger": 0.1,
               "intensity": 1
             },
             "beats": [
-              {
-                "id": "s3-compare-beat-1",
-                "preset": "lift",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-03-n1",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
               {
                 "id": "s3-compare-beat-2",
                 "preset": "lift",
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-03-n2",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 0.8,
                 "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.6
               },
               {
                 "id": "s3-compare-beat-3",
@@ -1095,42 +1114,24 @@
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-03-n3",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 0.8,
                 "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s3-compare-beat-4",
-                "preset": "lift",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-03-n4",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.6
               }
             ],
-            "exit": {
-              "id": "s3-compare-exit",
-              "preset": "fade",
-              "trigger": {
-                "type": "time",
-                "at": 64.55
-              },
-              "duration": 0.45,
-              "intensity": 1
-            },
             "ambient": "none"
           },
           "sourcePages": [
             3,
             4,
             17
-          ]
+          ],
+          "visual": {
+            "variant": "split",
+            "surface": "none"
+          }
         },
         {
           "id": "s3-cards",
@@ -1175,78 +1176,130 @@
               "id": "s3-cards-enter",
               "preset": "fade-rise",
               "trigger": {
-                "type": "time",
-                "at": 7
+                "type": "narration",
+                "segmentId": "scene-03-n4",
+                "offset": 0
               },
-              "duration": 1.1,
-              "stagger": 0.12,
+              "duration": 0.8,
+              "stagger": 0.1,
               "intensity": 1
             },
             "beats": [
-              {
-                "id": "s3-cards-beat-1",
-                "preset": "lift",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-03-n1",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s3-cards-beat-2",
-                "preset": "lift",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-03-n2",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s3-cards-beat-3",
-                "preset": "lift",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-03-n3",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
               {
                 "id": "s3-cards-beat-4",
                 "preset": "lift",
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-03-n4",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 0.8,
                 "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.6
               }
             ],
-            "exit": {
-              "id": "s3-cards-exit",
-              "preset": "fade",
-              "trigger": {
-                "type": "time",
-                "at": 64.55
-              },
-              "duration": 0.45,
-              "intensity": 1
-            },
             "ambient": "none"
           },
           "sourcePages": [
             5
-          ]
+          ],
+          "visual": {
+            "variant": "editorial",
+            "surface": "soft"
+          }
+        },
+        {
+          "id": "s3-people",
+          "type": "badge",
+          "content": "People · workflows · value",
+          "x": 5,
+          "y": 31,
+          "width": 50,
+          "height": 6,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "accent": "#C69483",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s3-people-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-03-n1",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          }
+        },
+        {
+          "id": "s3-nfr",
+          "type": "badge",
+          "content": "Performance · reliability · security · scalability",
+          "x": 5,
+          "y": 77,
+          "width": 58,
+          "height": 6,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "accent": "#C69483",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s3-nfr-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-03-n3",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s3-nfr-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-03-n3",
+                  "offset": 0.25
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "exit": {
+              "id": "s3-nfr-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 48.3
+              },
+              "duration": 0.35,
+              "intensity": 1
+            },
+            "ambient": "none"
+          }
         }
       ],
       "narration": [
@@ -1282,14 +1335,15 @@
       "transitionOut": {
         "preset": "fade",
         "duration": 0.6
-      }
+      },
+      "captionMode": "bottom"
     },
     {
       "id": "scene-04",
       "chapterId": "ch-discover",
       "title": "Prototype to learn",
       "template": "comparison",
-      "duration": 65,
+      "duration": 66.5,
       "elements": [
         {
           "id": "s4-title",
@@ -1312,77 +1366,22 @@
                 "type": "time",
                 "at": 0
               },
-              "duration": 1.1,
-              "stagger": 0.08,
+              "duration": 0.8,
+              "stagger": 0.1,
               "intensity": 1
             },
-            "beats": [
-              {
-                "id": "s4-title-beat-1",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-04-n1",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s4-title-beat-2",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-04-n2",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s4-title-beat-3",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-04-n3",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s4-title-beat-4",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-04-n4",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              }
-            ],
-            "exit": {
-              "id": "s4-title-exit",
-              "preset": "fade",
-              "trigger": {
-                "type": "time",
-                "at": 64.55
-              },
-              "duration": 0.45,
-              "intensity": 1
-            },
+            "beats": [],
             "ambient": "none"
           },
           "sourcePages": [
             11,
             14,
             15
-          ]
+          ],
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          }
         },
         {
           "id": "s4-flow",
@@ -1426,34 +1425,22 @@
                 "type": "time",
                 "at": 3
               },
-              "duration": 1.1,
-              "stagger": 0.12,
+              "duration": 1.0,
+              "stagger": 0.1,
               "intensity": 1
             },
             "beats": [
-              {
-                "id": "s4-flow-beat-1",
-                "preset": "trace",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-04-n1",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
               {
                 "id": "s4-flow-beat-2",
                 "preset": "trace",
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-04-n2",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 1.0,
                 "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.6
               },
               {
                 "id": "s4-flow-beat-3",
@@ -1461,11 +1448,11 @@
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-04-n3",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 1.0,
                 "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.6
               },
               {
                 "id": "s4-flow-beat-4",
@@ -1473,29 +1460,23 @@
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-04-n4",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 1.0,
                 "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.6
               }
             ],
-            "exit": {
-              "id": "s4-flow-exit",
-              "preset": "fade",
-              "trigger": {
-                "type": "time",
-                "at": 64.55
-              },
-              "duration": 0.45,
-              "intensity": 1
-            },
             "ambient": "none"
           },
           "sourcePages": [
             14,
             15
-          ]
+          ],
+          "visual": {
+            "variant": "rail",
+            "surface": "none"
+          }
         },
         {
           "id": "s4-cards",
@@ -1532,49 +1513,26 @@
               "id": "s4-cards-enter",
               "preset": "fade-rise",
               "trigger": {
-                "type": "time",
-                "at": 7
+                "type": "narration",
+                "segmentId": "scene-04-n3",
+                "offset": 0
               },
-              "duration": 1.1,
-              "stagger": 0.12,
+              "duration": 0.8,
+              "stagger": 0.1,
               "intensity": 1
             },
             "beats": [
-              {
-                "id": "s4-cards-beat-1",
-                "preset": "lift",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-04-n1",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s4-cards-beat-2",
-                "preset": "lift",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-04-n2",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
               {
                 "id": "s4-cards-beat-3",
                 "preset": "lift",
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-04-n3",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 0.8,
                 "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.6
               },
               {
                 "id": "s4-cards-beat-4",
@@ -1582,23 +1540,13 @@
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-04-n4",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 0.8,
                 "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.6
               }
             ],
-            "exit": {
-              "id": "s4-cards-exit",
-              "preset": "fade",
-              "trigger": {
-                "type": "time",
-                "at": 64.55
-              },
-              "duration": 0.45,
-              "intensity": 1
-            },
             "ambient": "none"
           },
           "sourcePages": [
@@ -1608,7 +1556,104 @@
             14,
             15,
             16
-          ]
+          ],
+          "visual": {
+            "variant": "editorial",
+            "surface": "soft"
+          }
+        },
+        {
+          "id": "s4-types",
+          "type": "text",
+          "content": "Throwaway · Evolutionary · Incremental",
+          "x": 5,
+          "y": 70,
+          "width": 52,
+          "height": 10,
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "style": {
+            "accent": "#C69483",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s4-types-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-04-n2",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [],
+            "exit": {
+              "id": "s4-types-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 32.0
+              },
+              "duration": 0.35,
+              "intensity": 1
+            },
+            "ambient": "none"
+          }
+        },
+        {
+          "id": "s4-mvp",
+          "type": "badge",
+          "content": "MVP: enough value to test the business idea",
+          "x": 5,
+          "y": 80,
+          "width": 52,
+          "height": 7,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "accent": "#C69483",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s4-mvp-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-04-n4",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s4-mvp-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-04-n4",
+                  "offset": 0.25
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "ambient": "none"
+          }
         }
       ],
       "narration": [
@@ -1644,14 +1689,15 @@
       "transitionOut": {
         "preset": "fade",
         "duration": 0.6
-      }
+      },
+      "captionMode": "bottom"
     },
     {
       "id": "scene-05",
       "chapterId": "ch-build",
       "title": "Turn what into how",
       "template": "architecture",
-      "duration": 65,
+      "duration": 66.5,
       "elements": [
         {
           "id": "s5-title",
@@ -1674,75 +1720,20 @@
                 "type": "time",
                 "at": 0
               },
-              "duration": 1.1,
-              "stagger": 0.08,
+              "duration": 0.8,
+              "stagger": 0.1,
               "intensity": 1
             },
-            "beats": [
-              {
-                "id": "s5-title-beat-1",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-05-n1",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s5-title-beat-2",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-05-n2",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s5-title-beat-3",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-05-n3",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s5-title-beat-4",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-05-n4",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              }
-            ],
-            "exit": {
-              "id": "s5-title-exit",
-              "preset": "fade",
-              "trigger": {
-                "type": "time",
-                "at": 64.55
-              },
-              "duration": 0.45,
-              "intensity": 1
-            },
+            "beats": [],
             "ambient": "none"
           },
           "sourcePages": [
             18
-          ]
+          ],
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          }
         },
         {
           "id": "s5-topology",
@@ -1779,37 +1770,26 @@
               "id": "s5-topology-enter",
               "preset": "fade-rise",
               "trigger": {
-                "type": "time",
-                "at": 3
+                "type": "narration",
+                "segmentId": "scene-05-n2",
+                "offset": 0
               },
-              "duration": 1.1,
-              "stagger": 0.12,
+              "duration": 0.8,
+              "stagger": 0.1,
               "intensity": 1
             },
             "beats": [
-              {
-                "id": "s5-topology-beat-1",
-                "preset": "trace",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-05-n1",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
               {
                 "id": "s5-topology-beat-2",
                 "preset": "trace",
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-05-n2",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 1.0,
                 "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.6
               },
               {
                 "id": "s5-topology-beat-3",
@@ -1817,11 +1797,11 @@
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-05-n3",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 1.0,
                 "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.6
               },
               {
                 "id": "s5-topology-beat-4",
@@ -1829,30 +1809,24 @@
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-05-n4",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 1.0,
                 "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.6
               }
             ],
-            "exit": {
-              "id": "s5-topology-exit",
-              "preset": "fade",
-              "trigger": {
-                "type": "time",
-                "at": 64.55
-              },
-              "duration": 0.45,
-              "intensity": 1
-            },
             "ambient": "drift"
           },
           "sourcePages": [
             18,
             19,
             20
-          ]
+          ],
+          "visual": {
+            "variant": "diagram",
+            "surface": "none"
+          }
         },
         {
           "id": "s5-text",
@@ -1874,75 +1848,113 @@
                 "type": "time",
                 "at": 7
               },
-              "duration": 1.1,
+              "duration": 0.8,
+              "stagger": 0.1,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "sourcePages": [
+            18
+          ],
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          }
+        },
+        {
+          "id": "s5-path",
+          "type": "badge",
+          "content": "React → Flask API → AI service → database",
+          "x": 7,
+          "y": 76,
+          "width": 50,
+          "height": 6,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "accent": "#8EA6B4",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s5-path-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-05-n3",
+                "offset": 0
+              },
+              "duration": 0.7,
               "stagger": 0.08,
               "intensity": 1
             },
             "beats": [
               {
-                "id": "s5-text-beat-1",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-05-n1",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s5-text-beat-2",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-05-n2",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s5-text-beat-3",
+                "id": "s5-path-beat-3",
                 "preset": "pulse",
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-05-n3",
-                  "offset": 0.15
+                  "offset": 0.25
                 },
-                "duration": 1.5,
+                "duration": 0.6,
                 "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s5-text-beat-4",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-05-n4",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.45
               }
             ],
             "exit": {
-              "id": "s5-text-exit",
+              "id": "s5-path-exit",
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 64.55
+                "at": 48.3
               },
-              "duration": 0.45,
+              "duration": 0.35,
               "intensity": 1
             },
             "ambient": "none"
+          }
+        },
+        {
+          "id": "s5-design",
+          "type": "text",
+          "content": "Scale · failure modes · security · trade-offs",
+          "x": 7,
+          "y": 84,
+          "width": 86,
+          "height": 8,
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
           },
-          "sourcePages": [
-            18
-          ]
+          "style": {
+            "accent": "#8EA6B4",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s5-design-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-05-n4",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          }
         }
       ],
       "narration": [
@@ -1977,14 +1989,15 @@
       "transitionOut": {
         "preset": "fade",
         "duration": 0.6
-      }
+      },
+      "captionMode": "bottom"
     },
     {
       "id": "scene-06",
       "chapterId": "ch-build",
       "title": "Secrets stop at the boundary",
       "template": "process",
-      "duration": 65,
+      "duration": 66.5,
       "elements": [
         {
           "id": "s6-title",
@@ -2007,76 +2020,21 @@
                 "type": "time",
                 "at": 0
               },
-              "duration": 1.1,
-              "stagger": 0.08,
+              "duration": 0.8,
+              "stagger": 0.1,
               "intensity": 1
             },
-            "beats": [
-              {
-                "id": "s6-title-beat-1",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-06-n1",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s6-title-beat-2",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-06-n2",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s6-title-beat-3",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-06-n3",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s6-title-beat-4",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-06-n4",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              }
-            ],
-            "exit": {
-              "id": "s6-title-exit",
-              "preset": "fade",
-              "trigger": {
-                "type": "time",
-                "at": 64.55
-              },
-              "duration": 0.45,
-              "intensity": 1
-            },
+            "beats": [],
             "ambient": "none"
           },
           "sourcePages": [
             21,
             22
-          ]
+          ],
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          }
         },
         {
           "id": "s6-flow",
@@ -2120,34 +2078,22 @@
                 "type": "time",
                 "at": 3
               },
-              "duration": 1.1,
-              "stagger": 0.12,
+              "duration": 1.0,
+              "stagger": 0.1,
               "intensity": 1
             },
             "beats": [
-              {
-                "id": "s6-flow-beat-1",
-                "preset": "trace",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-06-n1",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
               {
                 "id": "s6-flow-beat-2",
                 "preset": "trace",
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-06-n2",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 1.0,
                 "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.6
               },
               {
                 "id": "s6-flow-beat-3",
@@ -2155,11 +2101,11 @@
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-06-n3",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 1.0,
                 "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.6
               },
               {
                 "id": "s6-flow-beat-4",
@@ -2167,29 +2113,23 @@
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-06-n4",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 1.0,
                 "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.6
               }
             ],
-            "exit": {
-              "id": "s6-flow-exit",
-              "preset": "fade",
-              "trigger": {
-                "type": "time",
-                "at": 64.55
-              },
-              "duration": 0.45,
-              "intensity": 1
-            },
             "ambient": "none"
           },
           "sourcePages": [
             21,
             22
-          ]
+          ],
+          "visual": {
+            "variant": "rail",
+            "surface": "none"
+          }
         },
         {
           "id": "s6-badge",
@@ -2209,79 +2149,151 @@
               "id": "s6-badge-enter",
               "preset": "fade-rise",
               "trigger": {
-                "type": "time",
-                "at": 7
+                "type": "narration",
+                "segmentId": "scene-06-n4",
+                "offset": 0
               },
-              "duration": 1.1,
-              "stagger": 0.12,
+              "duration": 0.8,
+              "stagger": 0.1,
               "intensity": 1
             },
-            "beats": [
-              {
-                "id": "s6-badge-beat-1",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-06-n1",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s6-badge-beat-2",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-06-n2",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s6-badge-beat-3",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-06-n3",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s6-badge-beat-4",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-06-n4",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              }
-            ],
-            "exit": {
-              "id": "s6-badge-exit",
-              "preset": "fade",
-              "trigger": {
-                "type": "time",
-                "at": 64.55
-              },
-              "duration": 0.45,
-              "intensity": 1
-            },
+            "beats": [],
             "ambient": "breathe"
           },
           "sourcePages": [
             21,
             22
+          ],
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          }
+        },
+        {
+          "id": "s6-env",
+          "type": "cards",
+          "content": "Local development",
+          "x": 6,
+          "y": 70,
+          "width": 50,
+          "height": 16,
+          "visual": {
+            "variant": "editorial",
+            "surface": "soft"
+          },
+          "style": {
+            "accent": "#8EA6B4",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s6-env-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-06-n2",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s6-env-beat-2",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-06-n2",
+                  "offset": 0.25
+                },
+                "duration": 0.8,
+                "stagger": 0.1,
+                "intensity": 0.6
+              }
+            ],
+            "exit": {
+              "id": "s6-env-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 32.0
+              },
+              "duration": 0.35,
+              "intensity": 1
+            },
+            "ambient": "none"
+          },
+          "items": [
+            {
+              "id": "s6-env-i1",
+              "label": ".env file"
+            },
+            {
+              "id": "s6-env-i2",
+              "label": ".gitignore keeps it out"
+            }
           ]
+        },
+        {
+          "id": "s6-runtime",
+          "type": "badge",
+          "content": "Production injects secrets at runtime",
+          "x": 6,
+          "y": 87,
+          "width": 88,
+          "height": 6,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "accent": "#8EA6B4",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s6-runtime-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-06-n3",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s6-runtime-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-06-n3",
+                  "offset": 0.25
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "exit": {
+              "id": "s6-runtime-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 48.3
+              },
+              "duration": 0.35,
+              "intensity": 1
+            },
+            "ambient": "none"
+          }
         }
       ],
       "narration": [
@@ -2317,14 +2329,15 @@
       "transitionOut": {
         "preset": "fade",
         "duration": 0.6
-      }
+      },
+      "captionMode": "bottom"
     },
     {
       "id": "scene-07",
       "chapterId": "ch-test",
       "title": "Test the seams",
       "template": "process",
-      "duration": 65,
+      "duration": 66.5,
       "elements": [
         {
           "id": "s7-title",
@@ -2347,77 +2360,22 @@
                 "type": "time",
                 "at": 0
               },
-              "duration": 1.1,
-              "stagger": 0.08,
+              "duration": 0.8,
+              "stagger": 0.1,
               "intensity": 1
             },
-            "beats": [
-              {
-                "id": "s7-title-beat-1",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-07-n1",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s7-title-beat-2",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-07-n2",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s7-title-beat-3",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-07-n3",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s7-title-beat-4",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-07-n4",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              }
-            ],
-            "exit": {
-              "id": "s7-title-exit",
-              "preset": "fade",
-              "trigger": {
-                "type": "time",
-                "at": 64.55
-              },
-              "duration": 0.45,
-              "intensity": 1
-            },
+            "beats": [],
             "ambient": "none"
           },
           "sourcePages": [
             23,
             24,
             25
-          ]
+          ],
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          }
         },
         {
           "id": "s7-flow",
@@ -2457,34 +2415,22 @@
                 "type": "time",
                 "at": 3
               },
-              "duration": 1.1,
-              "stagger": 0.12,
+              "duration": 1.0,
+              "stagger": 0.1,
               "intensity": 1
             },
             "beats": [
-              {
-                "id": "s7-flow-beat-1",
-                "preset": "trace",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-07-n1",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
               {
                 "id": "s7-flow-beat-2",
                 "preset": "trace",
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-07-n2",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 1.0,
                 "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.6
               },
               {
                 "id": "s7-flow-beat-3",
@@ -2492,11 +2438,11 @@
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-07-n3",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 1.0,
                 "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.6
               },
               {
                 "id": "s7-flow-beat-4",
@@ -2504,23 +2450,13 @@
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-07-n4",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 1.0,
                 "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.6
               }
             ],
-            "exit": {
-              "id": "s7-flow-exit",
-              "preset": "fade",
-              "trigger": {
-                "type": "time",
-                "at": 64.55
-              },
-              "duration": 0.45,
-              "intensity": 1
-            },
             "ambient": "none"
           },
           "sourcePages": [
@@ -2528,7 +2464,11 @@
             24,
             25,
             29
-          ]
+          ],
+          "visual": {
+            "variant": "rail",
+            "surface": "none"
+          }
         },
         {
           "id": "s7-cards",
@@ -2565,49 +2505,26 @@
               "id": "s7-cards-enter",
               "preset": "fade-rise",
               "trigger": {
-                "type": "time",
-                "at": 7
+                "type": "narration",
+                "segmentId": "scene-07-n3",
+                "offset": 0
               },
-              "duration": 1.1,
-              "stagger": 0.12,
+              "duration": 0.8,
+              "stagger": 0.1,
               "intensity": 1
             },
             "beats": [
-              {
-                "id": "s7-cards-beat-1",
-                "preset": "lift",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-07-n1",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s7-cards-beat-2",
-                "preset": "lift",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-07-n2",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
               {
                 "id": "s7-cards-beat-3",
                 "preset": "lift",
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-07-n3",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 0.8,
                 "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.6
               },
               {
                 "id": "s7-cards-beat-4",
@@ -2615,23 +2532,13 @@
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-07-n4",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 0.8,
                 "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.6
               }
             ],
-            "exit": {
-              "id": "s7-cards-exit",
-              "preset": "fade",
-              "trigger": {
-                "type": "time",
-                "at": 64.55
-              },
-              "duration": 0.45,
-              "intensity": 1
-            },
             "ambient": "none"
           },
           "sourcePages": [
@@ -2639,7 +2546,104 @@
             24,
             25,
             29
-          ]
+          ],
+          "visual": {
+            "variant": "editorial",
+            "surface": "soft"
+          }
+        },
+        {
+          "id": "s7-integration",
+          "type": "badge",
+          "content": "Contracts · data · timing · errors",
+          "x": 5,
+          "y": 72,
+          "width": 56,
+          "height": 6,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "accent": "#A79AB7",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s7-integration-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-07-n2",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s7-integration-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-07-n2",
+                  "offset": 0.25
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "exit": {
+              "id": "s7-integration-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 32.0
+              },
+              "duration": 0.35,
+              "intensity": 1
+            },
+            "ambient": "none"
+          }
+        },
+        {
+          "id": "s7-acceptance",
+          "type": "text",
+          "content": "Alpha with developer support · beta with real users",
+          "x": 5,
+          "y": 80,
+          "width": 56,
+          "height": 12,
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "style": {
+            "accent": "#A79AB7",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s7-acceptance-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-07-n4",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          }
         }
       ],
       "narration": [
@@ -2674,14 +2678,15 @@
       "transitionOut": {
         "preset": "fade",
         "duration": 0.6
-      }
+      },
+      "captionMode": "bottom"
     },
     {
       "id": "scene-08",
       "chapterId": "ch-test",
       "title": "Right product. Built right.",
       "template": "comparison",
-      "duration": 65,
+      "duration": 66.5,
       "elements": [
         {
           "id": "s8-title",
@@ -2704,75 +2709,20 @@
                 "type": "time",
                 "at": 0
               },
-              "duration": 1.1,
-              "stagger": 0.08,
+              "duration": 0.8,
+              "stagger": 0.1,
               "intensity": 1
             },
-            "beats": [
-              {
-                "id": "s8-title-beat-1",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-08-n1",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s8-title-beat-2",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-08-n2",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s8-title-beat-3",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-08-n3",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s8-title-beat-4",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-08-n4",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              }
-            ],
-            "exit": {
-              "id": "s8-title-exit",
-              "preset": "fade",
-              "trigger": {
-                "type": "time",
-                "at": 64.55
-              },
-              "duration": 0.45,
-              "intensity": 1
-            },
+            "beats": [],
             "ambient": "none"
           },
           "sourcePages": [
             33
-          ]
+          ],
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          }
         },
         {
           "id": "s8-compare",
@@ -2804,8 +2754,8 @@
                 "type": "time",
                 "at": 3
               },
-              "duration": 1.1,
-              "stagger": 0.12,
+              "duration": 0.8,
+              "stagger": 0.1,
               "intensity": 1
             },
             "beats": [
@@ -2815,11 +2765,11 @@
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-08-n1",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 0.8,
                 "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.6
               },
               {
                 "id": "s8-compare-beat-2",
@@ -2827,47 +2777,13 @@
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-08-n2",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 0.8,
                 "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s8-compare-beat-3",
-                "preset": "lift",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-08-n3",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s8-compare-beat-4",
-                "preset": "lift",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-08-n4",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.6
               }
             ],
-            "exit": {
-              "id": "s8-compare-exit",
-              "preset": "fade",
-              "trigger": {
-                "type": "time",
-                "at": 64.55
-              },
-              "duration": 0.45,
-              "intensity": 1
-            },
             "ambient": "none"
           },
           "sourcePages": [
@@ -2876,7 +2792,11 @@
             32,
             33,
             34
-          ]
+          ],
+          "visual": {
+            "variant": "split",
+            "surface": "none"
+          }
         },
         {
           "id": "s8-badge",
@@ -2896,77 +2816,149 @@
               "id": "s8-badge-enter",
               "preset": "fade-rise",
               "trigger": {
-                "type": "time",
-                "at": 7
+                "type": "narration",
+                "segmentId": "scene-08-n4",
+                "offset": 0
               },
-              "duration": 1.1,
+              "duration": 0.8,
+              "stagger": 0.1,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "breathe"
+          },
+          "sourcePages": [
+            34
+          ],
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          }
+        },
+        {
+          "id": "s8-verify",
+          "type": "badge",
+          "content": "Code review · unit · integration · system",
+          "x": 6,
+          "y": 70,
+          "width": 44,
+          "height": 6,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "accent": "#A79AB7",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s8-verify-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-08-n2",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s8-verify-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-08-n2",
+                  "offset": 0.25
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "exit": {
+              "id": "s8-verify-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 31.9
+              },
+              "duration": 0.35,
+              "intensity": 1
+            },
+            "ambient": "none"
+          }
+        },
+        {
+          "id": "s8-check",
+          "type": "cards",
+          "content": "Confirmation and regression",
+          "x": 6,
+          "y": 70,
+          "width": 88,
+          "height": 15,
+          "visual": {
+            "variant": "editorial",
+            "surface": "soft"
+          },
+          "style": {
+            "accent": "#A79AB7",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s8-check-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-08-n3",
+                "offset": 0
+              },
+              "duration": 0.7,
               "stagger": 0.12,
               "intensity": 1
             },
             "beats": [
               {
-                "id": "s8-badge-beat-1",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-08-n1",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s8-badge-beat-2",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-08-n2",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s8-badge-beat-3",
-                "preset": "pulse",
+                "id": "s8-check-beat-3",
+                "preset": "lift",
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-08-n3",
-                  "offset": 0.15
+                  "offset": 0.25
                 },
-                "duration": 1.5,
+                "duration": 0.8,
                 "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s8-badge-beat-4",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-08-n4",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.6
               }
             ],
             "exit": {
-              "id": "s8-badge-exit",
+              "id": "s8-check-exit",
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 64.55
+                "at": 48.3
               },
-              "duration": 0.45,
+              "duration": 0.35,
               "intensity": 1
             },
-            "ambient": "breathe"
+            "ambient": "none"
           },
-          "sourcePages": [
-            34
+          "items": [
+            {
+              "id": "s8-check-i1",
+              "label": "Confirmation — rerun the failed test"
+            },
+            {
+              "id": "s8-check-i2",
+              "label": "Regression — protect working behavior"
+            }
           ]
         }
       ],
@@ -3003,14 +2995,15 @@
       "transitionOut": {
         "preset": "fade",
         "duration": 0.6
-      }
+      },
+      "captionMode": "bottom"
     },
     {
       "id": "scene-09",
       "chapterId": "ch-operate",
       "title": "Production changes the rules",
       "template": "incident",
-      "duration": 65,
+      "duration": 66.5,
       "elements": [
         {
           "id": "s9-title",
@@ -3033,77 +3026,22 @@
                 "type": "time",
                 "at": 0
               },
-              "duration": 1.1,
-              "stagger": 0.08,
+              "duration": 0.8,
+              "stagger": 0.1,
               "intensity": 1
             },
-            "beats": [
-              {
-                "id": "s9-title-beat-1",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-09-n1",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s9-title-beat-2",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-09-n2",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s9-title-beat-3",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-09-n3",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s9-title-beat-4",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-09-n4",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              }
-            ],
-            "exit": {
-              "id": "s9-title-exit",
-              "preset": "fade",
-              "trigger": {
-                "type": "time",
-                "at": 64.55
-              },
-              "duration": 0.45,
-              "intensity": 1
-            },
+            "beats": [],
             "ambient": "none"
           },
           "sourcePages": [
             35,
             36,
             40
-          ]
+          ],
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          }
         },
         {
           "id": "s9-timeline",
@@ -3147,34 +3085,22 @@
                 "type": "time",
                 "at": 3
               },
-              "duration": 1.1,
-              "stagger": 0.12,
+              "duration": 1.0,
+              "stagger": 0.1,
               "intensity": 1
             },
             "beats": [
-              {
-                "id": "s9-timeline-beat-1",
-                "preset": "trace",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-09-n1",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
               {
                 "id": "s9-timeline-beat-2",
                 "preset": "trace",
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-09-n2",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 1.0,
                 "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.6
               },
               {
                 "id": "s9-timeline-beat-3",
@@ -3182,11 +3108,11 @@
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-09-n3",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 1.0,
                 "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.6
               },
               {
                 "id": "s9-timeline-beat-4",
@@ -3194,23 +3120,13 @@
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-09-n4",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 1.0,
                 "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.6
               }
             ],
-            "exit": {
-              "id": "s9-timeline-exit",
-              "preset": "fade",
-              "trigger": {
-                "type": "time",
-                "at": 64.55
-              },
-              "duration": 0.45,
-              "intensity": 1
-            },
             "ambient": "none"
           },
           "sourcePages": [
@@ -3220,7 +3136,11 @@
             44,
             45,
             46
-          ]
+          ],
+          "visual": {
+            "variant": "rail",
+            "surface": "none"
+          }
         },
         {
           "id": "s9-text",
@@ -3242,76 +3162,185 @@
                 "type": "time",
                 "at": 7
               },
-              "duration": 1.1,
-              "stagger": 0.08,
+              "duration": 0.8,
+              "stagger": 0.1,
               "intensity": 1
             },
-            "beats": [
-              {
-                "id": "s9-text-beat-1",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-09-n1",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s9-text-beat-2",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-09-n2",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s9-text-beat-3",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-09-n3",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s9-text-beat-4",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-09-n4",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              }
-            ],
-            "exit": {
-              "id": "s9-text-exit",
-              "preset": "fade",
-              "trigger": {
-                "type": "time",
-                "at": 64.55
-              },
-              "duration": 0.45,
-              "intensity": 1
-            },
+            "beats": [],
             "ambient": "none"
           },
           "sourcePages": [
             36,
             40
-          ]
+          ],
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          }
+        },
+        {
+          "id": "s9-alert",
+          "type": "badge",
+          "content": "03:00 — latency climbs, no alert",
+          "x": 5,
+          "y": 70,
+          "width": 50,
+          "height": 6,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "accent": "#8FAFA8",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s9-alert-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-09-n2",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s9-alert-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-09-n2",
+                  "offset": 0.25
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "exit": {
+              "id": "s9-alert-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 32.0
+              },
+              "duration": 0.35,
+              "intensity": 1
+            },
+            "ambient": "none"
+          }
+        },
+        {
+          "id": "s9-fix",
+          "type": "badge",
+          "content": "Missing index → rewrite → staging patch",
+          "x": 5,
+          "y": 78,
+          "width": 50,
+          "height": 6,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "accent": "#8FAFA8",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s9-fix-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-09-n3",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s9-fix-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-09-n3",
+                  "offset": 0.25
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "exit": {
+              "id": "s9-fix-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 48.3
+              },
+              "duration": 0.35,
+              "intensity": 1
+            },
+            "ambient": "none"
+          }
+        },
+        {
+          "id": "s9-lesson",
+          "type": "badge",
+          "content": "Seven hours of invisible impact",
+          "x": 5,
+          "y": 70,
+          "width": 50,
+          "height": 6,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "accent": "#8FAFA8",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s9-lesson-enter",
+              "preset": "spring-scale",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-09-n4",
+                "offset": 0
+              },
+              "duration": 0.8,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s9-lesson-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-09-n4",
+                  "offset": 0.25
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "ambient": "none"
+          }
         }
       ],
       "narration": [
@@ -3347,14 +3376,15 @@
       "transitionOut": {
         "preset": "fade",
         "duration": 0.6
-      }
+      },
+      "captionMode": "bottom"
     },
     {
       "id": "scene-10",
       "chapterId": "ch-operate",
       "title": "Reliability is measurable",
       "template": "concept",
-      "duration": 65,
+      "duration": 66.5,
       "elements": [
         {
           "id": "s10-title",
@@ -3377,70 +3407,11 @@
                 "type": "time",
                 "at": 0
               },
-              "duration": 1.1,
-              "stagger": 0.08,
+              "duration": 0.8,
+              "stagger": 0.1,
               "intensity": 1
             },
-            "beats": [
-              {
-                "id": "s10-title-beat-1",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-10-n1",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s10-title-beat-2",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-10-n2",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s10-title-beat-3",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-10-n3",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s10-title-beat-4",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-10-n4",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              }
-            ],
-            "exit": {
-              "id": "s10-title-exit",
-              "preset": "fade",
-              "trigger": {
-                "type": "time",
-                "at": 64.55
-              },
-              "duration": 0.45,
-              "intensity": 1
-            },
+            "beats": [],
             "ambient": "none"
           },
           "sourcePages": [
@@ -3449,7 +3420,11 @@
             39,
             46,
             47
-          ]
+          ],
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          }
         },
         {
           "id": "s10-formula",
@@ -3485,75 +3460,33 @@
                 "type": "time",
                 "at": 3
               },
-              "duration": 1.1,
-              "stagger": 0.12,
+              "duration": 0.8,
+              "stagger": 0.1,
               "intensity": 1
             },
             "beats": [
               {
-                "id": "s10-formula-beat-1",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-10-n1",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
                 "id": "s10-formula-beat-2",
-                "preset": "pulse",
+                "preset": "glow",
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-10-n2",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 0.6,
                 "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s10-formula-beat-3",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-10-n3",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s10-formula-beat-4",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-10-n4",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.5
               }
             ],
-            "exit": {
-              "id": "s10-formula-exit",
-              "preset": "fade",
-              "trigger": {
-                "type": "time",
-                "at": 64.55
-              },
-              "duration": 0.45,
-              "intensity": 1
-            },
             "ambient": "none"
           },
           "sourcePages": [
             47
-          ]
+          ],
+          "visual": {
+            "variant": "poster",
+            "surface": "none"
+          }
         },
         {
           "id": "s10-metrics",
@@ -3590,37 +3523,26 @@
               "id": "s10-metrics-enter",
               "preset": "fade-rise",
               "trigger": {
-                "type": "time",
-                "at": 7
+                "type": "narration",
+                "segmentId": "scene-10-n2",
+                "offset": 0
               },
-              "duration": 1.1,
-              "stagger": 0.12,
+              "duration": 0.8,
+              "stagger": 0.1,
               "intensity": 1
             },
             "beats": [
-              {
-                "id": "s10-metrics-beat-1",
-                "preset": "count-up",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-10-n1",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
               {
                 "id": "s10-metrics-beat-2",
                 "preset": "count-up",
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-10-n2",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 1.1,
                 "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.8
               },
               {
                 "id": "s10-metrics-beat-3",
@@ -3628,11 +3550,11 @@
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-10-n3",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 1.1,
                 "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.8
               },
               {
                 "id": "s10-metrics-beat-4",
@@ -3640,29 +3562,134 @@
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-10-n4",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 1.1,
                 "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.8
               }
             ],
-            "exit": {
-              "id": "s10-metrics-exit",
-              "preset": "fade",
-              "trigger": {
-                "type": "time",
-                "at": 64.55
-              },
-              "duration": 0.45,
-              "intensity": 1
-            },
             "ambient": "breathe"
           },
           "sourcePages": [
             46,
             47,
             48
+          ],
+          "visual": {
+            "variant": "poster",
+            "surface": "none"
+          }
+        },
+        {
+          "id": "s10-factors",
+          "type": "text",
+          "content": "Hardware · network · bugs · capacity · providers",
+          "x": 5,
+          "y": 74,
+          "width": 90,
+          "height": 8,
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "style": {
+            "accent": "#8FAFA8",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s10-factors-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-10-n3",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [],
+            "exit": {
+              "id": "s10-factors-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 48.2
+              },
+              "duration": 0.35,
+              "intensity": 1
+            },
+            "ambient": "none"
+          }
+        },
+        {
+          "id": "s10-maintenance",
+          "type": "flow",
+          "content": "Four kinds of maintenance",
+          "x": 5,
+          "y": 74,
+          "width": 90,
+          "height": 16,
+          "visual": {
+            "variant": "rail",
+            "surface": "none"
+          },
+          "style": {
+            "accent": "#8FAFA8",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s10-maintenance-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-10-n4",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s10-maintenance-beat-4",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n4",
+                  "offset": 0.25
+                },
+                "duration": 1.0,
+                "stagger": 0.1,
+                "intensity": 0.6
+              }
+            ],
+            "ambient": "none"
+          },
+          "items": [
+            {
+              "id": "s10-maintenance-i1",
+              "label": "Corrective"
+            },
+            {
+              "id": "s10-maintenance-i2",
+              "label": "Adaptive"
+            },
+            {
+              "id": "s10-maintenance-i3",
+              "label": "Perfective"
+            },
+            {
+              "id": "s10-maintenance-i4",
+              "label": "Preventive"
+            }
           ]
         }
       ],
@@ -3700,14 +3727,15 @@
       "transitionOut": {
         "preset": "fade",
         "duration": 0.6
-      }
+      },
+      "captionMode": "bottom"
     },
     {
       "id": "scene-11",
       "chapterId": "ch-ship",
       "title": "Choose your risk envelope",
       "template": "comparison",
-      "duration": 65,
+      "duration": 66.5,
       "elements": [
         {
           "id": "s11-title",
@@ -3730,75 +3758,20 @@
                 "type": "time",
                 "at": 0
               },
-              "duration": 1.1,
-              "stagger": 0.08,
+              "duration": 0.8,
+              "stagger": 0.1,
               "intensity": 1
             },
-            "beats": [
-              {
-                "id": "s11-title-beat-1",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-11-n1",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s11-title-beat-2",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-11-n2",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s11-title-beat-3",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-11-n3",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s11-title-beat-4",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-11-n4",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              }
-            ],
-            "exit": {
-              "id": "s11-title-exit",
-              "preset": "fade",
-              "trigger": {
-                "type": "time",
-                "at": 64.55
-              },
-              "duration": 0.45,
-              "intensity": 1
-            },
+            "beats": [],
             "ambient": "none"
           },
           "sourcePages": [
             51
-          ]
+          ],
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          }
         },
         {
           "id": "s11-cards",
@@ -3838,34 +3811,22 @@
                 "type": "time",
                 "at": 3
               },
-              "duration": 1.1,
-              "stagger": 0.12,
+              "duration": 0.8,
+              "stagger": 0.1,
               "intensity": 1
             },
             "beats": [
-              {
-                "id": "s11-cards-beat-1",
-                "preset": "lift",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-11-n1",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
               {
                 "id": "s11-cards-beat-2",
                 "preset": "lift",
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-11-n2",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 0.8,
                 "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.6
               },
               {
                 "id": "s11-cards-beat-3",
@@ -3873,11 +3834,11 @@
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-11-n3",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 0.8,
                 "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.6
               },
               {
                 "id": "s11-cards-beat-4",
@@ -3885,23 +3846,13 @@
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-11-n4",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 0.8,
                 "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.6
               }
             ],
-            "exit": {
-              "id": "s11-cards-exit",
-              "preset": "fade",
-              "trigger": {
-                "type": "time",
-                "at": 64.55
-              },
-              "duration": 0.45,
-              "intensity": 1
-            },
             "ambient": "none"
           },
           "sourcePages": [
@@ -3909,7 +3860,175 @@
             53,
             54,
             55
-          ]
+          ],
+          "visual": {
+            "variant": "editorial",
+            "surface": "soft"
+          }
+        },
+        {
+          "id": "s11-blast",
+          "type": "badge",
+          "content": "Big bang: widest blast radius",
+          "x": 5,
+          "y": 76,
+          "width": 44,
+          "height": 6,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "accent": "#C8AA72",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s11-blast-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-11-n2",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s11-blast-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-11-n2",
+                  "offset": 0.25
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "exit": {
+              "id": "s11-blast-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 32.0
+              },
+              "duration": 0.35,
+              "intensity": 1
+            },
+            "ambient": "none"
+          }
+        },
+        {
+          "id": "s11-gradual",
+          "type": "badge",
+          "content": "Rolling · blue-green · canary: smaller radius",
+          "x": 51,
+          "y": 76,
+          "width": 44,
+          "height": 6,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "accent": "#C8AA72",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s11-gradual-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-11-n3",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s11-gradual-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-11-n3",
+                  "offset": 0.25
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "exit": {
+              "id": "s11-gradual-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 48.3
+              },
+              "duration": 0.35,
+              "intensity": 1
+            },
+            "ambient": "none"
+          }
+        },
+        {
+          "id": "s11-envelope",
+          "type": "badge",
+          "content": "Risk envelope = blast radius × rollback speed",
+          "x": 5,
+          "y": 84,
+          "width": 90,
+          "height": 6,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "accent": "#C8AA72",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s11-envelope-enter",
+              "preset": "spring-scale",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-11-n4",
+                "offset": 0
+              },
+              "duration": 0.8,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s11-envelope-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-11-n4",
+                  "offset": 0.25
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "ambient": "none"
+          }
         }
       ],
       "narration": [
@@ -3944,14 +4063,15 @@
       "transitionOut": {
         "preset": "fade",
         "duration": 0.6
-      }
+      },
+      "captionMode": "bottom"
     },
     {
       "id": "scene-12",
       "chapterId": "ch-ship",
       "title": "Ship, observe, learn",
       "template": "closing",
-      "duration": 65,
+      "duration": 66.5,
       "elements": [
         {
           "id": "s12-title",
@@ -3974,76 +4094,21 @@
                 "type": "time",
                 "at": 0
               },
-              "duration": 1.1,
-              "stagger": 0.08,
+              "duration": 0.8,
+              "stagger": 0.1,
               "intensity": 1
             },
-            "beats": [
-              {
-                "id": "s12-title-beat-1",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-12-n1",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s12-title-beat-2",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-12-n2",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s12-title-beat-3",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-12-n3",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s12-title-beat-4",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-12-n4",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              }
-            ],
-            "exit": {
-              "id": "s12-title-exit",
-              "preset": "fade",
-              "trigger": {
-                "type": "time",
-                "at": 64.55
-              },
-              "duration": 0.45,
-              "intensity": 1
-            },
+            "beats": [],
             "ambient": "none"
           },
           "sourcePages": [
             56,
             57
-          ]
+          ],
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          }
         },
         {
           "id": "s12-flow",
@@ -4095,34 +4160,22 @@
                 "type": "time",
                 "at": 3
               },
-              "duration": 1.1,
-              "stagger": 0.12,
+              "duration": 1.0,
+              "stagger": 0.1,
               "intensity": 1
             },
             "beats": [
-              {
-                "id": "s12-flow-beat-1",
-                "preset": "trace",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-12-n1",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
               {
                 "id": "s12-flow-beat-2",
                 "preset": "trace",
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-12-n2",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 1.0,
                 "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.6
               },
               {
                 "id": "s12-flow-beat-3",
@@ -4130,11 +4183,11 @@
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-12-n3",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 1.0,
                 "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.6
               },
               {
                 "id": "s12-flow-beat-4",
@@ -4142,29 +4195,23 @@
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-12-n4",
-                  "offset": 0.15
+                  "offset": 0.2
                 },
-                "duration": 1.5,
+                "duration": 1.0,
                 "stagger": 0.1,
-                "intensity": 0.75
+                "intensity": 0.6
               }
             ],
-            "exit": {
-              "id": "s12-flow-exit",
-              "preset": "fade",
-              "trigger": {
-                "type": "time",
-                "at": 64.55
-              },
-              "duration": 0.45,
-              "intensity": 1
-            },
             "ambient": "none"
           },
           "sourcePages": [
             56,
             57
-          ]
+          ],
+          "visual": {
+            "variant": "rail",
+            "surface": "none"
+          }
         },
         {
           "id": "s12-badge",
@@ -4184,79 +4231,155 @@
               "id": "s12-badge-enter",
               "preset": "fade-rise",
               "trigger": {
-                "type": "time",
-                "at": 7
+                "type": "narration",
+                "segmentId": "scene-12-n4",
+                "offset": 0
               },
-              "duration": 1.1,
-              "stagger": 0.12,
+              "duration": 0.8,
+              "stagger": 0.1,
               "intensity": 1
             },
-            "beats": [
-              {
-                "id": "s12-badge-beat-1",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-12-n1",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s12-badge-beat-2",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-12-n2",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s12-badge-beat-3",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-12-n3",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              },
-              {
-                "id": "s12-badge-beat-4",
-                "preset": "pulse",
-                "trigger": {
-                  "type": "narration",
-                  "segmentId": "scene-12-n4",
-                  "offset": 0.15
-                },
-                "duration": 1.5,
-                "stagger": 0.1,
-                "intensity": 0.75
-              }
-            ],
-            "exit": {
-              "id": "s12-badge-exit",
-              "preset": "fade",
-              "trigger": {
-                "type": "time",
-                "at": 64.55
-              },
-              "duration": 0.45,
-              "intensity": 1
-            },
+            "beats": [],
             "ambient": "breathe"
           },
           "sourcePages": [
             2,
             34,
             57
+          ],
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          }
+        },
+        {
+          "id": "s12-flags",
+          "type": "comparison",
+          "content": "Deploy vs release",
+          "x": 5,
+          "y": 70,
+          "width": 52,
+          "height": 16,
+          "visual": {
+            "variant": "split",
+            "surface": "none"
+          },
+          "style": {
+            "accent": "#C8AA72",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s12-flags-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-12-n2",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s12-flags-beat-2",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-12-n2",
+                  "offset": 0.25
+                },
+                "duration": 0.8,
+                "stagger": 0.1,
+                "intensity": 0.6
+              }
+            ],
+            "exit": {
+              "id": "s12-flags-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 32.0
+              },
+              "duration": 0.35,
+              "intensity": 1
+            },
+            "ambient": "none"
+          },
+          "items": [
+            {
+              "id": "s12-flags-i1",
+              "label": "DEPLOY — ship the code"
+            },
+            {
+              "id": "s12-flags-i2",
+              "label": "RELEASE — enable it for users"
+            }
+          ]
+        },
+        {
+          "id": "s12-monitor",
+          "type": "cards",
+          "content": "Production signals",
+          "x": 58,
+          "y": 70,
+          "width": 37,
+          "height": 16,
+          "visual": {
+            "variant": "grid",
+            "surface": "soft"
+          },
+          "style": {
+            "accent": "#C8AA72",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s12-monitor-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-12-n3",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s12-monitor-beat-3",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-12-n3",
+                  "offset": 0.25
+                },
+                "duration": 0.8,
+                "stagger": 0.1,
+                "intensity": 0.6
+              }
+            ],
+            "ambient": "none"
+          },
+          "items": [
+            {
+              "id": "s12-monitor-i1",
+              "label": "Uptime"
+            },
+            {
+              "id": "s12-monitor-i2",
+              "label": "Latency"
+            },
+            {
+              "id": "s12-monitor-i3",
+              "label": "Errors"
+            }
           ]
         }
       ],
@@ -4289,7 +4412,8 @@
       "knowledgeNodeIds": [
         "delivery",
         "sdlc"
-      ]
+      ],
+      "captionMode": "bottom"
     }
   ],
   "assets": [],
