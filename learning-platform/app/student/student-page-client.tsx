@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { AccountMenu } from "@/app/components/account-menu";
 import { WorkspaceHeader } from "@/app/components/workspace-header";
-import { ArrowRight, AudioLines, Clock3, FlaskConical, Plus } from "lucide-react";
+import { ArrowRight, AudioLines, Clock3, FlaskConical, Gamepad2, Plus } from "lucide-react";
 import { chipTones, coverFor, CourseCover } from "@/app/components/course-cover";
 
 type StudentCourse = { id: string; category: string; title: string; description: string; updated: string };
@@ -39,6 +39,13 @@ const tools: Array<{
     icon: Plus,
     title: "Create your own mini-course",
     tone: "bg-[#fbeec2] text-[#8a6410]",
+  },
+  {
+    description: "Play through a one-day SDLC sprint.",
+    href: "/student/studio",
+    icon: Gamepad2,
+    title: "Prototype Studio",
+    tone: "bg-[#fbd9d2] text-[#a8452f]",
   },
 ];
 
