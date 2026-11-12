@@ -20,8 +20,8 @@ describe("published animation", () => {
       .flatMap((scene) => scene.elements)
       .filter((element) => element.type === "image");
 
-    expect(prepared.project.assets.length).toBeGreaterThanOrEqual(4);
-    expect(images.length).toBeGreaterThanOrEqual(4);
+    expect(prepared.project.assets.length).toBeGreaterThanOrEqual(8);
+    expect(images.length).toBeGreaterThanOrEqual(8);
     expect(images.every((element) => element.assetId && element.alt)).toBe(true);
     expect(images.every((element) => element.motion.ambient === "ken-burns")).toBe(true);
   });

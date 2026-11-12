@@ -25,6 +25,15 @@ Platform can host it without a second deployment.
   with `ssr: false` because it uses `localStorage`, `speechSynthesis`, and the
   Remotion Player at runtime.
 
+## Visual treatment
+
+- Scene chrome is flat: the footer (scene title and source pages), decorative
+  grid, and orbs are removed. Illustrations use the same paper colour as the
+  scene so they sit on the canvas rather than in a panel.
+- The availability formula uses a real fraction layout (numerator over
+  denominator) instead of a linear glyph row.
+- Illustrations are embedded SVG assets with a slow `ken-burns` ambient.
+
 ## Boundaries
 
 The studio has no persistence, AI generation, server TTS, or MP4 export. The

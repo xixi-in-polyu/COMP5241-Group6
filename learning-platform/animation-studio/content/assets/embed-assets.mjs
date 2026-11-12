@@ -5,13 +5,17 @@ import path from "node:path";
 
 const contentDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const projectPath = path.join(contentDir, "published.animation.json");
-const versionPath = path.join(contentDir, "versions", "published.animation-v4.json");
+const versionPath = path.join(contentDir, "versions", "published.animation-v5.json");
 
 const files = {
   "asset-deploy-bigbang": "deploy-big-bang.svg",
   "asset-deploy-progressive": "deploy-progressive.svg",
   "asset-deploy-canary": "deploy-canary.svg",
   "asset-secret-boundary": "secret-boundary.svg",
+  "asset-architecture": "architecture-ai-tutor.svg",
+  "asset-verification": "verification-validation.svg",
+  "asset-incident": "incident-timeline.svg",
+  "asset-availability": "availability-factors.svg",
 };
 
 const project = JSON.parse(await readFile(projectPath, "utf8"));

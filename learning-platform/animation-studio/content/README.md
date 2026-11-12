@@ -16,10 +16,10 @@ The original export was `schemaVersion: 3`; the current file is schema 5 and has
 two authored layers on top of it:
 
 - `step-sheet.md` — four steps per scene, each with a new visual fact;
-- `assets/` — four embedded SVG illustrations used in scenes 6 and 11, with
-  `ken-burns` ambient motion.
+- `assets/` — eight embedded SVG illustrations used across scenes 5, 6, 8, 9,
+  10 and 11, with `ken-burns` ambient motion.
 
-`versions/` keeps the v2, v3, and v4 snapshots so visual changes can be compared.
+`versions/` keeps the v2, v3, v4, and v5 snapshots so visual changes can be compared.
 The studio validates the latest file on load.
 
 Do not reference files from the standalone studio's `public/` folder

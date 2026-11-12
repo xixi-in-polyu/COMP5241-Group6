@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+<rect width="800" height="450" fill="#F4F1EB"/>
+<g font-family="Avenir Next, Segoe UI, sans-serif" fill="#2E3433">
+<text x="32" y="48" font-size="20" font-weight="750" letter-spacing="1.4">A HIDDEN DEGRADATION</text>
+<text x="32" y="72" font-size="13" fill="#6F7674">one release, seven invisible hours</text>
+
+<g>
+  <text x="32" y="118" font-size="10.5" fill="#6F7674">DEPLOY</text>
+  <text x="32" y="140" font-size="10" fill="#6F7674">01:00</text>
+  <text x="196" y="118" font-size="10.5" fill="#BE6A58">LATENCY</text>
+  <text x="196" y="140" font-size="10" fill="#BE6A58">03:00</text>
+  <text x="392" y="118" font-size="10.5" fill="#C8AA72">DISCOVERED</text>
+  <text x="392" y="140" font-size="10" fill="#C8AA72">10:00</text>
+  <text x="548" y="118" font-size="10.5" fill="#8EA6B4">FIX</text>
+  <text x="548" y="140" font-size="10" fill="#8EA6B4">13:00</text>
+  <text x="700" y="118" font-size="10.5" fill="#9FAF91">RESTORED</text>
+  <text x="700" y="140" font-size="10" fill="#9FAF91">21:00</text>
+  <line x1="42" y1="196" x2="744" y2="196" stroke="#2E3433" stroke-width="2"/>
+  <rect x="120" y="182" width="250" height="28" rx="6" fill="#F5DCD6" opacity=".85"/>
+  <text x="245" y="170" text-anchor="middle" font-size="10.5" fill="#BE6A58">seven invisible hours</text>
+  <circle cx="62" cy="196" r="7" fill="#2E3433" stroke="#2E3433" stroke-width="1.4"/><circle cx="216" cy="196" r="7" fill="#BE6A58" stroke="#2E3433" stroke-width="1.4"/><circle cx="418" cy="196" r="7" fill="#C8AA72" stroke="#2E3433" stroke-width="1.4"/><circle cx="574" cy="196" r="7" fill="#8EA6B4" stroke="#2E3433" stroke-width="1.4"/><circle cx="720" cy="196" r="7" fill="#9FAF91" stroke="#2E3433" stroke-width="1.4"/>
+  <path d="M62 232 V258 M216 232 V258 M418 232 V258 M574 232 V258 M720 232 V258" stroke="#2E3433" stroke-opacity=".18"/>
+  <rect x="34" y="288" width="722" height="54" rx="10" fill="#FFFFFF" stroke="#2E3433" stroke-width="1"/>
+  <text x="54" y="312" font-size="11.5" font-weight="650">The fix was fast; detection was not.</text>
+  <text x="54" y="330" font-size="10.5" fill="#6F7674">a missing alert turns a small slowdown into a long customer outage</text>
+</g>
+</g>
+</svg>

@@ -297,3 +297,10 @@
   height: 100dvh;
 }
 .animation-studio .app-shell { height: 100%; }
+
+/* Formula fraction: numerator over denominator, no stray division glyph. */
+.animation-studio .visual-formula .formula-fraction { display: flex; align-items: center; justify-content: center; gap: 1.2cqw; margin-top: 1.2cqw; }
+.animation-studio .visual-formula .formula-eq { font-size: 2.2cqw; line-height: 1; color: var(--element-accent); font-weight: 600; }
+.animation-studio .visual-formula .formula-stack { display: inline-flex; flex-direction: column; align-items: center; gap: .5cqw; }
+.animation-studio .visual-formula .formula-stack b { font-size: 2cqw; line-height: 1.1; font-weight: 650; letter-spacing: -.02em; }
+.animation-studio .visual-formula .formula-stack i { width: 100%; min-width: 9cqw; height: .14cqw; background: currentColor; opacity: .55; }

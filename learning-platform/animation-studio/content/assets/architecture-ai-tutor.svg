@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+<rect width="800" height="450" fill="#F4F1EB"/>
+<g font-family="Avenir Next, Segoe UI, sans-serif" fill="#2E3433">
+<text x="32" y="48" font-size="20" font-weight="750" letter-spacing="1.4">AI TUTOR ARCHITECTURE</text>
+<text x="32" y="72" font-size="13" fill="#6F7674">the request path, the data, the key, the provider</text>
+
+<g>
+  <rect x="34" y="112" width="156" height="164" rx="12" fill="#FFFFFF" stroke="#2E3433" stroke-width="1.8"/>
+  <text x="112" y="150" text-anchor="middle" font-size="14" font-weight="700">React UI</text>
+  <text x="112" y="170" text-anchor="middle" font-size="10.5" fill="#6F7674">student / teacher</text>
+  <rect x="54" y="190" width="116" height="10" rx="5" fill="#DEE8EC"/>
+  <rect x="54" y="208" width="82" height="10" rx="5" fill="#DEE8EC"/>
+  <rect x="54" y="226" width="98" height="10" rx="5" fill="#DEE8EC"/>
+  <text x="112" y="258" text-anchor="middle" font-size="10" fill="#6F7674">request + response</text>
+  <path d="M196 194 H252" stroke="#2E3433" stroke-width="2"/>
+  <path d="M252 184 l12 10 -12 10" fill="none" stroke="#2E3433" stroke-width="2"/>
+  <text x="224" y="180" text-anchor="middle" font-size="9.5" fill="#6F7674">fetch</text>
+
+  <rect x="262" y="112" width="166" height="164" rx="12" fill="#E3EADB" stroke="#2E3433" stroke-width="1.8"/>
+  <text x="345" y="150" text-anchor="middle" font-size="14" font-weight="700">Flask API</text>
+  <text x="345" y="170" text-anchor="middle" font-size="10.5" fill="#6F7674">routes · auth · logic</text>
+  <rect x="282" y="190" width="126" height="10" rx="5" fill="#FFFFFF" stroke="#9FAF91" stroke-width="1"/>
+  <rect x="282" y="208" width="94" height="10" rx="5" fill="#FFFFFF" stroke="#9FAF91" stroke-width="1"/>
+  <text x="345" y="250" text-anchor="middle" font-size="10" fill="#9FAF91">key stays here</text>
+  <path d="M434 194 H492" stroke="#2E3433" stroke-width="2"/>
+  <path d="M492 184 l12 10 -12 10" fill="none" stroke="#2E3433" stroke-width="2"/>
+  <text x="463" y="180" text-anchor="middle" font-size="9.5" fill="#6F7674">server call</text>
+
+  <rect x="502" y="126" width="150" height="136" rx="12" fill="#FFFFFF" stroke="#2E3433" stroke-width="1.8"/>
+  <text x="577" y="168" text-anchor="middle" font-size="14" font-weight="700">AI service</text>
+  <text x="577" y="188" text-anchor="middle" font-size="10.5" fill="#6F7674">model provider</text>
+  <circle cx="577" cy="224" r="18" fill="none" stroke="#8EA6B4" stroke-width="2"/>
+  <path d="M566 224 h22 M577 213 v22" stroke="#8EA6B4" stroke-width="1.6"/>
+
+  <path d="M345 284 V320" stroke="#2E3433" stroke-width="2"/>
+  <path d="M335 320 l10 12 10 -12" fill="none" stroke="#2E3433" stroke-width="2"/>
+  <rect x="272" y="338" width="146" height="52" rx="10" fill="#FFFFFF" stroke="#2E3433" stroke-width="1.6"/>
+  <text x="345" y="360" text-anchor="middle" font-size="12" font-weight="700">chat history</text>
+  <text x="345" y="377" text-anchor="middle" font-size="9.5" fill="#6F7674">database</text>
+  <text x="700" y="320" text-anchor="end" font-size="10" fill="#6F7674">one request, four boundaries</text>
+</g>
+</g>
+</svg>

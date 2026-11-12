@@ -54,6 +54,18 @@ function Topology({ items = [], selectedItemId, onSelectItem, motion }: ItemProp
 }
 
 function Formula({ content, items = [], selectedItemId, onSelectItem, motion }: { content: string } & ItemProps) {
+  if (items.length === 2) {
+    return <div className="visual-formula">
+      <small>{content} =</small>
+      <div className="formula-fraction">
+        <span className="formula-stack">
+          <b style={motion.itemStyle(0, 2)} className={selectedItemId === items[0].id ? 'is-selected-item' : ''} onClick={(event) => onSelectItem?.(event, items[0].id)}>{items[0].label}</b>
+          <i />
+          <b style={motion.itemStyle(1, 2)} className={selectedItemId === items[1].id ? 'is-selected-item' : ''} onClick={(event) => onSelectItem?.(event, items[1].id)}>{items[1].label}</b>
+        </span>
+      </div>
+    </div>;
+  }
   return <div className="visual-formula"><small>{content}</small><div>{items.map((item, index) => index === 1
     ? <span style={motion.itemStyle(index, items.length)} className={selectedItemId === item.id ? 'is-selected-item' : ''} onClick={(event) => onSelectItem?.(event, item.id)} key={item.id}>{item.label}</span>
     : <b style={motion.itemStyle(index, items.length)} className={`${index === 2 ? 'fraction' : ''} ${selectedItemId === item.id ? 'is-selected-item' : ''}`} onClick={(event) => onSelectItem?.(event, item.id)} key={item.id}>{item.label}</b>)}</div></div>;
@@ -126,7 +138,6 @@ function ElementBody({ element, project, selectedItemId, onSelectItem, motion, l
 export function SceneRenderer({ project, sceneId, localTime, selectedElementId, selectedItemId, editable, finalLayout, onSelectElement }: Props) {
   const scene = project.scenes.find((item) => item.id === sceneId) ?? project.scenes[0];
   const chapter = project.chapters.find((item) => item.id === scene.chapterId) ?? project.chapters[0];
-  const sourcePages = [...new Set(scene.elements.flatMap((item) => item.sourcePages ?? []))].sort((a, b) => a - b);
   const isEditorialTheme = editorialThemeNames.has(project.theme.name);
   const themeClassName = [
     project.theme.name === 'Classroom Field Notes' ? 'theme-classroom' : '',
@@ -154,8 +165,6 @@ export function SceneRenderer({ project, sceneId, localTime, selectedElementId, 
     '--chapter-color': chapterAccent,
     fontFamily: project.theme.fontFamily,
   } as CSSProperties} onClick={() => editable && onSelectElement?.('')}>
-    <div className="scene-grid" />
-    <div className="scene-orb orb-one" /><div className="scene-orb orb-two" />
     <header className="scene-header"><span>STORYLINE / {chapter.shortTitle.toUpperCase()}</span><span>{String(project.scenes.indexOf(scene) + 1).padStart(2, '0')} / {String(project.scenes.length).padStart(2, '0')}</span></header>
     {scene.elements.map((item) => {
       const motion = compileElementMotion(item, scene, localTime, project.renderConfig.fps, finalLayout);
@@ -172,6 +181,5 @@ export function SceneRenderer({ project, sceneId, localTime, selectedElementId, 
       } as CSSProperties}
       onClick={(event) => select(event, item.id)}
     ><ElementBody element={item} project={project} motion={motion} localTime={localTime} finalLayout={finalLayout} selectedItemId={selectedElementId === item.id ? selectedItemId : undefined} onSelectItem={(event, itemId) => selectItem(event, item.id, itemId)} /></div>})}
-    <footer className="scene-footer"><span>{scene.title}</span><span>Source pages · {sourcePages.join(', ')}</span></footer>
   </div>;
 }
