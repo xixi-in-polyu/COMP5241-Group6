@@ -332,7 +332,13 @@ export function CreateCourseClient({
       });
       const data = await response.json().catch(() => ({}));
       if (!response.ok) {
-        throw new Error(data.error || "The AI service is not available right now.");
+        // Surface the first validation issue: "Validation failed." alone tells the
+        // author nothing about which field the form sent wrong.
+        const issue = Array.isArray(data.details) ? data.details[0] : null;
+        const suffix = issue
+          ? ` (${(issue.path ?? []).join(".") || "body"}: ${issue.message})`
+          : "";
+        throw new Error(`${data.error || "The AI service is not available right now."}${suffix}`);
       }
       const chapters = data.chapters as {
         title: string;
@@ -431,8 +437,7 @@ export function CreateCourseClient({
               <div>
                 <h2 className="text-sm font-semibold text-[#142f4d]">Course materials</h2>
                 <p className="mt-1 text-xs leading-5 text-[#6a7c90]">
-                  Optional. Paste notes or upload files for AI grounding. Links are published as
-                  learning resources only and are never fetched or sent to AI.
+                  Optional. Paste notes or upload files for AI grounding.
                 </p>
               </div>
               <button
@@ -456,9 +461,6 @@ export function CreateCourseClient({
               onChange={(event) => setNotes(event.target.value)}
               placeholder="Paste lecture notes, a transcript, or a source summary…"
             />
-            <div className="mt-3">
-              <MaterialsEditor resources={resources} onChange={setResources} showHeading={false} />
-            </div>
             <div className="mt-4 border-t border-slate-100 pt-4">
               <CourseMaterialsEditor courseId={draftId} materials={materials} selectionMaterials={materials} showAiSelection ensureCourse={() => ensureDraft(true)} onRefresh={readCourse} />
             </div>

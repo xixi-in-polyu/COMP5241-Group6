@@ -5,6 +5,7 @@ import OpenAI from "openai";
 import { zodTextFormat } from "openai/helpers/zod";
 import { z } from "zod";
 import { getAiConfig, getAiProvider } from "@/lib/ai/config";
+import { promptSchema } from "@/lib/ai/schema-prompt";
 import { entitySchema, evidenceSchema, getDifficultySpecification, interactiveLabPayloadSchema, questionDifficultyRules, questionSchema, validateInteractiveLab, type AssignmentBrief, type InteractiveLabComponentType, type InteractiveLabPayload, type KnowledgeEntity, type Question, type QuestionSlot } from "./domain";
 import { finishUsageEvent, startUsageEvent } from "./usage";
 
@@ -39,7 +40,7 @@ async function structured<T>(schema: z.ZodType<T>, name: string, developer: stri
     }
     const response = await client().chat.completions.create({
       model,
-      messages: [{ role: "system", content: `${developer}\nReturn only JSON matching this schema: ${JSON.stringify(z.toJSONSchema(schema))}` }, { role: "user", content: JSON.stringify(data) }],
+      messages: [{ role: "system", content: `${developer}\n\n${promptSchema(schema)}` }, { role: "user", content: JSON.stringify(data) }],
       response_format: { type: "json_object" },
       temperature: 0.2,
     });
