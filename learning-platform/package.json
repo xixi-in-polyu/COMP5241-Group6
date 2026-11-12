@@ -25,6 +25,10 @@
   "dependencies": {
     "@prisma/adapter-pg": "^7.10.1",
     "@prisma/client": "7.10.1",
+    "@remotion/player": "4.0.539",
+    "@remotion/transitions": "4.0.539",
+    "@shikijs/langs": "3.23.0",
+    "@shikijs/themes": "3.23.0",
     "@vercel/blob": "^2.8.2",
     "dotenv": "18.0.8",
     "fflate": "^0.8.3",
@@ -39,6 +43,8 @@
     "react-markdown": "^10.1.0",
     "react-pdf": "^11.0.0",
     "remark-gfm": "^4.0.1",
+    "remotion": "4.0.539",
+    "shiki": "3.23.0",
     "workflow": "^4.8.13",
     "zod": "^4.6.7"
   },
