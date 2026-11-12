@@ -52,9 +52,10 @@ type AnimationStudioProps = {
   initialProject?: unknown;
   readOnly?: boolean;
   exitHref?: string;
+  versionLabel?: string;
 };
 
-function Studio({ initialProject, readOnly, exitHref }: { initialProject: AnimationProject; readOnly: boolean; exitHref?: string }) {
+function Studio({ initialProject, readOnly, exitHref, versionLabel }: { initialProject: AnimationProject; readOnly: boolean; exitHref?: string; versionLabel?: string }) {
   const original = useMemo(() => initialProject, [initialProject]);
   const history = useHistory<AnimationProject>(original);
   const project = history.present;
@@ -234,7 +235,7 @@ function Studio({ initialProject, readOnly, exitHref }: { initialProject: Animat
   return <div className={`app-shell mode-${mode} ui-${uiTheme}`}>
     <header className="topbar">
       <div className="brand"><div className="brand-mark"><i /><i /><i /></div><div><b>Storyline</b><span>STUDIO</span></div></div>
-      <div className="project-title"><span className="status-dot" /> <b>{project.title}</b><small>{readOnly ? 'Published animation' : 'Edited just now'}</small></div>
+      <div className="project-title"><span className="status-dot" /> <b>{project.title}</b><small>{versionLabel ? `${versionLabel} · ` : ''}{readOnly ? 'Published animation' : 'Edited just now'}</small></div>
       <div className="top-actions">
         {exitHref ? <a className="text-action" href={exitHref}><Icon name="back" />Back</a> : null}
         {!readOnly && <div className="undo-group"><button title="Undo" disabled={!history.canUndo} onClick={history.undo}><Icon name="undo" /></button><button title="Redo" disabled={!history.canRedo} onClick={history.redo}><Icon name="redo" /></button></div>}
@@ -280,7 +281,7 @@ function Studio({ initialProject, readOnly, exitHref }: { initialProject: Animat
 }
 
 
-export default function App({ initialProject, readOnly = false, exitHref }: AnimationStudioProps) {
+export default function App({ initialProject, readOnly = false, exitHref, versionLabel }: AnimationStudioProps) {
   const prepared = useMemo(() => preparePublishedProject(initialProject), [initialProject]);
 
   if (prepared.project === null) {
@@ -295,5 +296,5 @@ export default function App({ initialProject, readOnly = false, exitHref }: Anim
     );
   }
 
-  return <Studio exitHref={exitHref} initialProject={prepared.project} readOnly={readOnly} />;
+  return <Studio exitHref={exitHref} initialProject={prepared.project} readOnly={readOnly} versionLabel={versionLabel} />;
 }

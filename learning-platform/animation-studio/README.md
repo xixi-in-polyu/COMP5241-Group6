@@ -14,7 +14,7 @@ Platform can host it without a second deployment.
 ## Platform adaptations
 
 - `App.tsx` is a client component loaded with `ssr: false`; it accepts
-  `initialProject`, `readOnly`, and `exitHref`. Students get a read-only preview;
+  `initialProject`, `readOnly`, `exitHref`, and `versionLabel`. Students get a read-only preview;
   teachers keep the editor. `prepare.ts` migrates and validates the published
   JSON in the browser because the model layer imports Remotion.
 - `styles.css` is scoped to `.animation-studio` so its global `body`/element
@@ -35,6 +35,16 @@ Platform can host it without a second deployment.
 - Illustrations are embedded SVG assets with a slow `ken-burns` ambient.
 - Scenes have a slow camera push/pan; a `move` beat can translate an image
   between steps without re-entering it.
+
+## Version archive
+
+- `content/versions/published.animation-v2.json` … `v6.json` holds the milestone
+  cuts; `content/versions/registry.ts` is the only list the app reads.
+- `app/animations/page.tsx` is the gallery and `app/animations/[version]/page.tsx`
+  opens one cut. Both roles can browse; students get the read-only player.
+- `public/animation-versions/v*.png` holds the gallery thumbnails.
+- Adding a version means adding the JSON, the registry entry, a thumbnail, and
+  running the two animation tests.
 
 ## Boundaries
 

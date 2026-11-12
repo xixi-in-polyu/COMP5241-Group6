@@ -27,10 +27,12 @@ export function AnimationStudioPage({
   project,
   readOnly,
   exitHref,
+  versionLabel,
 }: {
   project: unknown;
   readOnly: boolean;
   exitHref: string;
+  versionLabel?: string;
 }) {
   return (
     <div className="animation-studio">
@@ -38,6 +40,7 @@ export function AnimationStudioPage({
         exitHref={exitHref}
         initialProject={project}
         readOnly={readOnly}
+        versionLabel={versionLabel}
       />
     </div>
   );
