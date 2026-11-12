@@ -24,6 +24,20 @@ export async function requirePageRole(role: Role) {
   return user;
 }
 
+export async function requirePageRoles(roles: readonly Role[]) {
+  const user = await getAuthenticatedUser();
+
+  if (!user) {
+    redirect("/");
+  }
+
+  if (!roles.includes(user.role)) {
+    redirect(rolePaths[user.role]);
+  }
+
+  return user;
+}
+
 export async function authorizeApiRole(role: Role) {
   const user = await getAuthenticatedUser();
 
