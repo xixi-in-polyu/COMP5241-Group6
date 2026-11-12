@@ -10,7 +10,7 @@
     "height": 1080
   },
   "createdAt": "2026-10-31T00:00:00.000Z",
-  "updatedAt": "2026-10-31T00:00:00.000Z",
+  "updatedAt": "2026-11-13T00:00:00.000Z",
   "sourceDocuments": [
     {
       "id": "source-sdlc-lecture",
@@ -869,7 +869,7 @@
           "type": "cards",
           "content": "Test at every level",
           "x": 5,
-          "y": 74,
+          "y": 78,
           "width": 60,
           "height": 16,
           "visual": {
@@ -2120,7 +2120,17 @@
                 "intensity": 0.6
               }
             ],
-            "ambient": "none"
+            "ambient": "none",
+            "exit": {
+              "id": "s6-flow-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 48.3
+              },
+              "duration": 0.4,
+              "intensity": 1
+            }
           },
           "sourcePages": [
             21,
@@ -2129,44 +2139,6 @@
           "visual": {
             "variant": "rail",
             "surface": "none"
-          }
-        },
-        {
-          "id": "s6-badge",
-          "type": "badge",
-          "content": "NEVER ship keys to the browser or repository",
-          "x": 58,
-          "y": 12,
-          "width": 35,
-          "height": 12,
-          "style": {
-            "accent": "#C69483",
-            "tone": "glass",
-            "align": "center"
-          },
-          "motion": {
-            "enter": {
-              "id": "s6-badge-enter",
-              "preset": "fade-rise",
-              "trigger": {
-                "type": "narration",
-                "segmentId": "scene-06-n4",
-                "offset": 0
-              },
-              "duration": 0.8,
-              "stagger": 0.1,
-              "intensity": 1
-            },
-            "beats": [],
-            "ambient": "breathe"
-          },
-          "sourcePages": [
-            21,
-            22
-          ],
-          "visual": {
-            "variant": "minimal",
-            "surface": "outline"
           }
         },
         {
@@ -2292,6 +2264,91 @@
               "duration": 0.35,
               "intensity": 1
             },
+            "ambient": "none"
+          }
+        },
+        {
+          "id": "s6-boundary-image",
+          "type": "image",
+          "content": "",
+          "assetId": "asset-secret-boundary",
+          "alt": "Browser sends a request to the backend; the backend holds the API key and calls the AI service; the repository never contains live keys.",
+          "fit": "contain",
+          "x": 5,
+          "y": 30,
+          "width": 58,
+          "height": 58,
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s6-boundary-image-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-06-n4",
+                "offset": 0
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [],
+            "exit": null,
+            "ambient": "ken-burns"
+          }
+        },
+        {
+          "id": "s6-boundary-badge",
+          "type": "badge",
+          "content": "No key in the browser or repository",
+          "x": 65,
+          "y": 34,
+          "width": 32,
+          "height": 9,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s6-boundary-badge-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-06-n4",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s6-boundary-badge-beat",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-06-n4",
+                  "offset": 0.3
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.5
+              }
+            ],
             "ambient": "none"
           }
         }
@@ -3853,7 +3910,17 @@
                 "intensity": 0.6
               }
             ],
-            "ambient": "none"
+            "ambient": "none",
+            "exit": {
+              "id": "s11-cards-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 15.8
+              },
+              "duration": 0.4,
+              "intensity": 1
+            }
           },
           "sourcePages": [
             52,
@@ -3867,26 +3934,72 @@
           }
         },
         {
-          "id": "s11-blast",
-          "type": "badge",
-          "content": "Big bang: widest blast radius",
+          "id": "s11-image-bigbang",
+          "type": "image",
+          "content": "",
+          "assetId": "asset-deploy-bigbang",
+          "alt": "Big bang deployment: v1 is replaced by v2 for every user in a single switch; the blast radius is all users.",
+          "fit": "contain",
           "x": 5,
-          "y": 76,
-          "width": 44,
-          "height": 6,
+          "y": 30,
+          "width": 58,
+          "height": 58,
           "visual": {
             "variant": "minimal",
-            "surface": "outline"
+            "surface": "none"
           },
           "style": {
-            "accent": "#C8AA72",
             "tone": "glass",
             "align": "center"
           },
           "sourcePages": [],
           "motion": {
             "enter": {
-              "id": "s11-blast-enter",
+              "id": "s11-image-bigbang-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-11-n2",
+                "offset": 0
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [],
+            "exit": {
+              "id": "s11-image-bigbang-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 32.2
+              },
+              "duration": 0.4,
+              "intensity": 1
+            },
+            "ambient": "ken-burns"
+          }
+        },
+        {
+          "id": "s11-side-bigbang",
+          "type": "badge",
+          "content": "100% blast radius · one switch",
+          "x": 65,
+          "y": 34,
+          "width": 32,
+          "height": 9,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s11-side-bigbang-enter",
               "preset": "fade-rise",
               "trigger": {
                 "type": "narration",
@@ -3899,52 +4012,98 @@
             },
             "beats": [
               {
-                "id": "s11-blast-beat-2",
+                "id": "s11-side-bigbang-beat",
                 "preset": "pulse",
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-11-n2",
-                  "offset": 0.25
+                  "offset": 0.3
                 },
                 "duration": 0.6,
                 "stagger": 0.1,
-                "intensity": 0.45
+                "intensity": 0.5
               }
             ],
+            "ambient": "none",
             "exit": {
-              "id": "s11-blast-exit",
+              "id": "s11-side-bigbang-exit",
               "preset": "fade",
               "trigger": {
                 "type": "time",
-                "at": 32.0
+                "at": 32.2
               },
-              "duration": 0.35,
+              "duration": 0.4,
               "intensity": 1
-            },
-            "ambient": "none"
+            }
           }
         },
         {
-          "id": "s11-gradual",
-          "type": "badge",
-          "content": "Rolling · blue-green · canary: smaller radius",
-          "x": 51,
-          "y": 76,
-          "width": 44,
-          "height": 6,
+          "id": "s11-image-progressive",
+          "type": "image",
+          "content": "",
+          "assetId": "asset-deploy-progressive",
+          "alt": "Rolling deployment replaces instances a few at a time; blue-green runs two environments and switches traffic with a rollback path.",
+          "fit": "contain",
+          "x": 5,
+          "y": 30,
+          "width": 58,
+          "height": 58,
           "visual": {
             "variant": "minimal",
-            "surface": "outline"
+            "surface": "none"
           },
           "style": {
-            "accent": "#C8AA72",
             "tone": "glass",
             "align": "center"
           },
           "sourcePages": [],
           "motion": {
             "enter": {
-              "id": "s11-gradual-enter",
+              "id": "s11-image-progressive-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-11-n3",
+                "offset": 0
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [],
+            "exit": {
+              "id": "s11-image-progressive-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 48.3
+              },
+              "duration": 0.4,
+              "intensity": 1
+            },
+            "ambient": "ken-burns"
+          }
+        },
+        {
+          "id": "s11-side-progressive",
+          "type": "badge",
+          "content": "Smaller blast radius · keep a rollback path",
+          "x": 65,
+          "y": 34,
+          "width": 32,
+          "height": 9,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s11-side-progressive-enter",
               "preset": "fade-rise",
               "trigger": {
                 "type": "narration",
@@ -3957,74 +4116,111 @@
             },
             "beats": [
               {
-                "id": "s11-gradual-beat-3",
+                "id": "s11-side-progressive-beat",
                 "preset": "pulse",
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-11-n3",
-                  "offset": 0.25
+                  "offset": 0.3
                 },
                 "duration": 0.6,
                 "stagger": 0.1,
-                "intensity": 0.45
+                "intensity": 0.5
               }
             ],
+            "ambient": "none",
             "exit": {
-              "id": "s11-gradual-exit",
+              "id": "s11-side-progressive-exit",
               "preset": "fade",
               "trigger": {
                 "type": "time",
                 "at": 48.3
               },
-              "duration": 0.35,
+              "duration": 0.4,
               "intensity": 1
-            },
-            "ambient": "none"
+            }
           }
         },
         {
-          "id": "s11-envelope",
-          "type": "badge",
-          "content": "Risk envelope = blast radius × rollback speed",
+          "id": "s11-image-canary",
+          "type": "image",
+          "content": "",
+          "assetId": "asset-deploy-canary",
+          "alt": "Canary deployment sends a small slice of traffic to the new version, then expands only if reliability, latency and error metrics stay healthy.",
+          "fit": "contain",
           "x": 5,
-          "y": 84,
-          "width": 90,
-          "height": 6,
+          "y": 30,
+          "width": 58,
+          "height": 58,
           "visual": {
             "variant": "minimal",
-            "surface": "outline"
+            "surface": "none"
           },
           "style": {
-            "accent": "#C8AA72",
             "tone": "glass",
             "align": "center"
           },
           "sourcePages": [],
           "motion": {
             "enter": {
-              "id": "s11-envelope-enter",
-              "preset": "spring-scale",
+              "id": "s11-image-canary-enter",
+              "preset": "fade-rise",
               "trigger": {
                 "type": "narration",
                 "segmentId": "scene-11-n4",
                 "offset": 0
               },
-              "duration": 0.8,
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [],
+            "exit": null,
+            "ambient": "ken-burns"
+          }
+        },
+        {
+          "id": "s11-side-envelope",
+          "type": "badge",
+          "content": "Risk envelope = blast radius × rollback speed",
+          "x": 65,
+          "y": 34,
+          "width": 32,
+          "height": 11,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s11-side-envelope-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-11-n4",
+                "offset": 0
+              },
+              "duration": 0.7,
               "stagger": 0.08,
               "intensity": 1
             },
             "beats": [
               {
-                "id": "s11-envelope-beat-4",
+                "id": "s11-side-envelope-beat",
                 "preset": "pulse",
                 "trigger": {
                   "type": "narration",
                   "segmentId": "scene-11-n4",
-                  "offset": 0.25
+                  "offset": 0.3
                 },
                 "duration": 0.6,
                 "stagger": 0.1,
-                "intensity": 0.45
+                "intensity": 0.5
               }
             ],
             "ambient": "none"
@@ -4416,7 +4612,48 @@
       "captionMode": "bottom"
     }
   ],
-  "assets": [],
+  "assets": [
+    {
+      "id": "asset-deploy-bigbang",
+      "name": "Big bang deployment",
+      "kind": "image",
+      "uri": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+CjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiBmaWxsPSIjRjdGNEVFIi8+CjxnIGZvbnQtZmFtaWx5PSJBdmVuaXIgTmV4dCwgU2Vnb2UgVUksIHNhbnMtc2VyaWYiIGZpbGw9IiMyRTM0MzMiPgo8dGV4dCB4PSIzMiIgeT0iNDgiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI3NTAiIGxldHRlci1zcGFjaW5nPSIxLjQiPkJJRyBCQU5HPC90ZXh0Pgo8dGV4dCB4PSIzMiIgeT0iNzIiIGZvbnQtc2l6ZT0iMTMiIGZpbGw9IiM2Rjc2NzQiPm9uZSByZWxlYXNlIMK3IGV2ZXJ5IHVzZXIgc3dpdGNoZXMgYXQgb25jZTwvdGV4dD4KCjxnPgogIDx0ZXh0IHg9IjQwIiB5PSIxMTgiIGZvbnQtc2l6ZT0iMTEiIGxldHRlci1zcGFjaW5nPSIxLjEiIGZpbGw9IiM2Rjc2NzQiPlVTRVJTPC90ZXh0PgogIDxjaXJjbGUgY3g9IjU4IiBjeT0iMTQ2IiByPSI5IiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS41Ii8+PGNpcmNsZSBjeD0iOTAiIGN5PSIxNDYiIHI9IjkiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48Y2lyY2xlIGN4PSIxMjIiIGN5PSIxNDYiIHI9IjkiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48Y2lyY2xlIGN4PSIxNTQiIGN5PSIxNDYiIHI9IjkiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48Y2lyY2xlIGN4PSIxODYiIGN5PSIxNDYiIHI9IjkiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48Y2lyY2xlIGN4PSIyMTgiIGN5PSIxNDYiIHI9IjkiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48Y2lyY2xlIGN4PSI1OCIgY3k9IjE4MCIgcj0iOSIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjEuNSIvPjxjaXJjbGUgY3g9IjkwIiBjeT0iMTgwIiByPSI5IiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS41Ii8+PGNpcmNsZSBjeD0iMTIyIiBjeT0iMTgwIiByPSI5IiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS41Ii8+PGNpcmNsZSBjeD0iMTU0IiBjeT0iMTgwIiByPSI5IiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS41Ii8+PGNpcmNsZSBjeD0iMTg2IiBjeT0iMTgwIiByPSI5IiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS41Ii8+PGNpcmNsZSBjeD0iMjE4IiBjeT0iMTgwIiByPSI5IiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS41Ii8+PGNpcmNsZSBjeD0iNTgiIGN5PSIyMTQiIHI9IjkiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48Y2lyY2xlIGN4PSI5MCIgY3k9IjIxNCIgcj0iOSIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjEuNSIvPjxjaXJjbGUgY3g9IjEyMiIgY3k9IjIxNCIgcj0iOSIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjEuNSIvPjxjaXJjbGUgY3g9IjE1NCIgY3k9IjIxNCIgcj0iOSIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjEuNSIvPjxjaXJjbGUgY3g9IjE4NiIgY3k9IjIxNCIgcj0iOSIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjEuNSIvPjxjaXJjbGUgY3g9IjIxOCIgY3k9IjIxNCIgcj0iOSIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDxwYXRoIGQ9Ik0yNTAgMTgwIEgyODYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPHBhdGggZD0iTTI4NiAxNzIgbDEwIDggLTEwIDgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPHJlY3QgeD0iMjk4IiB5PSIxMjgiIHdpZHRoPSIxNjAiIGhlaWdodD0iMTA0IiByeD0iMTIiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPHRleHQgeD0iMzc4IiB5PSIxNzQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMzAiIGZvbnQtd2VpZ2h0PSI3NTAiPnYxPC90ZXh0PgogIDx0ZXh0IHg9IjM3OCIgeT0iMTk4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjExIiBmaWxsPSIjNkY3Njc0Ij5zdGFibGU8L3RleHQ+CiAgPHJlY3QgeD0iNTE4IiB5PSIxMjgiIHdpZHRoPSIxNjAiIGhlaWdodD0iMTA0IiByeD0iMTIiIGZpbGw9IiNGNURDRDYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPHRleHQgeD0iNTk4IiB5PSIxNzQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMzAiIGZvbnQtd2VpZ2h0PSI3NTAiPnYyPC90ZXh0PgogIDx0ZXh0IHg9IjU5OCIgeT0iMTk4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjExIiBmaWxsPSIjNkY3Njc0Ij5uZXh0IHJlbGVhc2U8L3RleHQ+CiAgPHBhdGggZD0iTTQ2NiAxODAgSDUxMCIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjIuNSIvPgogIDxwYXRoIGQ9Ik01MTAgMTcwIGwxMiAxMCAtMTIgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIyLjUiLz4KICA8dGV4dCB4PSI0ODgiIHk9IjExNiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMSIgZmlsbD0iI0JFNkE1OCI+c3dpdGNoIDEwMCU8L3RleHQ+CiAgPGNpcmNsZSBjeD0iNTk4IiBjeT0iMTgwIiByPSI3NCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjQkU2QTU4IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1kYXNoYXJyYXk9IjUgNyIvPgogIDx0ZXh0IHg9IjU5OCIgeT0iMjcyIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjExIiBmaWxsPSIjQkU2QTU4Ij5ldmVyeSB1c2VyIG1vdmVzIGF0IG9uY2U8L3RleHQ+CiAgPHJlY3QgeD0iNDAiIHk9IjMwNiIgd2lkdGg9IjcyMCIgaGVpZ2h0PSI4MiIgcng9IjEwIiBmaWxsPSIjRjVEQ0Q2Ii8+CiAgPHJlY3QgeD0iNDAiIHk9IjMwNiIgd2lkdGg9IjgiIGhlaWdodD0iODIiIHJ4PSI0IiBmaWxsPSIjQkU2QTU4Ii8+CiAgPHRleHQgeD0iNjgiIHk9IjMzOCIgZm9udC1zaXplPSIxNyIgZm9udC13ZWlnaHQ9IjcwMCI+Qmxhc3QgcmFkaXVzOiAxMDAlIG9mIHVzZXJzPC90ZXh0PgogIDx0ZXh0IHg9IjY4IiB5PSIzNjIiIGZvbnQtc2l6ZT0iMTIuNSIgZmlsbD0iIzZGNzY3NCI+b25lIGJhZCByZWxlYXNlIHJlYWNoZXMgZXZlcnlvbmUgwrcgcm9sbGJhY2sgbWVhbnMgYW5vdGhlciBmdWxsIHN3aXRjaDwvdGV4dD4KPC9nPgo8L2c+Cjwvc3ZnPg==",
+      "embedded": true,
+      "width": 1600,
+      "height": 900,
+      "sha256": "4912e03747596ac4cc368ef0b16489fdd708dc163a065110f817024de38fc825"
+    },
+    {
+      "id": "asset-deploy-progressive",
+      "name": "Rolling and blue-green deployment",
+      "kind": "image",
+      "uri": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+CjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiBmaWxsPSIjRjdGNEVFIi8+CjxnIGZvbnQtZmFtaWx5PSJBdmVuaXIgTmV4dCwgU2Vnb2UgVUksIHNhbnMtc2VyaWYiIGZpbGw9IiMyRTM0MzMiPgo8dGV4dCB4PSIzMiIgeT0iNDgiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI3NTAiIGxldHRlci1zcGFjaW5nPSIxLjQiPlBST0dSRVNTSVZFIFJFTEVBU0U8L3RleHQ+Cjx0ZXh0IHg9IjMyIiB5PSI3MiIgZm9udC1zaXplPSIxMyIgZmlsbD0iIzZGNzY3NCI+c2hyaW5rIHRoZSBleHBvc3VyZSwga2VlcCB0aGUgcm9sbGJhY2sgcGF0aDwvdGV4dD4KCjxnPgogIDx0ZXh0IHg9IjMwIiB5PSIxMTIiIGZvbnQtc2l6ZT0iMTIiIGxldHRlci1zcGFjaW5nPSIxLjIiIGZpbGw9IiM2Rjc2NzQiPlJPTExJTkc8L3RleHQ+CiAgPHRleHQgeD0iMzAiIHk9IjEzNCIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzZGNzY3NCI+cmVwbGFjZSBhIGZldyBpbnN0YW5jZXMgYXQgYSB0aW1lPC90ZXh0PgogIDxyZWN0IHg9IjQyIiB5PSIxNTgiIHdpZHRoPSI2OCIgaGVpZ2h0PSI0OCIgcng9IjgiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48cmVjdCB4PSIxMjQiIHk9IjE1OCIgd2lkdGg9IjY4IiBoZWlnaHQ9IjQ4IiByeD0iOCIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjEuNSIvPjxyZWN0IHg9IjIwNiIgeT0iMTU4IiB3aWR0aD0iNjgiIGhlaWdodD0iNDgiIHJ4PSI4IiBmaWxsPSIjRTNFQURCIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS41Ii8+PHJlY3QgeD0iMjg4IiB5PSIxNTgiIHdpZHRoPSI2OCIgaGVpZ2h0PSI0OCIgcng9IjgiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48cmVjdCB4PSI0MiIgeT0iMjIwIiB3aWR0aD0iNjgiIGhlaWdodD0iNDgiIHJ4PSI4IiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS41Ii8+PHJlY3QgeD0iMTI0IiB5PSIyMjAiIHdpZHRoPSI2OCIgaGVpZ2h0PSI0OCIgcng9IjgiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48cmVjdCB4PSIyMDYiIHk9IjIyMCIgd2lkdGg9IjY4IiBoZWlnaHQ9IjQ4IiByeD0iOCIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjEuNSIvPjxyZWN0IHg9IjI4OCIgeT0iMjIwIiB3aWR0aD0iNjgiIGhlaWdodD0iNDgiIHJ4PSI4IiBmaWxsPSIjRTNFQURCIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPHRleHQgeD0iNzYiIHk9IjE4NyIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMCIgZmlsbD0iIzZGNzY3NCI+b2xkPC90ZXh0Pjx0ZXh0IHg9IjE1OCIgeT0iMTg3IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEwIiBmaWxsPSIjNkY3Njc0Ij5vbGQ8L3RleHQ+PHRleHQgeD0iMjQwIiB5PSIxODciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiM2Rjc2NzQiPm5ldzwvdGV4dD48dGV4dCB4PSIzMjIiIHk9IjE4NyIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMCIgZmlsbD0iIzZGNzY3NCI+b2xkPC90ZXh0Pjx0ZXh0IHg9Ijc2IiB5PSIyNDkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiM2Rjc2NzQiPm9sZDwvdGV4dD48dGV4dCB4PSIxNTgiIHk9IjI0OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMCIgZmlsbD0iIzZGNzY3NCI+b2xkPC90ZXh0Pjx0ZXh0IHg9IjI0MCIgeT0iMjQ5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEwIiBmaWxsPSIjNkY3Njc0Ij5vbGQ8L3RleHQ+PHRleHQgeD0iMzIyIiB5PSIyNDkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiM2Rjc2NzQiPm5ldzwvdGV4dD4KICA8dGV4dCB4PSI0MiIgeT0iMzEwIiBmb250LXNpemU9IjExIiBmaWxsPSIjNkY3Njc0Ij5yZW1haW5pbmcgY2FwYWNpdHkgc3RheXMgb25saW5lPC90ZXh0PgogIDxsaW5lIHgxPSIzOTYiIHkxPSIxMDAiIHgyPSIzOTYiIHkyPSIzMTAiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLW9wYWNpdHk9Ii4xNiIvPgogIDx0ZXh0IHg9IjQyMCIgeT0iMTEyIiBmb250LXNpemU9IjEyIiBsZXR0ZXItc3BhY2luZz0iMS4yIiBmaWxsPSIjNkY3Njc0Ij5CTFVFLUdSRUVOPC90ZXh0PgogIDx0ZXh0IHg9IjQyMCIgeT0iMTM0IiBmb250LXNpemU9IjEyIiBmaWxsPSIjNkY3Njc0Ij5zd2l0Y2ggZW52aXJvbm1lbnRzLCBrZWVwIGEgd2F5IGJhY2s8L3RleHQ+CiAgPHJlY3QgeD0iNDIwIiB5PSIxNTgiIHdpZHRoPSIxNTAiIGhlaWdodD0iMTQyIiByeD0iMTAiIGZpbGw9IiNERUU4RUMiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8dGV4dCB4PSI0OTUiIHk9IjIzNCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxNSIgZm9udC13ZWlnaHQ9IjcwMCI+Ymx1ZTwvdGV4dD4KICA8cmVjdCB4PSI2MTAiIHk9IjE1OCIgd2lkdGg9IjE1MCIgaGVpZ2h0PSIxNDIiIHJ4PSIxMCIgZmlsbD0iI0UzRUFEQiIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDx0ZXh0IHg9IjY4NSIgeT0iMjM0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjE1IiBmb250LXdlaWdodD0iNzAwIj5ncmVlbjwvdGV4dD4KICA8cGF0aCBkPSJNNTg0IDIwMCBDNTk2IDIwMCA2MDAgMjAwIDYwNiAyMDAiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIyLjUiIGZpbGw9Im5vbmUiLz4KICA8cGF0aCBkPSJNNjA2IDE5MCBsMTIgMTAgLTEyIDEwIiBmaWxsPSJub25lIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMi41Ii8+CiAgPHBhdGggZD0iTTYwNiAyNjAgQzU5NCAyNjAgNTkwIDI2MCA1ODQgMjYwIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIgc3Ryb2tlLWRhc2hhcnJheT0iNCA1Ii8+CiAgPHRleHQgeD0iNTk1IiB5PSIyODgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiM2Rjc2NzQiPnJvbGxiYWNrPC90ZXh0PgogIDxyZWN0IHg9IjQwIiB5PSIzNDAiIHdpZHRoPSI3MjAiIGhlaWdodD0iNTQiIHJ4PSIxMCIgZmlsbD0iI0UzRUFEQiIvPgogIDxyZWN0IHg9IjQwIiB5PSIzNDAiIHdpZHRoPSI4IiBoZWlnaHQ9IjU0IiByeD0iNCIgZmlsbD0iIzlGQUY5MSIvPgogIDx0ZXh0IHg9IjY4IiB5PSIzNjUiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSI2NTAiPkJsYXN0IHJhZGl1czogb25lIHNsaWNlIGF0IGEgdGltZTwvdGV4dD4KICA8dGV4dCB4PSI2OCIgeT0iMzg0IiBmb250LXNpemU9IjExLjUiIGZpbGw9IiM2Rjc2NzQiPmEgaGVhbHRoeSBlbnZpcm9ubWVudCBzdGF5cyBhdmFpbGFibGUgd2hpbGUgdGhlIG90aGVyIGNoYW5nZXM8L3RleHQ+CjwvZz4KPC9nPgo8L3N2Zz4=",
+      "embedded": true,
+      "width": 1600,
+      "height": 900,
+      "sha256": "af78d26a04b9b87ac05a115b3d7d04b00270ce1a66095f9c13d5654f14b9b2aa"
+    },
+    {
+      "id": "asset-deploy-canary",
+      "name": "Canary deployment",
+      "kind": "image",
+      "uri": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+CjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiBmaWxsPSIjRjdGNEVFIi8+CjxnIGZvbnQtZmFtaWx5PSJBdmVuaXIgTmV4dCwgU2Vnb2UgVUksIHNhbnMtc2VyaWYiIGZpbGw9IiMyRTM0MzMiPgo8dGV4dCB4PSIzMiIgeT0iNDgiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI3NTAiIGxldHRlci1zcGFjaW5nPSIxLjQiPkNBTkFSWTwvdGV4dD4KPHRleHQgeD0iMzIiIHk9IjcyIiBmb250LXNpemU9IjEzIiBmaWxsPSIjNkY3Njc0Ij5zdGFydCBzbWFsbCwgZXhwYW5kIHdpdGggZXZpZGVuY2U8L3RleHQ+Cgo8Zz4KICA8dGV4dCB4PSIzNCIgeT0iMTE4IiBmb250LXNpemU9IjExIiBsZXR0ZXItc3BhY2luZz0iMS4xIiBmaWxsPSIjNkY3Njc0Ij5UUkFGRklDPC90ZXh0PgogIDxjaXJjbGUgY3g9IjU0IiBjeT0iMTQ0IiByPSI4IiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS40Ii8+PGNpcmNsZSBjeD0iODQiIGN5PSIxNDQiIHI9IjgiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjQiLz48Y2lyY2xlIGN4PSIxMTQiIGN5PSIxNDQiIHI9IjgiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjQiLz48Y2lyY2xlIGN4PSIxNDQiIGN5PSIxNDQiIHI9IjgiIGZpbGw9IiNGM0UxREEiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjQiLz48Y2lyY2xlIGN4PSIxNzQiIGN5PSIxNDQiIHI9IjgiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjQiLz48Y2lyY2xlIGN4PSIyMDQiIGN5PSIxNDQiIHI9IjgiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjQiLz48Y2lyY2xlIGN4PSIyMzQiIGN5PSIxNDQiIHI9IjgiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjQiLz48Y2lyY2xlIGN4PSIyNjQiIGN5PSIxNDQiIHI9IjgiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjQiLz48Y2lyY2xlIGN4PSI1NCIgY3k9IjE3OCIgcj0iOCIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjEuNCIvPjxjaXJjbGUgY3g9Ijg0IiBjeT0iMTc4IiByPSI4IiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS40Ii8+PGNpcmNsZSBjeD0iMTE0IiBjeT0iMTc4IiByPSI4IiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS40Ii8+PGNpcmNsZSBjeD0iMTQ0IiBjeT0iMTc4IiByPSI4IiBmaWxsPSIjRjNFMURBIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS40Ii8+PGNpcmNsZSBjeD0iMTc0IiBjeT0iMTc4IiByPSI4IiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS40Ii8+PGNpcmNsZSBjeD0iMjA0IiBjeT0iMTc4IiByPSI4IiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS40Ii8+PGNpcmNsZSBjeD0iMjM0IiBjeT0iMTc4IiByPSI4IiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS40Ii8+PGNpcmNsZSBjeD0iMjY0IiBjeT0iMTc4IiByPSI4IiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS40Ii8+CiAgPHBhdGggZD0iTTMwMCAxODAgQzMxOCAxODAgMzI2IDE2NSAzMzYgMTYwIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIvPgogIDxwYXRoIGQ9Ik0zMDAgMjEwIEMzMTggMjEwIDMyNiAyMzAgMzM2IDIzOCIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz4KICA8cmVjdCB4PSIzNDAiIHk9IjEyOCIgd2lkdGg9IjE1MCIgaGVpZ2h0PSI3NiIgcng9IjEwIiBmaWxsPSIjRjNFMURBIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS42Ii8+CiAgPHRleHQgeD0iNDE1IiB5PSIxNjIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSI3MDAiPmNhbmFyeTwvdGV4dD4KICA8dGV4dCB4PSI0MTUiIHk9IjE4MSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMCIgZmlsbD0iIzZGNzY3NCI+bmV3IHZlcnNpb248L3RleHQ+CiAgPHJlY3QgeD0iMzQwIiB5PSIyMzAiIHdpZHRoPSIxNTAiIGhlaWdodD0iNzYiIHJ4PSIxMCIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjEuNiIvPgogIDx0ZXh0IHg9IjQxNSIgeT0iMjY0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iNzAwIj5zdGFibGU8L3RleHQ+CiAgPHRleHQgeD0iNDE1IiB5PSIyODMiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiM2Rjc2NzQiPmV2ZXJ5b25lIGVsc2U8L3RleHQ+CiAgPHRleHQgeD0iNTQwIiB5PSIxMzIiIGZvbnQtc2l6ZT0iMTEiIGxldHRlci1zcGFjaW5nPSIxLjEiIGZpbGw9IiM2Rjc2NzQiPlJPTExPVVQ8L3RleHQ+CiAgPHJlY3QgeD0iNTQwIiB5PSIxNDYiIHdpZHRoPSIyMDAiIGhlaWdodD0iMTgiIHJ4PSI5IiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS4yIi8+CiAgPHJlY3QgeD0iNTQwIiB5PSIxNDYiIHdpZHRoPSI1MCIgaGVpZ2h0PSIxOCIgcng9IjkiIGZpbGw9IiNDNjk0ODMiLz4KICA8dGV4dCB4PSI1NDAiIHk9IjE5MCIgZm9udC1zaXplPSIxMSIgZmlsbD0iIzZGNzY3NCI+MSU8L3RleHQ+CiAgPHRleHQgeD0iNjE4IiB5PSIxOTAiIGZvbnQtc2l6ZT0iMTEiIGZpbGw9IiM2Rjc2NzQiPjUlPC90ZXh0PgogIDx0ZXh0IHg9IjY4MCIgeT0iMTkwIiBmb250LXNpemU9IjExIiBmaWxsPSIjNkY3Njc0Ij4yNSU8L3RleHQ+CiAgPHRleHQgeD0iNzMwIiB5PSIxOTAiIGZvbnQtc2l6ZT0iMTEiIGZpbGw9IiM2Rjc2NzQiPjEwMCU8L3RleHQ+CiAgPHBhdGggZD0iTTU1MiAyMTYgQzU5MCAyMTYgNjEwIDIxNiA2MjYgMjE2IiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS42IiBmaWxsPSJub25lIiBzdHJva2UtZGFzaGFycmF5PSI0IDUiLz4KICA8dGV4dCB4PSI1NDAiIHk9IjI1MiIgZm9udC1zaXplPSIxMS41IiBmaWxsPSIjNkY3Njc0Ij5leHBhbmQgb25seSBpZiB0aGUgbWV0cmljcyBzdGF5IGhlYWx0aHk8L3RleHQ+CiAgPHJlY3QgeD0iNDAiIHk9IjM0MCIgd2lkdGg9IjcyMCIgaGVpZ2h0PSI1NCIgcng9IjEwIiBmaWxsPSIjRjNFMURBIi8+CiAgPHJlY3QgeD0iNDAiIHk9IjM0MCIgd2lkdGg9IjgiIGhlaWdodD0iNTQiIHJ4PSI0IiBmaWxsPSIjQzY5NDgzIi8+CiAgPHRleHQgeD0iNjgiIHk9IjM2NSIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9IjY1MCI+Qmxhc3QgcmFkaXVzOiBvbmUgc21hbGwgc2xpY2UgZmlyc3Q8L3RleHQ+CiAgPHRleHQgeD0iNjgiIHk9IjM4NCIgZm9udC1zaXplPSIxMS41IiBmaWxsPSIjNkY3Njc0Ij50aGUgYXVkaWVuY2UgZ3Jvd3Mgb25seSB3aGlsZSByZWxpYWJpbGl0eSwgbGF0ZW5jeSBhbmQgZXJyb3JzIHN0YXkgaGVhbHRoeTwvdGV4dD4KPC9nPgo8L2c+Cjwvc3ZnPg==",
+      "embedded": true,
+      "width": 1600,
+      "height": 900,
+      "sha256": "806bf8e4ac332384df5611d8f66a6e1cac8ca70880a7976f5f03e9e8ba504cd2"
+    },
+    {
+      "id": "asset-secret-boundary",
+      "name": "Secret boundary",
+      "kind": "image",
+      "uri": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+CjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiBmaWxsPSIjRjdGNEVFIi8+CjxnIGZvbnQtZmFtaWx5PSJBdmVuaXIgTmV4dCwgU2Vnb2UgVUksIHNhbnMtc2VyaWYiIGZpbGw9IiMyRTM0MzMiPgo8dGV4dCB4PSIzMiIgeT0iNDgiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI3NTAiIGxldHRlci1zcGFjaW5nPSIxLjQiPlNFQ1JFVCBCT1VOREFSWTwvdGV4dD4KPHRleHQgeD0iMzIiIHk9IjcyIiBmb250LXNpemU9IjEzIiBmaWxsPSIjNkY3Njc0Ij50aGUga2V5IG5ldmVyIGxlYXZlcyB0aGUgc2VydmVyPC90ZXh0PgoKPGc+CiAgPHJlY3QgeD0iMzQiIHk9IjExOCIgd2lkdGg9IjE4NiIgaGVpZ2h0PSIxOTAiIHJ4PSIxMiIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjEuOCIvPgogIDxyZWN0IHg9IjM0IiB5PSIxMTgiIHdpZHRoPSIxODYiIGhlaWdodD0iMjYiIHJ4PSIxMiIgZmlsbD0iI0RFRThFQyIvPgogIDxjaXJjbGUgY3g9IjU0IiBjeT0iMTMxIiByPSI0IiBmaWxsPSIjQkU2QTU4Ii8+PGNpcmNsZSBjeD0iNjgiIGN5PSIxMzEiIHI9IjQiIGZpbGw9IiNDOEFBNzIiLz48Y2lyY2xlIGN4PSI4MiIgY3k9IjEzMSIgcj0iNCIgZmlsbD0iIzlGQUY5MSIvPgogIDx0ZXh0IHg9IjEyNyIgeT0iMTgwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iNzAwIj5icm93c2VyPC90ZXh0PgogIDx0ZXh0IHg9IjEyNyIgeT0iMjAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEwLjUiIGZpbGw9IiM2Rjc2NzQiPnN0dWRlbnQgLyB0ZWFjaGVyPC90ZXh0PgogIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDExMCAyMTYpIj4KICAgIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIxNiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjQkU2QTU4IiBzdHJva2Utd2lkdGg9IjIiLz4KICAgIDxwYXRoIGQ9Ik0tNiAtNiBMNiA2IE02IC02IEwtNiA2IiBzdHJva2U9IiNCRTZBNTgiIHN0cm9rZS13aWR0aD0iMiIvPgogIDwvZz4KICA8dGV4dCB4PSIxMjciIHk9IjI2MiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMC41IiBmaWxsPSIjQkU2QTU4Ij5ubyBBUEkga2V5IGhlcmU8L3RleHQ+CiAgPHBhdGggZD0iTTIyNiAyMDAgSDMwMCIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8cGF0aCBkPSJNMzAwIDE5MCBsMTIgMTAgLTEyIDEwIiBmaWxsPSJub25lIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMiIvPgogIDx0ZXh0IHg9IjI2MyIgeT0iMTg4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEwIiBmaWxsPSIjNkY3Njc0Ij5yZXF1ZXN0PC90ZXh0PgogIDxyZWN0IHg9IjMxMiIgeT0iMTA2IiB3aWR0aD0iMTg2IiBoZWlnaHQ9IjIxNiIgcng9IjEyIiBmaWxsPSIjRTNFQURCIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS44Ii8+CiAgPHRleHQgeD0iNDA1IiB5PSIxNDIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSI3MDAiPmJhY2tlbmQ8L3RleHQ+CiAgPHRleHQgeD0iNDA1IiB5PSIxNjIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTAuNSIgZmlsbD0iIzZGNzY3NCI+Rmxhc2sgQVBJIMK3IHNlcnZlcjwvdGV4dD4KICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0MDUgMjE4KSI+CiAgICA8Y2lyY2xlIGN4PSItMTgiIGN5PSIwIiByPSIxMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjIiLz4KICAgIDxwYXRoIGQ9Ik0tNiAwIGgzMCBNMTggMCB2OSBNMjYgMCB2NiIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz4KICAgIDxyZWN0IHg9Ii00MiIgeT0iLTM4IiB3aWR0aD0iODQiIGhlaWdodD0iNzYiIHJ4PSIxMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjOUZBRjkxIiBzdHJva2Utd2lkdGg9IjEuMiIgc3Ryb2tlLWRhc2hhcnJheT0iNCA0Ii8+CiAgPC9nPgogIDx0ZXh0IHg9IjQwNSIgeT0iMjgyIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEwLjUiIGZpbGw9IiM5RkFGOTEiPmtleSBoZWxkIGhlcmU8L3RleHQ+CiAgPHBhdGggZD0iTTUwNCAyMDAgSDU3MiIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8cGF0aCBkPSJNNTcyIDE5MCBsMTIgMTAgLTEyIDEwIiBmaWxsPSJub25lIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMiIvPgogIDx0ZXh0IHg9IjUzOCIgeT0iMTg4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEwIiBmaWxsPSIjNkY3Njc0Ij5zZXJ2ZXItc2lkZSBjYWxsPC90ZXh0PgogIDxyZWN0IHg9IjU4NCIgeT0iMTMwIiB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE0MCIgcng9IjEyIiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS44Ii8+CiAgPHRleHQgeD0iNjc0IiB5PSIxODYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSI3MDAiPkFJIHNlcnZpY2U8L3RleHQ+CiAgPHRleHQgeD0iNjc0IiB5PSIyMDYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTAuNSIgZmlsbD0iIzZGNzY3NCI+cHJvdGVjdGVkIHByb3ZpZGVyPC90ZXh0PgogIDxyZWN0IHg9IjM0IiB5PSIzMjYiIHdpZHRoPSIxODYiIGhlaWdodD0iNTAiIHJ4PSI4IiBmaWxsPSIjRjVEQ0Q2Ii8+CiAgPHRleHQgeD0iMTI3IiB5PSIzNDgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTEiIGZvbnQtd2VpZ2h0PSI2NTAiPnJlcG9zaXRvcnkgKyAuZW52PC90ZXh0PgogIDx0ZXh0IHg9IjEyNyIgeT0iMzY1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEwIiBmaWxsPSIjNkY3Njc0Ij5uZXZlciBjb250YWlucyBsaXZlIGtleXM8L3RleHQ+CiAgPHRleHQgeD0iMzk1IiB5PSIzMzAiIGZvbnQtc2l6ZT0iMTIiIGZpbGw9IiM2Rjc2NzQiPnRoZSBib3VuZGFyeSBpcyB0aGUgYXJjaGl0ZWN0dXJlPC90ZXh0Pgo8L2c+CjwvZz4KPC9zdmc+",
+      "embedded": true,
+      "width": 1600,
+      "height": 900,
+      "sha256": "d790b555b998886b5311d531f9341962f34829261383a8e06014094ab7e39ad0"
+    }
+  ],
   "theme": {
     "name": "Morandi Paper",
     "background": "#F4F1EB",

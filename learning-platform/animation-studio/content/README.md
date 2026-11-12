@@ -12,9 +12,15 @@ versions and validates it before rendering.
    project before it ships.
 
 The file contains the finished SDLC animation exported from Storyline Studio.
-The original export was `schemaVersion: 3`; this copy is migrated to schema 5
-and re-authored with a four-step visual layer for every scene (see
-`step-sheet.md`). The studio validates it on load.
+The original export was `schemaVersion: 3`; the current file is schema 5 and has
+two authored layers on top of it:
+
+- `step-sheet.md` — four steps per scene, each with a new visual fact;
+- `assets/` — four embedded SVG illustrations used in scenes 6 and 11, with
+  `ken-burns` ambient motion.
+
+`versions/` keeps the v2, v3, and v4 snapshots so visual changes can be compared.
+The studio validates the latest file on load.
 
 Do not reference files from the standalone studio's `public/` folder
 (`/sdlc-teaching/...`, `/audio/...`). Those assets are not part of this

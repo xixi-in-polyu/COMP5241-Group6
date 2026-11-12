@@ -35,7 +35,7 @@ export type MotionPreset =
   | 'slide'
   | 'shrink';
 
-export type AmbientMotion = 'none' | 'drift' | 'breathe' | 'orbit';
+export type AmbientMotion = 'none' | 'drift' | 'breathe' | 'orbit' | 'ken-burns';
 
 export type MotionTrigger =
   | { type: 'time'; at: number }

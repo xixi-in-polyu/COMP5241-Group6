@@ -15,5 +15,14 @@ describe("published animation", () => {
     expect(prepared.project.schemaVersion).toBe(5);
     expect(prepared.project.scenes.length).toBeGreaterThan(0);
     expect(prepared.project.chapters.length).toBeGreaterThan(0);
+
+    const images = prepared.project.scenes
+      .flatMap((scene) => scene.elements)
+      .filter((element) => element.type === "image");
+
+    expect(prepared.project.assets.length).toBeGreaterThanOrEqual(4);
+    expect(images.length).toBeGreaterThanOrEqual(4);
+    expect(images.every((element) => element.assetId && element.alt)).toBe(true);
+    expect(images.every((element) => element.motion.ambient === "ken-burns")).toBe(true);
   });
 });

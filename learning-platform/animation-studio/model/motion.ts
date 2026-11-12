@@ -5,7 +5,7 @@ import type { AmbientMotion, ElementMotion, ElementType, MotionCue, MotionPreset
 export const ENTER_PRESETS = ['fade-rise', 'spring-scale', 'wipe-reveal', 'draw'] as const;
 export const BEAT_PRESETS = ['pulse', 'lift', 'focus', 'glow', 'trace', 'count-up'] as const;
 export const EXIT_PRESETS = ['fade', 'slide', 'shrink'] as const;
-export const AMBIENT_PRESETS: AmbientMotion[] = ['none', 'drift', 'breathe', 'orbit'];
+export const AMBIENT_PRESETS: AmbientMotion[] = ['none', 'drift', 'breathe', 'orbit', 'ken-burns'];
 export const MOTION_PRESETS: MotionPreset[] = [...ENTER_PRESETS, ...BEAT_PRESETS, ...EXIT_PRESETS];
 
 const enterForType = (type: ElementType): MotionPreset => {
@@ -126,6 +126,9 @@ export function compileElementMotion(element: SceneElement, scene: Scene, time: 
   }
 
   const ambientTime = finalLayout ? 0 : time;
+  const kenBurnsScale = !finalLayout && element.motion.ambient === 'ken-burns'
+    ? 1 + 0.04 * Math.min(1, ambientTime / Math.max(1, scene.duration))
+    : 1;
   const ambientIntensity = element.motion.ambient === 'breathe'
     ? Math.sin(ambientTime * Math.PI * 0.65) * 0.012
     : element.motion.ambient === 'drift'
@@ -175,7 +178,7 @@ export function compileElementMotion(element: SceneElement, scene: Scene, time: 
     orbitDegrees: element.motion.ambient === 'orbit' && !finalLayout ? (time * 2.2) % 360 : 0,
     style: {
       opacity: Math.max(0, enterProgress * (1 - exitProgress * Math.min(1, exitIntensity))),
-      transform: `translate(${exitX}px, ${baseY + beatY + ambientIntensity}px) scale(${baseScale * beatScale * exitScale * (element.motion.ambient === 'breathe' ? 1 + ambientIntensity : 1)})`,
+      transform: `translate(${exitX}px, ${baseY + beatY + ambientIntensity}px) scale(${baseScale * beatScale * exitScale * kenBurnsScale * (element.motion.ambient === 'breathe' ? 1 + ambientIntensity : 1)})`,
       clipPath: clipProgress < 1 ? `inset(0 ${100 - clipProgress * 100}% 0 0)` : undefined,
       filter: activeBeatPreset === 'glow' ? `drop-shadow(0 0 ${activeBeatProgress * 18}px var(--element-accent))` : undefined,
     },
