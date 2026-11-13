@@ -20,7 +20,7 @@ import { recordMiniCourseAiUsage } from "./ai-usage";
  * openrouter is a configuration change, not a code change.
  */
 
-const NO_API = "The AI service is not available right now. Please try again later.";
+const MAX_PUBLIC_ERROR_LENGTH = 400;
 
 export type AiOperation = "course_draft" | "course_chapters";
 
@@ -44,7 +44,15 @@ type ModelReply = {
 function client() {
   const config = getAiConfig();
   if (!config.configured) {
-    throw new ApiError(503, NO_API);
+    const missing = [
+      !config.apiKey && "API key",
+      !config.endpoint && "endpoint",
+      !config.model && "model",
+    ].filter(Boolean);
+    throw new ApiError(
+      503,
+      `AI service configuration is incomplete for ${config.provider}: missing ${missing.join(", ")}.`,
+    );
   }
   return {
     config,
@@ -55,6 +63,40 @@ function client() {
       ...(config.defaultHeaders ? { defaultHeaders: config.defaultHeaders } : {}),
     }),
   };
+}
+
+function publicErrorDetail(error: unknown, apiKey: string): string {
+  const raw = error instanceof Error ? error.message : String(error);
+  return (apiKey ? raw.replaceAll(apiKey, "[redacted]") : raw)
+    .replace(/\bBearer\s+[A-Za-z0-9._~+/=-]+/gi, "Bearer [redacted]")
+    .replace(/\bsk-[A-Za-z0-9_-]{8,}\b/g, "[redacted]")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, MAX_PUBLIC_ERROR_LENGTH);
+}
+
+function providerFailureMessage(error: unknown, config: AiConfig): string {
+  const providerError = error as {
+    status?: unknown;
+    code?: unknown;
+    request_id?: unknown;
+    headers?: { get?: (name: string) => string | null };
+  };
+  const status = typeof providerError.status === "number" ? providerError.status : undefined;
+  const code = typeof providerError.code === "string" ? providerError.code : undefined;
+  const requestId =
+    typeof providerError.request_id === "string"
+      ? providerError.request_id
+      : providerError.headers?.get?.("x-request-id") ?? undefined;
+  const context = [
+    `provider: ${config.provider}`,
+    `model: ${config.model}`,
+    status && `HTTP ${status}`,
+    code && `code: ${code}`,
+    requestId && `request ID: ${requestId}`,
+  ].filter(Boolean);
+  const detail = publicErrorDetail(error, config.apiKey);
+  return `AI request failed (${context.join(", ")})${detail ? `: ${detail}` : "."}`;
 }
 
 function parseJsonLoose(raw: string): unknown {
@@ -152,9 +194,11 @@ export async function structured<T>(input: {
   courseId: string;
 }): Promise<T> {
   const started = Date.now();
+  let activeConfig: AiConfig | undefined;
 
   try {
     const { config, openai } = client();
+    activeConfig = config;
     let result: { parsed: T; usage: TokenUsage };
 
     if (config.structuredOutputMode === "responses-json-schema") {
@@ -248,16 +292,19 @@ export async function structured<T>(input: {
     if (error instanceof ApiError) {
       throw error;
     }
+    const diagnostic = activeConfig
+      ? providerFailureMessage(error, activeConfig)
+      : `AI service setup failed: ${publicErrorDetail(error, "")}`;
     await recordMiniCourseAiUsage({
       courseId: input.courseId,
       userId: input.userId,
       operation: input.operation,
       status: "FAILED",
       durationMs: Date.now() - started,
-      errorDetail: error instanceof Error ? error.message : String(error),
+      errorDetail: diagnostic,
     });
     console.error(`[mini-course-ai:${input.operation}]`, error);
-    throw new ApiError(503, NO_API);
+    throw new ApiError(503, diagnostic);
   }
 }
 
