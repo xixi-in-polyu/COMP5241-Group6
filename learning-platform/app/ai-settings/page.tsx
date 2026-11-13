@@ -2,6 +2,8 @@ import { AiSettingsClient } from "@/app/ai-settings/ai-settings-client";
 import { PageShell } from "@/app/components/page-shell";
 import { requirePageRoles } from "@/lib/auth/authorization";
 
+export const instant = false;
+
 export default async function AiSettingsPage() {
   const user = await requirePageRoles(["student", "teacher"]);
 
