@@ -2,7 +2,7 @@ import OpenAI from "openai";
 import { z } from "zod";
 
 import { authorizeApiRole } from "@/lib/auth/authorization";
-import { getAiConfig } from "@/lib/ai/config";
+import { getRequestAiConfig } from "@/lib/ai/request-config";
 
 const messagesSchema = z
   .array(
@@ -54,7 +54,7 @@ export async function POST(request: Request) {
 
   let config;
   try {
-    config = getAiConfig();
+    config = getRequestAiConfig(request);
   } catch (error) {
     console.error("Interactive learning AI configuration is invalid:", error);
     return Response.json({ error: "AI service is not configured." }, { status: 503 });

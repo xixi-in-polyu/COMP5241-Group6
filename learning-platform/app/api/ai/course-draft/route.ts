@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 import { apiError } from "@/lib/api";
+import { getRequestAiConfig } from "@/lib/ai/request-config";
 import { checkMiniCourseAiLimit } from "@/lib/mini-courses/ai-limit";
 import { structured, truncateMaterials } from "@/lib/mini-courses/ai";
 import { loadCourseAiSources } from "@/lib/courses/ai-sources";
@@ -55,6 +56,7 @@ export async function POST(request: Request) {
   try {
     assertCourseWritesEnabled();
     const user = await requireCourseUser();
+    const config = getRequestAiConfig(request);
     const input = requestSchema.parse(await request.json());
     await requireOwnedCourse(input.courseId, user.id);
     await checkMiniCourseAiLimit(user.id);
@@ -78,6 +80,7 @@ export async function POST(request: Request) {
       operation: "course_draft",
       userId: user.id,
       courseId: input.courseId,
+      config,
     });
 
     return Response.json({
