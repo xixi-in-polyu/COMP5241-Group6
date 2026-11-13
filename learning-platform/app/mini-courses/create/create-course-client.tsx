@@ -345,20 +345,17 @@ export function CreateCourseClient({
           : "";
         throw new Error(`${data.error || "The AI service is not available right now."}${suffix}`);
       }
-      const chapters = data.chapters as {
+      const chapters = data.chapters as ({
         title: string;
         sections: { heading: string; body: string }[];
         summary: string;
-      }[];
+      } | null)[];
+      const failures = Array.isArray(data.failures) ? data.failures as Array<{ index: number; title: string }> : [];
       setOutline(
         plannedTopics.map((topic, index) => {
           const chapter = chapters[index];
-          const chapterTitle = generatedChapterTitle({
-            requestedTopic: topic,
-            generatedTitle: chapter?.title,
-            index,
-            language,
-          });
+          const fallbackTitle = failures.find((failure) => failure.index === index)?.title;
+          const chapterTitle = fallbackTitle || generatedChapterTitle({ requestedTopic: topic, generatedTitle: chapter?.title, index, language });
           return chapter
             ? {
                 title: chapterTitle,
@@ -368,6 +365,7 @@ export function CreateCourseClient({
         }),
       );
       setStep(3);
+      if (failures.length) setError(`${failures.length} chapter${failures.length === 1 ? "" : "s"} could not be generated and ${failures.length === 1 ? "was" : "were"} left blank for editing.`);
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Could not generate the outline.");
     } finally {
