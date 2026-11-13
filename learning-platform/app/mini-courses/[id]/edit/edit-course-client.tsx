@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Download, FileText, Loader2, Plus, Sparkles, Trash2 } from "lucide-react";
 
 import { BlockListEditor } from "@/app/components/mini-course/block-list-editor";
+import { personalAiHeaders } from "@/app/components/personal-ai-credentials";
 import { MaterialsEditor } from "@/app/components/mini-course/materials-editor";
 import { Badge, Card } from "@/app/components/mini-course/ui";
 import { CourseMaterialsEditor } from "@/app/components/course-materials-editor";
@@ -164,7 +165,7 @@ export function EditCourseClient({
     try {
       const response = await fetch("/api/ai/course-chapters", {
         method: "POST",
-        headers: { "content-type": "application/json" },
+        headers: { "content-type": "application/json", ...personalAiHeaders() },
         body: JSON.stringify({
           courseId: initial.id,
           language: draft.language,

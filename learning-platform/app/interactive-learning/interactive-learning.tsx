@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState, type FormEvent } from "react";
 
 import { PageShell } from "@/app/components/page-shell";
+import { personalAiHeaders } from "@/app/components/personal-ai-credentials";
 
 import {
   runEngineeringScenario,
@@ -64,7 +65,7 @@ function errorText(value: unknown, fallback: string) {
 async function requestAi(body: Record<string, unknown>) {
   const response = await fetch("/api/interactive-learning", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", ...personalAiHeaders() },
     body: JSON.stringify(body),
   });
   const result: unknown = await response.json();

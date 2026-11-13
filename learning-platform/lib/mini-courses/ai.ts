@@ -41,8 +41,7 @@ type ModelReply = {
   usage: TokenUsage;
 };
 
-function client() {
-  const config = getAiConfig();
+function client(config = getAiConfig()) {
   if (!config.configured) {
     const missing = [
       !config.apiKey && "API key",
@@ -192,12 +191,13 @@ export async function structured<T>(input: {
   operation: AiOperation;
   userId: string;
   courseId: string;
+  config?: AiConfig;
 }): Promise<T> {
   const started = Date.now();
   let activeConfig: AiConfig | undefined;
 
   try {
-    const { config, openai } = client();
+    const { config, openai } = client(input.config);
     activeConfig = config;
     let result: { parsed: T; usage: TokenUsage };
 
@@ -285,6 +285,8 @@ export async function structured<T>(input: {
       status: "SUCCESS",
       durationMs: Date.now() - started,
       usage: result.usage,
+      provider: config.provider,
+      model: config.model,
     });
 
     return result.parsed;
@@ -302,6 +304,8 @@ export async function structured<T>(input: {
       status: "FAILED",
       durationMs: Date.now() - started,
       errorDetail: diagnostic,
+      provider: activeConfig?.provider,
+      model: activeConfig?.model,
     });
     console.error(`[mini-course-ai:${input.operation}]`, error);
     throw new ApiError(503, diagnostic);

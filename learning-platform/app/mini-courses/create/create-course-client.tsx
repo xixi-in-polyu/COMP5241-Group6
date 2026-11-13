@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { ArrowLeft, ArrowRight, Loader2, Sparkles, Wand2 } from "lucide-react";
 
 import { AccountMenu } from "@/app/components/account-menu";
+import { personalAiHeaders } from "@/app/components/personal-ai-credentials";
 import { MaterialsEditor } from "@/app/components/mini-course/materials-editor";
 import { WorkspaceHeader } from "@/app/components/workspace-header";
 import { CourseMaterialsEditor } from "@/app/components/course-materials-editor";
@@ -262,7 +263,7 @@ export function CreateCourseClient({
       const courseId = await ensureDraft(true);
       const response = await fetch("/api/ai/course-draft", {
         method: "POST",
-        headers: { "content-type": "application/json" },
+        headers: { "content-type": "application/json", ...personalAiHeaders() },
         body: JSON.stringify({ courseId, language, title }),
       });
       const data = await response.json().catch(() => ({}));
@@ -322,7 +323,7 @@ export function CreateCourseClient({
       const courseId = await ensureDraft(true);
       const response = await fetch("/api/ai/course-chapters", {
         method: "POST",
-        headers: { "content-type": "application/json" },
+        headers: { "content-type": "application/json", ...personalAiHeaders() },
         body: JSON.stringify({
           courseId,
           language,

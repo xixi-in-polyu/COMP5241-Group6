@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 
 import { LogoutButton } from "@/app/components/logout-button";
 
@@ -59,8 +60,17 @@ export function AccountMenu({ user }: AccountMenuProps) {
             </p>
           </div>
 
+          <Link
+            className="mt-3 flex min-h-10 w-full items-center rounded-lg px-2 text-sm text-[#193b61] transition-colors hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#193b61]"
+            href="/ai-settings"
+            onClick={() => setIsOpen(false)}
+            role="menuitem"
+          >
+            AI settings
+          </Link>
+
           <LogoutButton
-            className="mt-3 flex min-h-10 w-full items-center gap-2 rounded-lg px-2 text-sm text-red-700 transition-colors hover:bg-red-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-700"
+            className="mt-1 flex min-h-10 w-full items-center gap-2 rounded-lg px-2 text-sm text-red-700 transition-colors hover:bg-red-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-700"
             role="menuitem"
           />
         </div>

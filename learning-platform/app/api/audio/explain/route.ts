@@ -1,7 +1,7 @@
 import OpenAI from "openai";
 import { z } from "zod";
 
-import { getAiConfig } from "@/lib/ai/config";
+import { getRequestAiConfig } from "@/lib/ai/request-config";
 import { requirePageRole } from "@/lib/auth/authorization";
 
 const inputSchema = z.object({
@@ -40,7 +40,7 @@ export async function POST(request: Request) {
   try {
     await requirePageRole("student");
     const input = inputSchema.parse(await request.json());
-    const config = getAiConfig();
+    const config = getRequestAiConfig(request);
     if (!config.configured) {
       return Response.json({ error: "The AI provider is not configured." }, { status: 503 });
     }
