@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+<rect width="800" height="450" fill="#FFFFFF"/>
+<g font-family="Avenir Next, Segoe UI, sans-serif" fill="#2E3433">
+<text x="32" y="48" font-size="20" font-weight="750" letter-spacing="1.4">VERIFICATION / VALIDATION</text>
+<text x="32" y="72" font-size="13" fill="#6F7674">built right and the right product are different questions</text>
+
+<g>
+  <rect x="34" y="108" width="352" height="222" rx="12" fill="#DEE8EC" stroke="#2E3433" stroke-width="1.6"/>
+  <text x="210" y="142" text-anchor="middle" font-size="16" font-weight="750">VERIFICATION</text>
+  <text x="210" y="162" text-anchor="middle" font-size="11" fill="#6F7674">are we building it right?</text>
+  <circle cx="58" cy="192" r="4" fill="#8EA6B4"/><text x="70" y="196" font-size="11">code review</text><circle cx="58" cy="222" r="4" fill="#8EA6B4"/><text x="70" y="226" font-size="11">unit tests</text><circle cx="58" cy="252" r="4" fill="#8EA6B4"/><text x="70" y="256" font-size="11">integration tests</text><circle cx="58" cy="282" r="4" fill="#8EA6B4"/><text x="70" y="286" font-size="11">system tests</text>
+  <rect x="404" y="108" width="352" height="222" rx="12" fill="#E3EADB" stroke="#2E3433" stroke-width="1.6"/>
+  <text x="580" y="142" text-anchor="middle" font-size="16" font-weight="750">VALIDATION</text>
+  <text x="580" y="162" text-anchor="middle" font-size="11" fill="#6F7674">are we building the right product?</text>
+  <circle cx="428" cy="192" r="4" fill="#9FAF91"/><text x="440" y="196" font-size="11">prototypes</text><circle cx="428" cy="222" r="4" fill="#9FAF91"/><text x="440" y="226" font-size="11">usability studies</text><circle cx="428" cy="252" r="4" fill="#9FAF91"/><text x="440" y="256" font-size="11">acceptance tests</text><circle cx="428" cy="282" r="4" fill="#9FAF91"/><text x="440" y="286" font-size="11">production evidence</text>
+  
+  <rect x="34" y="350" width="722" height="46" rx="8" fill="#FFFFFF" stroke="#2E3433" stroke-width="1"/>
+  <text x="54" y="378" font-size="11.5" fill="#6F7674">confirmation reruns the failed test · regression protects the neighbourhood</text>
+</g>
+</g>
+</svg>

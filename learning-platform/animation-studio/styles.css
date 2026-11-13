@@ -1,0 +1,309 @@
+/* Vendored from the Storyline Studio prototype (animation/src/styles.css).
+   Every selector is scoped to .animation-studio so the editor can live inside
+   the Learning Platform without leaking global body or element styles. */
+.animation-studio { color-scheme: dark; font-family: "Avenir Next", "Segoe UI", ui-sans-serif, system-ui, sans-serif; background: #080a0e; color: #eef0ea; font-synthesis: none; }
+.animation-studio * { box-sizing: border-box; }
+.animation-studio { margin: 0; min-width: 1180px; min-height: 100vh; background: #080a0e; overflow: hidden; }
+.animation-studio button, .animation-studio input, .animation-studio select, .animation-studio textarea { font: inherit; }
+.animation-studio button { color: inherit; }
+.animation-studio button:focus-visible, .animation-studio input:focus-visible, .animation-studio textarea:focus-visible, .animation-studio select:focus-visible { outline: 2px solid #e9ff66; outline-offset: 2px; }
+
+.animation-studio .app-shell { --topbar: 62px; --player: 104px; height: 100vh; display: grid; grid-template-rows: var(--topbar) 1fr var(--player); background: radial-gradient(circle at 50% 0%, #131922 0, #080a0e 42%); }
+.animation-studio .topbar { display: grid; grid-template-columns: 260px 1fr auto; align-items: center; border-bottom: 1px solid #242933; padding: 0 18px; background: rgba(8,10,14,.92); backdrop-filter: blur(18px); z-index: 20; }
+.animation-studio .brand { display: flex; align-items: center; gap: 11px; }
+.animation-studio .brand-mark { width: 30px; height: 30px; border: 1px solid #424954; position: relative; display: grid; place-items: center; transform: rotate(45deg); }
+.animation-studio .brand-mark i { position: absolute; width: 4px; height: 4px; background: #e9ff66; border-radius: 50%; }
+.animation-studio .brand-mark i:nth-child(1) { top: 6px; left: 6px; }.animation-studio .brand-mark i:nth-child(2) { bottom: 6px; right: 6px; }.animation-studio .brand-mark i:nth-child(3) { top: 6px; right: 6px; background: #65d9ff; }
+.animation-studio .brand > div:last-child { display: flex; align-items: baseline; gap: 6px; }
+.animation-studio .brand b { font-size: 16px; letter-spacing: -.04em; }.animation-studio .brand span { font: 500 9px ui-monospace, monospace; letter-spacing: .18em; color: #e9ff66; }
+.animation-studio .project-title { justify-self: center; display: flex; align-items: center; gap: 9px; }.animation-studio .project-title b { font-size: 12px; }.animation-studio .project-title small { color: #6f7783; font-size: 10px; }
+.animation-studio .status-dot { width: 6px; height: 6px; border-radius: 50%; background: #65f0b8; box-shadow: 0 0 10px #65f0b8; }
+.animation-studio .top-actions, .animation-studio .undo-group, .animation-studio .mode-switch { display: flex; align-items: center; gap: 6px; }
+.animation-studio .top-actions button { height: 34px; border: 1px solid #2a303a; background: #11151b; border-radius: 6px; padding: 0 11px; display: inline-flex; align-items: center; gap: 7px; font-size: 11px; cursor: pointer; }
+.animation-studio .top-actions button:hover:not(:disabled) { border-color: #59616e; background: #171c24; }.animation-studio .top-actions button:disabled { opacity: .3; cursor: default; }
+.animation-studio .top-actions svg { width: 15px; height: 15px; }.animation-studio .undo-group { padding-right: 8px; margin-right: 2px; border-right: 1px solid #2a303a; }.animation-studio .undo-group button { width: 31px; padding: 0; justify-content: center; border: 0; background: transparent; }
+.animation-studio .mode-switch { background: #0b0e13; border: 1px solid #242a33; border-radius: 7px; padding: 3px; }.animation-studio .mode-switch button { border: 0; height: 27px; background: transparent; color: #7c8490; }.animation-studio .mode-switch button.active { color: #f4f5ef; background: #252b34; box-shadow: 0 1px 4px #000; }
+.animation-studio .top-actions .primary-action { background: #e9ff66; color: #0b0d10; border-color: #e9ff66; font-weight: 700; }.animation-studio .top-actions .primary-action:hover { background: #f0ff91; border-color: #f0ff91; }
+.animation-studio .top-actions .theme-toggle { min-width: 67px; justify-content: center; }
+
+.animation-studio .workspace { min-height: 0; display: grid; grid-template-columns: 260px minmax(680px, 1fr) 286px; gap: 1px; background: #242933; }
+.animation-studio .mode-preview .workspace { grid-template-columns: 1fr; }.animation-studio .mode-preview .stage-area { max-width: 1240px; width: 100%; justify-self: center; }
+.animation-studio .panel { background: #0d1015; }
+.animation-studio .scene-list, .animation-studio .inspector { min-height: 0; overflow: hidden; display: flex; flex-direction: column; }
+.animation-studio .panel-heading { height: 66px; flex: 0 0 66px; display: flex; align-items: center; justify-content: space-between; padding: 0 15px; border-bottom: 1px solid #232832; }
+.animation-studio .panel-heading div { display: flex; flex-direction: column; gap: 2px; }.animation-studio .panel-heading small, .animation-studio .subheading small { font: 500 8px ui-monospace, monospace; letter-spacing: .16em; color: #717985; }.animation-studio .panel-heading h2 { margin: 0; font-size: 13px; letter-spacing: -.02em; }.animation-studio .panel-heading > span, .animation-studio .subheading span { font: 400 9px ui-monospace, monospace; color: #6f7782; }
+.animation-studio .chapter-stack, .animation-studio .inspector-scroll { overflow: auto; min-height: 0; scrollbar-width: thin; scrollbar-color: #343b47 transparent; }
+.animation-studio .chapter-group { border-bottom: 1px solid #20252d; }.animation-studio .chapter-heading { width: 100%; height: 50px; border: 0; background: #10141a; display: grid; grid-template-columns: 28px 1fr 17px; align-items: center; text-align: left; cursor: pointer; padding: 0 12px; }.animation-studio .chapter-heading:hover { background: #141920; }
+.animation-studio .chapter-index { font: 500 9px ui-monospace, monospace; }.animation-studio .chapter-heading > span:nth-child(2) { display: flex; flex-direction: column; gap: 2px; }.animation-studio .chapter-heading b { font-size: 10px; }.animation-studio .chapter-heading small { color: #69717d; font-size: 8px; }.animation-studio .chapter-heading svg { width: 13px; transition: transform .2s; }.animation-studio .chapter-heading svg.rotated { transform: rotate(-90deg); }
+.animation-studio .scene-stack { padding: 5px 7px 8px; }.animation-studio .scene-row { min-height: 54px; display: grid; grid-template-columns: 14px 26px 1fr auto; align-items: center; gap: 4px; border: 1px solid transparent; border-radius: 6px; padding: 6px; cursor: pointer; color: #a4abb5; }
+.animation-studio .scene-row:hover { background: #141920; }.animation-studio .scene-row.active { background: #1a1f27; border-color: #343b46; color: #f4f5ef; box-shadow: inset 2px 0 #e9ff66; }.animation-studio .drag-handle { color: #4a515c; font-size: 13px; cursor: grab; }.animation-studio .scene-number { font: 500 8px ui-monospace, monospace; color: #666e7a; }.animation-studio .scene-row > div:nth-child(3) { min-width: 0; display: flex; flex-direction: column; gap: 3px; }.animation-studio .scene-row b { font-size: 9px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }.animation-studio .scene-row small { font: 400 8px ui-monospace, monospace; color: #656d79; }
+.animation-studio .row-actions { display: none; gap: 1px; }.animation-studio .scene-row:hover .row-actions { display: flex; }.animation-studio .row-actions button { width: 22px; height: 22px; border: 0; background: transparent; color: #858d99; padding: 4px; cursor: pointer; }.animation-studio .row-actions button:hover { color: #fff; }.animation-studio .row-actions svg { width: 13px; height: 13px; }.animation-studio .add-scene { width: 100%; border: 1px dashed #2c323c; border-radius: 5px; height: 30px; color: #737b86; background: transparent; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 9px; cursor: pointer; }.animation-studio .add-scene:hover { color: #e9ff66; border-color: #65702e; }.animation-studio .add-scene svg { width: 12px; }
+
+.animation-studio .stage-area { min-width: 0; min-height: 0; overflow: auto; background: #0a0d12; padding: 0 18px 16px; scrollbar-width: thin; }
+.animation-studio .stage-heading { height: 66px; display: flex; align-items: center; justify-content: space-between; }.animation-studio .stage-heading > div:first-child { display: flex; flex-direction: column; gap: 4px; }.animation-studio .stage-heading small { font: 500 8px ui-monospace, monospace; letter-spacing: .14em; color: #69717d; }.animation-studio .stage-heading b { font-size: 12px; }.animation-studio .stage-tools { display: flex; gap: 6px; align-items: center; }.animation-studio .stage-tools span { font: 400 8px ui-monospace, monospace; color: #65f0b8; margin-right: 5px; }.animation-studio .stage-tools span.has-errors { color: #ff8b66; }.animation-studio .stage-tools button { border: 1px solid #282e38; background: #11151b; color: #8e96a2; border-radius: 4px; font-size: 8px; padding: 5px 8px; cursor: pointer; }
+.animation-studio .stage-tools button.active { color: #e9ff66; border-color: #7b893d; background: #1a2017; }
+.animation-studio .canvas-frame { position: relative; width: 100%; max-width: calc((100vh - 310px) * 16 / 9); aspect-ratio: 16 / 9; max-height: calc(100vh - 310px); margin: 0 auto; box-shadow: 0 20px 60px rgba(0,0,0,.42), 0 0 0 1px #2e3540; overflow: hidden; background: #090b10; }
+.animation-studio .remotion-player { position: absolute !important; inset: 0; }
+.animation-studio .scene-canvas { position: absolute; inset: 0; overflow: hidden; background: var(--scene-bg); color: var(--scene-fg); container-type: inline-size; }
+.animation-studio .scene-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.028) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px); background-size: 4.4% 7.8%; mask-image: linear-gradient(to bottom, #000, transparent 82%); }
+.animation-studio .scene-orb { position: absolute; width: 45%; aspect-ratio: 1; border-radius: 50%; filter: blur(70px); opacity: .1; }.animation-studio .orb-one { right: -12%; top: -35%; background: var(--chapter-color); }.animation-studio .orb-two { left: 22%; bottom: -48%; background: #65d9ff; opacity: .07; }
+.animation-studio .scene-header, .animation-studio .scene-footer { position: absolute; left: 3.4%; right: 3.4%; display: flex; justify-content: space-between; align-items: center; z-index: 4; font: 500 1.05cqw ui-monospace, monospace; letter-spacing: .12em; color: color-mix(in srgb, var(--scene-muted) 85%, transparent); }.animation-studio .scene-header { top: 3%; }.animation-studio .scene-footer { bottom: 2.7%; border-top: 1px solid rgba(255,255,255,.09); padding-top: 1.2%; font-size: .85cqw; letter-spacing: .08em; }.animation-studio .scene-footer span:last-child { color: color-mix(in srgb, var(--chapter-color) 70%, var(--scene-muted)); }
+.animation-studio .scene-element { position: absolute; z-index: 2; transform-origin: center; }.animation-studio .scene-element.is-selected { outline: 1px solid var(--chapter-color); outline-offset: 5px; }.animation-studio .scene-element.is-selected::after { content: attr(class); display: none; }
+.animation-studio .type-title h1 { margin: 0; font-size: 5.4cqw; line-height: .88; letter-spacing: -.075em; font-weight: 800; }.animation-studio .type-title h1 span { display: block; }.animation-studio .type-title h1 span:last-child { color: var(--element-accent); }
+.animation-studio .element-kicker { display: block; margin-bottom: 1.4cqw; color: var(--element-accent); font: 500 1cqw ui-monospace, monospace; letter-spacing: .12em; text-transform: uppercase; }.animation-studio .visual-text { margin: 0; font-size: 1.65cqw; line-height: 1.4; color: var(--scene-muted); }
+.animation-studio .visual-badge { height: 100%; display: flex; align-items: center; gap: 1cqw; border: 1px solid color-mix(in srgb, var(--element-accent) 45%, transparent); padding: 0 1.4cqw; color: var(--scene-fg); background: color-mix(in srgb, var(--element-accent) 8%, transparent); font: 500 1.15cqw ui-monospace, monospace; text-transform: uppercase; letter-spacing: .07em; }.animation-studio .visual-badge i { width: .6cqw; height: .6cqw; background: var(--element-accent); border-radius: 50%; box-shadow: 0 0 1.2cqw var(--element-accent); }
+.animation-studio .visual-flow { display: flex; width: 100%; height: calc(100% - 2.5cqw); align-items: stretch; gap: .5cqw; }.animation-studio .visual-flow.is-dense { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: minmax(0, 1fr); }.animation-studio .flow-unit { flex: 1; min-width: 0; min-height: 0; position: relative; display: flex; flex-direction: column; justify-content: space-between; background: rgba(255,255,255,.045); border: 1px solid rgba(255,255,255,.09); padding: 1.25cqw 1cqw; overflow: hidden; }.animation-studio .visual-flow.is-dense .flow-unit { padding: .65cqw .8cqw; }.animation-studio .flow-unit span { font: 500 .8cqw ui-monospace, monospace; color: var(--element-accent); }.animation-studio .flow-unit b { font-size: 1.08cqw; line-height: 1.15; overflow-wrap: anywhere; }.animation-studio .visual-flow.is-dense .flow-unit b { font-size: .9cqw; }.animation-studio .flow-unit i { position: absolute; right: -.62cqw; top: 45%; color: var(--element-accent); z-index: 2; font-style: normal; }.animation-studio .visual-flow.is-dense .flow-unit i { display: none; }
+.animation-studio .is-selected-item { outline: max(1px, .12cqw) solid var(--element-accent) !important; outline-offset: max(1px, .12cqw); }
+.animation-studio .visual-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: .75cqw; height: calc(100% - 2.5cqw); }.animation-studio .visual-card { border: 1px solid rgba(255,255,255,.11); background: linear-gradient(135deg, rgba(255,255,255,.065), rgba(255,255,255,.018)); padding: 1cqw; display: flex; flex-direction: column; justify-content: space-between; }.animation-studio .visual-card span { font: 500 .75cqw ui-monospace, monospace; color: var(--element-accent); }.animation-studio .visual-card p { font-size: 1.08cqw; line-height: 1.2; margin: .6cqw 0 0; }
+.animation-studio .visual-cycle { position: relative; width: 100%; height: 100%; }.animation-studio .cycle-core { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); width: 30%; aspect-ratio: 1; border: 1px solid color-mix(in srgb, var(--element-accent) 40%, transparent); border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: color-mix(in srgb, var(--element-accent) 7%, #0a0d12); box-shadow: 0 0 4cqw color-mix(in srgb, var(--element-accent) 10%, transparent); }.animation-studio .cycle-core small { font: 500 .7cqw ui-monospace, monospace; letter-spacing: .2em; color: var(--element-accent); }.animation-studio .cycle-core b { font-size: 2.1cqw; }.animation-studio .cycle-node { --angle: calc(360deg / var(--count) * var(--index) - 90deg + var(--orbit-shift, 0deg)); position: absolute; left: 50%; top: 50%; width: 24%; transform: translate(-50%,-50%) rotate(var(--angle)) translateX(138%) rotate(calc(-1 * var(--angle))); }.animation-studio .cycle-node span { display: block; padding: .65cqw; text-align: center; border: 1px solid rgba(255,255,255,.12); background: #11161d; font-size: .9cqw; }
+.animation-studio .visual-comparison { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1cqw; height: calc(100% - 2.3cqw); }.animation-studio .visual-comparison > div { border-top: .28cqw solid var(--element-accent); background: rgba(255,255,255,.045); padding: 1.3cqw; }.animation-studio .visual-comparison small { font: 500 .8cqw ui-monospace, monospace; color: var(--element-accent); }.animation-studio .visual-comparison b { display: block; margin-top: 1.2cqw; font-size: 1.25cqw; }.animation-studio .visual-comparison p { margin: .6cqw 0 0; color: var(--scene-muted); font-size: 1cqw; line-height: 1.3; }
+.animation-studio .visual-timeline { display: flex; align-items: center; height: calc(100% - 2cqw); }.animation-studio .visual-timeline > div { flex: 1; position: relative; display: flex; flex-direction: column; align-items: center; gap: .7cqw; text-align: center; }.animation-studio .visual-timeline span { width: 1cqw; height: 1cqw; border-radius: 50%; background: var(--element-accent); box-shadow: 0 0 1.4cqw color-mix(in srgb, var(--element-accent) 70%, transparent); }.animation-studio .visual-timeline b { font-size: .9cqw; font-weight: 500; }.animation-studio .visual-timeline i { position: absolute; top: .45cqw; left: calc(50% + .5cqw); width: calc(100% - 1cqw); height: 1px; background: linear-gradient(90deg, var(--element-accent), #3c444f); }
+.animation-studio .visual-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: .7cqw; height: calc(100% - 2cqw); }.animation-studio .visual-metrics div { border: 1px solid rgba(255,255,255,.11); background: rgba(255,255,255,.04); padding: 1cqw; display: flex; flex-direction: column; justify-content: center; }.animation-studio .visual-metrics strong { color: var(--element-accent); font-size: 2cqw; letter-spacing: -.05em; }.animation-studio .visual-metrics span { color: var(--scene-muted); font: 500 .7cqw ui-monospace, monospace; text-transform: uppercase; }
+.animation-studio .visual-metrics.items-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.animation-studio .visual-topology { display: flex; align-items: stretch; height: calc(100% - 2.2cqw); gap: 1.5cqw; }.animation-studio .visual-topology > div { flex: 1; min-width: 0; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .8cqw; position: relative; }.animation-studio .visual-topology span { width: 3.4cqw; height: 3.4cqw; display: grid; place-items: center; border-radius: 50%; background: color-mix(in srgb, var(--element-accent) 15%, #131821); border: 1px solid var(--element-accent); color: var(--element-accent); font: 500 1cqw ui-monospace, monospace; }.animation-studio .visual-topology b { font-size: 1cqw; text-align: center; }.animation-studio .visual-topology i { position: absolute; right: -1.25cqw; color: var(--element-accent); font-style: normal; z-index: 2; }
+.animation-studio .visual-formula { height: 100%; border-left: .28cqw solid var(--element-accent); background: rgba(255,255,255,.04); padding: 1.3cqw 1.7cqw; display: flex; flex-direction: column; justify-content: center; }.animation-studio .visual-formula small { color: var(--element-accent); font: 500 .8cqw ui-monospace, monospace; letter-spacing: .14em; }.animation-studio .visual-formula > div { display: flex; align-items: center; gap: 1cqw; margin-top: 1.2cqw; }.animation-studio .visual-formula b { font-size: 1.8cqw; }.animation-studio .visual-formula span { color: var(--scene-muted); font-size: 1.4cqw; }.animation-studio .visual-formula .fraction { border-top: 1px solid var(--scene-fg); padding-top: .35cqw; font-size: 1.3cqw; }
+.animation-studio .script-panel { margin-top: 12px; min-height: 148px; max-height: 190px; display: grid; grid-template-columns: 160px 1fr; border: 1px solid #242a33; overflow: hidden; }
+.animation-studio .script-meta { padding: 16px; border-right: 1px solid #242a33; display: flex; flex-direction: column; gap: 7px; }
+.animation-studio .script-meta small { color: #e9ff66; font: 500 8px ui-monospace, monospace; letter-spacing: .13em; }
+.animation-studio .script-meta b { font-size: 11px; line-height: 1.35; }
+.animation-studio .script-meta > span { margin-top: auto; color: #68717c; font: 500 8px ui-monospace, monospace; }
+.animation-studio .script-lines { overflow: auto; padding: 12px 18px 15px; scrollbar-width: thin; scrollbar-color: #343b47 transparent; }
+.animation-studio .script-segment { margin: 0; padding: 6px 0; color: #737c88; font-size: 12px; line-height: 1.75; transition: color .16s; }
+.animation-studio .script-segment.active { color: #dce1e6; }
+.animation-studio .script-index { display: inline-block; width: 25px; color: #505966; font: 500 8px ui-monospace, monospace; vertical-align: .1em; }
+.animation-studio .script-word { display: inline; border-radius: 3px; transition: color .08s, background .08s, box-shadow .08s; }
+.animation-studio .script-word.is-speaking { color: #11150b; background: #e9ff66; box-shadow: 0 0 0 3px #e9ff66; }
+
+.animation-studio .inspector-scroll { padding: 15px; }.animation-studio .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 13px; min-width: 0; }.animation-studio .field > span, .animation-studio .color-field > span { color: #818995; font-size: 9px; }.animation-studio .field input, .animation-studio .field textarea, .animation-studio .field select, .animation-studio .color-field input[type=text], .animation-studio .color-field input:not([type]) { width: 100%; border: 1px solid #29303a; border-radius: 4px; background: #10141a; color: #eef0ea; padding: 8px 9px; font-size: 9px; resize: vertical; }.animation-studio .field textarea { line-height: 1.45; }.animation-studio .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }.animation-studio .geometry-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 8px; }.animation-studio .inspector hr { border: 0; border-top: 1px solid #252b34; margin: 18px 0; }.animation-studio .subheading { display: flex; justify-content: space-between; margin-bottom: 12px; }.animation-studio .narration-editor { margin-bottom: 12px; }.animation-studio .narration-editor > span { display: block; color: #e9ff66; font: 500 7px ui-monospace, monospace; margin-bottom: 5px; }.animation-studio .narration-editor textarea { width: 100%; border: 1px solid #29303a; border-radius: 4px; background: #10141a; color: #c7ccd3; padding: 8px; font-size: 9px; line-height: 1.45; resize: vertical; }.animation-studio .color-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 8px; }.animation-studio .color-field { display: flex; flex-direction: column; gap: 5px; }.animation-studio .color-field > div { display: flex; height: 29px; }.animation-studio .color-field input[type=color] { width: 31px; padding: 2px; border: 1px solid #29303a; border-radius: 4px 0 0 4px; background: #10141a; }.animation-studio .color-field input:not([type=color]) { min-width: 0; border-radius: 0 4px 4px 0; font: 400 8px ui-monospace, monospace; }
+
+.animation-studio .player-controls { position: relative; z-index: 15; border-top: 1px solid #282e37; padding: 0 18px; box-shadow: 0 -10px 40px rgba(0,0,0,.3); }.animation-studio .timeline-wrap { height: 38px; position: relative; padding-top: 14px; }.animation-studio .timeline-range { width: 100%; height: 3px; margin: 0; appearance: none; background: linear-gradient(90deg, #e9ff66 var(--progress), #2a3039 var(--progress)); border-radius: 4px; display: block; cursor: pointer; }.animation-studio .timeline-range::-webkit-slider-thumb { appearance: none; width: 13px; height: 13px; border-radius: 50%; background: #e9ff66; border: 3px solid #0b0e13; box-shadow: 0 0 0 1px #e9ff66; }.animation-studio .timeline-chapters { position: absolute; inset: 0 7px auto; height: 12px; }.animation-studio .timeline-chapters button { position: absolute; top: 0; transform: translateX(-2px); border: 0; background: transparent; padding: 0; color: #6f7782; cursor: pointer; }.animation-studio .timeline-chapters button i { display: block; width: 4px; height: 8px; background: var(--marker-color); }.animation-studio .timeline-chapters button span { display: none; position: absolute; bottom: 12px; left: 0; background: #151a21; border: 1px solid #303742; padding: 4px 6px; font: 400 8px ui-monospace, monospace; white-space: nowrap; }.animation-studio .timeline-chapters button:hover span { display: block; }
+.animation-studio .timeline-cues { position: absolute; inset: 10px 7px auto; height: 10px; pointer-events: none; }.animation-studio .timeline-cues button { position: absolute; width: 7px; height: 7px; border: 0; border-radius: 50%; padding: 0; background: transparent; transform: translateX(-50%); pointer-events: auto; cursor: pointer; }.animation-studio .timeline-cues button i { display: block; width: 7px; height: 7px; border-radius: 50%; background: #65d9ff; box-shadow: 0 0 0 2px #0b0e13; }
+.animation-studio .transport { height: 62px; display: flex; justify-content: space-between; align-items: center; }.animation-studio .transport-left, .animation-studio .transport-right { display: flex; align-items: center; gap: 8px; }.animation-studio .transport button { width: 31px; height: 31px; padding: 7px; border: 1px solid #2c323c; border-radius: 50%; background: #12161c; color: #8a929e; cursor: pointer; }.animation-studio .transport button:hover, .animation-studio .transport button.enabled { color: #eef0ea; border-color: #59616e; }.animation-studio .transport button svg { width: 100%; height: 100%; }.animation-studio .transport .play-button { width: 39px; height: 39px; background: #e9ff66; color: #0b0e12; border-color: #e9ff66; padding: 10px; }.animation-studio .timecode { display: flex; gap: 7px; align-items: center; margin-left: 5px; font: 400 10px ui-monospace, monospace; color: #69717d; }.animation-studio .timecode b { color: #eef0ea; font-weight: 500; }.animation-studio .timecode i { font-style: normal; color: #373d47; }.animation-studio .rate-select { height: 31px; display: flex; align-items: center; gap: 6px; border: 1px solid #2c323c; border-radius: 15px; padding: 0 9px 0 11px; }.animation-studio .rate-select span { font: 500 7px ui-monospace, monospace; color: #686f7a; letter-spacing: .1em; }.animation-studio .rate-select select { border: 0; background: transparent; color: #aab0b9; font: 500 9px ui-monospace, monospace; }
+.animation-studio .toast { position: fixed; z-index: 100; left: 50%; bottom: 120px; transform: translateX(-50%); background: #edf3c2; color: #12150d; padding: 10px 16px; border-radius: 4px; box-shadow: 0 10px 40px #000; font-size: 11px; font-weight: 600; animation: studio-toast-in .2s ease both; } @keyframes studio-toast-in { from { opacity: 0; transform: translate(-50%, 8px); } }
+.animation-studio .inspector-help { color: #7f8893; font-size: 9px; line-height: 1.5; }
+.animation-studio .mini-action { border: 1px solid #303742; background: #151a21; color: #aeb5be; border-radius: 4px; padding: 3px 6px; font-size: 8px; cursor: pointer; }.animation-studio .motion-cue-list { display: grid; gap: 9px; margin-bottom: 16px; }.animation-studio .motion-cue { border: 1px solid #29303a; border-radius: 5px; padding: 9px; background: #10141a; }.animation-studio .motion-cue-heading { display: flex; justify-content: space-between; align-items: center; margin-bottom: 9px; color: #9ca5af; font: 500 8px ui-monospace, monospace; }.animation-studio .motion-cue-heading div { display: flex; gap: 3px; }.animation-studio .motion-cue-heading button { width: 20px; height: 20px; border: 1px solid #2e3540; border-radius: 3px; background: #171c23; color: #8e98a3; padding: 0; cursor: pointer; }.animation-studio .motion-cue-heading button:disabled { opacity: .3; }.animation-studio .cue-editor { margin-bottom: 13px; }.animation-studio .motion-cue .cue-editor { margin-bottom: 0; }.animation-studio .motion-number-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }.animation-studio .motion-number-grid .field { margin-bottom: 0; }
+
+/* Warm-white Morandi art direction for every animation project scene. */
+.animation-studio .scene-canvas { background: var(--scene-bg); color: var(--scene-fg); }
+.animation-studio .scene-grid { background-image: linear-gradient(rgba(58,65,63,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(58,65,63,.055) 1px, transparent 1px); }
+.animation-studio .scene-orb { filter: blur(62px); opacity: .2; }.animation-studio .orb-two { background: #aebdbe; opacity: .13; }
+.animation-studio .scene-header, .animation-studio .scene-footer { color: color-mix(in srgb, var(--scene-muted) 88%, transparent); }
+.animation-studio .scene-footer { border-top-color: rgba(58,65,63,.14); }.animation-studio .scene-footer span:last-child { color: color-mix(in srgb, var(--chapter-color) 78%, #4e5553); }
+.animation-studio .visual-badge { border-color: color-mix(in srgb, var(--element-accent) 62%, #fff); background: color-mix(in srgb, var(--element-accent) 18%, rgba(255,255,255,.68)); color: #353a39; box-shadow: 0 .5cqw 1.6cqw rgba(71,77,75,.08); }
+.animation-studio .flow-unit, .animation-studio .visual-card, .animation-studio .visual-comparison > div, .animation-studio .visual-metrics div, .animation-studio .visual-topology > div, .animation-studio .visual-formula { background: rgba(255,255,255,.58); border-color: rgba(63,70,68,.14); box-shadow: 0 .7cqw 2cqw rgba(70,75,73,.07); }
+.animation-studio .cycle-core { background: color-mix(in srgb, var(--element-accent) 14%, #faf8f3); border-color: color-mix(in srgb, var(--element-accent) 62%, #fff); box-shadow: 0 0 4cqw color-mix(in srgb, var(--element-accent) 16%, transparent); }
+.animation-studio .cycle-node span { background: rgba(255,255,255,.72); border-color: rgba(63,70,68,.16); box-shadow: 0 .6cqw 1.8cqw rgba(70,75,73,.07); }
+.animation-studio .visual-comparison > div { border-top-color: var(--element-accent); }
+.animation-studio .visual-formula { border-left-color: var(--element-accent); }.animation-studio .visual-formula .fraction { border-top-color: #4b5250; }
+
+/* Schema v4: templates establish composition; component families no longer share one card skin. */
+.animation-studio .template-opening .scene-grid { background-size: 100% 100%; background-image: linear-gradient(90deg, transparent 0 67%, rgba(111,124,119,.1) 67% 67.12%, transparent 67.12%); }
+.animation-studio .template-opening .orb-one { width: 58%; right: -18%; top: -42%; opacity: .26; }
+.animation-studio .template-concept .scene-grid { mask-image: linear-gradient(90deg, #000 0 62%, transparent 88%); }
+.animation-studio .template-process .scene-grid { background-size: 7.5% 100%; mask-image: linear-gradient(to right, transparent, #000 16%, #000 84%, transparent); }
+.animation-studio .template-comparison .scene-grid { background-size: 50% 100%; background-image: linear-gradient(90deg, rgba(72,79,76,.045) 0 49.9%, rgba(72,79,76,.14) 50%, rgba(72,79,76,.045) 50.1%); }
+.animation-studio .template-incident .scene-grid { background-size: 100% 12%; background-image: linear-gradient(rgba(154,105,91,.1) 1px, transparent 1px); }
+.animation-studio .template-architecture .scene-grid { background-size: 3.5% 6%; background-image: linear-gradient(rgba(85,111,124,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(85,111,124,.07) 1px, transparent 1px); mask-image: none; }
+.animation-studio .template-closing .scene-grid { background-image: radial-gradient(circle at 50% 45%, transparent 0 18%, rgba(82,91,87,.09) 18.2% 18.35%, transparent 18.55% 29%, rgba(82,91,87,.07) 29.2% 29.35%, transparent 29.55%); background-size: 100% 100%; }
+
+.animation-studio .flow-label, .animation-studio .comparison-label, .animation-studio .metrics-label, .animation-studio .topology-label { display: block; color: var(--element-accent); text-transform: uppercase; }
+.animation-studio .flow-label { margin-bottom: 1.2cqw; font: 500 .92cqw ui-monospace, monospace; letter-spacing: .18em; }
+.animation-studio .flow-unit { background: transparent; border: 0; border-top: 1px solid color-mix(in srgb, var(--element-accent) 52%, transparent); box-shadow: none; padding: 1.2cqw .7cqw .7cqw; }
+.animation-studio .flow-unit::before { content: ''; position: absolute; top: -.28cqw; left: 0; width: .55cqw; height: .55cqw; border-radius: 50%; background: var(--element-accent); }
+.animation-studio .flow-unit b { font-size: 1cqw; font-weight: 600; }
+.animation-studio .visual-flow.is-dense { gap: 1cqw 1.5cqw; }
+.animation-studio .visual-flow.is-dense .flow-unit { border-top: 0; border-left: 2px solid color-mix(in srgb, var(--element-accent) 56%, transparent); padding: .45cqw .8cqw; }
+.animation-studio .visual-flow.is-dense .flow-unit::before { display: none; }
+
+.animation-studio .visual-card { background: rgba(255,255,255,.58); border: 1px solid rgba(63,70,68,.14); box-shadow: 0 .7cqw 2cqw rgba(70,75,73,.07); }
+.animation-studio .variant-editorial .visual-card:nth-child(2n) { transform: translateY(.7cqw); }
+.animation-studio .variant-grid .visual-cards { grid-template-columns: repeat(3, 1fr); }
+
+.animation-studio .comparison-label { margin-bottom: .9cqw; font: 500 .78cqw ui-monospace, monospace; letter-spacing: .2em; text-align: center; }
+.animation-studio .visual-comparison { gap: 0; }
+.animation-studio .visual-comparison > div { background: transparent; border: 0; box-shadow: none; padding: 1.1cqw 2cqw; }
+.animation-studio .visual-comparison > div + div { border-left: 1px solid color-mix(in srgb, var(--element-accent) 42%, transparent); }
+.animation-studio .visual-comparison small { font-size: 2.8cqw; line-height: 1; opacity: .42; }
+.animation-studio .visual-comparison b { font-size: 1.45cqw; margin-top: .7cqw; }
+
+.animation-studio .metrics-label { margin-bottom: .6cqw; font: 500 .72cqw ui-monospace, monospace; letter-spacing: .16em; }
+.animation-studio .visual-metrics { gap: 0; }
+.animation-studio .visual-metrics div { background: transparent; border: 0; border-left: 1px solid rgba(63,70,68,.18); box-shadow: none; padding: .4cqw 1.3cqw; }
+.animation-studio .visual-metrics div:first-child { border-left: .25cqw solid var(--element-accent); }
+.animation-studio .visual-metrics strong { font-size: 3.3cqw; font-weight: 700; }
+.animation-studio .visual-metrics span { font-size: .78cqw; letter-spacing: .08em; }
+
+.animation-studio .topology-label { margin-bottom: .8cqw; font: 500 .72cqw ui-monospace, monospace; letter-spacing: .18em; text-align: center; }
+.animation-studio .visual-topology { align-items: center; gap: 2.4cqw; }
+.animation-studio .visual-topology > div { background: transparent; border: 0; box-shadow: none; height: 72%; justify-content: center; }
+.animation-studio .visual-topology span { width: 4.2cqw; height: 4.2cqw; background: color-mix(in srgb, var(--element-accent) 18%, #faf8f3); box-shadow: 0 0 0 .6cqw rgba(255,255,255,.62), 0 1cqw 2.2cqw rgba(70,75,73,.1); }
+.animation-studio .visual-topology i { right: -1.75cqw; font-size: 1.3cqw; }
+
+.animation-studio .visual-formula { position: relative; background: transparent; border: 0; box-shadow: none; padding: 0 0 0 2cqw; }
+.animation-studio .visual-formula::before { content: ''; position: absolute; left: 0; top: 12%; bottom: 12%; width: .28cqw; background: var(--element-accent); }
+.animation-studio .visual-formula small { font-size: .9cqw; }
+.animation-studio .visual-formula b { font-size: 2.5cqw; }
+.animation-studio .visual-formula span { font-size: 2cqw; }
+
+.animation-studio .surface-outline { outline: 1px solid color-mix(in srgb, var(--element-accent) 42%, transparent); outline-offset: .7cqw; }
+.animation-studio .surface-soft { border-radius: .35cqw; }
+.animation-studio .surface-soft .visual-card { background: color-mix(in srgb, var(--element-accent) 10%, rgba(255,255,255,.72)); }
+.animation-studio .variant-minimal :is(.visual-card, .flow-unit, .visual-comparison > div, .visual-metrics div, .visual-topology > div) { background: transparent; box-shadow: none; }
+
+
+/* Readability floor for projected and scaled-down canvas previews. */
+.animation-studio .scene-footer { font-size: 1cqw; }
+.animation-studio .flow-label { font-size: 1.08cqw; }
+.animation-studio .flow-unit span { font-size: .98cqw; }
+.animation-studio .flow-unit b, .animation-studio .visual-flow.is-dense .flow-unit b { font-size: 1.28cqw; line-height: 1.22; font-weight: 650; }
+.animation-studio .visual-card span { font-size: .92cqw; }
+.animation-studio .visual-card p { font-size: 1.26cqw; line-height: 1.3; }
+.animation-studio .cycle-core small { font-size: .88cqw; }
+.animation-studio .cycle-node span { font-size: 1.16cqw; line-height: 1.2; }
+.animation-studio .comparison-label, .animation-studio .metrics-label, .animation-studio .topology-label { font-size: .94cqw; }
+.animation-studio .visual-comparison p { font-size: 1.14cqw; line-height: 1.36; }
+.animation-studio .visual-timeline b { font-size: 1.2cqw; line-height: 1.25; font-weight: 600; }
+.animation-studio .visual-metrics span { font-size: .94cqw; line-height: 1.25; }
+.animation-studio .visual-topology b { font-size: 1.22cqw; line-height: 1.25; font-weight: 600; }
+.animation-studio .visual-formula small { font-size: 1.02cqw; }
+
+/* The editor chrome can switch independently from the animation project theme. */
+.animation-studio .ui-light { color-scheme: light; background: #eef1f4; color: #171b20; }
+.animation-studio .ui-light .topbar { background: rgba(250,251,252,.96); border-bottom-color: #d8dde3; }
+.animation-studio .ui-light .brand-mark { border-color: #939ca7; }.animation-studio .ui-light .brand b, .animation-studio .ui-light .project-title b { color: #171b20; }
+.animation-studio .ui-light .top-actions button { background: #fff; border-color: #d4dae1; color: #48515c; }
+.animation-studio .ui-light .top-actions button:hover:not(:disabled) { background: #f0f3f6; border-color: #aeb6c0; }
+.animation-studio .ui-light .top-actions .primary-action { background: #cde52f; border-color: #c2d92c; color: #11150b; }
+.animation-studio .ui-light .undo-group { border-right-color: #d8dde3; }.animation-studio .ui-light .undo-group button { background: transparent; }
+.animation-studio .ui-light .mode-switch { background: #e7ebef; border-color: #d3d9df; }.animation-studio .ui-light .mode-switch button { background: transparent; color: #68727e; }.animation-studio .ui-light .mode-switch button.active { background: #fff; color: #161a1f; box-shadow: 0 1px 4px rgba(20,28,36,.16); }
+.animation-studio .ui-light .workspace { background: #d7dce2; }.animation-studio .ui-light .panel { background: #f9fafb; }
+.animation-studio .ui-light .scene-list, .animation-studio .ui-light .inspector { color: #1a1f25; }.animation-studio .ui-light .panel-heading { border-bottom-color: #dce1e6; }.animation-studio .ui-light .panel-heading small, .animation-studio .ui-light .subheading small { color: #747e89; }.animation-studio .ui-light .panel-heading > span, .animation-studio .ui-light .subheading span { color: #7e8792; }
+.animation-studio .ui-light .chapter-group { border-bottom-color: #dde2e7; }.animation-studio .ui-light .chapter-heading { background: #f1f4f6; color: #242a31; }.animation-studio .ui-light .chapter-heading:hover { background: #e9edf1; }.animation-studio .ui-light .chapter-heading small { color: #7b8490; }
+.animation-studio .ui-light .scene-row { color: #4f5964; }.animation-studio .ui-light .scene-row:hover { background: #edf1f4; }.animation-studio .ui-light .scene-row.active { background: #fff; border-color: #c7ced6; color: #171b20; box-shadow: inset 2px 0 #a7bd17, 0 2px 8px rgba(28,39,50,.06); }.animation-studio .ui-light .scene-row small, .animation-studio .ui-light .scene-number { color: #7d8792; }.animation-studio .ui-light .drag-handle { color: #9ba4ae; }.animation-studio .ui-light .row-actions button { color: #68727d; }.animation-studio .ui-light .add-scene { border-color: #c8cfd7; color: #69747f; }.animation-studio .ui-light .add-scene:hover { color: #667700; border-color: #9aaa27; }
+.animation-studio .ui-light .stage-area { background: #e9edf1; }.animation-studio .ui-light .stage-heading { color: #1a2026; }.animation-studio .ui-light .stage-heading small { color: #76808b; }.animation-studio .ui-light .stage-tools button { background: #fff; border-color: #cfd6dd; color: #5a6570; }.animation-studio .ui-light .canvas-frame { box-shadow: 0 18px 46px rgba(35,43,52,.18), 0 0 0 1px #b8c0c9; }
+.animation-studio .ui-light .stage-tools button.active { color: #596700; border-color: #9baa29; background: #f5f8df; }
+.animation-studio .ui-light .script-panel { border-color: #d6dce2; background: #fff; }.animation-studio .ui-light .script-meta { border-right-color: #d6dce2; }.animation-studio .ui-light .script-meta b { color: #242a31; }.animation-studio .ui-light .script-meta small { color: #667600; }.animation-studio .ui-light .script-meta > span { color: #7b858f; }.animation-studio .ui-light .script-segment { color: #87919b; }.animation-studio .ui-light .script-segment.active { color: #20262c; }.animation-studio .ui-light .script-index { color: #a0a8b0; }.animation-studio .ui-light .script-word.is-speaking { color: #151908; background: #cde52f; box-shadow: 0 0 0 3px #cde52f; }
+.animation-studio .ui-light .field > span, .animation-studio .ui-light .color-field > span { color: #5f6974; }.animation-studio .ui-light .field input, .animation-studio .ui-light .field textarea, .animation-studio .ui-light .field select, .animation-studio .ui-light .narration-editor textarea, .animation-studio .ui-light .color-field input:not([type=color]) { background: #fff; color: #20262c; border-color: #cfd6dd; }.animation-studio .ui-light .inspector hr { border-top-color: #d9dfe5; }.animation-studio .ui-light .narration-editor > span { color: #657400; }.animation-studio .ui-light .color-field input[type=color] { background: #fff; border-color: #cfd6dd; }
+.animation-studio .ui-light .player-controls { background: #fbfcfd; border-top-color: #ccd3da; box-shadow: 0 -10px 35px rgba(42,51,60,.09); }.animation-studio .ui-light .timeline-range { background: linear-gradient(90deg, #aabe20 var(--progress), #d4dae0 var(--progress)); }.animation-studio .ui-light .timeline-range::-webkit-slider-thumb { background: #b8ce24; border-color: #fff; box-shadow: 0 0 0 1px #8b9e12; }.animation-studio .ui-light .transport button { background: #fff; color: #59636e; border-color: #cfd6dd; }.animation-studio .ui-light .transport .play-button { background: #cde52f; color: #11150b; border-color: #b9d020; }.animation-studio .ui-light .timecode b { color: #20262c; }.animation-studio .ui-light .rate-select { border-color: #cfd6dd; background: #fff; }.animation-studio .ui-light .rate-select select { color: #3c4650; }
+.animation-studio .ui-light .motion-cue { background: #fff; border-color: #d4dae1; }.animation-studio .ui-light .motion-cue-heading { color: #59636e; }.animation-studio .ui-light .motion-cue-heading button, .animation-studio .ui-light .mini-action { background: #f3f5f7; border-color: #cfd6dd; color: #56616c; }.animation-studio .ui-light .timeline-cues button i { box-shadow: 0 0 0 2px #fff; }
+
+@media (max-width: 1300px) {
+  .animation-studio .workspace { grid-template-columns: 230px minmax(620px, 1fr) 260px; }
+  .animation-studio .topbar { grid-template-columns: 230px 1fr auto; }.animation-studio .project-title small { display: none; }.animation-studio .text-action { font-size: 0 !important; }.animation-studio .text-action svg { margin: 0; }
+}
+.animation-studio .visual-image { width: 100%; height: 100%; margin: 0; overflow: hidden; position: relative; border-radius: 12px; background: color-mix(in srgb, var(--scene-fg) 6%, transparent); }
+.animation-studio .visual-image img { display: block; }
+.animation-studio .visual-image figcaption { position: absolute; left: 16px; right: 16px; bottom: 12px; padding: 8px 11px; color: white; background: rgba(0,0,0,.68); font-size: 13px; line-height: 1.3; border-radius: 5px; }
+.animation-studio .visual-image figcaption:empty { display: none; }
+.animation-studio .scene-canvas :is(.flow-unit, .visual-card, .visual-comparison > div, .visual-metrics div, .visual-topology > div) {
+  background: color-mix(in srgb, var(--scene-surface) 92%, transparent);
+  border-color: color-mix(in srgb, var(--scene-fg) 13%, transparent);
+  box-shadow: 0 .35cqw 1.1cqw color-mix(in srgb, var(--scene-fg) 7%, transparent);
+}
+.animation-studio .scene-canvas .scene-grid {
+  background-image: linear-gradient(color-mix(in srgb, var(--scene-fg) 5%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--scene-fg) 5%, transparent) 1px, transparent 1px);
+}
+.animation-studio .theme-classroom .scene-orb { display: none; }
+.animation-studio .theme-classroom .scene-grid { opacity: .55; mask-image: none; }
+.animation-studio .theme-light-editorial .scene-orb { display: none; }
+.animation-studio .theme-light-editorial .scene-grid { background-image: none; mask-image: none; }
+.animation-studio .visual-diagram { position: relative; width: 100%; height: 100%; }
+.animation-studio .visual-diagram svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; color: var(--element-accent); }
+.animation-studio .diagram-link { fill: none; stroke: currentColor; stroke-width: 3; vector-effect: non-scaling-stroke; }
+.animation-studio .diagram-edge-label { position: absolute; transform: translate(-50%, -50%); padding: .15cqw .35cqw; background: var(--scene-bg); color: var(--scene-fg); font: 600 .95cqw/1.2 "Avenir Next", "Segoe UI", Arial, sans-serif; white-space: nowrap; }
+.animation-studio .diagram-node { position: absolute; display: flex; align-items: center; justify-content: center; padding: .55cqw .85cqw; border: 2px solid color-mix(in srgb, var(--element-accent) 50%, var(--scene-fg)); background: var(--scene-surface); color: var(--scene-fg); font: 650 1.18cqw/1.2 "Avenir Next", "Segoe UI", Arial, sans-serif; text-align: center; white-space: pre-line; }
+.animation-studio .diagram-node.tone-primary { border-color: var(--element-accent); background: color-mix(in srgb, var(--element-accent) 15%, var(--scene-surface)); }
+.animation-studio .diagram-node.tone-secondary { border-color: color-mix(in srgb, var(--element-accent) 60%, transparent); background: color-mix(in srgb, var(--element-accent) 6%, var(--scene-surface)); }
+.animation-studio .theme-classroom .type-title {
+  border-left: .28cqw solid var(--element-accent);
+  padding-left: 1.05cqw;
+}
+.animation-studio .theme-classroom .type-title h1 {
+  font-size: 2.25cqw;
+  line-height: 1.08;
+  letter-spacing: -.035em;
+  font-weight: 750;
+}
+.animation-studio .theme-classroom .type-text .visual-text {
+  font-size: 1.02cqw;
+  line-height: 1.38;
+  font-weight: 560;
+  text-align: left;
+  white-space: pre-line;
+  padding-top: .7cqw;
+  border-top: 2px solid color-mix(in srgb, var(--element-accent) 48%, transparent);
+}
+.animation-studio .theme-classroom .visual-image {
+  border-radius: 0;
+  border: 1px solid color-mix(in srgb, var(--scene-fg) 14%, transparent);
+  background: var(--scene-surface);
+  padding: .55cqw;
+}
+.animation-studio .theme-classroom :is(.flow-unit, .visual-card, .visual-comparison > div, .visual-metrics div, .visual-topology > div) {
+  box-shadow: none;
+  border-radius: 0;
+}
+.animation-studio .visual-asset-missing { height: 100%; display: grid; place-items: center; border: 2px dashed #ef4444; color: #ef4444; }
+.animation-studio .scene-element.is-code-presentation { z-index: 5; }
+.animation-studio .visual-code-stage { --code-frame-inset: 0px; --code-frame-inset-y: 0px; --code-padding: 16px; --code-font-size: 20px; width: 100%; height: 100%; overflow: hidden; display: grid; place-items: center; }
+.animation-studio .code-backdrop-none { background: transparent; }
+.animation-studio .code-backdrop-soft-gray { background: #aeb9c3; }
+.animation-studio .code-backdrop-soft-gray-gradient { background: linear-gradient(180deg, #aebbc6 0%, #aebbc6 8%, #50565b 49%, #aebbc6 92%, #aebbc6 100%); }
+.animation-studio .visual-code { width: calc(100% - var(--code-frame-inset) * 2); height: calc(100% - var(--code-frame-inset-y) * 2); overflow: hidden; border: 1px solid rgba(255,255,255,.14); border-radius: 10px; background: #0d1117; color: #e6edf3; box-shadow: 0 18px 50px rgba(0,0,0,.24); text-align: left; }
+.animation-studio .code-theme-carbon-dark { background: #121617; border-color: rgba(255,255,255,.07); box-shadow: 0 24px 70px rgba(0,0,0,.36); }
+.animation-studio .code-toolbar { height: 38px; padding: 0 16px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,.12); color: #8b949e; font: 600 12px/1 ui-monospace, SFMono-Regular, Menlo, monospace; }
+.animation-studio .code-toolbar b { color: var(--element-accent); text-transform: uppercase; letter-spacing: .08em; }
+.animation-studio .code-window-chrome { height: 58px; padding: 0 var(--code-padding); display: flex; align-items: center; gap: 13px; }
+.animation-studio .code-window-chrome i { display: block; width: 25px; height: 25px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(0,0,0,.16); }
+.animation-studio .code-dot-red { background: #ff5f57; }.animation-studio .code-dot-yellow { background: #ffbd2e; }.animation-studio .code-dot-green { background: #28c840; }
+.animation-studio .visual-code pre { margin: 0; padding: var(--code-padding); height: calc(100% - 38px); overflow: hidden; font: 500 var(--code-font-size)/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+.animation-studio .code-chrome-mac pre { height: calc(100% - 58px); padding-top: calc(var(--code-padding) * .45); }
+.animation-studio .code-chrome-none pre { height: 100%; }
+.animation-studio .code-line { display: grid; grid-template-columns: 48px minmax(0, 1fr); padding: 0; min-height: 1.55em; }
+.animation-studio .visual-code.is-without-line-numbers .code-line { grid-template-columns: minmax(0, 1fr); }
+.animation-studio .code-line.is-highlighted { background: color-mix(in srgb, var(--element-accent) 18%, transparent); box-shadow: inset 3px 0 var(--element-accent); }
+.animation-studio .code-line-number { color: #484f58; text-align: right; padding-right: 14px; user-select: none; }
+.animation-studio .code-line code { white-space: pre; }
+
+/* Platform-only: style the exit link like the other topbar actions. */
+.animation-studio .top-actions a {
+  height: 34px;
+  border: 1px solid #2a303a;
+  background: #11151b;
+  border-radius: 6px;
+  padding: 0 11px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  font-weight: 500;
+  color: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.animation-studio .top-actions a:hover { border-color: #59616e; background: #171c24; }
+.animation-studio .top-actions a svg { width: 15px; height: 15px; }
+.animation-studio .ui-light .top-actions a { background: #fff; border-color: #d4dae1; color: #48515c; }
+.animation-studio .ui-light .top-actions a:hover { background: #f0f3f6; border-color: #aeb6c0; }
+
+.animation-studio .ui-light .stage-tools span { color: #667a5d; }
+.animation-studio .ui-light .stage-tools span.has-errors { color: #b4552f; }
+
+/* Platform shell: mount the studio as a full-viewport overlay. */
+.animation-studio {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  height: 100dvh;
+}
+.animation-studio .app-shell { height: 100%; }
+
+/* Formula fraction: numerator over denominator, no stray division glyph. */
+.animation-studio .visual-formula .formula-fraction { display: flex; align-items: center; justify-content: center; gap: 1.2cqw; margin-top: 1.2cqw; }
+.animation-studio .visual-formula .formula-eq { font-size: 2.2cqw; line-height: 1; color: var(--element-accent); font-weight: 600; }
+.animation-studio .visual-formula .formula-stack { display: inline-flex; flex-direction: column; align-items: center; gap: .5cqw; }
+.animation-studio .visual-formula .formula-stack b { font-size: 2cqw; line-height: 1.1; font-weight: 650; letter-spacing: -.02em; }
+.animation-studio .visual-formula .formula-stack i { width: 100%; min-width: 9cqw; height: .14cqw; background: currentColor; opacity: .55; }
+
+/* Camera wrapper: animates the whole element stage, not the scene header. */
+.animation-studio .scene-stage { position: absolute; inset: 0; transform-origin: center center; will-change: transform; }

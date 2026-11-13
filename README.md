@@ -69,6 +69,30 @@ OPENROUTER_APP_NAME=COMP5241 Learning Platform
 
 也可以将 `AI_MODEL` 改为具体的 `provider/model:free` slug。OpenRouter 免费路由受可用模型、速率限制和上下文策略影响，不建议把它当成稳定的生产 SLA。
 
+## 课程动画
+
+教师和学生共用 `/animations`。入口在教师首页右上角的 **Animation**，以及学生首页 **More to Explore → Course animation**。
+
+`/animations` 是版本库，当前包含：
+
+| 版本 | 内容 |
+| --- | --- |
+| v2 | 原始导出：12 幕 × 65 秒，每幕 3 个元素 |
+| v3 | Step layer：每幕 4 步、63 个元素 |
+| v4 | 首批插图：部署策略、secret boundary、ken-burns |
+| v5 | 全量插图 + 分数公式 + 去掉 footer/背景装饰 |
+| v6 | 纯白纸 + 相机推拉 + 图片 move（最新） |
+
+教师和学生都能浏览全部版本；打开 `/animations/{version}` 后，教师可编辑，学生只读（播放、字幕、明暗主题）。缩略图在 `public/animation-versions/`。
+
+新增或替换版本：
+
+1. 在 Storyline Studio 中导出项目 JSON。
+2. 放入 `learning-platform/animation-studio/content/versions/`，并更新 `content/versions/registry.ts` 与 `content/versions/README.md`。
+3. 在 `learning-platform` 运行 `npm test`；`tests/animation-publication.test.ts` 和 `tests/animation-versions.test.ts` 会校验。
+
+该功能不需要数据库、Blob 或 AI Provider 配置。编辑只保存在浏览器内存中，刷新后回到该版本已发布内容（可导出 JSON）。服务端 TTS、MP4 导出、AI 生成和持久化项目列表不在本次范围内。
+
 ## 数据库与测试教师
 
 纯本地 PostgreSQL 可以使用 Docker 启动：
@@ -291,5 +315,7 @@ Break-glass 默认关闭。事件中只有 `xixi-in-polyu` 能以当前 `main` �
 | `/student` | READY 课程与已发布 Interactive Labs |
 | `/student/courses/{courseId}` | 课程内已发布的 Lab 作业 |
 | `/student/assignments/{assignmentId}` | 多 Lab 练习运行时与本地进度 |
+| `/animations` | 动画版本库；教师和学生都可浏览 |
+| `/animations/{version}` | 指定版本；教师可编辑，学生只读 |
 | `/api/assignments/{assignmentId}/interactive-labs/**` | 教师 Lab 创建、更新、历史、审批、归档及排序 |
 | `/api/student/assignments/{assignmentId}/interactive-labs` | 脱敏后的学生 Lab 内容 |

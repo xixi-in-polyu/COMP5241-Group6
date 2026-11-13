@@ -1,0 +1,4854 @@
+{
+  "schemaVersion": 5,
+  "id": "project-sdlc-story",
+  "title": "From Idea to Impact",
+  "description": "An editable visual journey through the software development lifecycle.",
+  "locale": "en-US",
+  "renderConfig": {
+    "fps": 30,
+    "width": 1920,
+    "height": 1080
+  },
+  "createdAt": "2026-10-31T00:00:00.000Z",
+  "updatedAt": "2026-11-13T00:00:00.000Z",
+  "sourceDocuments": [
+    {
+      "id": "source-sdlc-lecture",
+      "name": "Software Development Lifecycle.pdf",
+      "mimeType": "application/pdf",
+      "pageCount": 57,
+      "importedAt": "2026-10-31T00:00:00.000Z"
+    }
+  ],
+  "knowledgeNodes": [
+    {
+      "id": "sdlc",
+      "kind": "concept",
+      "title": "SDLC",
+      "summary": "A structured lifecycle from requirements through maintenance.",
+      "sourceDocumentId": "source-sdlc-lecture",
+      "sourcePages": [
+        2
+      ]
+    },
+    {
+      "id": "requirements",
+      "kind": "concept",
+      "title": "Requirements",
+      "summary": "Functional needs describe what; non-functional needs describe how well.",
+      "sourceDocumentId": "source-sdlc-lecture",
+      "sourcePages": [
+        3,
+        4,
+        17
+      ]
+    },
+    {
+      "id": "elicitation",
+      "kind": "concept",
+      "title": "Elicitation",
+      "summary": "Stakeholder discovery through documents, observation, interviews, surveys and prototypes.",
+      "sourceDocumentId": "source-sdlc-lecture",
+      "sourcePages": [
+        5,
+        7,
+        8,
+        10
+      ]
+    },
+    {
+      "id": "prototype",
+      "kind": "concept",
+      "title": "Prototype and MVP",
+      "summary": "Early artifacts test assumptions; an MVP maximizes validated learning with minimum effort.",
+      "sourceDocumentId": "source-sdlc-lecture",
+      "sourcePages": [
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ]
+    },
+    {
+      "id": "design",
+      "kind": "concept",
+      "title": "Design and architecture",
+      "summary": "Design translates what the system must do into how components work together.",
+      "sourceDocumentId": "source-sdlc-lecture",
+      "sourcePages": [
+        18,
+        19,
+        20
+      ]
+    },
+    {
+      "id": "security",
+      "kind": "concept",
+      "title": "Secret management",
+      "summary": "API keys stay outside source control and are injected into production.",
+      "sourceDocumentId": "source-sdlc-lecture",
+      "sourcePages": [
+        21,
+        22
+      ]
+    },
+    {
+      "id": "testing",
+      "kind": "concept",
+      "title": "Testing levels",
+      "summary": "Unit, integration, system, regression, automation and acceptance testing reduce different risks.",
+      "sourceDocumentId": "source-sdlc-lecture",
+      "sourcePages": [
+        23,
+        24,
+        25,
+        27,
+        28,
+        29
+      ]
+    },
+    {
+      "id": "validation",
+      "kind": "concept",
+      "title": "Verification and validation",
+      "summary": "Build the product right, then confirm it is the right product.",
+      "sourceDocumentId": "source-sdlc-lecture",
+      "sourcePages": [
+        30,
+        31,
+        32,
+        33,
+        34
+      ]
+    },
+    {
+      "id": "deployment",
+      "kind": "concept",
+      "title": "Deployment environments",
+      "summary": "Production differs from development in data, controls, dependencies and scale.",
+      "sourceDocumentId": "source-sdlc-lecture",
+      "sourcePages": [
+        35,
+        36
+      ]
+    },
+    {
+      "id": "maintenance",
+      "kind": "concept",
+      "title": "Maintenance",
+      "summary": "Corrective, adaptive, perfective and preventive work dominate lifecycle cost.",
+      "sourceDocumentId": "source-sdlc-lecture",
+      "sourcePages": [
+        37,
+        38,
+        39
+      ]
+    },
+    {
+      "id": "incident",
+      "kind": "concept",
+      "title": "Incident response",
+      "summary": "Discovery, mitigation and recovery determine operational impact.",
+      "sourceDocumentId": "source-sdlc-lecture",
+      "sourcePages": [
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46
+      ]
+    },
+    {
+      "id": "availability",
+      "kind": "formula",
+      "title": "Availability",
+      "summary": "Uptime divided by uptime plus downtime, shaped by failures and recovery speed.",
+      "sourceDocumentId": "source-sdlc-lecture",
+      "sourcePages": [
+        47,
+        48
+      ]
+    },
+    {
+      "id": "strategies",
+      "kind": "concept",
+      "title": "Deployment strategies",
+      "summary": "Big bang, rolling, blue-green and canary releases trade speed against risk.",
+      "sourceDocumentId": "source-sdlc-lecture",
+      "sourcePages": [
+        51,
+        52,
+        53,
+        54,
+        55
+      ]
+    },
+    {
+      "id": "delivery",
+      "kind": "concept",
+      "title": "Feature flags and CI/CD",
+      "summary": "Controlled exposure and automated delivery help teams ship safely.",
+      "sourceDocumentId": "source-sdlc-lecture",
+      "sourcePages": [
+        56,
+        57
+      ]
+    }
+  ],
+  "chapters": [
+    {
+      "id": "ch-overview",
+      "title": "SDLC Overview",
+      "shortTitle": "Overview",
+      "color": "#9FAF91"
+    },
+    {
+      "id": "ch-discover",
+      "title": "Requirements, Prototyping & MVP",
+      "shortTitle": "Discover",
+      "color": "#C69483"
+    },
+    {
+      "id": "ch-build",
+      "title": "Design, Implementation & Security",
+      "shortTitle": "Build",
+      "color": "#8EA6B4"
+    },
+    {
+      "id": "ch-test",
+      "title": "Testing, Verification & Validation",
+      "shortTitle": "Test",
+      "color": "#A79AB7"
+    },
+    {
+      "id": "ch-operate",
+      "title": "Deployment, Maintenance & Reliability",
+      "shortTitle": "Operate",
+      "color": "#8FAFA8"
+    },
+    {
+      "id": "ch-ship",
+      "title": "Release Strategies, Feature Flags & CI/CD",
+      "shortTitle": "Ship",
+      "color": "#C8AA72"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "scene-01",
+      "chapterId": "ch-overview",
+      "title": "A product is a living system",
+      "template": "opening",
+      "duration": 66.5,
+      "elements": [
+        {
+          "id": "s1-title",
+          "type": "title",
+          "content": "FROM IDEA\nTO IMPACT",
+          "x": 6,
+          "y": 10,
+          "width": 54,
+          "height": 28,
+          "style": {
+            "accent": "#9FAF91",
+            "tone": "glass",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s1-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0
+              },
+              "duration": 0.8,
+              "stagger": 0.1,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "sourcePages": [
+            1,
+            2
+          ],
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          }
+        },
+        {
+          "id": "s1-badge",
+          "type": "badge",
+          "content": "A living software journey",
+          "x": 6,
+          "y": 42,
+          "width": 28,
+          "height": 8,
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s1-badge-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 2
+              },
+              "duration": 0.8,
+              "stagger": 0.1,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "breathe"
+          },
+          "sourcePages": [
+            2
+          ],
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          }
+        },
+        {
+          "id": "s1-cycle",
+          "type": "lifecycle",
+          "content": "Software Development Lifecycle",
+          "items": [
+            {
+              "id": "s1-cycle-item-1",
+              "label": "Discover"
+            },
+            {
+              "id": "s1-cycle-item-2",
+              "label": "Design"
+            },
+            {
+              "id": "s1-cycle-item-3",
+              "label": "Build"
+            },
+            {
+              "id": "s1-cycle-item-4",
+              "label": "Test"
+            },
+            {
+              "id": "s1-cycle-item-5",
+              "label": "Deploy"
+            },
+            {
+              "id": "s1-cycle-item-6",
+              "label": "Learn"
+            }
+          ],
+          "x": 61,
+          "y": 12,
+          "width": 34,
+          "height": 68,
+          "style": {
+            "accent": "#9FAF91",
+            "tone": "glass",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s1-cycle-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 5
+              },
+              "duration": 0.8,
+              "stagger": 0.1,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s1-cycle-beat-2",
+                "preset": "glow",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-01-n2",
+                  "offset": 0.2
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.5
+              },
+              {
+                "id": "s1-cycle-beat-4",
+                "preset": "glow",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-01-n4",
+                  "offset": 0.2
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.5
+              }
+            ],
+            "ambient": "orbit"
+          },
+          "sourcePages": [
+            2
+          ],
+          "visual": {
+            "variant": "orbital",
+            "surface": "none"
+          }
+        },
+        {
+          "id": "s1-structure",
+          "type": "badge",
+          "content": "The lifecycle gives the journey structure",
+          "x": 6,
+          "y": 52,
+          "width": 50,
+          "height": 5,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "accent": "#9FAF91",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s1-structure-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-01-n2",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s1-structure-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-01-n2",
+                  "offset": 0.25
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "exit": {
+              "id": "s1-structure-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 32
+              },
+              "duration": 0.35,
+              "intensity": 1
+            },
+            "ambient": "none"
+          }
+        },
+        {
+          "id": "s1-tutor",
+          "type": "cards",
+          "content": "The AI tutor",
+          "x": 6,
+          "y": 58,
+          "width": 50,
+          "height": 18,
+          "visual": {
+            "variant": "grid",
+            "surface": "soft"
+          },
+          "style": {
+            "accent": "#9FAF91",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s1-tutor-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-01-n3",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s1-tutor-beat-3",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-01-n3",
+                  "offset": 0.25
+                },
+                "duration": 0.8,
+                "stagger": 0.1,
+                "intensity": 0.6
+              }
+            ],
+            "exit": {
+              "id": "s1-tutor-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 48.3
+              },
+              "duration": 0.35,
+              "intensity": 1
+            },
+            "ambient": "none"
+          },
+          "items": [
+            {
+              "id": "s1-tutor-i1",
+              "label": "Students ask questions"
+            },
+            {
+              "id": "s1-tutor-i2",
+              "label": "Teachers shape the experience"
+            },
+            {
+              "id": "s1-tutor-i3",
+              "label": "The team builds dependably"
+            }
+          ]
+        },
+        {
+          "id": "s1-feedback",
+          "type": "badge",
+          "content": "Feedback becomes the next requirement",
+          "x": 6,
+          "y": 86,
+          "width": 50,
+          "height": 6,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "accent": "#9FAF91",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s1-feedback-enter",
+              "preset": "spring-scale",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-01-n4",
+                "offset": 0
+              },
+              "duration": 0.8,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s1-feedback-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-01-n4",
+                  "offset": 0.25
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "ambient": "none"
+          }
+        }
+      ],
+      "narration": [
+        {
+          "id": "scene-01-n1",
+          "text": "Software is not born in a single moment. It moves from an uncertain idea to a system used by real people, under real pressure.",
+          "start": 0,
+          "end": 16.25
+        },
+        {
+          "id": "scene-01-n2",
+          "text": "The software development lifecycle, or SDLC, gives that journey structure. It connects requirements, design, implementation, testing, deployment, and maintenance.",
+          "start": 16.25,
+          "end": 32.5
+        },
+        {
+          "id": "scene-01-n3",
+          "text": "Our example is an AI tutor. Students ask questions, teachers shape the learning experience, and the team must turn both needs into dependable software.",
+          "start": 32.5,
+          "end": 48.75
+        },
+        {
+          "id": "scene-01-n4",
+          "text": "The path looks circular because every release creates feedback. What we learn in production becomes the next requirement, and the lifecycle begins again.",
+          "start": 48.75,
+          "end": 65
+        }
+      ],
+      "knowledgeNodeIds": [
+        "sdlc"
+      ],
+      "transitionOut": {
+        "preset": "fade",
+        "duration": 0.6
+      },
+      "captionMode": "bottom",
+      "camera": {
+        "zoomFrom": 1,
+        "zoomTo": 1.03,
+        "panX": 0.6,
+        "panY": -0.3
+      }
+    },
+    {
+      "id": "scene-02",
+      "chapterId": "ch-overview",
+      "title": "One loop, many decisions",
+      "template": "process",
+      "duration": 66.5,
+      "elements": [
+        {
+          "id": "s2-title",
+          "type": "title",
+          "content": "ONE LOOP.\nMANY DECISIONS.",
+          "x": 5,
+          "y": 7,
+          "width": 48,
+          "height": 23,
+          "style": {
+            "accent": "#9FAF91",
+            "tone": "glass",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s2-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0
+              },
+              "duration": 0.8,
+              "stagger": 0.1,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "sourcePages": [
+            2
+          ],
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          }
+        },
+        {
+          "id": "s2-flow",
+          "type": "flow",
+          "content": "The delivery loop",
+          "items": [
+            {
+              "id": "s2-flow-item-1",
+              "label": "Requirements"
+            },
+            {
+              "id": "s2-flow-item-2",
+              "label": "System design"
+            },
+            {
+              "id": "s2-flow-item-3",
+              "label": "Implementation"
+            },
+            {
+              "id": "s2-flow-item-4",
+              "label": "Unit test"
+            },
+            {
+              "id": "s2-flow-item-5",
+              "label": "Integration"
+            },
+            {
+              "id": "s2-flow-item-6",
+              "label": "System test"
+            },
+            {
+              "id": "s2-flow-item-7",
+              "label": "Acceptance"
+            },
+            {
+              "id": "s2-flow-item-8",
+              "label": "Deployment"
+            },
+            {
+              "id": "s2-flow-item-9",
+              "label": "Maintenance"
+            }
+          ],
+          "x": 5,
+          "y": 38,
+          "width": 90,
+          "height": 32,
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s2-flow-enter",
+              "preset": "draw",
+              "trigger": {
+                "type": "time",
+                "at": 4
+              },
+              "duration": 1,
+              "stagger": 0.1,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s2-flow-beat-2",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-02-n2",
+                  "offset": 0.2
+                },
+                "duration": 1,
+                "stagger": 0.1,
+                "intensity": 0.6
+              },
+              {
+                "id": "s2-flow-beat-3",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-02-n3",
+                  "offset": 0.2
+                },
+                "duration": 1,
+                "stagger": 0.1,
+                "intensity": 0.6
+              },
+              {
+                "id": "s2-flow-beat-4",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-02-n4",
+                  "offset": 0.2
+                },
+                "duration": 1,
+                "stagger": 0.1,
+                "intensity": 0.6
+              }
+            ],
+            "ambient": "none"
+          },
+          "sourcePages": [
+            2
+          ],
+          "visual": {
+            "variant": "rail",
+            "surface": "none"
+          }
+        },
+        {
+          "id": "s2-text",
+          "type": "text",
+          "content": "Each stage reduces a different kind of uncertainty.",
+          "x": 56,
+          "y": 10,
+          "width": 37,
+          "height": 18,
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s2-text-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 8
+              },
+              "duration": 0.8,
+              "stagger": 0.1,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "sourcePages": [
+            2
+          ],
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          }
+        },
+        {
+          "id": "s2-stages",
+          "type": "badge",
+          "content": "Requirements → Design → Implementation",
+          "x": 5,
+          "y": 72,
+          "width": 90,
+          "height": 6,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "accent": "#9FAF91",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s2-stages-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-02-n2",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s2-stages-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-02-n2",
+                  "offset": 0.25
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "exit": {
+              "id": "s2-stages-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 32
+              },
+              "duration": 0.35,
+              "intensity": 1
+            },
+            "ambient": "none"
+          }
+        },
+        {
+          "id": "s2-tests",
+          "type": "cards",
+          "content": "Test at every level",
+          "x": 5,
+          "y": 78,
+          "width": 60,
+          "height": 16,
+          "visual": {
+            "variant": "editorial",
+            "surface": "soft"
+          },
+          "style": {
+            "accent": "#9FAF91",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s2-tests-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-02-n3",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s2-tests-beat-3",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-02-n3",
+                  "offset": 0.25
+                },
+                "duration": 0.8,
+                "stagger": 0.1,
+                "intensity": 0.6
+              }
+            ],
+            "exit": {
+              "id": "s2-tests-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 48.3
+              },
+              "duration": 0.35,
+              "intensity": 1
+            },
+            "ambient": "none"
+          },
+          "items": [
+            {
+              "id": "s2-tests-i1",
+              "label": "Unit and integration"
+            },
+            {
+              "id": "s2-tests-i2",
+              "label": "System and acceptance"
+            }
+          ]
+        },
+        {
+          "id": "s2-maintain",
+          "type": "badge",
+          "content": "Deploy, then maintain",
+          "x": 67,
+          "y": 79,
+          "width": 28,
+          "height": 8,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "accent": "#9FAF91",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s2-maintain-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-02-n4",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s2-maintain-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-02-n4",
+                  "offset": 0.25
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "ambient": "none"
+          }
+        }
+      ],
+      "narration": [
+        {
+          "id": "scene-02-n1",
+          "text": "A lifecycle is more than a checklist. Each stage answers a different question and reduces a different form of uncertainty.",
+          "start": 0,
+          "end": 16.25
+        },
+        {
+          "id": "scene-02-n2",
+          "text": "Requirements define the desired outcome. Design explains how the system will work. Implementation turns the design into executable behavior.",
+          "start": 16.25,
+          "end": 32.5
+        },
+        {
+          "id": "scene-02-n3",
+          "text": "Testing moves from small units to integrated modules, the complete system, and finally acceptance by customers or end users.",
+          "start": 32.5,
+          "end": 48.75
+        },
+        {
+          "id": "scene-02-n4",
+          "text": "Deployment puts the software into its real environment. Maintenance then fixes defects, adapts to change, improves quality, and prevents future problems.",
+          "start": 48.75,
+          "end": 65
+        }
+      ],
+      "knowledgeNodeIds": [
+        "sdlc"
+      ],
+      "transitionOut": {
+        "preset": "fade",
+        "duration": 0.6
+      },
+      "captionMode": "bottom",
+      "camera": {
+        "zoomFrom": 1,
+        "zoomTo": 1.025,
+        "panX": -0.5,
+        "panY": 0
+      }
+    },
+    {
+      "id": "scene-03",
+      "chapterId": "ch-discover",
+      "title": "Start with the problem",
+      "template": "concept",
+      "duration": 66.5,
+      "elements": [
+        {
+          "id": "s3-title",
+          "type": "title",
+          "content": "START WITH\nTHE PROBLEM",
+          "x": 5,
+          "y": 7,
+          "width": 48,
+          "height": 23,
+          "style": {
+            "accent": "#C69483",
+            "tone": "glass",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s3-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0
+              },
+              "duration": 0.8,
+              "stagger": 0.1,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "sourcePages": [
+            3,
+            7,
+            10
+          ],
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          }
+        },
+        {
+          "id": "s3-compare",
+          "type": "comparison",
+          "content": "Two kinds of requirements",
+          "items": [
+            {
+              "id": "s3-compare-item-1",
+              "label": "FUNCTIONAL — What the system must do"
+            },
+            {
+              "id": "s3-compare-item-2",
+              "label": "NON-FUNCTIONAL — How well it must operate"
+            }
+          ],
+          "x": 5,
+          "y": 39,
+          "width": 58,
+          "height": 36,
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s3-compare-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 3
+              },
+              "duration": 0.8,
+              "stagger": 0.1,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s3-compare-beat-2",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-03-n2",
+                  "offset": 0.2
+                },
+                "duration": 0.8,
+                "stagger": 0.1,
+                "intensity": 0.6
+              },
+              {
+                "id": "s3-compare-beat-3",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-03-n3",
+                  "offset": 0.2
+                },
+                "duration": 0.8,
+                "stagger": 0.1,
+                "intensity": 0.6
+              }
+            ],
+            "ambient": "none"
+          },
+          "sourcePages": [
+            3,
+            4,
+            17
+          ],
+          "visual": {
+            "variant": "split",
+            "surface": "none"
+          }
+        },
+        {
+          "id": "s3-cards",
+          "type": "cards",
+          "content": "Listen before you specify",
+          "items": [
+            {
+              "id": "s3-cards-item-1",
+              "label": "Document analysis"
+            },
+            {
+              "id": "s3-cards-item-2",
+              "label": "Observation"
+            },
+            {
+              "id": "s3-cards-item-3",
+              "label": "Interviews"
+            },
+            {
+              "id": "s3-cards-item-4",
+              "label": "Surveys"
+            },
+            {
+              "id": "s3-cards-item-5",
+              "label": "Focus groups"
+            },
+            {
+              "id": "s3-cards-item-6",
+              "label": "Prototyping"
+            }
+          ],
+          "x": 67,
+          "y": 11,
+          "width": 28,
+          "height": 66,
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s3-cards-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-03-n4",
+                "offset": 0
+              },
+              "duration": 0.8,
+              "stagger": 0.1,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s3-cards-beat-4",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-03-n4",
+                  "offset": 0.2
+                },
+                "duration": 0.8,
+                "stagger": 0.1,
+                "intensity": 0.6
+              }
+            ],
+            "ambient": "none"
+          },
+          "sourcePages": [
+            5
+          ],
+          "visual": {
+            "variant": "editorial",
+            "surface": "soft"
+          }
+        },
+        {
+          "id": "s3-people",
+          "type": "badge",
+          "content": "People · workflows · value",
+          "x": 5,
+          "y": 31,
+          "width": 50,
+          "height": 6,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "accent": "#C69483",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s3-people-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-03-n1",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          }
+        },
+        {
+          "id": "s3-nfr",
+          "type": "badge",
+          "content": "Performance · reliability · security · scalability",
+          "x": 5,
+          "y": 77,
+          "width": 58,
+          "height": 6,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "accent": "#C69483",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s3-nfr-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-03-n3",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s3-nfr-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-03-n3",
+                  "offset": 0.25
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "exit": {
+              "id": "s3-nfr-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 48.3
+              },
+              "duration": 0.35,
+              "intensity": 1
+            },
+            "ambient": "none"
+          }
+        }
+      ],
+      "narration": [
+        {
+          "id": "scene-03-n1",
+          "text": "Good software begins with the problem, not with a favorite solution. Teams identify the people affected, learn their workflows, and uncover the value the project must create.",
+          "start": 0,
+          "end": 16.25
+        },
+        {
+          "id": "scene-03-n2",
+          "text": "Functional requirements describe what the system should accomplish: create an account, search content, or generate questions from a source text.",
+          "start": 16.25,
+          "end": 32.5
+        },
+        {
+          "id": "scene-03-n3",
+          "text": "Non-functional requirements describe how well it should work: its performance, reliability, availability, usability, scalability, security, and maintainability.",
+          "start": 32.5,
+          "end": 48.75
+        },
+        {
+          "id": "scene-03-n4",
+          "text": "Teams collect this evidence through documents, observation, interviews, surveys, workshops, and prototypes. Better questions expose pain points, exceptions, ownership, and conflicting priorities.",
+          "start": 48.75,
+          "end": 65
+        }
+      ],
+      "knowledgeNodeIds": [
+        "requirements",
+        "elicitation"
+      ],
+      "transitionOut": {
+        "preset": "fade",
+        "duration": 0.6
+      },
+      "captionMode": "bottom",
+      "camera": {
+        "zoomFrom": 1,
+        "zoomTo": 1.03,
+        "panX": 0.4,
+        "panY": 0.3
+      }
+    },
+    {
+      "id": "scene-04",
+      "chapterId": "ch-discover",
+      "title": "Prototype to learn",
+      "template": "comparison",
+      "duration": 66.5,
+      "elements": [
+        {
+          "id": "s4-title",
+          "type": "title",
+          "content": "PROTOTYPE\nTO LEARN",
+          "x": 5,
+          "y": 7,
+          "width": 44,
+          "height": 23,
+          "style": {
+            "accent": "#C69483",
+            "tone": "glass",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s4-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0
+              },
+              "duration": 0.8,
+              "stagger": 0.1,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "sourcePages": [
+            11,
+            14,
+            15
+          ],
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          }
+        },
+        {
+          "id": "s4-flow",
+          "type": "flow",
+          "content": "The learning loop",
+          "items": [
+            {
+              "id": "s4-flow-item-1",
+              "label": "Idea"
+            },
+            {
+              "id": "s4-flow-item-2",
+              "label": "Build"
+            },
+            {
+              "id": "s4-flow-item-3",
+              "label": "Measure"
+            },
+            {
+              "id": "s4-flow-item-4",
+              "label": "Learn"
+            },
+            {
+              "id": "s4-flow-item-5",
+              "label": "Refine"
+            }
+          ],
+          "x": 5,
+          "y": 40,
+          "width": 52,
+          "height": 26,
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s4-flow-enter",
+              "preset": "draw",
+              "trigger": {
+                "type": "time",
+                "at": 3
+              },
+              "duration": 1,
+              "stagger": 0.1,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s4-flow-beat-2",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-04-n2",
+                  "offset": 0.2
+                },
+                "duration": 1,
+                "stagger": 0.1,
+                "intensity": 0.6
+              },
+              {
+                "id": "s4-flow-beat-3",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-04-n3",
+                  "offset": 0.2
+                },
+                "duration": 1,
+                "stagger": 0.1,
+                "intensity": 0.6
+              },
+              {
+                "id": "s4-flow-beat-4",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-04-n4",
+                  "offset": 0.2
+                },
+                "duration": 1,
+                "stagger": 0.1,
+                "intensity": 0.6
+              }
+            ],
+            "ambient": "none"
+          },
+          "sourcePages": [
+            14,
+            15
+          ],
+          "visual": {
+            "variant": "rail",
+            "surface": "none"
+          }
+        },
+        {
+          "id": "s4-cards",
+          "type": "cards",
+          "content": "Choose the right fidelity",
+          "items": [
+            {
+              "id": "s4-cards-item-1",
+              "label": "Wireframe — structure"
+            },
+            {
+              "id": "s4-cards-item-2",
+              "label": "Mockup — visual language"
+            },
+            {
+              "id": "s4-cards-item-3",
+              "label": "High-fidelity — interaction"
+            },
+            {
+              "id": "s4-cards-item-4",
+              "label": "MVP — validated learning"
+            }
+          ],
+          "x": 62,
+          "y": 10,
+          "width": 33,
+          "height": 66,
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s4-cards-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-04-n3",
+                "offset": 0
+              },
+              "duration": 0.8,
+              "stagger": 0.1,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s4-cards-beat-3",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-04-n3",
+                  "offset": 0.2
+                },
+                "duration": 0.8,
+                "stagger": 0.1,
+                "intensity": 0.6
+              },
+              {
+                "id": "s4-cards-beat-4",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-04-n4",
+                  "offset": 0.2
+                },
+                "duration": 0.8,
+                "stagger": 0.1,
+                "intensity": 0.6
+              }
+            ],
+            "ambient": "none"
+          },
+          "sourcePages": [
+            11,
+            12,
+            13,
+            14,
+            15,
+            16
+          ],
+          "visual": {
+            "variant": "editorial",
+            "surface": "soft"
+          }
+        },
+        {
+          "id": "s4-types",
+          "type": "text",
+          "content": "Throwaway · Evolutionary · Incremental",
+          "x": 5,
+          "y": 70,
+          "width": 52,
+          "height": 10,
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "style": {
+            "accent": "#C69483",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s4-types-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-04-n2",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [],
+            "exit": {
+              "id": "s4-types-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 32
+              },
+              "duration": 0.35,
+              "intensity": 1
+            },
+            "ambient": "none"
+          }
+        },
+        {
+          "id": "s4-mvp",
+          "type": "badge",
+          "content": "MVP: enough value to test the business idea",
+          "x": 5,
+          "y": 80,
+          "width": 52,
+          "height": 7,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "accent": "#C69483",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s4-mvp-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-04-n4",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s4-mvp-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-04-n4",
+                  "offset": 0.25
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "ambient": "none"
+          }
+        }
+      ],
+      "narration": [
+        {
+          "id": "scene-04-n1",
+          "text": "Stakeholders often recognize what they need only when they can see and try something. Prototypes make requirements tangible before the team commits to full production.",
+          "start": 0,
+          "end": 16.25
+        },
+        {
+          "id": "scene-04-n2",
+          "text": "A throwaway prototype is built quickly and discarded. An evolutionary prototype grows through feedback. An incremental prototype develops separate parts and later combines them.",
+          "start": 16.25,
+          "end": 32.5
+        },
+        {
+          "id": "scene-04-n3",
+          "text": "Wireframes test structure, mockups test visual language, and high-fidelity prototypes test interaction. Each is an instrument for learning, not automatically a finished product.",
+          "start": 32.5,
+          "end": 48.75
+        },
+        {
+          "id": "scene-04-n4",
+          "text": "A minimum viable product goes further. It delivers enough real value to test the business idea with real users, collect meaningful evidence, and guide the next investment.",
+          "start": 48.75,
+          "end": 65
+        }
+      ],
+      "knowledgeNodeIds": [
+        "prototype",
+        "elicitation"
+      ],
+      "transitionOut": {
+        "preset": "fade",
+        "duration": 0.6
+      },
+      "captionMode": "bottom",
+      "camera": {
+        "zoomFrom": 1,
+        "zoomTo": 1.04,
+        "panX": 0.6,
+        "panY": 0
+      }
+    },
+    {
+      "id": "scene-05",
+      "chapterId": "ch-build",
+      "title": "Turn what into how",
+      "template": "architecture",
+      "duration": 66.5,
+      "elements": [
+        {
+          "id": "s5-title",
+          "type": "title",
+          "content": "TURN “WHAT”\nINTO “HOW”",
+          "x": 5,
+          "y": 7,
+          "width": 45,
+          "height": 23,
+          "style": {
+            "accent": "#8EA6B4",
+            "tone": "glass",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s5-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0
+              },
+              "duration": 0.8,
+              "stagger": 0.1,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "sourcePages": [
+            18
+          ],
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          }
+        },
+        {
+          "id": "s5-text",
+          "type": "text",
+          "content": "Requirements state the outcome. Design explains the system.",
+          "x": 55,
+          "y": 11,
+          "width": 38,
+          "height": 16,
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s5-text-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 7
+              },
+              "duration": 0.8,
+              "stagger": 0.1,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "sourcePages": [
+            18
+          ],
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          }
+        },
+        {
+          "id": "s5-architecture-image",
+          "type": "image",
+          "content": "",
+          "assetId": "asset-architecture",
+          "alt": "React UI calls the Flask API; Flask calls the AI service and reads chat history from a database; the API key stays in the backend.",
+          "fit": "contain",
+          "x": 5,
+          "y": 30,
+          "width": 58,
+          "height": 58,
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s5-architecture-image-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-05-n2",
+                "offset": 0
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s5-architecture-image-move-3",
+                "preset": "move",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-05-n3",
+                  "offset": 0.1
+                },
+                "duration": 1.4,
+                "intensity": 1,
+                "offset": {
+                  "x": -1.2,
+                  "y": 0
+                }
+              }
+            ],
+            "ambient": "ken-burns"
+          }
+        },
+        {
+          "id": "s5-arch-badge",
+          "type": "badge",
+          "content": "React → Flask → AI → DB",
+          "x": 65,
+          "y": 34,
+          "width": 32,
+          "height": 9,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s5-arch-badge-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-05-n2",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s5-arch-badge-beat",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-05-n2",
+                  "offset": 0.3
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "ambient": "none",
+            "exit": {
+              "id": "s5-arch-badge-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 32
+              },
+              "duration": 0.4,
+              "intensity": 1
+            }
+          }
+        },
+        {
+          "id": "s5-interface-badge",
+          "type": "badge",
+          "content": "Clear interfaces keep the parts independent",
+          "x": 65,
+          "y": 34,
+          "width": 32,
+          "height": 10,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s5-interface-badge-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-05-n3",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s5-interface-badge-beat",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-05-n3",
+                  "offset": 0.3
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "ambient": "none",
+            "exit": {
+              "id": "s5-interface-badge-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 48.3
+              },
+              "duration": 0.4,
+              "intensity": 1
+            }
+          }
+        },
+        {
+          "id": "s5-design-badge",
+          "type": "badge",
+          "content": "Scale · failure modes · security · trade-offs",
+          "x": 65,
+          "y": 34,
+          "width": 32,
+          "height": 11,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s5-design-badge-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-05-n4",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s5-design-badge-beat",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-05-n4",
+                  "offset": 0.3
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "ambient": "none"
+          }
+        }
+      ],
+      "narration": [
+        {
+          "id": "scene-05-n1",
+          "text": "Requirements state what the system should do. Design describes how it will do it, including components, data, interfaces, trade-offs, and responsibilities.",
+          "start": 0,
+          "end": 16.25
+        },
+        {
+          "id": "scene-05-n2",
+          "text": "For our AI tutor, a React interface lets students type questions and view answers. It sends requests to a Python Flask application programming interface.",
+          "start": 16.25,
+          "end": 32.5
+        },
+        {
+          "id": "scene-05-n3",
+          "text": "The backend applies business logic, calls the AI service, and stores chat history in a database. Clear interfaces let these parts evolve without becoming one tangled block.",
+          "start": 32.5,
+          "end": 48.75
+        },
+        {
+          "id": "scene-05-n4",
+          "text": "System design is the practice of reasoning about this structure: expected scale, failure modes, data movement, security boundaries, and the compromises required by real constraints.",
+          "start": 48.75,
+          "end": 65
+        }
+      ],
+      "knowledgeNodeIds": [
+        "design"
+      ],
+      "transitionOut": {
+        "preset": "fade",
+        "duration": 0.6
+      },
+      "captionMode": "bottom",
+      "camera": {
+        "zoomFrom": 1,
+        "zoomTo": 1.04,
+        "panX": -0.8,
+        "panY": 0
+      }
+    },
+    {
+      "id": "scene-06",
+      "chapterId": "ch-build",
+      "title": "Secrets stop at the boundary",
+      "template": "process",
+      "duration": 66.5,
+      "elements": [
+        {
+          "id": "s6-title",
+          "type": "title",
+          "content": "SECRETS STOP\nAT THE BOUNDARY",
+          "x": 5,
+          "y": 7,
+          "width": 51,
+          "height": 23,
+          "style": {
+            "accent": "#8EA6B4",
+            "tone": "glass",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s6-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0
+              },
+              "duration": 0.8,
+              "stagger": 0.1,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "sourcePages": [
+            21,
+            22
+          ],
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          }
+        },
+        {
+          "id": "s6-flow",
+          "type": "flow",
+          "content": "Safe secret path",
+          "items": [
+            {
+              "id": "s6-flow-item-1",
+              "label": "Local .env"
+            },
+            {
+              "id": "s6-flow-item-2",
+              "label": ".gitignore"
+            },
+            {
+              "id": "s6-flow-item-3",
+              "label": "Code-only repository"
+            },
+            {
+              "id": "s6-flow-item-4",
+              "label": "Deployment platform"
+            },
+            {
+              "id": "s6-flow-item-5",
+              "label": "Runtime injection"
+            }
+          ],
+          "x": 6,
+          "y": 40,
+          "width": 88,
+          "height": 27,
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s6-flow-enter",
+              "preset": "draw",
+              "trigger": {
+                "type": "time",
+                "at": 3
+              },
+              "duration": 1,
+              "stagger": 0.1,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s6-flow-beat-2",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-06-n2",
+                  "offset": 0.2
+                },
+                "duration": 1,
+                "stagger": 0.1,
+                "intensity": 0.6
+              },
+              {
+                "id": "s6-flow-beat-3",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-06-n3",
+                  "offset": 0.2
+                },
+                "duration": 1,
+                "stagger": 0.1,
+                "intensity": 0.6
+              },
+              {
+                "id": "s6-flow-beat-4",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-06-n4",
+                  "offset": 0.2
+                },
+                "duration": 1,
+                "stagger": 0.1,
+                "intensity": 0.6
+              }
+            ],
+            "ambient": "none",
+            "exit": {
+              "id": "s6-flow-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 48.3
+              },
+              "duration": 0.4,
+              "intensity": 1
+            }
+          },
+          "sourcePages": [
+            21,
+            22
+          ],
+          "visual": {
+            "variant": "rail",
+            "surface": "none"
+          }
+        },
+        {
+          "id": "s6-env",
+          "type": "cards",
+          "content": "Local development",
+          "x": 6,
+          "y": 70,
+          "width": 50,
+          "height": 16,
+          "visual": {
+            "variant": "editorial",
+            "surface": "soft"
+          },
+          "style": {
+            "accent": "#8EA6B4",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s6-env-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-06-n2",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s6-env-beat-2",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-06-n2",
+                  "offset": 0.25
+                },
+                "duration": 0.8,
+                "stagger": 0.1,
+                "intensity": 0.6
+              }
+            ],
+            "exit": {
+              "id": "s6-env-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 32
+              },
+              "duration": 0.35,
+              "intensity": 1
+            },
+            "ambient": "none"
+          },
+          "items": [
+            {
+              "id": "s6-env-i1",
+              "label": ".env file"
+            },
+            {
+              "id": "s6-env-i2",
+              "label": ".gitignore keeps it out"
+            }
+          ]
+        },
+        {
+          "id": "s6-runtime",
+          "type": "badge",
+          "content": "Production injects secrets at runtime",
+          "x": 6,
+          "y": 87,
+          "width": 88,
+          "height": 6,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "accent": "#8EA6B4",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s6-runtime-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-06-n3",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s6-runtime-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-06-n3",
+                  "offset": 0.25
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "exit": {
+              "id": "s6-runtime-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 48.3
+              },
+              "duration": 0.35,
+              "intensity": 1
+            },
+            "ambient": "none"
+          }
+        },
+        {
+          "id": "s6-boundary-image",
+          "type": "image",
+          "content": "",
+          "assetId": "asset-secret-boundary",
+          "alt": "Browser sends a request to the backend; the backend holds the API key and calls the AI service; the repository never contains live keys.",
+          "fit": "contain",
+          "x": 5,
+          "y": 30,
+          "width": 58,
+          "height": 58,
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s6-boundary-image-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-06-n4",
+                "offset": 0
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s6-boundary-image-move-4",
+                "preset": "move",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-06-n4",
+                  "offset": 0.1
+                },
+                "duration": 1.2,
+                "intensity": 1,
+                "offset": {
+                  "x": -1,
+                  "y": 0
+                }
+              }
+            ],
+            "exit": null,
+            "ambient": "ken-burns"
+          }
+        },
+        {
+          "id": "s6-boundary-badge",
+          "type": "badge",
+          "content": "No key in the browser or repository",
+          "x": 65,
+          "y": 34,
+          "width": 32,
+          "height": 9,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s6-boundary-badge-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-06-n4",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s6-boundary-badge-beat",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-06-n4",
+                  "offset": 0.3
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.5
+              }
+            ],
+            "ambient": "none"
+          }
+        }
+      ],
+      "narration": [
+        {
+          "id": "scene-06-n1",
+          "text": "Implementation turns design into code, but production quality also depends on what the code refuses to expose. Secret keys are a simple and critical example.",
+          "start": 0,
+          "end": 16.25
+        },
+        {
+          "id": "scene-06-n2",
+          "text": "During local development, a dot-env file can provide environment variables. A git-ignore rule keeps that file and other sensitive material out of version control.",
+          "start": 16.25,
+          "end": 32.5
+        },
+        {
+          "id": "scene-06-n3",
+          "text": "The remote repository should contain code, never live credentials. In production, the hosting platform stores secrets and injects them only into the running backend.",
+          "start": 32.5,
+          "end": 48.75
+        },
+        {
+          "id": "scene-06-n4",
+          "text": "The browser must never receive a private AI key. It calls the backend, and the backend calls the protected service. That boundary is part of the architecture.",
+          "start": 48.75,
+          "end": 65
+        }
+      ],
+      "knowledgeNodeIds": [
+        "security",
+        "design"
+      ],
+      "transitionOut": {
+        "preset": "fade",
+        "duration": 0.6
+      },
+      "captionMode": "bottom",
+      "camera": {
+        "zoomFrom": 1,
+        "zoomTo": 1.03,
+        "panX": 0.5,
+        "panY": -0.3
+      }
+    },
+    {
+      "id": "scene-07",
+      "chapterId": "ch-test",
+      "title": "Test the seams",
+      "template": "process",
+      "duration": 66.5,
+      "elements": [
+        {
+          "id": "s7-title",
+          "type": "title",
+          "content": "TEST\nTHE SEAMS",
+          "x": 5,
+          "y": 7,
+          "width": 39,
+          "height": 23,
+          "style": {
+            "accent": "#A79AB7",
+            "tone": "glass",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s7-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0
+              },
+              "duration": 0.8,
+              "stagger": 0.1,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "sourcePages": [
+            23,
+            24,
+            25
+          ],
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          }
+        },
+        {
+          "id": "s7-flow",
+          "type": "flow",
+          "content": "Confidence expands outward",
+          "items": [
+            {
+              "id": "s7-flow-item-1",
+              "label": "Unit"
+            },
+            {
+              "id": "s7-flow-item-2",
+              "label": "Integration"
+            },
+            {
+              "id": "s7-flow-item-3",
+              "label": "System"
+            },
+            {
+              "id": "s7-flow-item-4",
+              "label": "Acceptance"
+            }
+          ],
+          "x": 5,
+          "y": 40,
+          "width": 56,
+          "height": 28,
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s7-flow-enter",
+              "preset": "draw",
+              "trigger": {
+                "type": "time",
+                "at": 3
+              },
+              "duration": 1,
+              "stagger": 0.1,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s7-flow-beat-2",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-07-n2",
+                  "offset": 0.2
+                },
+                "duration": 1,
+                "stagger": 0.1,
+                "intensity": 0.6
+              },
+              {
+                "id": "s7-flow-beat-3",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-07-n3",
+                  "offset": 0.2
+                },
+                "duration": 1,
+                "stagger": 0.1,
+                "intensity": 0.6
+              },
+              {
+                "id": "s7-flow-beat-4",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-07-n4",
+                  "offset": 0.2
+                },
+                "duration": 1,
+                "stagger": 0.1,
+                "intensity": 0.6
+              }
+            ],
+            "ambient": "none"
+          },
+          "sourcePages": [
+            23,
+            24,
+            25,
+            29
+          ],
+          "visual": {
+            "variant": "rail",
+            "surface": "none"
+          }
+        },
+        {
+          "id": "s7-cards",
+          "type": "cards",
+          "content": "Different tests, different risks",
+          "items": [
+            {
+              "id": "s7-cards-item-1",
+              "label": "Function behavior"
+            },
+            {
+              "id": "s7-cards-item-2",
+              "label": "Module contracts"
+            },
+            {
+              "id": "s7-cards-item-3",
+              "label": "Complete requirements"
+            },
+            {
+              "id": "s7-cards-item-4",
+              "label": "Customer value"
+            }
+          ],
+          "x": 65,
+          "y": 10,
+          "width": 30,
+          "height": 63,
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s7-cards-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-07-n3",
+                "offset": 0
+              },
+              "duration": 0.8,
+              "stagger": 0.1,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s7-cards-beat-3",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-07-n3",
+                  "offset": 0.2
+                },
+                "duration": 0.8,
+                "stagger": 0.1,
+                "intensity": 0.6
+              },
+              {
+                "id": "s7-cards-beat-4",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-07-n4",
+                  "offset": 0.2
+                },
+                "duration": 0.8,
+                "stagger": 0.1,
+                "intensity": 0.6
+              }
+            ],
+            "ambient": "none"
+          },
+          "sourcePages": [
+            23,
+            24,
+            25,
+            29
+          ],
+          "visual": {
+            "variant": "editorial",
+            "surface": "soft"
+          }
+        },
+        {
+          "id": "s7-integration",
+          "type": "badge",
+          "content": "Contracts · data · timing · errors",
+          "x": 5,
+          "y": 72,
+          "width": 56,
+          "height": 6,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "accent": "#A79AB7",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s7-integration-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-07-n2",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s7-integration-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-07-n2",
+                  "offset": 0.25
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "exit": {
+              "id": "s7-integration-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 32
+              },
+              "duration": 0.35,
+              "intensity": 1
+            },
+            "ambient": "none"
+          }
+        },
+        {
+          "id": "s7-acceptance",
+          "type": "text",
+          "content": "Alpha with developer support · beta with real users",
+          "x": 5,
+          "y": 80,
+          "width": 56,
+          "height": 12,
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "style": {
+            "accent": "#A79AB7",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s7-acceptance-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-07-n4",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          }
+        }
+      ],
+      "narration": [
+        {
+          "id": "scene-07-n1",
+          "text": "Testing builds confidence from the inside out. Unit tests isolate a function, method, or class so a local fault is easy to identify.",
+          "start": 0,
+          "end": 16.25
+        },
+        {
+          "id": "scene-07-n2",
+          "text": "Integration testing combines modules. Two correct components can still fail when one misunderstands the other component’s interface, data, timing, or error behavior.",
+          "start": 16.25,
+          "end": 32.5
+        },
+        {
+          "id": "scene-07-n3",
+          "text": "System testing evaluates the complete product against its requirements, including functionality, recovery, interoperability, performance, scalability, reliability, and documentation.",
+          "start": 32.5,
+          "end": 48.75
+        },
+        {
+          "id": "scene-07-n4",
+          "text": "Acceptance testing asks customers or end users whether the delivered system satisfies agreed criteria. Alpha testing happens with developer support; beta testing reaches a broader real audience.",
+          "start": 48.75,
+          "end": 65
+        }
+      ],
+      "knowledgeNodeIds": [
+        "testing"
+      ],
+      "transitionOut": {
+        "preset": "fade",
+        "duration": 0.6
+      },
+      "captionMode": "bottom",
+      "camera": {
+        "zoomFrom": 1,
+        "zoomTo": 1.03,
+        "panX": -0.5,
+        "panY": 0.2
+      }
+    },
+    {
+      "id": "scene-08",
+      "chapterId": "ch-test",
+      "title": "Right product. Built right.",
+      "template": "comparison",
+      "duration": 66.5,
+      "elements": [
+        {
+          "id": "s8-title",
+          "type": "title",
+          "content": "RIGHT PRODUCT.\nBUILT RIGHT.",
+          "x": 5,
+          "y": 7,
+          "width": 55,
+          "height": 23,
+          "style": {
+            "accent": "#A79AB7",
+            "tone": "glass",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s8-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0
+              },
+              "duration": 0.8,
+              "stagger": 0.1,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "sourcePages": [
+            33
+          ],
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          }
+        },
+        {
+          "id": "s8-vv-image",
+          "type": "image",
+          "content": "",
+          "assetId": "asset-verification",
+          "alt": "Verification checks code review, unit, integration and system tests; validation checks prototypes, usability, acceptance and production evidence.",
+          "fit": "contain",
+          "x": 5,
+          "y": 30,
+          "width": 58,
+          "height": 58,
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s8-vv-image-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-08-n1",
+                "offset": 2
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "ken-burns"
+          }
+        },
+        {
+          "id": "s8-verification-badge",
+          "type": "badge",
+          "content": "Verification: built right",
+          "x": 65,
+          "y": 34,
+          "width": 32,
+          "height": 9,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s8-verification-badge-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-08-n1",
+                "offset": 2
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s8-verification-badge-beat",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-08-n1",
+                  "offset": 2.3
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "ambient": "none",
+            "exit": {
+              "id": "s8-verification-badge-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 32
+              },
+              "duration": 0.4,
+              "intensity": 1
+            }
+          }
+        },
+        {
+          "id": "s8-validation-badge",
+          "type": "badge",
+          "content": "Validation: right product",
+          "x": 65,
+          "y": 34,
+          "width": 32,
+          "height": 9,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s8-validation-badge-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-08-n2",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s8-validation-badge-beat",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-08-n2",
+                  "offset": 0.3
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "ambient": "none",
+            "exit": {
+              "id": "s8-validation-badge-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 48.3
+              },
+              "duration": 0.4,
+              "intensity": 1
+            }
+          }
+        },
+        {
+          "id": "s8-regression-badge",
+          "type": "badge",
+          "content": "Confirmation + regression",
+          "x": 65,
+          "y": 34,
+          "width": 32,
+          "height": 9,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s8-regression-badge-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-08-n3",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s8-regression-badge-beat",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-08-n3",
+                  "offset": 0.3
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "ambient": "none",
+            "exit": {
+              "id": "s8-regression-badge-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 64
+              },
+              "duration": 0.4,
+              "intensity": 1
+            }
+          }
+        },
+        {
+          "id": "s8-feedback-badge",
+          "type": "badge",
+          "content": "Feedback creates the next requirement",
+          "x": 65,
+          "y": 34,
+          "width": 32,
+          "height": 10,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s8-feedback-badge-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-08-n4",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s8-feedback-badge-beat",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-08-n4",
+                  "offset": 0.3
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "ambient": "none"
+          }
+        }
+      ],
+      "narration": [
+        {
+          "id": "scene-08-n1",
+          "text": "Verification evaluates development work against specifications. Code review, unit tests, integration tests, and system tests help confirm that the product is built correctly.",
+          "start": 0,
+          "end": 16.25
+        },
+        {
+          "id": "scene-08-n2",
+          "text": "Validation evaluates the product against user and business needs. Prototypes, usability studies, acceptance tests, production tests, and controlled experiments reveal whether it solves the right problem.",
+          "start": 16.25,
+          "end": 32.5
+        },
+        {
+          "id": "scene-08-n3",
+          "text": "Confirmation testing reruns a test that previously failed to prove a fix. Regression testing checks that a change has not broken behavior that used to work.",
+          "start": 32.5,
+          "end": 48.75
+        },
+        {
+          "id": "scene-08-n4",
+          "text": "Automation makes these checks repeatable, but it does not replace judgment. When teachers and students react to the AI tutor, their feedback creates new requirements and restarts the loop.",
+          "start": 48.75,
+          "end": 65
+        }
+      ],
+      "knowledgeNodeIds": [
+        "testing",
+        "validation"
+      ],
+      "transitionOut": {
+        "preset": "fade",
+        "duration": 0.6
+      },
+      "captionMode": "bottom",
+      "camera": {
+        "zoomFrom": 1,
+        "zoomTo": 1.04,
+        "panX": 0.6,
+        "panY": 0
+      }
+    },
+    {
+      "id": "scene-09",
+      "chapterId": "ch-operate",
+      "title": "Production changes the rules",
+      "template": "incident",
+      "duration": 66.5,
+      "elements": [
+        {
+          "id": "s9-title",
+          "type": "title",
+          "content": "PRODUCTION\nCHANGES THE RULES",
+          "x": 5,
+          "y": 7,
+          "width": 52,
+          "height": 23,
+          "style": {
+            "accent": "#8FAFA8",
+            "tone": "glass",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s9-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0
+              },
+              "duration": 0.8,
+              "stagger": 0.1,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "sourcePages": [
+            35,
+            36,
+            40
+          ],
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          }
+        },
+        {
+          "id": "s9-incident-image",
+          "type": "image",
+          "content": "",
+          "assetId": "asset-incident",
+          "alt": "Timeline from deploy at 01:00 to recovery at 21:00, with the red seven-hour gap between latency at 03:00 and discovery at 10:00.",
+          "fit": "contain",
+          "x": 5,
+          "y": 30,
+          "width": 58,
+          "height": 58,
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s9-incident-image-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-09-n1",
+                "offset": 2
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "ken-burns"
+          }
+        },
+        {
+          "id": "s9-deploy-badge",
+          "type": "badge",
+          "content": "01:00 deploy · checks pass",
+          "x": 65,
+          "y": 34,
+          "width": 32,
+          "height": 9,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s9-deploy-badge-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-09-n1",
+                "offset": 2
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s9-deploy-badge-beat",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-09-n1",
+                  "offset": 2.3
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "ambient": "none",
+            "exit": {
+              "id": "s9-deploy-badge-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 32
+              },
+              "duration": 0.4,
+              "intensity": 1
+            }
+          }
+        },
+        {
+          "id": "s9-alert-badge",
+          "type": "badge",
+          "content": "03:00 latency · no alert",
+          "x": 65,
+          "y": 34,
+          "width": 32,
+          "height": 9,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s9-alert-badge-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-09-n2",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s9-alert-badge-beat",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-09-n2",
+                  "offset": 0.3
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "ambient": "none",
+            "exit": {
+              "id": "s9-alert-badge-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 48.3
+              },
+              "duration": 0.4,
+              "intensity": 1
+            }
+          }
+        },
+        {
+          "id": "s9-fix-badge",
+          "type": "badge",
+          "content": "Missing index → rewrite → staging patch",
+          "x": 65,
+          "y": 34,
+          "width": 32,
+          "height": 10,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s9-fix-badge-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-09-n3",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s9-fix-badge-beat",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-09-n3",
+                  "offset": 0.3
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "ambient": "none",
+            "exit": {
+              "id": "s9-fix-badge-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 64
+              },
+              "duration": 0.4,
+              "intensity": 1
+            }
+          }
+        },
+        {
+          "id": "s9-lesson-badge",
+          "type": "badge",
+          "content": "Seven hours of invisible impact",
+          "x": 65,
+          "y": 34,
+          "width": 32,
+          "height": 10,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s9-lesson-badge-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-09-n4",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s9-lesson-badge-beat",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-09-n4",
+                  "offset": 0.3
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "ambient": "none"
+          }
+        }
+      ],
+      "narration": [
+        {
+          "id": "scene-09-n1",
+          "text": "Deployment moves software into the customer environment. Production has different data, access controls, dependencies, resource limits, traffic patterns, and external services than development.",
+          "start": 0,
+          "end": 16.25
+        },
+        {
+          "id": "scene-09-n2",
+          "text": "Imagine a release at one in the morning. Health checks pass. At three, inefficient database queries begin exhausting resources, but no alert fires.",
+          "start": 16.25,
+          "end": 32.5
+        },
+        {
+          "id": "scene-09-n3",
+          "text": "The team discovers the incident at ten, correlates the slowdown with the deployment, finds the missing indexes, rewrites the queries, and verifies a patch in staging.",
+          "start": 32.5,
+          "end": 48.75
+        },
+        {
+          "id": "scene-09-n4",
+          "text": "At nine in the evening, production recovers. The technical fix matters, but so do the seven hours before discovery and the operational speed after the alarm.",
+          "start": 48.75,
+          "end": 65
+        }
+      ],
+      "knowledgeNodeIds": [
+        "deployment",
+        "incident"
+      ],
+      "transitionOut": {
+        "preset": "fade",
+        "duration": 0.6
+      },
+      "captionMode": "bottom",
+      "camera": {
+        "zoomFrom": 1,
+        "zoomTo": 1.05,
+        "panX": -0.8,
+        "panY": 0.3
+      }
+    },
+    {
+      "id": "scene-10",
+      "chapterId": "ch-operate",
+      "title": "Reliability is measurable",
+      "template": "concept",
+      "duration": 66.5,
+      "elements": [
+        {
+          "id": "s10-title",
+          "type": "title",
+          "content": "RELIABILITY\nIS MEASURABLE",
+          "x": 5,
+          "y": 7,
+          "width": 47,
+          "height": 23,
+          "style": {
+            "accent": "#8FAFA8",
+            "tone": "glass",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s10-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0
+              },
+              "duration": 0.8,
+              "stagger": 0.1,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "sourcePages": [
+            37,
+            38,
+            39,
+            46,
+            47
+          ],
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          }
+        },
+        {
+          "id": "s10-formula",
+          "type": "formula",
+          "content": "AVAILABILITY",
+          "items": [
+            {
+              "id": "s10-formula-i1",
+              "label": "Uptime"
+            },
+            {
+              "id": "s10-formula-i2",
+              "label": "Uptime + Downtime"
+            }
+          ],
+          "x": 5,
+          "y": 42,
+          "width": 47,
+          "height": 25,
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s10-formula-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 3
+              },
+              "duration": 0.8,
+              "stagger": 0.1,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s10-formula-beat",
+                "preset": "glow",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n2",
+                  "offset": 0.15
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "ambient": "none",
+            "exit": {
+              "id": "s10-formula-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 32
+              },
+              "duration": 0.4,
+              "intensity": 1
+            }
+          },
+          "sourcePages": [
+            47
+          ],
+          "visual": {
+            "variant": "poster",
+            "surface": "none"
+          }
+        },
+        {
+          "id": "s10-metrics",
+          "type": "metrics",
+          "content": "Operational signals",
+          "items": [
+            {
+              "id": "s10-metrics-item-1",
+              "label": "TTD · 7h"
+            },
+            {
+              "id": "s10-metrics-item-2",
+              "label": "TTM · 8h"
+            },
+            {
+              "id": "s10-metrics-item-3",
+              "label": "TTR · 18h"
+            },
+            {
+              "id": "s10-metrics-item-4",
+              "label": "99.99% · 52.6m/year"
+            }
+          ],
+          "x": 57,
+          "y": 36,
+          "width": 38,
+          "height": 35,
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s10-metrics-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-10-n2",
+                "offset": 0
+              },
+              "duration": 0.8,
+              "stagger": 0.1,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s10-metrics-beat",
+                "preset": "count-up",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.1,
+                "stagger": 0.1,
+                "intensity": 0.8
+              }
+            ],
+            "ambient": "breathe",
+            "exit": {
+              "id": "s10-metrics-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 32
+              },
+              "duration": 0.4,
+              "intensity": 1
+            }
+          },
+          "sourcePages": [
+            46,
+            47,
+            48
+          ],
+          "visual": {
+            "variant": "poster",
+            "surface": "none"
+          }
+        },
+        {
+          "id": "s10-maintenance",
+          "type": "flow",
+          "content": "Four kinds of maintenance",
+          "x": 5,
+          "y": 81,
+          "width": 90,
+          "height": 11,
+          "visual": {
+            "variant": "rail",
+            "surface": "none"
+          },
+          "style": {
+            "accent": "#8FAFA8",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s10-maintenance-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-10-n4",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s10-maintenance-beat-4",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n4",
+                  "offset": 0.25
+                },
+                "duration": 1,
+                "stagger": 0.1,
+                "intensity": 0.6
+              }
+            ],
+            "ambient": "none"
+          },
+          "items": [
+            {
+              "id": "s10-maintenance-i1",
+              "label": "Corrective"
+            },
+            {
+              "id": "s10-maintenance-i2",
+              "label": "Adaptive"
+            },
+            {
+              "id": "s10-maintenance-i3",
+              "label": "Perfective"
+            },
+            {
+              "id": "s10-maintenance-i4",
+              "label": "Preventive"
+            }
+          ]
+        },
+        {
+          "id": "s10-availability-image",
+          "type": "image",
+          "content": "",
+          "assetId": "asset-availability",
+          "alt": "Availability gauge at 99.9 percent, surrounded by hardware, network, bugs, capacity, providers, security, power, configuration and backup factors; the allowed downtime falls from 8.8 hours to 52.6 minutes per year.",
+          "fit": "contain",
+          "x": 5,
+          "y": 24,
+          "width": 55,
+          "height": 55,
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s10-availability-image-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-10-n3",
+                "offset": 0
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s10-availability-image-move-4",
+                "preset": "move",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n4",
+                  "offset": 0.1
+                },
+                "duration": 1.2,
+                "intensity": 1,
+                "offset": {
+                  "x": -1.5,
+                  "y": 0
+                }
+              }
+            ],
+            "ambient": "ken-burns"
+          }
+        },
+        {
+          "id": "s10-factors-badge",
+          "type": "badge",
+          "content": "Hardware · network · bugs · capacity · providers",
+          "x": 62,
+          "y": 32,
+          "width": 34,
+          "height": 11,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s10-factors-badge-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-10-n3",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s10-factors-badge-beat",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n3",
+                  "offset": 0.3
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "ambient": "none",
+            "exit": {
+              "id": "s10-factors-badge-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 48.3
+              },
+              "duration": 0.4,
+              "intensity": 1
+            }
+          }
+        }
+      ],
+      "narration": [
+        {
+          "id": "scene-10-n1",
+          "text": "Availability is the proportion of time a system is functional: uptime divided by uptime plus downtime. More nines mean less tolerated interruption.",
+          "start": 0,
+          "end": 16.25
+        },
+        {
+          "id": "scene-10-n2",
+          "text": "Time to discover measures the visibility gap. Time to mitigate measures how quickly the team diagnoses and verifies a solution. Time to recover captures the total customer impact.",
+          "start": 16.25,
+          "end": 32.5
+        },
+        {
+          "id": "scene-10-n3",
+          "text": "Availability is shaped by hardware, networks, bugs, maintenance, security attacks, power, capacity, configuration, external providers, and backup recovery—not by code alone.",
+          "start": 32.5,
+          "end": 48.75
+        },
+        {
+          "id": "scene-10-n4",
+          "text": "Maintenance therefore dominates much of the lifecycle. Corrective work fixes defects; adaptive work follows environmental change; perfective work improves the product; preventive work reduces future risk.",
+          "start": 48.75,
+          "end": 65
+        }
+      ],
+      "knowledgeNodeIds": [
+        "maintenance",
+        "availability",
+        "incident"
+      ],
+      "transitionOut": {
+        "preset": "fade",
+        "duration": 0.6
+      },
+      "captionMode": "bottom",
+      "camera": {
+        "zoomFrom": 1,
+        "zoomTo": 1.03,
+        "panX": 0.4,
+        "panY": -0.4
+      }
+    },
+    {
+      "id": "scene-11",
+      "chapterId": "ch-ship",
+      "title": "Choose your risk envelope",
+      "template": "comparison",
+      "duration": 66.5,
+      "elements": [
+        {
+          "id": "s11-title",
+          "type": "title",
+          "content": "CHOOSE YOUR\nRISK ENVELOPE",
+          "x": 5,
+          "y": 7,
+          "width": 51,
+          "height": 23,
+          "style": {
+            "accent": "#C8AA72",
+            "tone": "glass",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s11-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0
+              },
+              "duration": 0.8,
+              "stagger": 0.1,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "sourcePages": [
+            51
+          ],
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          }
+        },
+        {
+          "id": "s11-cards",
+          "type": "cards",
+          "content": "Four ways to release",
+          "items": [
+            {
+              "id": "s11-cards-item-1",
+              "label": "BIG BANG — all at once"
+            },
+            {
+              "id": "s11-cards-item-2",
+              "label": "ROLLING — replace gradually"
+            },
+            {
+              "id": "s11-cards-item-3",
+              "label": "BLUE–GREEN — switch environments"
+            },
+            {
+              "id": "s11-cards-item-4",
+              "label": "CANARY — start with a small audience"
+            }
+          ],
+          "x": 5,
+          "y": 39,
+          "width": 90,
+          "height": 35,
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s11-cards-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 3
+              },
+              "duration": 0.8,
+              "stagger": 0.1,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s11-cards-beat-2",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-11-n2",
+                  "offset": 0.2
+                },
+                "duration": 0.8,
+                "stagger": 0.1,
+                "intensity": 0.6
+              },
+              {
+                "id": "s11-cards-beat-3",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-11-n3",
+                  "offset": 0.2
+                },
+                "duration": 0.8,
+                "stagger": 0.1,
+                "intensity": 0.6
+              },
+              {
+                "id": "s11-cards-beat-4",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-11-n4",
+                  "offset": 0.2
+                },
+                "duration": 0.8,
+                "stagger": 0.1,
+                "intensity": 0.6
+              }
+            ],
+            "ambient": "none",
+            "exit": {
+              "id": "s11-cards-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 15.8
+              },
+              "duration": 0.4,
+              "intensity": 1
+            }
+          },
+          "sourcePages": [
+            52,
+            53,
+            54,
+            55
+          ],
+          "visual": {
+            "variant": "editorial",
+            "surface": "soft"
+          }
+        },
+        {
+          "id": "s11-image-bigbang",
+          "type": "image",
+          "content": "",
+          "assetId": "asset-deploy-bigbang",
+          "alt": "Big bang deployment: v1 is replaced by v2 for every user in a single switch; the blast radius is all users.",
+          "fit": "contain",
+          "x": 5,
+          "y": 30,
+          "width": 58,
+          "height": 58,
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s11-image-bigbang-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-11-n2",
+                "offset": 0
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [],
+            "exit": {
+              "id": "s11-image-bigbang-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 32.2
+              },
+              "duration": 0.4,
+              "intensity": 1
+            },
+            "ambient": "ken-burns"
+          }
+        },
+        {
+          "id": "s11-side-bigbang",
+          "type": "badge",
+          "content": "100% blast radius · one switch",
+          "x": 65,
+          "y": 34,
+          "width": 32,
+          "height": 9,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s11-side-bigbang-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-11-n2",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s11-side-bigbang-beat",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-11-n2",
+                  "offset": 0.3
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.5
+              }
+            ],
+            "ambient": "none",
+            "exit": {
+              "id": "s11-side-bigbang-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 32.2
+              },
+              "duration": 0.4,
+              "intensity": 1
+            }
+          }
+        },
+        {
+          "id": "s11-image-progressive",
+          "type": "image",
+          "content": "",
+          "assetId": "asset-deploy-progressive",
+          "alt": "Rolling deployment replaces instances a few at a time; blue-green runs two environments and switches traffic with a rollback path.",
+          "fit": "contain",
+          "x": 5,
+          "y": 30,
+          "width": 58,
+          "height": 58,
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s11-image-progressive-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-11-n3",
+                "offset": 0
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [],
+            "exit": {
+              "id": "s11-image-progressive-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 48.3
+              },
+              "duration": 0.4,
+              "intensity": 1
+            },
+            "ambient": "ken-burns"
+          }
+        },
+        {
+          "id": "s11-side-progressive",
+          "type": "badge",
+          "content": "Smaller blast radius · keep a rollback path",
+          "x": 65,
+          "y": 34,
+          "width": 32,
+          "height": 9,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s11-side-progressive-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-11-n3",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s11-side-progressive-beat",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-11-n3",
+                  "offset": 0.3
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.5
+              }
+            ],
+            "ambient": "none",
+            "exit": {
+              "id": "s11-side-progressive-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 48.3
+              },
+              "duration": 0.4,
+              "intensity": 1
+            }
+          }
+        },
+        {
+          "id": "s11-image-canary",
+          "type": "image",
+          "content": "",
+          "assetId": "asset-deploy-canary",
+          "alt": "Canary deployment sends a small slice of traffic to the new version, then expands only if reliability, latency and error metrics stay healthy.",
+          "fit": "contain",
+          "x": 5,
+          "y": 30,
+          "width": 58,
+          "height": 58,
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s11-image-canary-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-11-n4",
+                "offset": 0
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [],
+            "exit": null,
+            "ambient": "ken-burns"
+          }
+        },
+        {
+          "id": "s11-side-envelope",
+          "type": "badge",
+          "content": "Risk envelope = blast radius × rollback speed",
+          "x": 65,
+          "y": 34,
+          "width": 32,
+          "height": 11,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s11-side-envelope-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-11-n4",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s11-side-envelope-beat",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-11-n4",
+                  "offset": 0.3
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.5
+              }
+            ],
+            "ambient": "none"
+          }
+        }
+      ],
+      "narration": [
+        {
+          "id": "scene-11-n1",
+          "text": "A deployment strategy controls how much change reaches how many users at once. The best choice depends on business criticality, architecture, observability, and rollback speed.",
+          "start": 0,
+          "end": 16.25
+        },
+        {
+          "id": "scene-11-n2",
+          "text": "A big bang release replaces everything at once, often with downtime. It is simple to understand but concentrates risk and demands extensive testing.",
+          "start": 16.25,
+          "end": 32.5
+        },
+        {
+          "id": "scene-11-n3",
+          "text": "Rolling upgrades replace instances gradually. Blue-green deployment prepares a complete parallel environment, then moves traffic across and can quickly move it back.",
+          "start": 32.5,
+          "end": 48.75
+        },
+        {
+          "id": "scene-11-n4",
+          "text": "A canary release exposes only a small population first. If metrics remain healthy, the team expands the rollout. Each strategy defines a different risk envelope.",
+          "start": 48.75,
+          "end": 65
+        }
+      ],
+      "knowledgeNodeIds": [
+        "strategies"
+      ],
+      "transitionOut": {
+        "preset": "fade",
+        "duration": 0.6
+      },
+      "captionMode": "bottom",
+      "camera": {
+        "zoomFrom": 1,
+        "zoomTo": 1.05,
+        "panX": -0.6,
+        "panY": 0
+      }
+    },
+    {
+      "id": "scene-12",
+      "chapterId": "ch-ship",
+      "title": "Ship, observe, learn",
+      "template": "closing",
+      "duration": 66.5,
+      "elements": [
+        {
+          "id": "s12-title",
+          "type": "title",
+          "content": "SHIP. OBSERVE.\nLEARN.",
+          "x": 5,
+          "y": 7,
+          "width": 51,
+          "height": 23,
+          "style": {
+            "accent": "#C8AA72",
+            "tone": "glass",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s12-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0
+              },
+              "duration": 0.8,
+              "stagger": 0.1,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "sourcePages": [
+            56,
+            57
+          ],
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          }
+        },
+        {
+          "id": "s12-flow",
+          "type": "flow",
+          "content": "Continuous delivery",
+          "items": [
+            {
+              "id": "s12-flow-item-1",
+              "label": "Git commit"
+            },
+            {
+              "id": "s12-flow-item-2",
+              "label": "Build"
+            },
+            {
+              "id": "s12-flow-item-3",
+              "label": "Automated tests"
+            },
+            {
+              "id": "s12-flow-item-4",
+              "label": "Quality checks"
+            },
+            {
+              "id": "s12-flow-item-5",
+              "label": "Controlled rollout"
+            },
+            {
+              "id": "s12-flow-item-6",
+              "label": "Monitor"
+            },
+            {
+              "id": "s12-flow-item-7",
+              "label": "Feedback"
+            }
+          ],
+          "x": 5,
+          "y": 40,
+          "width": 90,
+          "height": 28,
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s12-flow-enter",
+              "preset": "draw",
+              "trigger": {
+                "type": "time",
+                "at": 3
+              },
+              "duration": 1,
+              "stagger": 0.1,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s12-flow-beat-2",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-12-n2",
+                  "offset": 0.2
+                },
+                "duration": 1,
+                "stagger": 0.1,
+                "intensity": 0.6
+              },
+              {
+                "id": "s12-flow-beat-3",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-12-n3",
+                  "offset": 0.2
+                },
+                "duration": 1,
+                "stagger": 0.1,
+                "intensity": 0.6
+              },
+              {
+                "id": "s12-flow-beat-4",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-12-n4",
+                  "offset": 0.2
+                },
+                "duration": 1,
+                "stagger": 0.1,
+                "intensity": 0.6
+              }
+            ],
+            "ambient": "none"
+          },
+          "sourcePages": [
+            56,
+            57
+          ],
+          "visual": {
+            "variant": "rail",
+            "surface": "none"
+          }
+        },
+        {
+          "id": "s12-badge",
+          "type": "badge",
+          "content": "The lifecycle never really ends",
+          "x": 63,
+          "y": 12,
+          "width": 31,
+          "height": 11,
+          "style": {
+            "accent": "#9FAF91",
+            "tone": "glass",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s12-badge-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-12-n4",
+                "offset": 0
+              },
+              "duration": 0.8,
+              "stagger": 0.1,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "breathe"
+          },
+          "sourcePages": [
+            2,
+            34,
+            57
+          ],
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          }
+        },
+        {
+          "id": "s12-flags",
+          "type": "comparison",
+          "content": "Deploy vs release",
+          "x": 5,
+          "y": 70,
+          "width": 52,
+          "height": 16,
+          "visual": {
+            "variant": "split",
+            "surface": "none"
+          },
+          "style": {
+            "accent": "#C8AA72",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s12-flags-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-12-n2",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s12-flags-beat-2",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-12-n2",
+                  "offset": 0.25
+                },
+                "duration": 0.8,
+                "stagger": 0.1,
+                "intensity": 0.6
+              }
+            ],
+            "exit": {
+              "id": "s12-flags-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 32
+              },
+              "duration": 0.35,
+              "intensity": 1
+            },
+            "ambient": "none"
+          },
+          "items": [
+            {
+              "id": "s12-flags-i1",
+              "label": "DEPLOY — ship the code"
+            },
+            {
+              "id": "s12-flags-i2",
+              "label": "RELEASE — enable it for users"
+            }
+          ]
+        },
+        {
+          "id": "s12-monitor",
+          "type": "cards",
+          "content": "Production signals",
+          "x": 58,
+          "y": 70,
+          "width": 37,
+          "height": 16,
+          "visual": {
+            "variant": "grid",
+            "surface": "soft"
+          },
+          "style": {
+            "accent": "#C8AA72",
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "s12-monitor-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-12-n3",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s12-monitor-beat-3",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-12-n3",
+                  "offset": 0.25
+                },
+                "duration": 0.8,
+                "stagger": 0.1,
+                "intensity": 0.6
+              }
+            ],
+            "ambient": "none"
+          },
+          "items": [
+            {
+              "id": "s12-monitor-i1",
+              "label": "Uptime"
+            },
+            {
+              "id": "s12-monitor-i2",
+              "label": "Latency"
+            },
+            {
+              "id": "s12-monitor-i3",
+              "label": "Errors"
+            }
+          ]
+        }
+      ],
+      "narration": [
+        {
+          "id": "scene-12-n1",
+          "text": "Modern delivery connects version control to continuous integration and deployment. Every commit can trigger a build, automated tests, and code-quality checks.",
+          "start": 0,
+          "end": 16.25
+        },
+        {
+          "id": "scene-12-n2",
+          "text": "Feature flags separate deployment from release. Teams can ship dormant code, activate it for selected users, compare behavior, and turn it off without another deployment.",
+          "start": 16.25,
+          "end": 32.5
+        },
+        {
+          "id": "scene-12-n3",
+          "text": "After rollout, engineers watch reliability, latency, errors, and user outcomes. Production evidence closes the gap between the specification and the lived experience.",
+          "start": 32.5,
+          "end": 48.75
+        },
+        {
+          "id": "scene-12-n4",
+          "text": "The AI tutor began as a question, became a prototype, passed through architecture and tests, reached production, and generated new learning. That is why the lifecycle never really ends.",
+          "start": 48.75,
+          "end": 65
+        }
+      ],
+      "knowledgeNodeIds": [
+        "delivery",
+        "sdlc"
+      ],
+      "captionMode": "bottom",
+      "camera": {
+        "zoomFrom": 1,
+        "zoomTo": 1.04,
+        "panX": 0.5,
+        "panY": 0.3
+      }
+    }
+  ],
+  "assets": [
+    {
+      "id": "asset-deploy-bigbang",
+      "name": "Big bang deployment",
+      "kind": "image",
+      "uri": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+CjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiBmaWxsPSIjRkZGRkZGIi8+CjxnIGZvbnQtZmFtaWx5PSJBdmVuaXIgTmV4dCwgU2Vnb2UgVUksIHNhbnMtc2VyaWYiIGZpbGw9IiMyRTM0MzMiPgo8dGV4dCB4PSIzMiIgeT0iNDgiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI3NTAiIGxldHRlci1zcGFjaW5nPSIxLjQiPkJJRyBCQU5HPC90ZXh0Pgo8dGV4dCB4PSIzMiIgeT0iNzIiIGZvbnQtc2l6ZT0iMTMiIGZpbGw9IiM2Rjc2NzQiPm9uZSByZWxlYXNlIMK3IGV2ZXJ5IHVzZXIgc3dpdGNoZXMgYXQgb25jZTwvdGV4dD4KCjxnPgogIDx0ZXh0IHg9IjQwIiB5PSIxMTgiIGZvbnQtc2l6ZT0iMTEiIGxldHRlci1zcGFjaW5nPSIxLjEiIGZpbGw9IiM2Rjc2NzQiPlVTRVJTPC90ZXh0PgogIDxjaXJjbGUgY3g9IjU4IiBjeT0iMTQ2IiByPSI5IiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS41Ii8+PGNpcmNsZSBjeD0iOTAiIGN5PSIxNDYiIHI9IjkiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48Y2lyY2xlIGN4PSIxMjIiIGN5PSIxNDYiIHI9IjkiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48Y2lyY2xlIGN4PSIxNTQiIGN5PSIxNDYiIHI9IjkiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48Y2lyY2xlIGN4PSIxODYiIGN5PSIxNDYiIHI9IjkiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48Y2lyY2xlIGN4PSIyMTgiIGN5PSIxNDYiIHI9IjkiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48Y2lyY2xlIGN4PSI1OCIgY3k9IjE4MCIgcj0iOSIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjEuNSIvPjxjaXJjbGUgY3g9IjkwIiBjeT0iMTgwIiByPSI5IiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS41Ii8+PGNpcmNsZSBjeD0iMTIyIiBjeT0iMTgwIiByPSI5IiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS41Ii8+PGNpcmNsZSBjeD0iMTU0IiBjeT0iMTgwIiByPSI5IiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS41Ii8+PGNpcmNsZSBjeD0iMTg2IiBjeT0iMTgwIiByPSI5IiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS41Ii8+PGNpcmNsZSBjeD0iMjE4IiBjeT0iMTgwIiByPSI5IiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS41Ii8+PGNpcmNsZSBjeD0iNTgiIGN5PSIyMTQiIHI9IjkiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48Y2lyY2xlIGN4PSI5MCIgY3k9IjIxNCIgcj0iOSIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjEuNSIvPjxjaXJjbGUgY3g9IjEyMiIgY3k9IjIxNCIgcj0iOSIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjEuNSIvPjxjaXJjbGUgY3g9IjE1NCIgY3k9IjIxNCIgcj0iOSIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjEuNSIvPjxjaXJjbGUgY3g9IjE4NiIgY3k9IjIxNCIgcj0iOSIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjEuNSIvPjxjaXJjbGUgY3g9IjIxOCIgY3k9IjIxNCIgcj0iOSIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDxwYXRoIGQ9Ik0yNTAgMTgwIEgyODYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPHBhdGggZD0iTTI4NiAxNzIgbDEwIDggLTEwIDgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPHJlY3QgeD0iMjk4IiB5PSIxMjgiIHdpZHRoPSIxNjAiIGhlaWdodD0iMTA0IiByeD0iMTIiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPHRleHQgeD0iMzc4IiB5PSIxNzQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMzAiIGZvbnQtd2VpZ2h0PSI3NTAiPnYxPC90ZXh0PgogIDx0ZXh0IHg9IjM3OCIgeT0iMTk4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjExIiBmaWxsPSIjNkY3Njc0Ij5zdGFibGU8L3RleHQ+CiAgPHJlY3QgeD0iNTE4IiB5PSIxMjgiIHdpZHRoPSIxNjAiIGhlaWdodD0iMTA0IiByeD0iMTIiIGZpbGw9IiNGNURDRDYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPHRleHQgeD0iNTk4IiB5PSIxNzQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMzAiIGZvbnQtd2VpZ2h0PSI3NTAiPnYyPC90ZXh0PgogIDx0ZXh0IHg9IjU5OCIgeT0iMTk4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjExIiBmaWxsPSIjNkY3Njc0Ij5uZXh0IHJlbGVhc2U8L3RleHQ+CiAgPHBhdGggZD0iTTQ2NiAxODAgSDUxMCIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjIuNSIvPgogIDxwYXRoIGQ9Ik01MTAgMTcwIGwxMiAxMCAtMTIgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIyLjUiLz4KICA8dGV4dCB4PSI0ODgiIHk9IjExNiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMSIgZmlsbD0iI0JFNkE1OCI+c3dpdGNoIDEwMCU8L3RleHQ+CiAgPGNpcmNsZSBjeD0iNTk4IiBjeT0iMTgwIiByPSI3NCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjQkU2QTU4IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1kYXNoYXJyYXk9IjUgNyIvPgogIDx0ZXh0IHg9IjU5OCIgeT0iMjcyIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjExIiBmaWxsPSIjQkU2QTU4Ij5ldmVyeSB1c2VyIG1vdmVzIGF0IG9uY2U8L3RleHQ+CiAgPHJlY3QgeD0iNDAiIHk9IjMwNiIgd2lkdGg9IjcyMCIgaGVpZ2h0PSI4MiIgcng9IjEwIiBmaWxsPSIjRjVEQ0Q2Ii8+CiAgPHJlY3QgeD0iNDAiIHk9IjMwNiIgd2lkdGg9IjgiIGhlaWdodD0iODIiIHJ4PSI0IiBmaWxsPSIjQkU2QTU4Ii8+CiAgPHRleHQgeD0iNjgiIHk9IjMzOCIgZm9udC1zaXplPSIxNyIgZm9udC13ZWlnaHQ9IjcwMCI+Qmxhc3QgcmFkaXVzOiAxMDAlIG9mIHVzZXJzPC90ZXh0PgogIDx0ZXh0IHg9IjY4IiB5PSIzNjIiIGZvbnQtc2l6ZT0iMTIuNSIgZmlsbD0iIzZGNzY3NCI+b25lIGJhZCByZWxlYXNlIHJlYWNoZXMgZXZlcnlvbmUgwrcgcm9sbGJhY2sgbWVhbnMgYW5vdGhlciBmdWxsIHN3aXRjaDwvdGV4dD4KPC9nPgo8L2c+Cjwvc3ZnPg==",
+      "embedded": true,
+      "width": 1600,
+      "height": 900,
+      "sha256": "965fcb1513982c3cb97ffeaf908721c04e1d9a1ac98604971a10ef537325ced8"
+    },
+    {
+      "id": "asset-deploy-progressive",
+      "name": "Rolling and blue-green deployment",
+      "kind": "image",
+      "uri": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+CjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiBmaWxsPSIjRkZGRkZGIi8+CjxnIGZvbnQtZmFtaWx5PSJBdmVuaXIgTmV4dCwgU2Vnb2UgVUksIHNhbnMtc2VyaWYiIGZpbGw9IiMyRTM0MzMiPgo8dGV4dCB4PSIzMiIgeT0iNDgiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI3NTAiIGxldHRlci1zcGFjaW5nPSIxLjQiPlBST0dSRVNTSVZFIFJFTEVBU0U8L3RleHQ+Cjx0ZXh0IHg9IjMyIiB5PSI3MiIgZm9udC1zaXplPSIxMyIgZmlsbD0iIzZGNzY3NCI+c2hyaW5rIHRoZSBleHBvc3VyZSwga2VlcCB0aGUgcm9sbGJhY2sgcGF0aDwvdGV4dD4KCjxnPgogIDx0ZXh0IHg9IjMwIiB5PSIxMTIiIGZvbnQtc2l6ZT0iMTIiIGxldHRlci1zcGFjaW5nPSIxLjIiIGZpbGw9IiM2Rjc2NzQiPlJPTExJTkc8L3RleHQ+CiAgPHRleHQgeD0iMzAiIHk9IjEzNCIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzZGNzY3NCI+cmVwbGFjZSBhIGZldyBpbnN0YW5jZXMgYXQgYSB0aW1lPC90ZXh0PgogIDxyZWN0IHg9IjQyIiB5PSIxNTgiIHdpZHRoPSI2OCIgaGVpZ2h0PSI0OCIgcng9IjgiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48cmVjdCB4PSIxMjQiIHk9IjE1OCIgd2lkdGg9IjY4IiBoZWlnaHQ9IjQ4IiByeD0iOCIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjEuNSIvPjxyZWN0IHg9IjIwNiIgeT0iMTU4IiB3aWR0aD0iNjgiIGhlaWdodD0iNDgiIHJ4PSI4IiBmaWxsPSIjRTNFQURCIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS41Ii8+PHJlY3QgeD0iMjg4IiB5PSIxNTgiIHdpZHRoPSI2OCIgaGVpZ2h0PSI0OCIgcng9IjgiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48cmVjdCB4PSI0MiIgeT0iMjIwIiB3aWR0aD0iNjgiIGhlaWdodD0iNDgiIHJ4PSI4IiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS41Ii8+PHJlY3QgeD0iMTI0IiB5PSIyMjAiIHdpZHRoPSI2OCIgaGVpZ2h0PSI0OCIgcng9IjgiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48cmVjdCB4PSIyMDYiIHk9IjIyMCIgd2lkdGg9IjY4IiBoZWlnaHQ9IjQ4IiByeD0iOCIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjEuNSIvPjxyZWN0IHg9IjI4OCIgeT0iMjIwIiB3aWR0aD0iNjgiIGhlaWdodD0iNDgiIHJ4PSI4IiBmaWxsPSIjRTNFQURCIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPHRleHQgeD0iNzYiIHk9IjE4NyIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMCIgZmlsbD0iIzZGNzY3NCI+b2xkPC90ZXh0Pjx0ZXh0IHg9IjE1OCIgeT0iMTg3IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEwIiBmaWxsPSIjNkY3Njc0Ij5vbGQ8L3RleHQ+PHRleHQgeD0iMjQwIiB5PSIxODciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiM2Rjc2NzQiPm5ldzwvdGV4dD48dGV4dCB4PSIzMjIiIHk9IjE4NyIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMCIgZmlsbD0iIzZGNzY3NCI+b2xkPC90ZXh0Pjx0ZXh0IHg9Ijc2IiB5PSIyNDkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiM2Rjc2NzQiPm9sZDwvdGV4dD48dGV4dCB4PSIxNTgiIHk9IjI0OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMCIgZmlsbD0iIzZGNzY3NCI+b2xkPC90ZXh0Pjx0ZXh0IHg9IjI0MCIgeT0iMjQ5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEwIiBmaWxsPSIjNkY3Njc0Ij5vbGQ8L3RleHQ+PHRleHQgeD0iMzIyIiB5PSIyNDkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiM2Rjc2NzQiPm5ldzwvdGV4dD4KICA8dGV4dCB4PSI0MiIgeT0iMzEwIiBmb250LXNpemU9IjExIiBmaWxsPSIjNkY3Njc0Ij5yZW1haW5pbmcgY2FwYWNpdHkgc3RheXMgb25saW5lPC90ZXh0PgogIDxsaW5lIHgxPSIzOTYiIHkxPSIxMDAiIHgyPSIzOTYiIHkyPSIzMTAiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLW9wYWNpdHk9Ii4xNiIvPgogIDx0ZXh0IHg9IjQyMCIgeT0iMTEyIiBmb250LXNpemU9IjEyIiBsZXR0ZXItc3BhY2luZz0iMS4yIiBmaWxsPSIjNkY3Njc0Ij5CTFVFLUdSRUVOPC90ZXh0PgogIDx0ZXh0IHg9IjQyMCIgeT0iMTM0IiBmb250LXNpemU9IjEyIiBmaWxsPSIjNkY3Njc0Ij5zd2l0Y2ggZW52aXJvbm1lbnRzLCBrZWVwIGEgd2F5IGJhY2s8L3RleHQ+CiAgPHJlY3QgeD0iNDIwIiB5PSIxNTgiIHdpZHRoPSIxNTAiIGhlaWdodD0iMTQyIiByeD0iMTAiIGZpbGw9IiNERUU4RUMiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8dGV4dCB4PSI0OTUiIHk9IjIzNCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxNSIgZm9udC13ZWlnaHQ9IjcwMCI+Ymx1ZTwvdGV4dD4KICA8cmVjdCB4PSI2MTAiIHk9IjE1OCIgd2lkdGg9IjE1MCIgaGVpZ2h0PSIxNDIiIHJ4PSIxMCIgZmlsbD0iI0UzRUFEQiIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDx0ZXh0IHg9IjY4NSIgeT0iMjM0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjE1IiBmb250LXdlaWdodD0iNzAwIj5ncmVlbjwvdGV4dD4KICA8cGF0aCBkPSJNNTg0IDIwMCBDNTk2IDIwMCA2MDAgMjAwIDYwNiAyMDAiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIyLjUiIGZpbGw9Im5vbmUiLz4KICA8cGF0aCBkPSJNNjA2IDE5MCBsMTIgMTAgLTEyIDEwIiBmaWxsPSJub25lIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMi41Ii8+CiAgPHBhdGggZD0iTTYwNiAyNjAgQzU5NCAyNjAgNTkwIDI2MCA1ODQgMjYwIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIgc3Ryb2tlLWRhc2hhcnJheT0iNCA1Ii8+CiAgPHRleHQgeD0iNTk1IiB5PSIyODgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiM2Rjc2NzQiPnJvbGxiYWNrPC90ZXh0PgogIDxyZWN0IHg9IjQwIiB5PSIzNDAiIHdpZHRoPSI3MjAiIGhlaWdodD0iNTQiIHJ4PSIxMCIgZmlsbD0iI0UzRUFEQiIvPgogIDxyZWN0IHg9IjQwIiB5PSIzNDAiIHdpZHRoPSI4IiBoZWlnaHQ9IjU0IiByeD0iNCIgZmlsbD0iIzlGQUY5MSIvPgogIDx0ZXh0IHg9IjY4IiB5PSIzNjUiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSI2NTAiPkJsYXN0IHJhZGl1czogb25lIHNsaWNlIGF0IGEgdGltZTwvdGV4dD4KICA8dGV4dCB4PSI2OCIgeT0iMzg0IiBmb250LXNpemU9IjExLjUiIGZpbGw9IiM2Rjc2NzQiPmEgaGVhbHRoeSBlbnZpcm9ubWVudCBzdGF5cyBhdmFpbGFibGUgd2hpbGUgdGhlIG90aGVyIGNoYW5nZXM8L3RleHQ+CjwvZz4KPC9nPgo8L3N2Zz4=",
+      "embedded": true,
+      "width": 1600,
+      "height": 900,
+      "sha256": "7b2eafdd2fbd0c76cd1622e11c632515923bab33575914e657b8993ae2a14e31"
+    },
+    {
+      "id": "asset-deploy-canary",
+      "name": "Canary deployment",
+      "kind": "image",
+      "uri": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+CjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiBmaWxsPSIjRkZGRkZGIi8+CjxnIGZvbnQtZmFtaWx5PSJBdmVuaXIgTmV4dCwgU2Vnb2UgVUksIHNhbnMtc2VyaWYiIGZpbGw9IiMyRTM0MzMiPgo8dGV4dCB4PSIzMiIgeT0iNDgiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI3NTAiIGxldHRlci1zcGFjaW5nPSIxLjQiPkNBTkFSWTwvdGV4dD4KPHRleHQgeD0iMzIiIHk9IjcyIiBmb250LXNpemU9IjEzIiBmaWxsPSIjNkY3Njc0Ij5zdGFydCBzbWFsbCwgZXhwYW5kIHdpdGggZXZpZGVuY2U8L3RleHQ+Cgo8Zz4KICA8dGV4dCB4PSIzNCIgeT0iMTE4IiBmb250LXNpemU9IjExIiBsZXR0ZXItc3BhY2luZz0iMS4xIiBmaWxsPSIjNkY3Njc0Ij5UUkFGRklDPC90ZXh0PgogIDxjaXJjbGUgY3g9IjU0IiBjeT0iMTQ0IiByPSI4IiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS40Ii8+PGNpcmNsZSBjeD0iODQiIGN5PSIxNDQiIHI9IjgiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjQiLz48Y2lyY2xlIGN4PSIxMTQiIGN5PSIxNDQiIHI9IjgiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjQiLz48Y2lyY2xlIGN4PSIxNDQiIGN5PSIxNDQiIHI9IjgiIGZpbGw9IiNGM0UxREEiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjQiLz48Y2lyY2xlIGN4PSIxNzQiIGN5PSIxNDQiIHI9IjgiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjQiLz48Y2lyY2xlIGN4PSIyMDQiIGN5PSIxNDQiIHI9IjgiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjQiLz48Y2lyY2xlIGN4PSIyMzQiIGN5PSIxNDQiIHI9IjgiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjQiLz48Y2lyY2xlIGN4PSIyNjQiIGN5PSIxNDQiIHI9IjgiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjQiLz48Y2lyY2xlIGN4PSI1NCIgY3k9IjE3OCIgcj0iOCIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjEuNCIvPjxjaXJjbGUgY3g9Ijg0IiBjeT0iMTc4IiByPSI4IiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS40Ii8+PGNpcmNsZSBjeD0iMTE0IiBjeT0iMTc4IiByPSI4IiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS40Ii8+PGNpcmNsZSBjeD0iMTQ0IiBjeT0iMTc4IiByPSI4IiBmaWxsPSIjRjNFMURBIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS40Ii8+PGNpcmNsZSBjeD0iMTc0IiBjeT0iMTc4IiByPSI4IiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS40Ii8+PGNpcmNsZSBjeD0iMjA0IiBjeT0iMTc4IiByPSI4IiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS40Ii8+PGNpcmNsZSBjeD0iMjM0IiBjeT0iMTc4IiByPSI4IiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS40Ii8+PGNpcmNsZSBjeD0iMjY0IiBjeT0iMTc4IiByPSI4IiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS40Ii8+CiAgPHBhdGggZD0iTTMwMCAxODAgQzMxOCAxODAgMzI2IDE2NSAzMzYgMTYwIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIvPgogIDxwYXRoIGQ9Ik0zMDAgMjEwIEMzMTggMjEwIDMyNiAyMzAgMzM2IDIzOCIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz4KICA8cmVjdCB4PSIzNDAiIHk9IjEyOCIgd2lkdGg9IjE1MCIgaGVpZ2h0PSI3NiIgcng9IjEwIiBmaWxsPSIjRjNFMURBIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS42Ii8+CiAgPHRleHQgeD0iNDE1IiB5PSIxNjIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSI3MDAiPmNhbmFyeTwvdGV4dD4KICA8dGV4dCB4PSI0MTUiIHk9IjE4MSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMCIgZmlsbD0iIzZGNzY3NCI+bmV3IHZlcnNpb248L3RleHQ+CiAgPHJlY3QgeD0iMzQwIiB5PSIyMzAiIHdpZHRoPSIxNTAiIGhlaWdodD0iNzYiIHJ4PSIxMCIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjEuNiIvPgogIDx0ZXh0IHg9IjQxNSIgeT0iMjY0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iNzAwIj5zdGFibGU8L3RleHQ+CiAgPHRleHQgeD0iNDE1IiB5PSIyODMiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiM2Rjc2NzQiPmV2ZXJ5b25lIGVsc2U8L3RleHQ+CiAgPHRleHQgeD0iNTQwIiB5PSIxMzIiIGZvbnQtc2l6ZT0iMTEiIGxldHRlci1zcGFjaW5nPSIxLjEiIGZpbGw9IiM2Rjc2NzQiPlJPTExPVVQ8L3RleHQ+CiAgPHJlY3QgeD0iNTQwIiB5PSIxNDYiIHdpZHRoPSIyMDAiIGhlaWdodD0iMTgiIHJ4PSI5IiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS4yIi8+CiAgPHJlY3QgeD0iNTQwIiB5PSIxNDYiIHdpZHRoPSI1MCIgaGVpZ2h0PSIxOCIgcng9IjkiIGZpbGw9IiNDNjk0ODMiLz4KICA8dGV4dCB4PSI1NDAiIHk9IjE5MCIgZm9udC1zaXplPSIxMSIgZmlsbD0iIzZGNzY3NCI+MSU8L3RleHQ+CiAgPHRleHQgeD0iNjE4IiB5PSIxOTAiIGZvbnQtc2l6ZT0iMTEiIGZpbGw9IiM2Rjc2NzQiPjUlPC90ZXh0PgogIDx0ZXh0IHg9IjY4MCIgeT0iMTkwIiBmb250LXNpemU9IjExIiBmaWxsPSIjNkY3Njc0Ij4yNSU8L3RleHQ+CiAgPHRleHQgeD0iNzMwIiB5PSIxOTAiIGZvbnQtc2l6ZT0iMTEiIGZpbGw9IiM2Rjc2NzQiPjEwMCU8L3RleHQ+CiAgPHBhdGggZD0iTTU1MiAyMTYgQzU5MCAyMTYgNjEwIDIxNiA2MjYgMjE2IiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS42IiBmaWxsPSJub25lIiBzdHJva2UtZGFzaGFycmF5PSI0IDUiLz4KICA8dGV4dCB4PSI1NDAiIHk9IjI1MiIgZm9udC1zaXplPSIxMS41IiBmaWxsPSIjNkY3Njc0Ij5leHBhbmQgb25seSBpZiB0aGUgbWV0cmljcyBzdGF5IGhlYWx0aHk8L3RleHQ+CiAgPHJlY3QgeD0iNDAiIHk9IjM0MCIgd2lkdGg9IjcyMCIgaGVpZ2h0PSI1NCIgcng9IjEwIiBmaWxsPSIjRjNFMURBIi8+CiAgPHJlY3QgeD0iNDAiIHk9IjM0MCIgd2lkdGg9IjgiIGhlaWdodD0iNTQiIHJ4PSI0IiBmaWxsPSIjQzY5NDgzIi8+CiAgPHRleHQgeD0iNjgiIHk9IjM2NSIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9IjY1MCI+Qmxhc3QgcmFkaXVzOiBvbmUgc21hbGwgc2xpY2UgZmlyc3Q8L3RleHQ+CiAgPHRleHQgeD0iNjgiIHk9IjM4NCIgZm9udC1zaXplPSIxMS41IiBmaWxsPSIjNkY3Njc0Ij50aGUgYXVkaWVuY2UgZ3Jvd3Mgb25seSB3aGlsZSByZWxpYWJpbGl0eSwgbGF0ZW5jeSBhbmQgZXJyb3JzIHN0YXkgaGVhbHRoeTwvdGV4dD4KPC9nPgo8L2c+Cjwvc3ZnPg==",
+      "embedded": true,
+      "width": 1600,
+      "height": 900,
+      "sha256": "84efc651a888422a13bcbd1f13645c9e947b7d238341369170b2087e46ee0c05"
+    },
+    {
+      "id": "asset-secret-boundary",
+      "name": "Secret boundary",
+      "kind": "image",
+      "uri": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+CjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiBmaWxsPSIjRkZGRkZGIi8+CjxnIGZvbnQtZmFtaWx5PSJBdmVuaXIgTmV4dCwgU2Vnb2UgVUksIHNhbnMtc2VyaWYiIGZpbGw9IiMyRTM0MzMiPgo8dGV4dCB4PSIzMiIgeT0iNDgiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI3NTAiIGxldHRlci1zcGFjaW5nPSIxLjQiPlNFQ1JFVCBCT1VOREFSWTwvdGV4dD4KPHRleHQgeD0iMzIiIHk9IjcyIiBmb250LXNpemU9IjEzIiBmaWxsPSIjNkY3Njc0Ij50aGUga2V5IG5ldmVyIGxlYXZlcyB0aGUgc2VydmVyPC90ZXh0PgoKPGc+CiAgPHJlY3QgeD0iMzQiIHk9IjExOCIgd2lkdGg9IjE4NiIgaGVpZ2h0PSIxOTAiIHJ4PSIxMiIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjEuOCIvPgogIDxyZWN0IHg9IjM0IiB5PSIxMTgiIHdpZHRoPSIxODYiIGhlaWdodD0iMjYiIHJ4PSIxMiIgZmlsbD0iI0RFRThFQyIvPgogIDxjaXJjbGUgY3g9IjU0IiBjeT0iMTMxIiByPSI0IiBmaWxsPSIjQkU2QTU4Ii8+PGNpcmNsZSBjeD0iNjgiIGN5PSIxMzEiIHI9IjQiIGZpbGw9IiNDOEFBNzIiLz48Y2lyY2xlIGN4PSI4MiIgY3k9IjEzMSIgcj0iNCIgZmlsbD0iIzlGQUY5MSIvPgogIDx0ZXh0IHg9IjEyNyIgeT0iMTgwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iNzAwIj5icm93c2VyPC90ZXh0PgogIDx0ZXh0IHg9IjEyNyIgeT0iMjAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEwLjUiIGZpbGw9IiM2Rjc2NzQiPnN0dWRlbnQgLyB0ZWFjaGVyPC90ZXh0PgogIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDExMCAyMTYpIj4KICAgIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIxNiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjQkU2QTU4IiBzdHJva2Utd2lkdGg9IjIiLz4KICAgIDxwYXRoIGQ9Ik0tNiAtNiBMNiA2IE02IC02IEwtNiA2IiBzdHJva2U9IiNCRTZBNTgiIHN0cm9rZS13aWR0aD0iMiIvPgogIDwvZz4KICA8dGV4dCB4PSIxMjciIHk9IjI2MiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMC41IiBmaWxsPSIjQkU2QTU4Ij5ubyBBUEkga2V5IGhlcmU8L3RleHQ+CiAgPHBhdGggZD0iTTIyNiAyMDAgSDMwMCIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8cGF0aCBkPSJNMzAwIDE5MCBsMTIgMTAgLTEyIDEwIiBmaWxsPSJub25lIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMiIvPgogIDx0ZXh0IHg9IjI2MyIgeT0iMTg4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEwIiBmaWxsPSIjNkY3Njc0Ij5yZXF1ZXN0PC90ZXh0PgogIDxyZWN0IHg9IjMxMiIgeT0iMTA2IiB3aWR0aD0iMTg2IiBoZWlnaHQ9IjIxNiIgcng9IjEyIiBmaWxsPSIjRTNFQURCIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS44Ii8+CiAgPHRleHQgeD0iNDA1IiB5PSIxNDIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSI3MDAiPmJhY2tlbmQ8L3RleHQ+CiAgPHRleHQgeD0iNDA1IiB5PSIxNjIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTAuNSIgZmlsbD0iIzZGNzY3NCI+Rmxhc2sgQVBJIMK3IHNlcnZlcjwvdGV4dD4KICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0MDUgMjE4KSI+CiAgICA8Y2lyY2xlIGN4PSItMTgiIGN5PSIwIiByPSIxMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjIiLz4KICAgIDxwYXRoIGQ9Ik0tNiAwIGgzMCBNMTggMCB2OSBNMjYgMCB2NiIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz4KICAgIDxyZWN0IHg9Ii00MiIgeT0iLTM4IiB3aWR0aD0iODQiIGhlaWdodD0iNzYiIHJ4PSIxMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjOUZBRjkxIiBzdHJva2Utd2lkdGg9IjEuMiIgc3Ryb2tlLWRhc2hhcnJheT0iNCA0Ii8+CiAgPC9nPgogIDx0ZXh0IHg9IjQwNSIgeT0iMjgyIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEwLjUiIGZpbGw9IiM5RkFGOTEiPmtleSBoZWxkIGhlcmU8L3RleHQ+CiAgPHBhdGggZD0iTTUwNCAyMDAgSDU3MiIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8cGF0aCBkPSJNNTcyIDE5MCBsMTIgMTAgLTEyIDEwIiBmaWxsPSJub25lIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMiIvPgogIDx0ZXh0IHg9IjUzOCIgeT0iMTg4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEwIiBmaWxsPSIjNkY3Njc0Ij5zZXJ2ZXItc2lkZSBjYWxsPC90ZXh0PgogIDxyZWN0IHg9IjU4NCIgeT0iMTMwIiB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE0MCIgcng9IjEyIiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS44Ii8+CiAgPHRleHQgeD0iNjc0IiB5PSIxODYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSI3MDAiPkFJIHNlcnZpY2U8L3RleHQ+CiAgPHRleHQgeD0iNjc0IiB5PSIyMDYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTAuNSIgZmlsbD0iIzZGNzY3NCI+cHJvdGVjdGVkIHByb3ZpZGVyPC90ZXh0PgogIDxyZWN0IHg9IjM0IiB5PSIzMjYiIHdpZHRoPSIxODYiIGhlaWdodD0iNTAiIHJ4PSI4IiBmaWxsPSIjRjVEQ0Q2Ii8+CiAgPHRleHQgeD0iMTI3IiB5PSIzNDgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTEiIGZvbnQtd2VpZ2h0PSI2NTAiPnJlcG9zaXRvcnkgKyAuZW52PC90ZXh0PgogIDx0ZXh0IHg9IjEyNyIgeT0iMzY1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEwIiBmaWxsPSIjNkY3Njc0Ij5uZXZlciBjb250YWlucyBsaXZlIGtleXM8L3RleHQ+CiAgPHRleHQgeD0iMzk1IiB5PSIzMzAiIGZvbnQtc2l6ZT0iMTIiIGZpbGw9IiM2Rjc2NzQiPnRoZSBib3VuZGFyeSBpcyB0aGUgYXJjaGl0ZWN0dXJlPC90ZXh0Pgo8L2c+CjwvZz4KPC9zdmc+",
+      "embedded": true,
+      "width": 1600,
+      "height": 900,
+      "sha256": "419b39c4289377581ded03e86f55a3580676985d88fba2936b6f0bb868db1130"
+    },
+    {
+      "id": "asset-architecture",
+      "name": "AI tutor architecture",
+      "kind": "image",
+      "uri": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+CjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiBmaWxsPSIjRkZGRkZGIi8+CjxnIGZvbnQtZmFtaWx5PSJBdmVuaXIgTmV4dCwgU2Vnb2UgVUksIHNhbnMtc2VyaWYiIGZpbGw9IiMyRTM0MzMiPgo8dGV4dCB4PSIzMiIgeT0iNDgiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI3NTAiIGxldHRlci1zcGFjaW5nPSIxLjQiPkFJIFRVVE9SIEFSQ0hJVEVDVFVSRTwvdGV4dD4KPHRleHQgeD0iMzIiIHk9IjcyIiBmb250LXNpemU9IjEzIiBmaWxsPSIjNkY3Njc0Ij50aGUgcmVxdWVzdCBwYXRoLCB0aGUgZGF0YSwgdGhlIGtleSwgdGhlIHByb3ZpZGVyPC90ZXh0PgoKPGc+CiAgPHJlY3QgeD0iMzQiIHk9IjExMiIgd2lkdGg9IjE1NiIgaGVpZ2h0PSIxNjQiIHJ4PSIxMiIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjEuOCIvPgogIDx0ZXh0IHg9IjExMiIgeT0iMTUwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iNzAwIj5SZWFjdCBVSTwvdGV4dD4KICA8dGV4dCB4PSIxMTIiIHk9IjE3MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMC41IiBmaWxsPSIjNkY3Njc0Ij5zdHVkZW50IC8gdGVhY2hlcjwvdGV4dD4KICA8cmVjdCB4PSI1NCIgeT0iMTkwIiB3aWR0aD0iMTE2IiBoZWlnaHQ9IjEwIiByeD0iNSIgZmlsbD0iI0RFRThFQyIvPgogIDxyZWN0IHg9IjU0IiB5PSIyMDgiIHdpZHRoPSI4MiIgaGVpZ2h0PSIxMCIgcng9IjUiIGZpbGw9IiNERUU4RUMiLz4KICA8cmVjdCB4PSI1NCIgeT0iMjI2IiB3aWR0aD0iOTgiIGhlaWdodD0iMTAiIHJ4PSI1IiBmaWxsPSIjREVFOEVDIi8+CiAgPHRleHQgeD0iMTEyIiB5PSIyNTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiM2Rjc2NzQiPnJlcXVlc3QgKyByZXNwb25zZTwvdGV4dD4KICA8cGF0aCBkPSJNMTk2IDE5NCBIMjUyIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxwYXRoIGQ9Ik0yNTIgMTg0IGwxMiAxMCAtMTIgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPHRleHQgeD0iMjI0IiB5PSIxODAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iOS41IiBmaWxsPSIjNkY3Njc0Ij5mZXRjaDwvdGV4dD4KCiAgPHJlY3QgeD0iMjYyIiB5PSIxMTIiIHdpZHRoPSIxNjYiIGhlaWdodD0iMTY0IiByeD0iMTIiIGZpbGw9IiNFM0VBREIiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjgiLz4KICA8dGV4dCB4PSIzNDUiIHk9IjE1MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9IjcwMCI+Rmxhc2sgQVBJPC90ZXh0PgogIDx0ZXh0IHg9IjM0NSIgeT0iMTcwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEwLjUiIGZpbGw9IiM2Rjc2NzQiPnJvdXRlcyDCtyBhdXRoIMK3IGxvZ2ljPC90ZXh0PgogIDxyZWN0IHg9IjI4MiIgeT0iMTkwIiB3aWR0aD0iMTI2IiBoZWlnaHQ9IjEwIiByeD0iNSIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjOUZBRjkxIiBzdHJva2Utd2lkdGg9IjEiLz4KICA8cmVjdCB4PSIyODIiIHk9IjIwOCIgd2lkdGg9Ijk0IiBoZWlnaHQ9IjEwIiByeD0iNSIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjOUZBRjkxIiBzdHJva2Utd2lkdGg9IjEiLz4KICA8dGV4dCB4PSIzNDUiIHk9IjI1MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMCIgZmlsbD0iIzlGQUY5MSI+a2V5IHN0YXlzIGhlcmU8L3RleHQ+CiAgPHBhdGggZD0iTTQzNCAxOTQgSDQ5MiIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8cGF0aCBkPSJNNDkyIDE4NCBsMTIgMTAgLTEyIDEwIiBmaWxsPSJub25lIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMiIvPgogIDx0ZXh0IHg9IjQ2MyIgeT0iMTgwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjkuNSIgZmlsbD0iIzZGNzY3NCI+c2VydmVyIGNhbGw8L3RleHQ+CgogIDxyZWN0IHg9IjUwMiIgeT0iMTI2IiB3aWR0aD0iMTUwIiBoZWlnaHQ9IjEzNiIgcng9IjEyIiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS44Ii8+CiAgPHRleHQgeD0iNTc3IiB5PSIxNjgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSI3MDAiPkFJIHNlcnZpY2U8L3RleHQ+CiAgPHRleHQgeD0iNTc3IiB5PSIxODgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTAuNSIgZmlsbD0iIzZGNzY3NCI+bW9kZWwgcHJvdmlkZXI8L3RleHQ+CiAgPGNpcmNsZSBjeD0iNTc3IiBjeT0iMjI0IiByPSIxOCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjOEVBNkI0IiBzdHJva2Utd2lkdGg9IjIiLz4KICA8cGF0aCBkPSJNNTY2IDIyNCBoMjIgTTU3NyAyMTMgdjIyIiBzdHJva2U9IiM4RUE2QjQiIHN0cm9rZS13aWR0aD0iMS42Ii8+CgogIDxwYXRoIGQ9Ik0zNDUgMjg0IFYzMjAiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPHBhdGggZD0iTTMzNSAzMjAgbDEwIDEyIDEwIC0xMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8cmVjdCB4PSIyNzIiIHk9IjMzOCIgd2lkdGg9IjE0NiIgaGVpZ2h0PSI1MiIgcng9IjEwIiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS42Ii8+CiAgPHRleHQgeD0iMzQ1IiB5PSIzNjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTIiIGZvbnQtd2VpZ2h0PSI3MDAiPmNoYXQgaGlzdG9yeTwvdGV4dD4KICA8dGV4dCB4PSIzNDUiIHk9IjM3NyIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSI5LjUiIGZpbGw9IiM2Rjc2NzQiPmRhdGFiYXNlPC90ZXh0PgogIDx0ZXh0IHg9IjcwMCIgeT0iMzIwIiB0ZXh0LWFuY2hvcj0iZW5kIiBmb250LXNpemU9IjEwIiBmaWxsPSIjNkY3Njc0Ij5vbmUgcmVxdWVzdCwgZm91ciBib3VuZGFyaWVzPC90ZXh0Pgo8L2c+CjwvZz4KPC9zdmc+",
+      "embedded": true,
+      "width": 1600,
+      "height": 900,
+      "sha256": "91c83cd3b1f4201c74ae709fd28c4912df6961f0a576bb98fdcfe57c63f887ec"
+    },
+    {
+      "id": "asset-verification",
+      "name": "Verification and validation",
+      "kind": "image",
+      "uri": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+CjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiBmaWxsPSIjRkZGRkZGIi8+CjxnIGZvbnQtZmFtaWx5PSJBdmVuaXIgTmV4dCwgU2Vnb2UgVUksIHNhbnMtc2VyaWYiIGZpbGw9IiMyRTM0MzMiPgo8dGV4dCB4PSIzMiIgeT0iNDgiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI3NTAiIGxldHRlci1zcGFjaW5nPSIxLjQiPlZFUklGSUNBVElPTiAvIFZBTElEQVRJT048L3RleHQ+Cjx0ZXh0IHg9IjMyIiB5PSI3MiIgZm9udC1zaXplPSIxMyIgZmlsbD0iIzZGNzY3NCI+YnVpbHQgcmlnaHQgYW5kIHRoZSByaWdodCBwcm9kdWN0IGFyZSBkaWZmZXJlbnQgcXVlc3Rpb25zPC90ZXh0PgoKPGc+CiAgPHJlY3QgeD0iMzQiIHk9IjEwOCIgd2lkdGg9IjM1MiIgaGVpZ2h0PSIyMjIiIHJ4PSIxMiIgZmlsbD0iI0RFRThFQyIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjEuNiIvPgogIDx0ZXh0IHg9IjIxMCIgeT0iMTQyIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjE2IiBmb250LXdlaWdodD0iNzUwIj5WRVJJRklDQVRJT048L3RleHQ+CiAgPHRleHQgeD0iMjEwIiB5PSIxNjIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTEiIGZpbGw9IiM2Rjc2NzQiPmFyZSB3ZSBidWlsZGluZyBpdCByaWdodD88L3RleHQ+CiAgPGNpcmNsZSBjeD0iNTgiIGN5PSIxOTIiIHI9IjQiIGZpbGw9IiM4RUE2QjQiLz48dGV4dCB4PSI3MCIgeT0iMTk2IiBmb250LXNpemU9IjExIj5jb2RlIHJldmlldzwvdGV4dD48Y2lyY2xlIGN4PSI1OCIgY3k9IjIyMiIgcj0iNCIgZmlsbD0iIzhFQTZCNCIvPjx0ZXh0IHg9IjcwIiB5PSIyMjYiIGZvbnQtc2l6ZT0iMTEiPnVuaXQgdGVzdHM8L3RleHQ+PGNpcmNsZSBjeD0iNTgiIGN5PSIyNTIiIHI9IjQiIGZpbGw9IiM4RUE2QjQiLz48dGV4dCB4PSI3MCIgeT0iMjU2IiBmb250LXNpemU9IjExIj5pbnRlZ3JhdGlvbiB0ZXN0czwvdGV4dD48Y2lyY2xlIGN4PSI1OCIgY3k9IjI4MiIgcj0iNCIgZmlsbD0iIzhFQTZCNCIvPjx0ZXh0IHg9IjcwIiB5PSIyODYiIGZvbnQtc2l6ZT0iMTEiPnN5c3RlbSB0ZXN0czwvdGV4dD4KICA8cmVjdCB4PSI0MDQiIHk9IjEwOCIgd2lkdGg9IjM1MiIgaGVpZ2h0PSIyMjIiIHJ4PSIxMiIgZmlsbD0iI0UzRUFEQiIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjEuNiIvPgogIDx0ZXh0IHg9IjU4MCIgeT0iMTQyIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjE2IiBmb250LXdlaWdodD0iNzUwIj5WQUxJREFUSU9OPC90ZXh0PgogIDx0ZXh0IHg9IjU4MCIgeT0iMTYyIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjExIiBmaWxsPSIjNkY3Njc0Ij5hcmUgd2UgYnVpbGRpbmcgdGhlIHJpZ2h0IHByb2R1Y3Q/PC90ZXh0PgogIDxjaXJjbGUgY3g9IjQyOCIgY3k9IjE5MiIgcj0iNCIgZmlsbD0iIzlGQUY5MSIvPjx0ZXh0IHg9IjQ0MCIgeT0iMTk2IiBmb250LXNpemU9IjExIj5wcm90b3R5cGVzPC90ZXh0PjxjaXJjbGUgY3g9IjQyOCIgY3k9IjIyMiIgcj0iNCIgZmlsbD0iIzlGQUY5MSIvPjx0ZXh0IHg9IjQ0MCIgeT0iMjI2IiBmb250LXNpemU9IjExIj51c2FiaWxpdHkgc3R1ZGllczwvdGV4dD48Y2lyY2xlIGN4PSI0MjgiIGN5PSIyNTIiIHI9IjQiIGZpbGw9IiM5RkFGOTEiLz48dGV4dCB4PSI0NDAiIHk9IjI1NiIgZm9udC1zaXplPSIxMSI+YWNjZXB0YW5jZSB0ZXN0czwvdGV4dD48Y2lyY2xlIGN4PSI0MjgiIGN5PSIyODIiIHI9IjQiIGZpbGw9IiM5RkFGOTEiLz48dGV4dCB4PSI0NDAiIHk9IjI4NiIgZm9udC1zaXplPSIxMSI+cHJvZHVjdGlvbiBldmlkZW5jZTwvdGV4dD4KICAKICA8cmVjdCB4PSIzNCIgeT0iMzUwIiB3aWR0aD0iNzIyIiBoZWlnaHQ9IjQ2IiByeD0iOCIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjEiLz4KICA8dGV4dCB4PSI1NCIgeT0iMzc4IiBmb250LXNpemU9IjExLjUiIGZpbGw9IiM2Rjc2NzQiPmNvbmZpcm1hdGlvbiByZXJ1bnMgdGhlIGZhaWxlZCB0ZXN0IMK3IHJlZ3Jlc3Npb24gcHJvdGVjdHMgdGhlIG5laWdoYm91cmhvb2Q8L3RleHQ+CjwvZz4KPC9nPgo8L3N2Zz4=",
+      "embedded": true,
+      "width": 1600,
+      "height": 900,
+      "sha256": "ddf78fa7491869802eaeb71d6631ed85ac053cf9625879e5c0a386cff4c6ce89"
+    },
+    {
+      "id": "asset-incident",
+      "name": "Hidden incident timeline",
+      "kind": "image",
+      "uri": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+CjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiBmaWxsPSIjRkZGRkZGIi8+CjxnIGZvbnQtZmFtaWx5PSJBdmVuaXIgTmV4dCwgU2Vnb2UgVUksIHNhbnMtc2VyaWYiIGZpbGw9IiMyRTM0MzMiPgo8dGV4dCB4PSIzMiIgeT0iNDgiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI3NTAiIGxldHRlci1zcGFjaW5nPSIxLjQiPkEgSElEREVOIERFR1JBREFUSU9OPC90ZXh0Pgo8dGV4dCB4PSIzMiIgeT0iNzIiIGZvbnQtc2l6ZT0iMTMiIGZpbGw9IiM2Rjc2NzQiPm9uZSByZWxlYXNlLCBzZXZlbiBpbnZpc2libGUgaG91cnM8L3RleHQ+Cgo8Zz4KICA8dGV4dCB4PSIzMiIgeT0iMTE4IiBmb250LXNpemU9IjEwLjUiIGZpbGw9IiM2Rjc2NzQiPkRFUExPWTwvdGV4dD4KICA8dGV4dCB4PSIzMiIgeT0iMTQwIiBmb250LXNpemU9IjEwIiBmaWxsPSIjNkY3Njc0Ij4wMTowMDwvdGV4dD4KICA8dGV4dCB4PSIxOTYiIHk9IjExOCIgZm9udC1zaXplPSIxMC41IiBmaWxsPSIjQkU2QTU4Ij5MQVRFTkNZPC90ZXh0PgogIDx0ZXh0IHg9IjE5NiIgeT0iMTQwIiBmb250LXNpemU9IjEwIiBmaWxsPSIjQkU2QTU4Ij4wMzowMDwvdGV4dD4KICA8dGV4dCB4PSIzOTIiIHk9IjExOCIgZm9udC1zaXplPSIxMC41IiBmaWxsPSIjQzhBQTcyIj5ESVNDT1ZFUkVEPC90ZXh0PgogIDx0ZXh0IHg9IjM5MiIgeT0iMTQwIiBmb250LXNpemU9IjEwIiBmaWxsPSIjQzhBQTcyIj4xMDowMDwvdGV4dD4KICA8dGV4dCB4PSI1NDgiIHk9IjExOCIgZm9udC1zaXplPSIxMC41IiBmaWxsPSIjOEVBNkI0Ij5GSVg8L3RleHQ+CiAgPHRleHQgeD0iNTQ4IiB5PSIxNDAiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiM4RUE2QjQiPjEzOjAwPC90ZXh0PgogIDx0ZXh0IHg9IjcwMCIgeT0iMTE4IiBmb250LXNpemU9IjEwLjUiIGZpbGw9IiM5RkFGOTEiPlJFU1RPUkVEPC90ZXh0PgogIDx0ZXh0IHg9IjcwMCIgeT0iMTQwIiBmb250LXNpemU9IjEwIiBmaWxsPSIjOUZBRjkxIj4yMTowMDwvdGV4dD4KICA8bGluZSB4MT0iNDIiIHkxPSIxOTYiIHgyPSI3NDQiIHkyPSIxOTYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPHJlY3QgeD0iMTIwIiB5PSIxODIiIHdpZHRoPSIyNTAiIGhlaWdodD0iMjgiIHJ4PSI2IiBmaWxsPSIjRjVEQ0Q2IiBvcGFjaXR5PSIuODUiLz4KICA8dGV4dCB4PSIyNDUiIHk9IjE3MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMC41IiBmaWxsPSIjQkU2QTU4Ij5zZXZlbiBpbnZpc2libGUgaG91cnM8L3RleHQ+CiAgPGNpcmNsZSBjeD0iNjIiIGN5PSIxOTYiIHI9IjciIGZpbGw9IiMyRTM0MzMiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjQiLz48Y2lyY2xlIGN4PSIyMTYiIGN5PSIxOTYiIHI9IjciIGZpbGw9IiNCRTZBNTgiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjQiLz48Y2lyY2xlIGN4PSI0MTgiIGN5PSIxOTYiIHI9IjciIGZpbGw9IiNDOEFBNzIiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjQiLz48Y2lyY2xlIGN4PSI1NzQiIGN5PSIxOTYiIHI9IjciIGZpbGw9IiM4RUE2QjQiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjQiLz48Y2lyY2xlIGN4PSI3MjAiIGN5PSIxOTYiIHI9IjciIGZpbGw9IiM5RkFGOTEiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjQiLz4KICA8cGF0aCBkPSJNNjIgMjMyIFYyNTggTTIxNiAyMzIgVjI1OCBNNDE4IDIzMiBWMjU4IE01NzQgMjMyIFYyNTggTTcyMCAyMzIgVjI1OCIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utb3BhY2l0eT0iLjE4Ii8+CiAgPHJlY3QgeD0iMzQiIHk9IjI4OCIgd2lkdGg9IjcyMiIgaGVpZ2h0PSI1NCIgcng9IjEwIiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMSIvPgogIDx0ZXh0IHg9IjU0IiB5PSIzMTIiIGZvbnQtc2l6ZT0iMTEuNSIgZm9udC13ZWlnaHQ9IjY1MCI+VGhlIGZpeCB3YXMgZmFzdDsgZGV0ZWN0aW9uIHdhcyBub3QuPC90ZXh0PgogIDx0ZXh0IHg9IjU0IiB5PSIzMzAiIGZvbnQtc2l6ZT0iMTAuNSIgZmlsbD0iIzZGNzY3NCI+YSBtaXNzaW5nIGFsZXJ0IHR1cm5zIGEgc21hbGwgc2xvd2Rvd24gaW50byBhIGxvbmcgY3VzdG9tZXIgb3V0YWdlPC90ZXh0Pgo8L2c+CjwvZz4KPC9zdmc+",
+      "embedded": true,
+      "width": 1600,
+      "height": 900,
+      "sha256": "0c70ffc91c24470589b71c5ebdea59ea91f3200904bf86d581c6455191a5ddb4"
+    },
+    {
+      "id": "asset-availability",
+      "name": "Availability factors",
+      "kind": "image",
+      "uri": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+CjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiBmaWxsPSIjRkZGRkZGIi8+CjxnIGZvbnQtZmFtaWx5PSJBdmVuaXIgTmV4dCwgU2Vnb2UgVUksIHNhbnMtc2VyaWYiIGZpbGw9IiMyRTM0MzMiPgo8dGV4dCB4PSIzMiIgeT0iNDgiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI3NTAiIGxldHRlci1zcGFjaW5nPSIxLjQiPldIQVQgU0hBUEVTIEFWQUlMQUJJTElUWTwvdGV4dD4KPHRleHQgeD0iMzIiIHk9IjcyIiBmb250LXNpemU9IjEzIiBmaWxsPSIjNkY3Njc0Ij50aGUgZXF1YXRpb24gaXMgc2ltcGxlOyB0aGUgaW5wdXRzIGFyZSBub3Q8L3RleHQ+Cgo8Zz4KICA8Y2lyY2xlIGN4PSIyMTgiIGN5PSIyMTIiIHI9IjgyIiBmaWxsPSIjRTNFQURCIiBzdHJva2U9IiMyRTM0MzMiIHN0cm9rZS13aWR0aD0iMS44Ii8+CiAgPHRleHQgeD0iMjE4IiB5PSIyMDYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMjQiIGZvbnQtd2VpZ2h0PSI3NTAiPjk5LjklPC90ZXh0PgogIDx0ZXh0IHg9IjIxOCIgeT0iMjI4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEwLjUiIGZpbGw9IiM2Rjc2NzQiPnRocmVlIG5pbmVzPC90ZXh0PgogIDx0ZXh0IHg9IjIxOCIgeT0iMjQ0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjkuNSIgZmlsbD0iIzZGNzY3NCI+OC44IGggLyB5ZWFyPC90ZXh0PgogIDxnPjxyZWN0IHg9IjU2IiB5PSI4NiIgd2lkdGg9IjcyIiBoZWlnaHQ9IjI2IiByeD0iNiIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjEiLz48dGV4dCB4PSI5MiIgeT0iMTAzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjkuNSI+aGFyZHdhcmU8L3RleHQ+PC9nPjxnPjxyZWN0IHg9IjE4OCIgeT0iODIiIHdpZHRoPSI3MiIgaGVpZ2h0PSIyNiIgcng9IjYiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxIi8+PHRleHQgeD0iMjI0IiB5PSI5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSI5LjUiPm5ldHdvcms8L3RleHQ+PC9nPjxnPjxyZWN0IHg9IjMyMCIgeT0iODYiIHdpZHRoPSI3MiIgaGVpZ2h0PSIyNiIgcng9IjYiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxIi8+PHRleHQgeD0iMzU2IiB5PSIxMDMiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iOS41Ij5idWdzPC90ZXh0PjwvZz48Zz48cmVjdCB4PSIzNDQiIHk9IjEyOCIgd2lkdGg9IjcyIiBoZWlnaHQ9IjI2IiByeD0iNiIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjEiLz48dGV4dCB4PSIzODAiIHk9IjE0NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSI5LjUiPmNhcGFjaXR5PC90ZXh0PjwvZz48Zz48cmVjdCB4PSIzNTAiIHk9IjE5MCIgd2lkdGg9IjcyIiBoZWlnaHQ9IjI2IiByeD0iNiIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMkUzNDMzIiBzdHJva2Utd2lkdGg9IjEiLz48dGV4dCB4PSIzODYiIHk9IjIwNyIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSI5LjUiPnByb3ZpZGVyczwvdGV4dD48L2c+PGc+PHJlY3QgeD0iMzUwIiB5PSIyNTIiIHdpZHRoPSI3MiIgaGVpZ2h0PSIyNiIgcng9IjYiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxIi8+PHRleHQgeD0iMzg2IiB5PSIyNjkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iOS41Ij5zZWN1cml0eTwvdGV4dD48L2c+PGc+PHJlY3QgeD0iMzIwIiB5PSIzMTIiIHdpZHRoPSI3MiIgaGVpZ2h0PSIyNiIgcng9IjYiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxIi8+PHRleHQgeD0iMzU2IiB5PSIzMjkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iOS41Ij5wb3dlcjwvdGV4dD48L2c+PGc+PHJlY3QgeD0iMTg4IiB5PSIzMzAiIHdpZHRoPSI3MiIgaGVpZ2h0PSIyNiIgcng9IjYiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxIi8+PHRleHQgeD0iMjI0IiB5PSIzNDciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iOS41Ij5jb25maWc8L3RleHQ+PC9nPjxnPjxyZWN0IHg9IjU2IiB5PSIzMTIiIHdpZHRoPSI3MiIgaGVpZ2h0PSIyNiIgcng9IjYiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxIi8+PHRleHQgeD0iOTIiIHk9IjMyOSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSI5LjUiPmJhY2t1cDwvdGV4dD48L2c+CiAgCiAgPHJlY3QgeD0iNDcwIiB5PSIxMDQiIHdpZHRoPSIyODAiIGhlaWdodD0iMTYwIiByeD0iMTIiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFMzQzMyIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8dGV4dCB4PSI0OTAiIHk9IjEzNCIgZm9udC1zaXplPSIxMiIgZm9udC13ZWlnaHQ9IjcwMCI+QWxsb3dlZCBkb3dudGltZSAvIHllYXI8L3RleHQ+CiAgPHRleHQgeD0iNDkwIiB5PSIxNjYiIGZvbnQtc2l6ZT0iMTEiIGZpbGw9IiM2Rjc2NzQiPjk5LjklPC90ZXh0PgogIDxyZWN0IHg9IjU1MCIgeT0iMTU2IiB3aWR0aD0iMTcwIiBoZWlnaHQ9IjEwIiByeD0iNSIgZmlsbD0iI0UzRUFEQiIvPgogIDxyZWN0IHg9IjU1MCIgeT0iMTU2IiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjEwIiByeD0iNSIgZmlsbD0iIzlGQUY5MSIvPgogIDx0ZXh0IHg9IjczMCIgeT0iMTY2IiB0ZXh0LWFuY2hvcj0iZW5kIiBmb250LXNpemU9IjEwIiBmaWxsPSIjNkY3Njc0Ij44LjggaDwvdGV4dD4KICA8dGV4dCB4PSI0OTAiIHk9IjE5OCIgZm9udC1zaXplPSIxMSIgZmlsbD0iIzZGNzY3NCI+OTkuOTklPC90ZXh0PgogIDxyZWN0IHg9IjU1MCIgeT0iMTg4IiB3aWR0aD0iMTcwIiBoZWlnaHQ9IjEwIiByeD0iNSIgZmlsbD0iI0RFRThFQyIvPgogIDxyZWN0IHg9IjU1MCIgeT0iMTg4IiB3aWR0aD0iMzAiIGhlaWdodD0iMTAiIHJ4PSI1IiBmaWxsPSIjOEVBNkI0Ii8+CiAgPHRleHQgeD0iNzMwIiB5PSIxOTgiIHRleHQtYW5jaG9yPSJlbmQiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiM2Rjc2NzQiPjUyLjYgbTwvdGV4dD4KICA8dGV4dCB4PSI0OTAiIHk9IjIzMiIgZm9udC1zaXplPSIxMCIgZmlsbD0iIzZGNzY3NCI+ZWFjaCBleHRyYSBuaW5lIGJ1eXMgYWJvdXQgMTDDlyBsZXNzIGRvd250aW1lPC90ZXh0PgogIDx0ZXh0IHg9IjQ3MCIgeT0iMzAwIiBmb250LXNpemU9IjExIiBmaWxsPSIjNkY3Njc0Ij5BdmFpbGFiaWxpdHkgaXMgc2hhcGVkIGJ5IHRoZSB3aG9sZSBzeXN0ZW0uPC90ZXh0Pgo8L2c+CjwvZz4KPC9zdmc+",
+      "embedded": true,
+      "width": 1600,
+      "height": 900,
+      "sha256": "48a4e0a24b74ae71263312e2dc54666cc43834c77d9e02d6107c91f9d60a91c1"
+    }
+  ],
+  "theme": {
+    "name": "White Paper",
+    "background": "#FFFFFF",
+    "surface": "#F4F4F2",
+    "foreground": "#1F2322",
+    "muted": "#6B7270",
+    "accent": "#9FAF91",
+    "accentAlt": "#8EA6B4",
+    "fontFamily": "Inter, ui-sans-serif, system-ui, sans-serif"
+  }
+}

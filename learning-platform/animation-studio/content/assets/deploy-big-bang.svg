@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+<rect width="800" height="450" fill="#FFFFFF"/>
+<g font-family="Avenir Next, Segoe UI, sans-serif" fill="#2E3433">
+<text x="32" y="48" font-size="20" font-weight="750" letter-spacing="1.4">BIG BANG</text>
+<text x="32" y="72" font-size="13" fill="#6F7674">one release · every user switches at once</text>
+
+<g>
+  <text x="40" y="118" font-size="11" letter-spacing="1.1" fill="#6F7674">USERS</text>
+  <circle cx="58" cy="146" r="9" fill="#FFFFFF" stroke="#2E3433" stroke-width="1.5"/><circle cx="90" cy="146" r="9" fill="#FFFFFF" stroke="#2E3433" stroke-width="1.5"/><circle cx="122" cy="146" r="9" fill="#FFFFFF" stroke="#2E3433" stroke-width="1.5"/><circle cx="154" cy="146" r="9" fill="#FFFFFF" stroke="#2E3433" stroke-width="1.5"/><circle cx="186" cy="146" r="9" fill="#FFFFFF" stroke="#2E3433" stroke-width="1.5"/><circle cx="218" cy="146" r="9" fill="#FFFFFF" stroke="#2E3433" stroke-width="1.5"/><circle cx="58" cy="180" r="9" fill="#FFFFFF" stroke="#2E3433" stroke-width="1.5"/><circle cx="90" cy="180" r="9" fill="#FFFFFF" stroke="#2E3433" stroke-width="1.5"/><circle cx="122" cy="180" r="9" fill="#FFFFFF" stroke="#2E3433" stroke-width="1.5"/><circle cx="154" cy="180" r="9" fill="#FFFFFF" stroke="#2E3433" stroke-width="1.5"/><circle cx="186" cy="180" r="9" fill="#FFFFFF" stroke="#2E3433" stroke-width="1.5"/><circle cx="218" cy="180" r="9" fill="#FFFFFF" stroke="#2E3433" stroke-width="1.5"/><circle cx="58" cy="214" r="9" fill="#FFFFFF" stroke="#2E3433" stroke-width="1.5"/><circle cx="90" cy="214" r="9" fill="#FFFFFF" stroke="#2E3433" stroke-width="1.5"/><circle cx="122" cy="214" r="9" fill="#FFFFFF" stroke="#2E3433" stroke-width="1.5"/><circle cx="154" cy="214" r="9" fill="#FFFFFF" stroke="#2E3433" stroke-width="1.5"/><circle cx="186" cy="214" r="9" fill="#FFFFFF" stroke="#2E3433" stroke-width="1.5"/><circle cx="218" cy="214" r="9" fill="#FFFFFF" stroke="#2E3433" stroke-width="1.5"/>
+  <path d="M250 180 H286" stroke="#2E3433" stroke-width="2"/>
+  <path d="M286 172 l10 8 -10 8" fill="none" stroke="#2E3433" stroke-width="2"/>
+  <rect x="298" y="128" width="160" height="104" rx="12" fill="#FFFFFF" stroke="#2E3433" stroke-width="2"/>
+  <text x="378" y="174" text-anchor="middle" font-size="30" font-weight="750">v1</text>
+  <text x="378" y="198" text-anchor="middle" font-size="11" fill="#6F7674">stable</text>
+  <rect x="518" y="128" width="160" height="104" rx="12" fill="#F5DCD6" stroke="#2E3433" stroke-width="2"/>
+  <text x="598" y="174" text-anchor="middle" font-size="30" font-weight="750">v2</text>
+  <text x="598" y="198" text-anchor="middle" font-size="11" fill="#6F7674">next release</text>
+  <path d="M466 180 H510" stroke="#2E3433" stroke-width="2.5"/>
+  <path d="M510 170 l12 10 -12 10" fill="none" stroke="#2E3433" stroke-width="2.5"/>
+  <text x="488" y="116" text-anchor="middle" font-size="11" fill="#BE6A58">switch 100%</text>
+  <circle cx="598" cy="180" r="74" fill="none" stroke="#BE6A58" stroke-width="2" stroke-dasharray="5 7"/>
+  <text x="598" y="272" text-anchor="middle" font-size="11" fill="#BE6A58">every user moves at once</text>
+  <rect x="40" y="306" width="720" height="82" rx="10" fill="#F5DCD6"/>
+  <rect x="40" y="306" width="8" height="82" rx="4" fill="#BE6A58"/>
+  <text x="68" y="338" font-size="17" font-weight="700">Blast radius: 100% of users</text>
+  <text x="68" y="362" font-size="12.5" fill="#6F7674">one bad release reaches everyone · rollback means another full switch</text>
+</g>
+</g>
+</svg>
