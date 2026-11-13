@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 
-import { getPublishedVersion } from "@/animation-studio/content/versions/registry";
+import { getPublishedAnimation } from "@/animation-studio/content/versions/registry";
 import { requirePageRoles } from "@/lib/auth/authorization";
 
 import { AnimationStudioPage } from "../animation-studio-page";
@@ -17,7 +17,7 @@ export default async function AnimationVersionPage({
   params: Promise<{ version: string }>;
 }) {
   const { version } = await params;
-  const selected = getPublishedVersion(version);
+  const selected = getPublishedAnimation(version);
 
   if (!selected) {
     notFound();

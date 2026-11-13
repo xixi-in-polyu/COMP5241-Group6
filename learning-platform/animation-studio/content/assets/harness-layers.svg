@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+<rect width="800" height="450" fill="#FFFFFF"/>
+<g font-family="Avenir Next, Segoe UI, sans-serif" fill="#1F2322">
+<text x="32" y="48" font-size="20" font-weight="750" letter-spacing="1.4">FOUR THINGS AROUND THE MODEL</text>
+<text x="32" y="72" font-size="13" fill="#6B7270">tools · context · boundaries · memory</text>
+
+<g>
+  <rect x="280" y="124" width="240" height="196" rx="88" fill="none" stroke="#9FAF91" stroke-width="1.6" stroke-dasharray="6 6"/>
+  <text x="400" y="116" text-anchor="middle" font-size="10" letter-spacing="1.3" fill="#9FAF91">HARNESS</text>
+  <rect x="330" y="178" width="140" height="96" rx="12" fill="#E2EBEF" stroke="#1F2322" stroke-width="1.8"/>
+  <text x="400" y="216" text-anchor="middle" font-size="15" font-weight="750">MODEL</text>
+  <text x="400" y="236" text-anchor="middle" font-size="9.5" fill="#6B7270">the core</text>
+  <rect x="34" y="104" width="176" height="76" rx="9" fill="#E8EEE1" stroke="#1F2322" stroke-width="1.2"/><text x="50" y="130" font-size="11" font-weight="750">TOOLS</text><text x="50" y="150" font-size="9.5" fill="#6B7270">shell · files · search</text><rect x="590" y="104" width="176" height="76" rx="9" fill="#E2EBEF" stroke="#1F2322" stroke-width="1.2"/><text x="606" y="130" font-size="11" font-weight="750">CONTEXT</text><text x="606" y="150" font-size="9.5" fill="#6B7270">prompt · history · retrieval</text><rect x="34" y="302" width="176" height="76" rx="9" fill="#F5E6DF" stroke="#1F2322" stroke-width="1.2"/><text x="50" y="328" font-size="11" font-weight="750">BOUNDARIES</text><text x="50" y="348" font-size="9.5" fill="#6B7270">approvals · sandbox · limits</text><rect x="590" y="302" width="176" height="76" rx="9" fill="#FFFFFF" stroke="#1F2322" stroke-width="1.2"/><text x="606" y="328" font-size="11" font-weight="750">MEMORY</text><text x="606" y="348" font-size="9.5" fill="#6B7270">state · sessions</text>
+  <path d="M214 150 C260 150 270 180 330 200" stroke="#1F2322" stroke-width="1.4" fill="none"/>
+  <path d="M586 150 C540 150 530 180 470 200" stroke="#1F2322" stroke-width="1.4" fill="none"/>
+  <path d="M214 330 C260 330 270 290 330 260" stroke="#1F2322" stroke-width="1.4" fill="none"/>
+  <path d="M586 330 C540 330 530 290 470 260" stroke="#1F2322" stroke-width="1.4" fill="none"/>
+  <rect x="34" y="398" width="724" height="34" rx="8" fill="#E8EEE1"/>
+  <text x="52" y="420" font-size="11.5" fill="#6B7270">Capability and safety are designed together.</text>
+</g>
+</g>
+</svg>

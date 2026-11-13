@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+<rect width="800" height="450" fill="#FFFFFF"/>
+<g font-family="Avenir Next, Segoe UI, sans-serif" fill="#1F2322">
+<text x="32" y="48" font-size="20" font-weight="750" letter-spacing="1.4">PREDICTION IS NOT ACTION</text>
+<text x="32" y="72" font-size="13" fill="#6B7270">a model without a body</text>
+
+<g>
+  <rect x="34" y="108" width="176" height="100" rx="10" fill="#FFFFFF" stroke="#1F2322" stroke-width="1.5"/>
+  <text x="52" y="134" font-size="9.5" letter-spacing="1" fill="#6B7270">REQUEST</text>
+  <text x="52" y="158" font-size="12.5">Explain this error</text>
+  <text x="52" y="178" font-size="11" fill="#6B7270">and propose a fix</text>
+  <path d="M214 158 H258" stroke="#1F2322" stroke-width="2"/>
+  <path d="M258 148 l12 10 -12 10" fill="none" stroke="#1F2322" stroke-width="2"/>
+  <rect x="272" y="108" width="184" height="100" rx="10" fill="#E2EBEF" stroke="#1F2322" stroke-width="1.8"/>
+  <text x="364" y="142" text-anchor="middle" font-size="15" font-weight="750">MODEL</text>
+  <text x="364" y="164" text-anchor="middle" font-size="10.5" fill="#6B7270">next-token predictor</text>
+  <rect x="304" y="178" width="120" height="8" rx="4" fill="#FFFFFF" opacity=".9"/>
+  <path d="M460 158 H500" stroke="#1F2322" stroke-width="2"/>
+  <path d="M500 148 l12 10 -12 10" fill="none" stroke="#1F2322" stroke-width="2"/>
+  <rect x="514" y="108" width="244" height="100" rx="10" fill="#FFFFFF" stroke="#1F2322" stroke-width="1.5"/>
+  <text x="532" y="134" font-size="9.5" letter-spacing="1" fill="#6B7270">ANSWER</text>
+  <text x="532" y="158" font-size="12">A plausible explanation,</text>
+  <text x="532" y="177" font-size="12">but no change on disk.</text>
+  <text x="534" y="244" font-size="10" fill="#BE6A58">it can describe an action; it cannot take one</text>
+
+  <text x="34" y="276" font-size="10" letter-spacing="1" fill="#6B7270">TOOLS NOT CONNECTED</text>
+  <rect x="34" y="292" width="160" height="54" rx="8" fill="#FFFFFF" stroke="#6B7270" stroke-dasharray="4 5" stroke-width="1.2"/><text x="114" y="316" text-anchor="middle" font-size="12" fill="#6B7270">shell</text><text x="114" y="334" text-anchor="middle" font-size="9.5" fill="#6B7270">run commands</text><rect x="224" y="292" width="160" height="54" rx="8" fill="#FFFFFF" stroke="#6B7270" stroke-dasharray="4 5" stroke-width="1.2"/><text x="304" y="316" text-anchor="middle" font-size="12" fill="#6B7270">files</text><text x="304" y="334" text-anchor="middle" font-size="9.5" fill="#6B7270">read / write</text><rect x="414" y="292" width="160" height="54" rx="8" fill="#FFFFFF" stroke="#6B7270" stroke-dasharray="4 5" stroke-width="1.2"/><text x="494" y="316" text-anchor="middle" font-size="12" fill="#6B7270">memory</text><text x="494" y="334" text-anchor="middle" font-size="9.5" fill="#6B7270">keep state</text>
+  <rect x="34" y="374" width="724" height="46" rx="8" fill="#F7E0DA"/>
+  <rect x="34" y="374" width="7" height="46" rx="3.5" fill="#BE6A58"/>
+  <text x="58" y="402" font-size="13.5" font-weight="650">It can talk. It cannot act.</text>
+</g>
+</g>
+</svg>

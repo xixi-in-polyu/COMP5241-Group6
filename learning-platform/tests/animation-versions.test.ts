@@ -1,8 +1,9 @@
 import { describe, expect, it } from "vitest";
 
 import {
-  getPublishedVersion,
+  getPublishedAnimation,
   listPublishedVersions,
+  listTopicAnimations,
 } from "@/animation-studio/content/versions/registry";
 
 describe("published animation versions", () => {
@@ -23,8 +24,17 @@ describe("published animation versions", () => {
     expect(versions.at(-1)?.images).toBeGreaterThanOrEqual(8);
   });
 
-  it("rejects an unknown version", () => {
-    expect(getPublishedVersion("v1")).toBeNull();
-    expect(getPublishedVersion("v6")?.project).toBeTruthy();
+  it("exposes the harness topic intro", () => {
+    const topics = listTopicAnimations();
+
+    expect(topics.map((topic) => topic.id)).toEqual(["harness"]);
+    expect(topics[0]?.durationSeconds).toBe(120);
+    expect(topics[0]?.images).toBe(4);
+    expect(getPublishedAnimation("harness")?.project).toBeTruthy();
+  });
+
+  it("rejects an unknown animation", () => {
+    expect(getPublishedAnimation("v1")).toBeNull();
+    expect(getPublishedAnimation("v6")?.project).toBeTruthy();
   });
 });

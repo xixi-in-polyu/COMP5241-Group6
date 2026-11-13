@@ -14,6 +14,10 @@ palette, and the same ink/paper contrast as the scenes.
 | `verification-validation.svg` | scene 8, steps 1–4 |
 | `incident-timeline.svg` | scene 9, steps 1–4 |
 | `availability-factors.svg` | scene 10, steps 3–4 |
+| `harness-model-alone.svg` | Harness topic, scene 1 |
+| `harness-layers.svg` | Harness topic, scene 2 |
+| `harness-loop.svg` | Harness topic, scene 3 |
+| `harness-compare.svg` | Harness topic, scene 4 |
 
 The project embeds each SVG as a `data:image/svg+xml;base64,...` asset so the
 JSON stays portable and deterministic. After editing an SVG, re-embed it:

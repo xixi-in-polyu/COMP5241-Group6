@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+<rect width="800" height="450" fill="#FFFFFF"/>
+<g font-family="Avenir Next, Segoe UI, sans-serif" fill="#1F2322">
+<text x="32" y="48" font-size="20" font-weight="750" letter-spacing="1.4">ONE TURN OF THE LOOP</text>
+<text x="32" y="72" font-size="13" fill="#6B7270">observe, plan, act, verify</text>
+
+<g>
+  <circle cx="400" cy="228" r="58" fill="#E8EEE1" stroke="#1F2322" stroke-width="1.5"/>
+  <text x="400" y="224" text-anchor="middle" font-size="11" letter-spacing="1.2" fill="#6B7270">THE</text>
+  <text x="400" y="246" text-anchor="middle" font-size="14" font-weight="750">HARNESS</text>
+  <rect x="326" y="104" width="148" height="52" rx="8" fill="#FFFFFF" stroke="#1F2322" stroke-width="1.2"/>
+  <text x="400" y="126" text-anchor="middle" font-size="11" font-weight="700">OBSERVE</text>
+  <text x="400" y="143" text-anchor="middle" font-size="9" fill="#6B7270">request + state</text>
+  <rect x="560" y="202" width="150" height="52" rx="8" fill="#FFFFFF" stroke="#1F2322" stroke-width="1.2"/>
+  <text x="635" y="224" text-anchor="middle" font-size="11" font-weight="700">PLAN</text>
+  <text x="635" y="241" text-anchor="middle" font-size="9" fill="#6B7270">choose a step</text>
+  <rect x="326" y="300" width="148" height="60" rx="8" fill="#F5E6DF" stroke="#1F2322" stroke-width="1.2"/>
+  <text x="400" y="324" text-anchor="middle" font-size="11" font-weight="700">ACT</text>
+  <text x="400" y="341" text-anchor="middle" font-size="9" fill="#6B7270">call a tool</text>
+  <text x="400" y="354" text-anchor="middle" font-size="8.5" fill="#BE6A58">approval gate</text>
+  <rect x="90" y="202" width="150" height="52" rx="8" fill="#FFFFFF" stroke="#1F2322" stroke-width="1.2"/>
+  <text x="165" y="224" text-anchor="middle" font-size="11" font-weight="700">VERIFY</text>
+  <text x="165" y="241" text-anchor="middle" font-size="9" fill="#6B7270">inspect evidence</text>
+  <path d="M474 130 C520 140 540 170 560 202" stroke="#1F2322" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
+  <path d="M635 254 C610 290 520 320 474 328" stroke="#1F2322" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
+  <path d="M326 328 C280 320 220 290 240 254" stroke="#1F2322" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
+  <path d="M240 202 C280 160 330 140 326 130" stroke="#1F2322" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
+  <path d="M326 360 C240 390 400 400 474 360" stroke="#6B7270" stroke-width="1.2" fill="none" stroke-dasharray="4 5"/>
+  <text x="400" y="402" text-anchor="middle" font-size="9.5" fill="#6B7270">result becomes new context</text>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6" fill="none" stroke="#1F2322" stroke-width="1.4"/></marker></defs>
+  <rect x="34" y="416" width="724" height="22" rx="6" fill="#E8EEE1"/>
+  <text x="52" y="432" font-size="10" fill="#6B7270">State · retries · cancellation · evidence that the work really happened.</text>
+</g>
+</g>
+</svg>

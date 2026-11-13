@@ -53,7 +53,7 @@ export function ScriptPanel({ scene, localTime, locale, visible, spokenCharIndex
   const activeWordIndex = active ? getActiveWordIndex(active.text, locale, activeProgress, spokenCharIndex) : -1;
   const pages = [...new Set(scene.elements.flatMap((element) => element.sourcePages ?? []))].sort((a, b) => a - b);
   return <div className="script-panel panel">
-    <div className="script-meta"><small>PAGE TRANSCRIPT</small><b>{scene.title}</b><span>{pages.length ? `Source ${pages.join(', ')}` : 'No source page'}</span></div>
+    <div className="script-meta"><small>PAGE TRANSCRIPT</small><b>{scene.title}</b>{pages.length ? <span>{`Source ${pages.join(', ')}`}</span> : null}</div>
     <div className="script-lines">{scene.narration.map((item, index) => {
       const isActive = active?.id === item.id;
       return <p className={`script-segment ${isActive ? 'active' : ''}`} key={item.id}><span className="script-index">{String(index + 1).padStart(2, '0')}</span>{tokenizeTranscript(item.text, locale).map((token, tokenIndex) => token.isWord

@@ -45,6 +45,8 @@ Platform can host it without a second deployment.
 - `public/animation-versions/v*.png` holds the gallery thumbnails.
 - Adding a version means adding the JSON, the registry entry, a thumbnail, and
   running the two animation tests.
+- Topic intros live in `content/projects/` and appear in the same gallery. The
+  harness intro is `/animations/harness`.
 
 ## Boundaries
 

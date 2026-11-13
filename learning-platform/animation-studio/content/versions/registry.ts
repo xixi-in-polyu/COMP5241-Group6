@@ -1,3 +1,4 @@
+import harness from "../projects/harness-intro.animation.json";
 import v2 from "./published.animation-v2.json";
 import v3 from "./published.animation-v3.json";
 import v4 from "./published.animation-v4.json";
@@ -11,16 +12,18 @@ type ProjectShape = {
   }>;
 };
 
-type VersionDefinition = {
-  id: "v2" | "v3" | "v4" | "v5" | "v6";
+type Definition = {
+  id: string;
+  kind: "version" | "topic";
   label: string;
   description: string;
   tags: string[];
   project: unknown;
 };
 
-export type PublishedVersion = {
-  id: VersionDefinition["id"];
+export type PublishedAnimation = {
+  id: string;
+  kind: Definition["kind"];
   label: string;
   description: string;
   tags: string[];
@@ -32,9 +35,10 @@ export type PublishedVersion = {
   latest: boolean;
 };
 
-const definitions: VersionDefinition[] = [
+const definitions: Definition[] = [
   {
     id: "v2",
+    kind: "version",
     label: "V2 · Original export",
     description:
       "The first Storyline Studio export: twelve 65-second scenes, three elements per scene, and one entrance followed by emphasis pulses.",
@@ -43,6 +47,7 @@ const definitions: VersionDefinition[] = [
   },
   {
     id: "v3",
+    kind: "version",
     label: "V3 · Step layer",
     description:
       "Four steps per scene, 63 elements, step callouts, a quieter pulse budget, and a 1.5-second quiet hold.",
@@ -51,6 +56,7 @@ const definitions: VersionDefinition[] = [
   },
   {
     id: "v4",
+    kind: "version",
     label: "V4 · First illustrations",
     description:
       "Deployment and secret-boundary diagrams enter the project, with step-scoped images and a slow ken-burns ambient.",
@@ -59,6 +65,7 @@ const definitions: VersionDefinition[] = [
   },
   {
     id: "v5",
+    kind: "version",
     label: "V5 · Full illustration pass",
     description:
       "Architecture, verification/validation, incident, and availability illustrations; a fraction formula; flat scene chrome with no footer.",
@@ -67,11 +74,21 @@ const definitions: VersionDefinition[] = [
   },
   {
     id: "v6",
+    kind: "version",
     label: "V6 · Natural motion",
     description:
       "Pure white paper, a cosine-eased camera push/pan on every scene, and move cues that shift images between steps.",
     tags: ["white paper", "camera", "move cues"],
     project: v6,
+  },
+  {
+    id: "harness",
+    kind: "topic",
+    label: "Harness · 2-minute intro",
+    description:
+      "A four-scene introduction to the runtime around the model: tools, context, boundaries, the agent loop, and what to look for when judging an agent.",
+    tags: ["2 min", "4 scenes", "4 illustrations"],
+    project: harness,
   },
 ];
 
@@ -81,32 +98,43 @@ function formatDuration(seconds: number) {
   return `${minutes}:${String(remainder).padStart(2, "0")}`;
 }
 
-export function listPublishedVersions(): PublishedVersion[] {
-  return definitions.map((definition) => {
-    const project = definition.project as ProjectShape;
-    const scenes = project.scenes?.length ?? 0;
-    const durationSeconds =
-      project.scenes?.reduce((sum, scene) => sum + (scene.duration ?? 0), 0) ?? 0;
-    const images =
-      project.scenes?.reduce(
-        (count, scene) =>
-          count +
-          (scene.elements ?? []).filter((element) => element.type === "image")
-            .length,
-        0,
-      ) ?? 0;
+function build(definition: Definition): PublishedAnimation {
+  const project = definition.project as ProjectShape;
+  const scenes = project.scenes?.length ?? 0;
+  const durationSeconds =
+    project.scenes?.reduce((sum, scene) => sum + (scene.duration ?? 0), 0) ?? 0;
+  const images =
+    project.scenes?.reduce(
+      (count, scene) =>
+        count +
+        (scene.elements ?? []).filter((element) => element.type === "image")
+          .length,
+      0,
+    ) ?? 0;
 
-    return {
-      ...definition,
-      scenes,
-      durationSeconds,
-      durationLabel: formatDuration(durationSeconds),
-      images,
-      latest: definition.id === "v6",
-    };
-  });
+  return {
+    ...definition,
+    scenes,
+    durationSeconds,
+    durationLabel: formatDuration(durationSeconds),
+    images,
+    latest: definition.id === "v6",
+  };
 }
 
-export function getPublishedVersion(id: string) {
-  return definitions.find((definition) => definition.id === id) ?? null;
+export function listPublishedVersions(): PublishedAnimation[] {
+  return definitions
+    .filter((definition) => definition.kind === "version")
+    .map(build);
+}
+
+export function listTopicAnimations(): PublishedAnimation[] {
+  return definitions
+    .filter((definition) => definition.kind === "topic")
+    .map(build);
+}
+
+export function getPublishedAnimation(id: string) {
+  const definition = definitions.find((candidate) => candidate.id === id);
+  return definition ? build(definition) : null;
 }
