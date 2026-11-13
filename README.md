@@ -83,6 +83,8 @@ OPENROUTER_APP_NAME=COMP5241 Learning Platform
 | v5 | 全量插图 + 分数公式 + 去掉 footer/背景装饰 |
 | v6 | 纯白纸 + 相机推拉 + 图片 move（最新） |
 
+另外有一个 2 分钟的主题短片 **Harness**：`/animations/harness`，四幕 × 30 秒，介绍模型外面的 runtime：工具、上下文、边界、agent loop，以及如何评价一个 agent。项目文件在 `content/projects/harness-intro.animation.json`。
+
 教师和学生都能浏览全部版本；打开 `/animations/{version}` 后，教师可编辑，学生只读（播放、字幕、明暗主题）。缩略图在 `public/animation-versions/`。
 
 新增或替换版本：

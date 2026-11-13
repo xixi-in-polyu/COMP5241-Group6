@@ -1,0 +1,1196 @@
+{
+  "schemaVersion": 5,
+  "id": "harness-intro",
+  "title": "What Is a Harness?",
+  "description": "A two-minute explanation of the runtime that turns a model into an agent.",
+  "locale": "en-US",
+  "renderConfig": {
+    "fps": 30,
+    "width": 1920,
+    "height": 1080
+  },
+  "createdAt": "2026-11-13T10:00:00.000Z",
+  "updatedAt": "2026-11-13T10:00:00.000Z",
+  "sourceDocuments": [],
+  "knowledgeNodes": [],
+  "chapters": [
+    {
+      "id": "ch-harness",
+      "title": "Harness",
+      "shortTitle": "Harness",
+      "color": "#9FAF91"
+    }
+  ],
+  "theme": {
+    "name": "White Paper",
+    "background": "#FFFFFF",
+    "surface": "#F4F4F2",
+    "foreground": "#1F2322",
+    "muted": "#6B7270",
+    "accent": "#9FAF91",
+    "accentAlt": "#8EA6B4",
+    "fontFamily": "\"Avenir Next\", \"Segoe UI\", sans-serif"
+  },
+  "assets": [
+    {
+      "id": "asset-harness-model-alone",
+      "name": "A model without a harness",
+      "kind": "image",
+      "uri": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+CjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiBmaWxsPSIjRkZGRkZGIi8+CjxnIGZvbnQtZmFtaWx5PSJBdmVuaXIgTmV4dCwgU2Vnb2UgVUksIHNhbnMtc2VyaWYiIGZpbGw9IiMxRjIzMjIiPgo8dGV4dCB4PSIzMiIgeT0iNDgiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI3NTAiIGxldHRlci1zcGFjaW5nPSIxLjQiPlBSRURJQ1RJT04gSVMgTk9UIEFDVElPTjwvdGV4dD4KPHRleHQgeD0iMzIiIHk9IjcyIiBmb250LXNpemU9IjEzIiBmaWxsPSIjNkI3MjcwIj5hIG1vZGVsIHdpdGhvdXQgYSBib2R5PC90ZXh0PgoKPGc+CiAgPHJlY3QgeD0iMzQiIHk9IjEwOCIgd2lkdGg9IjE3NiIgaGVpZ2h0PSIxMDAiIHJ4PSIxMCIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMUYyMzIyIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDx0ZXh0IHg9IjUyIiB5PSIxMzQiIGZvbnQtc2l6ZT0iOS41IiBsZXR0ZXItc3BhY2luZz0iMSIgZmlsbD0iIzZCNzI3MCI+UkVRVUVTVDwvdGV4dD4KICA8dGV4dCB4PSI1MiIgeT0iMTU4IiBmb250LXNpemU9IjEyLjUiPkV4cGxhaW4gdGhpcyBlcnJvcjwvdGV4dD4KICA8dGV4dCB4PSI1MiIgeT0iMTc4IiBmb250LXNpemU9IjExIiBmaWxsPSIjNkI3MjcwIj5hbmQgcHJvcG9zZSBhIGZpeDwvdGV4dD4KICA8cGF0aCBkPSJNMjE0IDE1OCBIMjU4IiBzdHJva2U9IiMxRjIzMjIiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxwYXRoIGQ9Ik0yNTggMTQ4IGwxMiAxMCAtMTIgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzFGMjMyMiIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPHJlY3QgeD0iMjcyIiB5PSIxMDgiIHdpZHRoPSIxODQiIGhlaWdodD0iMTAwIiByeD0iMTAiIGZpbGw9IiNFMkVCRUYiIHN0cm9rZT0iIzFGMjMyMiIgc3Ryb2tlLXdpZHRoPSIxLjgiLz4KICA8dGV4dCB4PSIzNjQiIHk9IjE0MiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxNSIgZm9udC13ZWlnaHQ9Ijc1MCI+TU9ERUw8L3RleHQ+CiAgPHRleHQgeD0iMzY0IiB5PSIxNjQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTAuNSIgZmlsbD0iIzZCNzI3MCI+bmV4dC10b2tlbiBwcmVkaWN0b3I8L3RleHQ+CiAgPHJlY3QgeD0iMzA0IiB5PSIxNzgiIHdpZHRoPSIxMjAiIGhlaWdodD0iOCIgcng9IjQiIGZpbGw9IiNGRkZGRkYiIG9wYWNpdHk9Ii45Ii8+CiAgPHBhdGggZD0iTTQ2MCAxNTggSDUwMCIgc3Ryb2tlPSIjMUYyMzIyIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8cGF0aCBkPSJNNTAwIDE0OCBsMTIgMTAgLTEyIDEwIiBmaWxsPSJub25lIiBzdHJva2U9IiMxRjIzMjIiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxyZWN0IHg9IjUxNCIgeT0iMTA4IiB3aWR0aD0iMjQ0IiBoZWlnaHQ9IjEwMCIgcng9IjEwIiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMxRjIzMjIiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPHRleHQgeD0iNTMyIiB5PSIxMzQiIGZvbnQtc2l6ZT0iOS41IiBsZXR0ZXItc3BhY2luZz0iMSIgZmlsbD0iIzZCNzI3MCI+QU5TV0VSPC90ZXh0PgogIDx0ZXh0IHg9IjUzMiIgeT0iMTU4IiBmb250LXNpemU9IjEyIj5BIHBsYXVzaWJsZSBleHBsYW5hdGlvbiw8L3RleHQ+CiAgPHRleHQgeD0iNTMyIiB5PSIxNzciIGZvbnQtc2l6ZT0iMTIiPmJ1dCBubyBjaGFuZ2Ugb24gZGlzay48L3RleHQ+CiAgPHRleHQgeD0iNTM0IiB5PSIyNDQiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiNCRTZBNTgiPml0IGNhbiBkZXNjcmliZSBhbiBhY3Rpb247IGl0IGNhbm5vdCB0YWtlIG9uZTwvdGV4dD4KCiAgPHRleHQgeD0iMzQiIHk9IjI3NiIgZm9udC1zaXplPSIxMCIgbGV0dGVyLXNwYWNpbmc9IjEiIGZpbGw9IiM2QjcyNzAiPlRPT0xTIE5PVCBDT05ORUNURUQ8L3RleHQ+CiAgPHJlY3QgeD0iMzQiIHk9IjI5MiIgd2lkdGg9IjE2MCIgaGVpZ2h0PSI1NCIgcng9IjgiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzZCNzI3MCIgc3Ryb2tlLWRhc2hhcnJheT0iNCA1IiBzdHJva2Utd2lkdGg9IjEuMiIvPjx0ZXh0IHg9IjExNCIgeT0iMzE2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEyIiBmaWxsPSIjNkI3MjcwIj5zaGVsbDwvdGV4dD48dGV4dCB4PSIxMTQiIHk9IjMzNCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSI5LjUiIGZpbGw9IiM2QjcyNzAiPnJ1biBjb21tYW5kczwvdGV4dD48cmVjdCB4PSIyMjQiIHk9IjI5MiIgd2lkdGg9IjE2MCIgaGVpZ2h0PSI1NCIgcng9IjgiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzZCNzI3MCIgc3Ryb2tlLWRhc2hhcnJheT0iNCA1IiBzdHJva2Utd2lkdGg9IjEuMiIvPjx0ZXh0IHg9IjMwNCIgeT0iMzE2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEyIiBmaWxsPSIjNkI3MjcwIj5maWxlczwvdGV4dD48dGV4dCB4PSIzMDQiIHk9IjMzNCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSI5LjUiIGZpbGw9IiM2QjcyNzAiPnJlYWQgLyB3cml0ZTwvdGV4dD48cmVjdCB4PSI0MTQiIHk9IjI5MiIgd2lkdGg9IjE2MCIgaGVpZ2h0PSI1NCIgcng9IjgiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzZCNzI3MCIgc3Ryb2tlLWRhc2hhcnJheT0iNCA1IiBzdHJva2Utd2lkdGg9IjEuMiIvPjx0ZXh0IHg9IjQ5NCIgeT0iMzE2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEyIiBmaWxsPSIjNkI3MjcwIj5tZW1vcnk8L3RleHQ+PHRleHQgeD0iNDk0IiB5PSIzMzQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iOS41IiBmaWxsPSIjNkI3MjcwIj5rZWVwIHN0YXRlPC90ZXh0PgogIDxyZWN0IHg9IjM0IiB5PSIzNzQiIHdpZHRoPSI3MjQiIGhlaWdodD0iNDYiIHJ4PSI4IiBmaWxsPSIjRjdFMERBIi8+CiAgPHJlY3QgeD0iMzQiIHk9IjM3NCIgd2lkdGg9IjciIGhlaWdodD0iNDYiIHJ4PSIzLjUiIGZpbGw9IiNCRTZBNTgiLz4KICA8dGV4dCB4PSI1OCIgeT0iNDAyIiBmb250LXNpemU9IjEzLjUiIGZvbnQtd2VpZ2h0PSI2NTAiPkl0IGNhbiB0YWxrLiBJdCBjYW5ub3QgYWN0LjwvdGV4dD4KPC9nPgo8L2c+Cjwvc3ZnPg==",
+      "embedded": true,
+      "width": 1600,
+      "height": 900,
+      "sha256": "b933d064f692adeadfa0f1a091f1deddf6d5203f03ea8860fa4d6b197d11b80d"
+    },
+    {
+      "id": "asset-harness-layers",
+      "name": "The harness around the model",
+      "kind": "image",
+      "uri": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+CjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiBmaWxsPSIjRkZGRkZGIi8+CjxnIGZvbnQtZmFtaWx5PSJBdmVuaXIgTmV4dCwgU2Vnb2UgVUksIHNhbnMtc2VyaWYiIGZpbGw9IiMxRjIzMjIiPgo8dGV4dCB4PSIzMiIgeT0iNDgiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI3NTAiIGxldHRlci1zcGFjaW5nPSIxLjQiPkZPVVIgVEhJTkdTIEFST1VORCBUSEUgTU9ERUw8L3RleHQ+Cjx0ZXh0IHg9IjMyIiB5PSI3MiIgZm9udC1zaXplPSIxMyIgZmlsbD0iIzZCNzI3MCI+dG9vbHMgwrcgY29udGV4dCDCtyBib3VuZGFyaWVzIMK3IG1lbW9yeTwvdGV4dD4KCjxnPgogIDxyZWN0IHg9IjI4MCIgeT0iMTI0IiB3aWR0aD0iMjQwIiBoZWlnaHQ9IjE5NiIgcng9Ijg4IiBmaWxsPSJub25lIiBzdHJva2U9IiM5RkFGOTEiIHN0cm9rZS13aWR0aD0iMS42IiBzdHJva2UtZGFzaGFycmF5PSI2IDYiLz4KICA8dGV4dCB4PSI0MDAiIHk9IjExNiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMCIgbGV0dGVyLXNwYWNpbmc9IjEuMyIgZmlsbD0iIzlGQUY5MSI+SEFSTkVTUzwvdGV4dD4KICA8cmVjdCB4PSIzMzAiIHk9IjE3OCIgd2lkdGg9IjE0MCIgaGVpZ2h0PSI5NiIgcng9IjEyIiBmaWxsPSIjRTJFQkVGIiBzdHJva2U9IiMxRjIzMjIiIHN0cm9rZS13aWR0aD0iMS44Ii8+CiAgPHRleHQgeD0iNDAwIiB5PSIyMTYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSI3NTAiPk1PREVMPC90ZXh0PgogIDx0ZXh0IHg9IjQwMCIgeT0iMjM2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjkuNSIgZmlsbD0iIzZCNzI3MCI+dGhlIGNvcmU8L3RleHQ+CiAgPHJlY3QgeD0iMzQiIHk9IjEwNCIgd2lkdGg9IjE3NiIgaGVpZ2h0PSI3NiIgcng9IjkiIGZpbGw9IiNFOEVFRTEiIHN0cm9rZT0iIzFGMjMyMiIgc3Ryb2tlLXdpZHRoPSIxLjIiLz48dGV4dCB4PSI1MCIgeT0iMTMwIiBmb250LXNpemU9IjExIiBmb250LXdlaWdodD0iNzUwIj5UT09MUzwvdGV4dD48dGV4dCB4PSI1MCIgeT0iMTUwIiBmb250LXNpemU9IjkuNSIgZmlsbD0iIzZCNzI3MCI+c2hlbGwgwrcgZmlsZXMgwrcgc2VhcmNoPC90ZXh0PjxyZWN0IHg9IjU5MCIgeT0iMTA0IiB3aWR0aD0iMTc2IiBoZWlnaHQ9Ijc2IiByeD0iOSIgZmlsbD0iI0UyRUJFRiIgc3Ryb2tlPSIjMUYyMzIyIiBzdHJva2Utd2lkdGg9IjEuMiIvPjx0ZXh0IHg9IjYwNiIgeT0iMTMwIiBmb250LXNpemU9IjExIiBmb250LXdlaWdodD0iNzUwIj5DT05URVhUPC90ZXh0Pjx0ZXh0IHg9IjYwNiIgeT0iMTUwIiBmb250LXNpemU9IjkuNSIgZmlsbD0iIzZCNzI3MCI+cHJvbXB0IMK3IGhpc3RvcnkgwrcgcmV0cmlldmFsPC90ZXh0PjxyZWN0IHg9IjM0IiB5PSIzMDIiIHdpZHRoPSIxNzYiIGhlaWdodD0iNzYiIHJ4PSI5IiBmaWxsPSIjRjVFNkRGIiBzdHJva2U9IiMxRjIzMjIiIHN0cm9rZS13aWR0aD0iMS4yIi8+PHRleHQgeD0iNTAiIHk9IjMyOCIgZm9udC1zaXplPSIxMSIgZm9udC13ZWlnaHQ9Ijc1MCI+Qk9VTkRBUklFUzwvdGV4dD48dGV4dCB4PSI1MCIgeT0iMzQ4IiBmb250LXNpemU9IjkuNSIgZmlsbD0iIzZCNzI3MCI+YXBwcm92YWxzIMK3IHNhbmRib3ggwrcgbGltaXRzPC90ZXh0PjxyZWN0IHg9IjU5MCIgeT0iMzAyIiB3aWR0aD0iMTc2IiBoZWlnaHQ9Ijc2IiByeD0iOSIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMUYyMzIyIiBzdHJva2Utd2lkdGg9IjEuMiIvPjx0ZXh0IHg9IjYwNiIgeT0iMzI4IiBmb250LXNpemU9IjExIiBmb250LXdlaWdodD0iNzUwIj5NRU1PUlk8L3RleHQ+PHRleHQgeD0iNjA2IiB5PSIzNDgiIGZvbnQtc2l6ZT0iOS41IiBmaWxsPSIjNkI3MjcwIj5zdGF0ZSDCtyBzZXNzaW9uczwvdGV4dD4KICA8cGF0aCBkPSJNMjE0IDE1MCBDMjYwIDE1MCAyNzAgMTgwIDMzMCAyMDAiIHN0cm9rZT0iIzFGMjMyMiIgc3Ryb2tlLXdpZHRoPSIxLjQiIGZpbGw9Im5vbmUiLz4KICA8cGF0aCBkPSJNNTg2IDE1MCBDNTQwIDE1MCA1MzAgMTgwIDQ3MCAyMDAiIHN0cm9rZT0iIzFGMjMyMiIgc3Ryb2tlLXdpZHRoPSIxLjQiIGZpbGw9Im5vbmUiLz4KICA8cGF0aCBkPSJNMjE0IDMzMCBDMjYwIDMzMCAyNzAgMjkwIDMzMCAyNjAiIHN0cm9rZT0iIzFGMjMyMiIgc3Ryb2tlLXdpZHRoPSIxLjQiIGZpbGw9Im5vbmUiLz4KICA8cGF0aCBkPSJNNTg2IDMzMCBDNTQwIDMzMCA1MzAgMjkwIDQ3MCAyNjAiIHN0cm9rZT0iIzFGMjMyMiIgc3Ryb2tlLXdpZHRoPSIxLjQiIGZpbGw9Im5vbmUiLz4KICA8cmVjdCB4PSIzNCIgeT0iMzk4IiB3aWR0aD0iNzI0IiBoZWlnaHQ9IjM0IiByeD0iOCIgZmlsbD0iI0U4RUVFMSIvPgogIDx0ZXh0IHg9IjUyIiB5PSI0MjAiIGZvbnQtc2l6ZT0iMTEuNSIgZmlsbD0iIzZCNzI3MCI+Q2FwYWJpbGl0eSBhbmQgc2FmZXR5IGFyZSBkZXNpZ25lZCB0b2dldGhlci48L3RleHQ+CjwvZz4KPC9nPgo8L3N2Zz4=",
+      "embedded": true,
+      "width": 1600,
+      "height": 900,
+      "sha256": "8d2f050bcad944080a17172d18cffbbcf42f2fdcdd78f58dbf0d880f5484173c"
+    },
+    {
+      "id": "asset-harness-loop",
+      "name": "The agent loop",
+      "kind": "image",
+      "uri": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+CjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiBmaWxsPSIjRkZGRkZGIi8+CjxnIGZvbnQtZmFtaWx5PSJBdmVuaXIgTmV4dCwgU2Vnb2UgVUksIHNhbnMtc2VyaWYiIGZpbGw9IiMxRjIzMjIiPgo8dGV4dCB4PSIzMiIgeT0iNDgiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI3NTAiIGxldHRlci1zcGFjaW5nPSIxLjQiPk9ORSBUVVJOIE9GIFRIRSBMT09QPC90ZXh0Pgo8dGV4dCB4PSIzMiIgeT0iNzIiIGZvbnQtc2l6ZT0iMTMiIGZpbGw9IiM2QjcyNzAiPm9ic2VydmUsIHBsYW4sIGFjdCwgdmVyaWZ5PC90ZXh0PgoKPGc+CiAgPGNpcmNsZSBjeD0iNDAwIiBjeT0iMjI4IiByPSI1OCIgZmlsbD0iI0U4RUVFMSIgc3Ryb2tlPSIjMUYyMzIyIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDx0ZXh0IHg9IjQwMCIgeT0iMjI0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjExIiBsZXR0ZXItc3BhY2luZz0iMS4yIiBmaWxsPSIjNkI3MjcwIj5USEU8L3RleHQ+CiAgPHRleHQgeD0iNDAwIiB5PSIyNDYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSI3NTAiPkhBUk5FU1M8L3RleHQ+CiAgPHJlY3QgeD0iMzI2IiB5PSIxMDQiIHdpZHRoPSIxNDgiIGhlaWdodD0iNTIiIHJ4PSI4IiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMxRjIzMjIiIHN0cm9rZS13aWR0aD0iMS4yIi8+CiAgPHRleHQgeD0iNDAwIiB5PSIxMjYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTEiIGZvbnQtd2VpZ2h0PSI3MDAiPk9CU0VSVkU8L3RleHQ+CiAgPHRleHQgeD0iNDAwIiB5PSIxNDMiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iOSIgZmlsbD0iIzZCNzI3MCI+cmVxdWVzdCArIHN0YXRlPC90ZXh0PgogIDxyZWN0IHg9IjU2MCIgeT0iMjAyIiB3aWR0aD0iMTUwIiBoZWlnaHQ9IjUyIiByeD0iOCIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMUYyMzIyIiBzdHJva2Utd2lkdGg9IjEuMiIvPgogIDx0ZXh0IHg9IjYzNSIgeT0iMjI0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjExIiBmb250LXdlaWdodD0iNzAwIj5QTEFOPC90ZXh0PgogIDx0ZXh0IHg9IjYzNSIgeT0iMjQxIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjkiIGZpbGw9IiM2QjcyNzAiPmNob29zZSBhIHN0ZXA8L3RleHQ+CiAgPHJlY3QgeD0iMzI2IiB5PSIzMDAiIHdpZHRoPSIxNDgiIGhlaWdodD0iNjAiIHJ4PSI4IiBmaWxsPSIjRjVFNkRGIiBzdHJva2U9IiMxRjIzMjIiIHN0cm9rZS13aWR0aD0iMS4yIi8+CiAgPHRleHQgeD0iNDAwIiB5PSIzMjQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTEiIGZvbnQtd2VpZ2h0PSI3MDAiPkFDVDwvdGV4dD4KICA8dGV4dCB4PSI0MDAiIHk9IjM0MSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSI5IiBmaWxsPSIjNkI3MjcwIj5jYWxsIGEgdG9vbDwvdGV4dD4KICA8dGV4dCB4PSI0MDAiIHk9IjM1NCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSI4LjUiIGZpbGw9IiNCRTZBNTgiPmFwcHJvdmFsIGdhdGU8L3RleHQ+CiAgPHJlY3QgeD0iOTAiIHk9IjIwMiIgd2lkdGg9IjE1MCIgaGVpZ2h0PSI1MiIgcng9IjgiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzFGMjMyMiIgc3Ryb2tlLXdpZHRoPSIxLjIiLz4KICA8dGV4dCB4PSIxNjUiIHk9IjIyNCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMSIgZm9udC13ZWlnaHQ9IjcwMCI+VkVSSUZZPC90ZXh0PgogIDx0ZXh0IHg9IjE2NSIgeT0iMjQxIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjkiIGZpbGw9IiM2QjcyNzAiPmluc3BlY3QgZXZpZGVuY2U8L3RleHQ+CiAgPHBhdGggZD0iTTQ3NCAxMzAgQzUyMCAxNDAgNTQwIDE3MCA1NjAgMjAyIiBzdHJva2U9IiMxRjIzMjIiIHN0cm9rZS13aWR0aD0iMS42IiBmaWxsPSJub25lIiBtYXJrZXItZW5kPSJ1cmwoI2Fycm93KSIvPgogIDxwYXRoIGQ9Ik02MzUgMjU0IEM2MTAgMjkwIDUyMCAzMjAgNDc0IDMyOCIgc3Ryb2tlPSIjMUYyMzIyIiBzdHJva2Utd2lkdGg9IjEuNiIgZmlsbD0ibm9uZSIgbWFya2VyLWVuZD0idXJsKCNhcnJvdykiLz4KICA8cGF0aCBkPSJNMzI2IDMyOCBDMjgwIDMyMCAyMjAgMjkwIDI0MCAyNTQiIHN0cm9rZT0iIzFGMjMyMiIgc3Ryb2tlLXdpZHRoPSIxLjYiIGZpbGw9Im5vbmUiIG1hcmtlci1lbmQ9InVybCgjYXJyb3cpIi8+CiAgPHBhdGggZD0iTTI0MCAyMDIgQzI4MCAxNjAgMzMwIDE0MCAzMjYgMTMwIiBzdHJva2U9IiMxRjIzMjIiIHN0cm9rZS13aWR0aD0iMS42IiBmaWxsPSJub25lIiBtYXJrZXItZW5kPSJ1cmwoI2Fycm93KSIvPgogIDxwYXRoIGQ9Ik0zMjYgMzYwIEMyNDAgMzkwIDQwMCA0MDAgNDc0IDM2MCIgc3Ryb2tlPSIjNkI3MjcwIiBzdHJva2Utd2lkdGg9IjEuMiIgZmlsbD0ibm9uZSIgc3Ryb2tlLWRhc2hhcnJheT0iNCA1Ii8+CiAgPHRleHQgeD0iNDAwIiB5PSI0MDIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iOS41IiBmaWxsPSIjNkI3MjcwIj5yZXN1bHQgYmVjb21lcyBuZXcgY29udGV4dDwvdGV4dD4KICA8ZGVmcz48bWFya2VyIGlkPSJhcnJvdyIgbWFya2VyV2lkdGg9IjgiIG1hcmtlckhlaWdodD0iOCIgcmVmWD0iNiIgcmVmWT0iMyIgb3JpZW50PSJhdXRvIj48cGF0aCBkPSJNMCAwIEw2IDMgTDAgNiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMUYyMzIyIiBzdHJva2Utd2lkdGg9IjEuNCIvPjwvbWFya2VyPjwvZGVmcz4KICA8cmVjdCB4PSIzNCIgeT0iNDE2IiB3aWR0aD0iNzI0IiBoZWlnaHQ9IjIyIiByeD0iNiIgZmlsbD0iI0U4RUVFMSIvPgogIDx0ZXh0IHg9IjUyIiB5PSI0MzIiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiM2QjcyNzAiPlN0YXRlIMK3IHJldHJpZXMgwrcgY2FuY2VsbGF0aW9uIMK3IGV2aWRlbmNlIHRoYXQgdGhlIHdvcmsgcmVhbGx5IGhhcHBlbmVkLjwvdGV4dD4KPC9nPgo8L2c+Cjwvc3ZnPg==",
+      "embedded": true,
+      "width": 1600,
+      "height": 900,
+      "sha256": "2f69b838cae7abb5546f3450729253a3c7a9345eec81a3ac658b972362c77938"
+    },
+    {
+      "id": "asset-harness-compare",
+      "name": "Same model, different harness",
+      "kind": "image",
+      "uri": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiB2aWV3Qm94PSIwIDAgODAwIDQ1MCI+CjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiBmaWxsPSIjRkZGRkZGIi8+CjxnIGZvbnQtZmFtaWx5PSJBdmVuaXIgTmV4dCwgU2Vnb2UgVUksIHNhbnMtc2VyaWYiIGZpbGw9IiMxRjIzMjIiPgo8dGV4dCB4PSIzMiIgeT0iNDgiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI3NTAiIGxldHRlci1zcGFjaW5nPSIxLjQiPlNBTUUgTU9ERUwsIERJRkZFUkVOVCBIQVJORVNTPC90ZXh0Pgo8dGV4dCB4PSIzMiIgeT0iNzIiIGZvbnQtc2l6ZT0iMTMiIGZpbGw9IiM2QjcyNzAiPmNhcGFiaWxpdHkgaXMgc2hhcGVkIGJ5IHRoZSBydW50aW1lPC90ZXh0PgoKPGc+CiAgPHJlY3QgeD0iMzQiIHk9IjEwNCIgd2lkdGg9IjM0MiIgaGVpZ2h0PSIyMzgiIHJ4PSIxMiIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjNkI3MjcwIiBzdHJva2Utd2lkdGg9IjEuMiIgc3Ryb2tlLWRhc2hhcnJheT0iNSA1Ii8+CiAgPHRleHQgeD0iNTYiIHk9IjEzNCIgZm9udC1zaXplPSIxMyIgZm9udC13ZWlnaHQ9Ijc1MCIgZmlsbD0iIzZCNzI3MCI+TU9ERUwgQUxPTkU8L3RleHQ+CiAgPHJlY3QgeD0iNTYiIHk9IjE1NCIgd2lkdGg9IjEzMCIgaGVpZ2h0PSI1OCIgcng9IjkiIGZpbGw9IiNFMkVCRUYiIHN0cm9rZT0iIzFGMjMyMiIgc3Ryb2tlLXdpZHRoPSIxLjIiLz4KICA8dGV4dCB4PSIxMjEiIHk9IjE4MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMiIgZm9udC13ZWlnaHQ9IjcwMCI+TU9ERUw8L3RleHQ+CiAgPHRleHQgeD0iMTIxIiB5PSIxOTciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iOSIgZmlsbD0iIzZCNzI3MCI+cHJlZGljdHMgdGV4dDwvdGV4dD4KICA8cmVjdCB4PSI1NiIgeT0iMjM2IiB3aWR0aD0iMjEwIiBoZWlnaHQ9IjU2IiByeD0iOSIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjNkI3MjcwIiBzdHJva2Utd2lkdGg9IjEiLz4KICA8dGV4dCB4PSI3MiIgeT0iMjU4IiBmb250LXNpemU9IjEwIiBmaWxsPSIjNkI3MjcwIj7igJxIZXJlIGlzIGEgcG9zc2libGUgZml44oCm4oCdPC90ZXh0PgogIDx0ZXh0IHg9IjcyIiB5PSIyNzYiIGZvbnQtc2l6ZT0iOSIgZmlsbD0iIzZCNzI3MCI+bm8gZmlsZSBjaGFuZ2VkIMK3IG5vIHRlc3QgcnVuPC90ZXh0PgogIDx0ZXh0IHg9IjU2IiB5PSIzMjAiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiNCRTZBNTgiPmFuIGFuc3dlciwgbm90IGEgcmVzdWx0PC90ZXh0PgoKICA8cmVjdCB4PSI0MjAiIHk9IjEwNCIgd2lkdGg9IjM0NiIgaGVpZ2h0PSIyMzgiIHJ4PSIxMiIgZmlsbD0iI0U4RUVFMSIgc3Ryb2tlPSIjMUYyMzIyIiBzdHJva2Utd2lkdGg9IjEuMiIvPgogIDx0ZXh0IHg9IjQ0MiIgeT0iMTM0IiBmb250LXNpemU9IjEzIiBmb250LXdlaWdodD0iNzUwIj5XSVRIIEEgSEFSTkVTUzwvdGV4dD4KICA8cmVjdCB4PSI0NDIiIHk9IjE1NCIgd2lkdGg9IjEzMCIgaGVpZ2h0PSI1OCIgcng9IjkiIGZpbGw9IiNFMkVCRUYiIHN0cm9rZT0iIzFGMjMyMiIgc3Ryb2tlLXdpZHRoPSIxLjIiLz4KICA8dGV4dCB4PSI1MDciIHk9IjE4MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMiIgZm9udC13ZWlnaHQ9IjcwMCI+TU9ERUw8L3RleHQ+CiAgPHRleHQgeD0iNTA3IiB5PSIxOTciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iOSIgZmlsbD0iIzZCNzI3MCI+c2FtZSB3ZWlnaHRzPC90ZXh0PgogIDxyZWN0IHg9IjU5NiIgeT0iMTU0IiB3aWR0aD0iMTQyIiBoZWlnaHQ9IjI0IiByeD0iNiIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMUYyMzIyIiBzdHJva2Utd2lkdGg9Ii45Ii8+PHRleHQgeD0iNjY3IiB5PSIxNzAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iOSI+dG9vbHM8L3RleHQ+PHJlY3QgeD0iNTk2IiB5PSIxODYiIHdpZHRoPSIxNDIiIGhlaWdodD0iMjQiIHJ4PSI2IiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMxRjIzMjIiIHN0cm9rZS13aWR0aD0iLjkiLz48dGV4dCB4PSI2NjciIHk9IjIwMiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSI5Ij5zZXNzaW9uczwvdGV4dD48cmVjdCB4PSI1OTYiIHk9IjIxOCIgd2lkdGg9IjE0MiIgaGVpZ2h0PSIyNCIgcng9IjYiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzFGMjMyMiIgc3Ryb2tlLXdpZHRoPSIuOSIvPjx0ZXh0IHg9IjY2NyIgeT0iMjM0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjkiPmFwcHJvdmFsczwvdGV4dD4KICA8dGV4dCB4PSI0NDIiIHk9IjI1MiIgZm9udC1zaXplPSIxMCIgZmlsbD0iIzlGQUY5MSI+YSB2ZXJpZmllZCBjaGFuZ2Ugb24gZGlzazwvdGV4dD4KICA8dGV4dCB4PSI0NDIiIHk9IjI3NCIgZm9udC1zaXplPSI5IiBmaWxsPSIjNkI3MjcwIj5zdGF0ZSBrZXB0IMK3IGFjdGlvbiBjaGVja2VkIMK3IGV2aWRlbmNlIGxvZ2dlZDwvdGV4dD4KICA8dGV4dCB4PSI0NDIiIHk9IjMyMCIgZm9udC1zaXplPSIxMCIgZmlsbD0iIzlGQUY5MSI+YSByZXN1bHQsIG5vdCBqdXN0IGFuIGFuc3dlcjwvdGV4dD4KCiAgPHJlY3QgeD0iMzQiIHk9IjM2MiIgd2lkdGg9IjczMiIgaGVpZ2h0PSIzOCIgcng9IjgiIGZpbGw9IiNGNUU2REYiLz4KICA8dGV4dCB4PSI1MiIgeT0iMzg2IiBmb250LXNpemU9IjExIiBmaWxsPSIjNkI3MjcwIj5EZWVwU2VlayBIYXJuZXNzOiBzZXNzaW9ucyDCtyB0b29scyDCtyBwbHVnaW5zIMK3IHNraWxscyDCtyBzdWJhZ2VudHMgwrcgYXBwcm92YWxzPC90ZXh0PgogIDx0ZXh0IHg9IjQwMCIgeT0iNDI0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEwIiBmaWxsPSIjNkI3MjcwIj5KdWRnZSB0aGUgaGFybmVzcywgbm90IGp1c3QgdGhlIG1vZGVsLjwvdGV4dD4KPC9nPgo8L2c+Cjwvc3ZnPg==",
+      "embedded": true,
+      "width": 1600,
+      "height": 900,
+      "sha256": "cd50a23ffd35cca25c738debd59691185afff03f8cbdaf9e246a02e6e503df8a"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "scene-01",
+      "chapterId": "ch-harness",
+      "title": "A model is not an agent",
+      "template": "opening",
+      "duration": 30,
+      "knowledgeNodeIds": [],
+      "captionMode": "bottom",
+      "camera": {
+        "zoomFrom": 1,
+        "zoomTo": 1.03,
+        "panX": 0.5,
+        "panY": -0.2
+      },
+      "narration": [
+        {
+          "id": "scene-01-n1",
+          "text": "A language model predicts the next token. Give it context and it writes a useful answer, but prediction alone cannot open a file or run a test.",
+          "start": 0,
+          "end": 9.5
+        },
+        {
+          "id": "scene-01-n2",
+          "text": "To do real work, the model needs tools, memory, a workspace, and a way to see what happened after each action.",
+          "start": 9.5,
+          "end": 19
+        },
+        {
+          "id": "scene-01-n3",
+          "text": "That runtime is the harness. It is the difference between a model that talks and an agent that acts.",
+          "start": 19,
+          "end": 29
+        }
+      ],
+      "elements": [
+        {
+          "id": "scene-01-title",
+          "type": "title",
+          "content": "A MODEL\nIS NOT AN AGENT",
+          "x": 5,
+          "y": 7,
+          "width": 55,
+          "height": 23,
+          "style": {
+            "accent": "#9FAF91",
+            "tone": "glass",
+            "align": "left"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "scene-01-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0
+              },
+              "duration": 0.8,
+              "stagger": 0.1,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          }
+        },
+        {
+          "id": "scene-01-image",
+          "type": "image",
+          "content": "",
+          "assetId": "asset-harness-model-alone",
+          "alt": "A model receives a request and returns text, while the shell, files and memory remain disconnected.",
+          "fit": "contain",
+          "x": 5,
+          "y": 30,
+          "width": 58,
+          "height": 58,
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "scene-01-image-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-01-n1",
+                "offset": 2
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "ken-burns"
+          }
+        },
+        {
+          "id": "scene-01-b1",
+          "type": "badge",
+          "content": "A predictor, not an actor",
+          "x": 65,
+          "y": 30,
+          "width": 32,
+          "height": 10,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "scene-01-b1-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-01-n1",
+                "offset": 2
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "scene-01-b1-beat",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-01-n1",
+                  "offset": 2.3
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "ambient": "none",
+            "exit": {
+              "id": "scene-01-b1-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 9.2
+              },
+              "duration": 0.4,
+              "intensity": 1
+            }
+          }
+        },
+        {
+          "id": "scene-01-b2",
+          "type": "badge",
+          "content": "No tools · no memory · no workspace",
+          "x": 65,
+          "y": 30,
+          "width": 32,
+          "height": 10,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "scene-01-b2-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-01-n2",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "scene-01-b2-beat",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-01-n2",
+                  "offset": 0.3
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "ambient": "none",
+            "exit": {
+              "id": "scene-01-b2-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 18.7
+              },
+              "duration": 0.4,
+              "intensity": 1
+            }
+          }
+        },
+        {
+          "id": "scene-01-b3",
+          "type": "badge",
+          "content": "The harness gives it a body",
+          "x": 65,
+          "y": 30,
+          "width": 32,
+          "height": 10,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "scene-01-b3-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-01-n3",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "scene-01-b3-beat",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-01-n3",
+                  "offset": 0.3
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "ambient": "none"
+          }
+        }
+      ],
+      "transitionOut": {
+        "preset": "fade",
+        "duration": 0.5
+      }
+    },
+    {
+      "id": "scene-02",
+      "chapterId": "ch-harness",
+      "title": "What the harness adds",
+      "template": "concept",
+      "duration": 30,
+      "knowledgeNodeIds": [],
+      "captionMode": "bottom",
+      "camera": {
+        "zoomFrom": 1,
+        "zoomTo": 1.035,
+        "panX": -0.4,
+        "panY": 0
+      },
+      "narration": [
+        {
+          "id": "scene-02-n1",
+          "text": "The harness gives the model hands: a shell, files, search, a browser, and APIs it can call through a tool interface.",
+          "start": 0,
+          "end": 9.5
+        },
+        {
+          "id": "scene-02-n2",
+          "text": "It also manages context: the system prompt, session history, retrieved documents, and summaries that keep the model oriented.",
+          "start": 9.5,
+          "end": 19
+        },
+        {
+          "id": "scene-02-n3",
+          "text": "And it sets boundaries: approvals, sandboxes, spend limits, and logs. Capability and safety are designed together.",
+          "start": 19,
+          "end": 29
+        }
+      ],
+      "elements": [
+        {
+          "id": "scene-02-title",
+          "type": "title",
+          "content": "WHAT THE\nHARNESS ADDS",
+          "x": 5,
+          "y": 7,
+          "width": 55,
+          "height": 23,
+          "style": {
+            "accent": "#9FAF91",
+            "tone": "glass",
+            "align": "left"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "scene-02-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0
+              },
+              "duration": 0.8,
+              "stagger": 0.1,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          }
+        },
+        {
+          "id": "scene-02-image",
+          "type": "image",
+          "content": "",
+          "assetId": "asset-harness-layers",
+          "alt": "The model sits inside a harness ring with tools, context, boundaries and memory around it.",
+          "fit": "contain",
+          "x": 5,
+          "y": 30,
+          "width": 58,
+          "height": 58,
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "scene-02-image-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-02-n1",
+                "offset": 2
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "scene-02-image-move",
+                "preset": "move",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-02-n3",
+                  "offset": 0.1
+                },
+                "duration": 1.2,
+                "intensity": 1,
+                "offset": {
+                  "x": -1
+                }
+              }
+            ],
+            "ambient": "ken-burns"
+          }
+        },
+        {
+          "id": "scene-02-b1",
+          "type": "badge",
+          "content": "Tools: shell · files · search",
+          "x": 65,
+          "y": 30,
+          "width": 32,
+          "height": 10,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "scene-02-b1-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-02-n1",
+                "offset": 2
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "scene-02-b1-beat",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-02-n1",
+                  "offset": 2.3
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "ambient": "none",
+            "exit": {
+              "id": "scene-02-b1-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 9.2
+              },
+              "duration": 0.4,
+              "intensity": 1
+            }
+          }
+        },
+        {
+          "id": "scene-02-b2",
+          "type": "badge",
+          "content": "Context: prompt · history · retrieval",
+          "x": 65,
+          "y": 30,
+          "width": 32,
+          "height": 10,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "scene-02-b2-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-02-n2",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "scene-02-b2-beat",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-02-n2",
+                  "offset": 0.3
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "ambient": "none",
+            "exit": {
+              "id": "scene-02-b2-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 18.7
+              },
+              "duration": 0.4,
+              "intensity": 1
+            }
+          }
+        },
+        {
+          "id": "scene-02-b3",
+          "type": "badge",
+          "content": "Boundaries: approvals · sandbox · limits",
+          "x": 65,
+          "y": 30,
+          "width": 32,
+          "height": 10,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "scene-02-b3-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-02-n3",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "scene-02-b3-beat",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-02-n3",
+                  "offset": 0.3
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "ambient": "none"
+          }
+        }
+      ],
+      "transitionOut": {
+        "preset": "fade",
+        "duration": 0.5
+      }
+    },
+    {
+      "id": "scene-03",
+      "chapterId": "ch-harness",
+      "title": "The loop",
+      "template": "process",
+      "duration": 30,
+      "knowledgeNodeIds": [],
+      "captionMode": "bottom",
+      "camera": {
+        "zoomFrom": 1,
+        "zoomTo": 1.04,
+        "panX": 0.3,
+        "panY": 0
+      },
+      "narration": [
+        {
+          "id": "scene-03-n1",
+          "text": "The harness runs a loop. It observes the request, plans a step, calls a tool, and inspects the result.",
+          "start": 0,
+          "end": 9.5
+        },
+        {
+          "id": "scene-03-n2",
+          "text": "That result becomes new context. The model revises the plan and acts again, until the goal is met or a limit is reached.",
+          "start": 9.5,
+          "end": 19
+        },
+        {
+          "id": "scene-03-n3",
+          "text": "A harness is mostly this loop, made reliable: state, retries, cancellation, and evidence that the work really happened.",
+          "start": 19,
+          "end": 29
+        }
+      ],
+      "elements": [
+        {
+          "id": "scene-03-title",
+          "type": "title",
+          "content": "THE\nLOOP",
+          "x": 5,
+          "y": 7,
+          "width": 55,
+          "height": 23,
+          "style": {
+            "accent": "#9FAF91",
+            "tone": "glass",
+            "align": "left"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "scene-03-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0
+              },
+              "duration": 0.8,
+              "stagger": 0.1,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          }
+        },
+        {
+          "id": "scene-03-image",
+          "type": "image",
+          "content": "",
+          "assetId": "asset-harness-loop",
+          "alt": "A loop around the harness: observe, plan, act with an approval gate, verify, and return the result to the model.",
+          "fit": "contain",
+          "x": 5,
+          "y": 30,
+          "width": 58,
+          "height": 58,
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "scene-03-image-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-03-n1",
+                "offset": 2
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "ken-burns"
+          }
+        },
+        {
+          "id": "scene-03-b1",
+          "type": "badge",
+          "content": "Observe → plan → act",
+          "x": 65,
+          "y": 30,
+          "width": 32,
+          "height": 10,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "scene-03-b1-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-03-n1",
+                "offset": 2
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "scene-03-b1-beat",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-03-n1",
+                  "offset": 2.3
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "ambient": "none",
+            "exit": {
+              "id": "scene-03-b1-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 9.2
+              },
+              "duration": 0.4,
+              "intensity": 1
+            }
+          }
+        },
+        {
+          "id": "scene-03-b2",
+          "type": "badge",
+          "content": "Results become new context",
+          "x": 65,
+          "y": 30,
+          "width": 32,
+          "height": 10,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "scene-03-b2-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-03-n2",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "scene-03-b2-beat",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-03-n2",
+                  "offset": 0.3
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "ambient": "none",
+            "exit": {
+              "id": "scene-03-b2-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 18.7
+              },
+              "duration": 0.4,
+              "intensity": 1
+            }
+          }
+        },
+        {
+          "id": "scene-03-b3",
+          "type": "badge",
+          "content": "Stop on goal or limit",
+          "x": 65,
+          "y": 30,
+          "width": 32,
+          "height": 10,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "scene-03-b3-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-03-n3",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "scene-03-b3-beat",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-03-n3",
+                  "offset": 0.3
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "ambient": "none"
+          }
+        }
+      ],
+      "transitionOut": {
+        "preset": "fade",
+        "duration": 0.5
+      }
+    },
+    {
+      "id": "scene-04",
+      "chapterId": "ch-harness",
+      "title": "Harness in practice",
+      "template": "closing",
+      "duration": 30,
+      "knowledgeNodeIds": [],
+      "captionMode": "bottom",
+      "camera": {
+        "zoomFrom": 1,
+        "zoomTo": 1.03,
+        "panX": -0.4,
+        "panY": 0.2
+      },
+      "narration": [
+        {
+          "id": "scene-04-n1",
+          "text": "The same model can feel weak or capable depending on its harness. The harness shapes what the model can see and do.",
+          "start": 0,
+          "end": 9.5
+        },
+        {
+          "id": "scene-04-n2",
+          "text": "DeepSeek Harness is one such runtime: sessions, tools, plugins, skills, subagents, and approvals around the model.",
+          "start": 9.5,
+          "end": 19
+        },
+        {
+          "id": "scene-04-n3",
+          "text": "So when you evaluate an agent, look past the model. Ask what harness it runs in, and what that harness lets it prove.",
+          "start": 19,
+          "end": 29
+        }
+      ],
+      "elements": [
+        {
+          "id": "scene-04-title",
+          "type": "title",
+          "content": "HARNESS\nIN PRACTICE",
+          "x": 5,
+          "y": 7,
+          "width": 55,
+          "height": 23,
+          "style": {
+            "accent": "#9FAF91",
+            "tone": "glass",
+            "align": "left"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "scene-04-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0
+              },
+              "duration": 0.8,
+              "stagger": 0.1,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          }
+        },
+        {
+          "id": "scene-04-image",
+          "type": "image",
+          "content": "",
+          "assetId": "asset-harness-compare",
+          "alt": "Two copies of the same model: one alone with only an answer, and one inside a harness with tools, sessions, approvals and a verified change.",
+          "fit": "contain",
+          "x": 5,
+          "y": 30,
+          "width": 58,
+          "height": 58,
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "scene-04-image-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-04-n1",
+                "offset": 2
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "scene-04-image-move",
+                "preset": "move",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-04-n3",
+                  "offset": 0.1
+                },
+                "duration": 1.2,
+                "intensity": 1,
+                "offset": {
+                  "x": -1
+                }
+              }
+            ],
+            "ambient": "ken-burns"
+          }
+        },
+        {
+          "id": "scene-04-b1",
+          "type": "badge",
+          "content": "Same model, different harness",
+          "x": 65,
+          "y": 30,
+          "width": 32,
+          "height": 10,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "scene-04-b1-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-04-n1",
+                "offset": 2
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "scene-04-b1-beat",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-04-n1",
+                  "offset": 2.3
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "ambient": "none",
+            "exit": {
+              "id": "scene-04-b1-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 9.2
+              },
+              "duration": 0.4,
+              "intensity": 1
+            }
+          }
+        },
+        {
+          "id": "scene-04-b2",
+          "type": "badge",
+          "content": "DeepSeek Harness: sessions · tools · plugins",
+          "x": 65,
+          "y": 30,
+          "width": 32,
+          "height": 10,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "scene-04-b2-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-04-n2",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "scene-04-b2-beat",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-04-n2",
+                  "offset": 0.3
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "ambient": "none",
+            "exit": {
+              "id": "scene-04-b2-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 18.7
+              },
+              "duration": 0.4,
+              "intensity": 1
+            }
+          }
+        },
+        {
+          "id": "scene-04-b3",
+          "type": "badge",
+          "content": "Judge the harness, not just the model",
+          "x": 65,
+          "y": 30,
+          "width": 32,
+          "height": 10,
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "style": {
+            "tone": "glass",
+            "align": "center"
+          },
+          "sourcePages": [],
+          "motion": {
+            "enter": {
+              "id": "scene-04-b3-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "narration",
+                "segmentId": "scene-04-n3",
+                "offset": 0
+              },
+              "duration": 0.7,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "scene-04-b3-beat",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-04-n3",
+                  "offset": 0.3
+                },
+                "duration": 0.6,
+                "stagger": 0.1,
+                "intensity": 0.45
+              }
+            ],
+            "ambient": "none"
+          }
+        }
+      ]
+    }
+  ]
+}
