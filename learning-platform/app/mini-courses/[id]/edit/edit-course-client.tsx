@@ -182,11 +182,12 @@ export function EditCourseClient({
         throw new Error(data.error || "The AI service is not available right now.");
       }
 
-      const generated = data.chapters as {
+      const generated = data.chapters as ({
         title: string;
         sections: { heading: string; body: string }[];
         summary: string;
-      }[];
+      } | null)[];
+      const failures = Array.isArray(data.failures) ? data.failures as Array<{ index: number; title: string }> : [];
 
       setDraft((current) => ({
         ...current,
@@ -207,7 +208,9 @@ export function EditCourseClient({
           return { ...chapter, blocks };
         }),
       }));
-      setMessage("Chapter bodies generated. Review them, then save.");
+      setMessage(failures.length
+        ? `Generated the available chapter bodies; ${failures.length} failed chapter${failures.length === 1 ? " was" : "s were"} left unchanged.`
+        : "Chapter bodies generated. Review them, then save.");
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Could not generate chapters.");
     } finally {

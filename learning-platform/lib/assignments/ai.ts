@@ -2,11 +2,11 @@ import "server-only";
 
 import { randomUUID } from "node:crypto";
 import OpenAI from "openai";
-import { zodTextFormat } from "openai/helpers/zod";
+import { zodResponseFormat, zodTextFormat } from "openai/helpers/zod";
 import { z } from "zod";
 import { getAiConfig, getAiProvider } from "@/lib/ai/config";
 import { promptSchema } from "@/lib/ai/schema-prompt";
-import { entitySchema, evidenceSchema, getDifficultySpecification, interactiveLabPayloadSchema, questionDifficultyRules, questionSchema, validateInteractiveLab, type AssignmentBrief, type InteractiveLabComponentType, type InteractiveLabPayload, type KnowledgeEntity, type Question, type QuestionSlot } from "./domain";
+import { difficultySchema, entitySchema, evidenceSchema, getDifficultySpecification, interactiveLabPayloadSchema, objectiveSchema, questionDifficultyRules, questionSchema, questionTypeSchema, validateInteractiveLab, type AssignmentBrief, type InteractiveLabComponentType, type InteractiveLabPayload, type KnowledgeEntity, type Question, type QuestionSlot } from "./domain";
 import { finishUsageEvent, startUsageEvent } from "./usage";
 
 type Segment = { id: string; materialId: string; locator: unknown; normalizedText: string };
@@ -32,18 +32,21 @@ async function structured<T>(schema: z.ZodType<T>, name: string, developer: stri
   const request = { model, messages, schema: z.toJSONSchema(schema) };
   const event = await startUsageEvent({ ...trace, provider, model, request, attempt: trace.attempt });
   try {
-    if (provider === "openai") {
+    if (config.structuredOutputMode === "responses-json-schema") {
       const response = await client().responses.parse({ model, input: messages, text: { format: zodTextFormat(schema, name) } });
       if (!response.output_parsed) throw new Error(`The provider did not return ${name}.`);
       await finishUsageEvent(event.id, { status: "success", response, inputTokens: response.usage?.input_tokens, outputTokens: response.usage?.output_tokens, totalTokens: response.usage?.total_tokens, providerRequestId: response.id });
       return response.output_parsed;
     }
-    const response = await client().chat.completions.create({
+    const strictSchema = config.structuredOutputMode === "chat-json-schema";
+    const chatRequest = {
       model,
-      messages: [{ role: "system", content: `${developer}\n\n${promptSchema(schema)}` }, { role: "user", content: JSON.stringify(data) }],
-      response_format: { type: "json_object" },
+      messages: [{ role: "system" as const, content: strictSchema ? `${developer}\n\nReturn only the JSON object required by the response schema.` : `${developer}\n\n${promptSchema(schema)}` }, { role: "user" as const, content: JSON.stringify(data) }],
+      response_format: strictSchema ? zodResponseFormat(schema, name) : { type: "json_object" as const },
       temperature: 0.2,
-    });
+      ...(provider === "openrouter" ? { provider: { require_parameters: true } } : {}),
+    };
+    const response = await client().chat.completions.create(chatRequest);
     const parsed = schema.parse(JSON.parse(response.choices[0]?.message.content || ""));
     await finishUsageEvent(event.id, { status: "success", response, inputTokens: response.usage?.prompt_tokens, outputTokens: response.usage?.completion_tokens, totalTokens: response.usage?.total_tokens, providerRequestId: response.id });
     return parsed;
@@ -77,6 +80,17 @@ export async function suggestBrief(instructions: string, entities: KnowledgeEnti
 }
 
 const generatedSchema = z.object({ question: z.object({ prompt: z.string().min(1), options: z.array(z.string()), answer: z.string().min(1), explanation: z.string().min(1), evidenceRefs: z.array(z.string().uuid()).min(1) }) });
+const regeneratedSchema = z.object({ question: z.object({
+  type: questionTypeSchema,
+  objective: objectiveSchema,
+  difficulty: difficultySchema,
+  score: z.number().int().min(1).max(100),
+  prompt: z.string().min(1),
+  options: z.array(z.string()),
+  answer: z.string().min(1),
+  explanation: z.string().min(1),
+  evidenceRefs: z.array(z.string().uuid()).min(1),
+}) });
 
 export function validateGroundedQuestion(question: Question, slot: QuestionSlot, entities: KnowledgeEntity[], segments: Segment[]) {
   const errors: string[] = [];
@@ -104,10 +118,26 @@ export async function generateQuestion(slot: QuestionSlot, brief: AssignmentBrie
   return questionSchema.parse({ ...result.question, id: randomUUID(), origin: "ai_generated", type: slot.type, objective: slot.objective, difficulty: slot.difficulty, entityIds: slot.entityIds, score: slot.score, warnings: [] });
 }
 
-export async function regenerateQuestion(current: Question, instruction: string, entities: KnowledgeEntity[], segments: Segment[], trace: Trace) {
-  const slot: QuestionSlot = { index: 0, type: current.type, objective: current.objective, difficulty: current.difficulty, entityIds: current.entityIds, score: current.score };
-  const candidate = await generateQuestion(slot, { title: "Regeneration", instructions: instruction, count: 1, types: [slot.type], objectives: [slot.objective], difficulty: { easy: slot.difficulty === "easy" ? 100 : 0, medium: slot.difficulty === "medium" ? 100 : 0, hard: slot.difficulty === "hard" ? 100 : 0 }, coverageEntityIds: slot.entityIds, interactiveLab: { enabled: false, instructions: "", componentType: "auto" } }, entities, segments, trace);
-  return { ...candidate, id: current.id };
+export async function regenerateQuestion(current: Question, instruction: string, entities: KnowledgeEntity[], segments: Segment[], trace: Trace, priorErrors: string[] = []) {
+  const relevant = entities.filter((entity) => current.entityIds.includes(entity.id));
+  const teacherInstruction = instruction.trim() || "Generate a meaningfully different question about the same knowledge. Preserve every property that I have not explicitly asked to change.";
+  const developer = [
+    "Regenerate the supplied current assessment question according to the teacher instruction.",
+    "The teacher instruction is fully editable and may replace the default template. Follow explicit requests to change the question type, difficulty, objective, score, wording, options, or format.",
+    "For properties the teacher does not mention, preserve the corresponding current-question property. Unless the teacher requests a minor edit, produce a meaningfully different question rather than a light paraphrase.",
+    "If an explicit change makes another property incompatible, adjust only the minimum related properties required to produce a valid assessment question.",
+    "The result must be one complete English student-facing assessment question related to the current question and grounded only in the supplied entities and evidence.",
+    "Copy evidence IDs exactly. A single-choice answer must be exactly one option letter. A multi-choice answer must be two or more comma-separated option letters. Fill-blank and short-answer questions must have no options.",
+    "If the teacher request cannot be supported by the evidence, make the closest supported revision; never invent facts or return commentary instead of a question.",
+  ].join(" ");
+  const result = await structured(regeneratedSchema, "regenerated_assessment_question", developer, {
+    currentQuestion: current,
+    teacherInstruction,
+    priorErrors,
+    entities: relevant,
+    segments: segments.filter((segment) => relevant.some((entity) => entity.evidence.some((evidence) => evidence.segmentId === segment.id))),
+  }, trace);
+  return questionSchema.parse({ ...result.question, id: current.id, origin: "ai_generated", entityIds: current.entityIds, warnings: [] });
 }
 
 export async function generateInteractiveLab(
