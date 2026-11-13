@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { PageShell } from "@/app/components/page-shell";
+import { personalAiHeaders } from "@/app/components/personal-ai-credentials";
 import { ArrowLeft, ArrowRight, AudioLines, BookOpen, FileUp, Pause, Play, RotateCcw, Volume2 } from "lucide-react";
 
 import {
@@ -227,7 +228,7 @@ export default function AudioExplanation({ studentId, user }: { studentId: strin
       const nextPageText = extracted.find((item) => item.pageNumber === currentPage + 1)?.text ?? "";
       const response = await fetch("/api/audio/explain", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...personalAiHeaders() },
         body: JSON.stringify({
           pageText: limitContext(page.text, 100_000),
           pageNumber: currentPage,

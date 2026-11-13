@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { ArrowLeft, ArrowRight, Loader2, Sparkles, Wand2 } from "lucide-react";
 
 import { AccountMenu } from "@/app/components/account-menu";
+import { personalAiHeaders } from "@/app/components/personal-ai-credentials";
 import { MaterialsEditor } from "@/app/components/mini-course/materials-editor";
 import { WorkspaceHeader } from "@/app/components/workspace-header";
 import { CourseMaterialsEditor } from "@/app/components/course-materials-editor";
@@ -262,7 +263,7 @@ export function CreateCourseClient({
       const courseId = await ensureDraft(true);
       const response = await fetch("/api/ai/course-draft", {
         method: "POST",
-        headers: { "content-type": "application/json" },
+        headers: { "content-type": "application/json", ...personalAiHeaders() },
         body: JSON.stringify({ courseId, language, title }),
       });
       const data = await response.json().catch(() => ({}));
@@ -322,7 +323,7 @@ export function CreateCourseClient({
       const courseId = await ensureDraft(true);
       const response = await fetch("/api/ai/course-chapters", {
         method: "POST",
-        headers: { "content-type": "application/json" },
+        headers: { "content-type": "application/json", ...personalAiHeaders() },
         body: JSON.stringify({
           courseId,
           language,
@@ -344,20 +345,17 @@ export function CreateCourseClient({
           : "";
         throw new Error(`${data.error || "The AI service is not available right now."}${suffix}`);
       }
-      const chapters = data.chapters as {
+      const chapters = data.chapters as ({
         title: string;
         sections: { heading: string; body: string }[];
         summary: string;
-      }[];
+      } | null)[];
+      const failures = Array.isArray(data.failures) ? data.failures as Array<{ index: number; title: string }> : [];
       setOutline(
         plannedTopics.map((topic, index) => {
           const chapter = chapters[index];
-          const chapterTitle = generatedChapterTitle({
-            requestedTopic: topic,
-            generatedTitle: chapter?.title,
-            index,
-            language,
-          });
+          const fallbackTitle = failures.find((failure) => failure.index === index)?.title;
+          const chapterTitle = fallbackTitle || generatedChapterTitle({ requestedTopic: topic, generatedTitle: chapter?.title, index, language });
           return chapter
             ? {
                 title: chapterTitle,
@@ -367,6 +365,7 @@ export function CreateCourseClient({
         }),
       );
       setStep(3);
+      if (failures.length) setError(`${failures.length} chapter${failures.length === 1 ? "" : "s"} could not be generated and ${failures.length === 1 ? "was" : "were"} left blank for editing.`);
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Could not generate the outline.");
     } finally {

@@ -38,6 +38,8 @@ Blob、数据库和 AI Provider 没有本地替代器；缺少相应配置时，
 
 所有教师生成能力和学生 Chat 共用同一组配置。`AI_ENDPOINT` 应填写 API base URL；如果误填了以 `/chat/completions` 或 `/responses` 结尾的完整路径，应用会自动移除该后缀。
 
+教师和学生也可以在账号菜单的 **AI settings** 输入个人 OpenRouter、DeepSeek 或 OpenAI API key 与模型。也支持管理员批准的 OpenAI-compatible endpoint：在生产环境的 `PERSONAL_AI_ALLOWED_ENDPOINTS` 添加以逗号分隔的 HTTPS base URL 后，用户可选择该 URL。该设置仅保存在当前浏览器标签页的 session storage；留空时继续使用平台的共享配置和配额。
+
 DeepSeek 官方：
 
 ```dotenv

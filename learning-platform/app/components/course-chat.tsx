@@ -5,6 +5,7 @@ import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from 
 import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 
+import { personalAiHeaders } from "@/app/components/personal-ai-credentials";
 import { extractPdfPages, type PdfPage } from "@/lib/pdf/extract-text";
 
 type ChatMessage = { role: "user" | "assistant"; content: string };
@@ -242,7 +243,7 @@ export function CourseChat({
 
       const response = await fetch("/api/chat", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...personalAiHeaders() },
         body: JSON.stringify({ messages, context }),
       });
 

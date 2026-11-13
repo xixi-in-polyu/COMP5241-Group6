@@ -1,6 +1,5 @@
 import "server-only";
 
-import { getAiConfig } from "@/lib/ai/config";
 import { prisma } from "@/lib/prisma";
 
 /**
@@ -14,16 +13,11 @@ export async function recordMiniCourseAiUsage(input: {
   durationMs: number;
   usage?: { inputTokens?: number; outputTokens?: number; totalTokens?: number };
   errorDetail?: string;
+  provider?: string;
+  model?: string;
 }): Promise<void> {
-  let provider = "unknown";
-  let model = "unknown";
-  try {
-    const config = getAiConfig();
-    provider = config.provider;
-    model = config.model;
-  } catch {
-    // Configuration problems must not hide the original failure.
-  }
+  const provider = input.provider ?? "unknown";
+  const model = input.model ?? "unknown";
 
   try {
     if (input.courseId) {

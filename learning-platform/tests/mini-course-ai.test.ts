@@ -56,9 +56,11 @@ describe("mini-course structured output", () => {
     vi.clearAllMocks();
     Object.assign(mocks.config, {
       provider: "deepseek",
+      apiKey: "test",
       endpoint: "https://api.deepseek.com",
       model: "deepseek-flash",
       structuredOutputMode: "responses-json-schema",
+      configured: true,
     });
   });
 
@@ -130,6 +132,45 @@ describe("mini-course structured output", () => {
     expect(secondRequest.messages.at(-1).content).toContain("model returned empty output");
     expect(mocks.recordUsage).toHaveBeenCalledWith(expect.objectContaining({
       usage: { inputTokens: 22, outputTokens: 5, totalTokens: 27 },
+    }));
+  });
+
+  it("reports which AI configuration values are missing", async () => {
+    Object.assign(mocks.config, {
+      apiKey: "",
+      endpoint: "",
+      model: "deepseek-flash",
+      configured: false,
+    });
+
+    await expect(structured(request())).rejects.toMatchObject({
+      status: 503,
+      message: "AI service configuration is incomplete for deepseek: missing API key, endpoint.",
+    });
+    expect(mocks.responsesCreate).not.toHaveBeenCalled();
+  });
+
+  it("returns provider diagnostics without exposing credentials", async () => {
+    Object.assign(mocks.config, { apiKey: "sk-super-secret-key" });
+    const providerError = Object.assign(
+      new Error("Authentication failed for Bearer sk-super-secret-key"),
+      {
+        status: 401,
+        code: "invalid_api_key",
+        request_id: "req_abc123",
+      },
+    );
+    mocks.responsesCreate.mockRejectedValue(providerError);
+
+    await expect(structured(request())).rejects.toMatchObject({
+      status: 503,
+      message:
+        "AI request failed (provider: deepseek, model: deepseek-flash, HTTP 401, code: invalid_api_key, request ID: req_abc123): Authentication failed for Bearer [redacted]",
+    });
+    expect(mocks.recordUsage).toHaveBeenCalledWith(expect.objectContaining({
+      status: "FAILED",
+      errorDetail:
+        "AI request failed (provider: deepseek, model: deepseek-flash, HTTP 401, code: invalid_api_key, request ID: req_abc123): Authentication failed for Bearer [redacted]",
     }));
   });
 });
