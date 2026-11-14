@@ -48,10 +48,15 @@ export function AnimationCard({ animation }: { animation: PublishedAnimation }) 
           ))}
         </div>
         <div className="mt-auto flex items-center justify-between gap-3 border-t border-slate-100 pt-4 text-xs text-slate-500">
-          <span>
-            {animation.scenes} scenes · {animation.durationLabel} ·{" "}
-            {animation.images} illustration
-            {animation.images === 1 ? "" : "s"}
+          <span className="flex flex-col gap-1">
+            <span>
+              {animation.scenes} scenes · {animation.durationLabel} ·{" "}
+              {animation.images} illustration
+              {animation.images === 1 ? "" : "s"}
+            </span>
+            {animation.updatedAt ? (
+              <span>Updated {animation.updatedAt.slice(0, 10)}</span>
+            ) : null}
           </span>
           <span className="flex items-center gap-1 font-semibold text-[#24496f]">
             Open

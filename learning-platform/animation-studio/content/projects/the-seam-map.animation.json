@@ -1,0 +1,4877 @@
+{
+  "schemaVersion": 5,
+  "id": "project-sdlc-uncertainty-loop",
+  "title": "The Seam Map",
+  "description": "An 11-minute teaching explainer on the software development lifecycle as a chain of evidence, grounded in the COMP5241 lecture slides.",
+  "locale": "en-US",
+  "renderConfig": {
+    "fps": 30,
+    "width": 1920,
+    "height": 1080
+  },
+  "createdAt": "2026-11-04T23:20:00+08:00",
+  "updatedAt": "2026-11-05T00:10:00+08:00",
+  "sourceDocuments": [
+    {
+      "id": "doc-comp5241-sdlc-2",
+      "name": "2 - Software Development Lifecycle-1.pdf",
+      "mimeType": "application/pdf",
+      "pageCount": 57,
+      "importedAt": "2026-11-04T23:20:00+08:00"
+    }
+  ],
+  "knowledgeNodes": [
+    {
+      "id": "kn-sdlc-lifecycle",
+      "kind": "concept",
+      "title": "The SDLC as a staged lifecycle",
+      "summary": "A structured lifecycle connects requirements, design, implementation, testing, deployment, and maintenance, but the stages are not a one-way relay.",
+      "sourceDocumentId": "doc-comp5241-sdlc-2",
+      "sourcePages": [
+        2
+      ],
+      "relatedNodeIds": [
+        "kn-requirements",
+        "kn-test-levels"
+      ]
+    },
+    {
+      "id": "kn-requirements",
+      "kind": "concept",
+      "title": "Requirements: what vs how well",
+      "summary": "Functional requirements describe behavior; non-functional requirements describe operational quality. Both must become testable before they can be verified.",
+      "sourceDocumentId": "doc-comp5241-sdlc-2",
+      "sourcePages": [
+        3,
+        4,
+        8
+      ],
+      "relatedNodeIds": [
+        "kn-elicitation",
+        "kn-verification-validation"
+      ]
+    },
+    {
+      "id": "kn-elicitation",
+      "kind": "concept",
+      "title": "Requirements come from people and evidence",
+      "summary": "Interviews, observation, documents, surveys, focus groups, and prototypes surface needs; clear questions and testable statements reduce ambiguity.",
+      "sourceDocumentId": "doc-comp5241-sdlc-2",
+      "sourcePages": [
+        5,
+        7,
+        10
+      ],
+      "relatedNodeIds": [
+        "kn-requirements"
+      ]
+    },
+    {
+      "id": "kn-prototypes",
+      "kind": "concept",
+      "title": "Prototypes are learning instruments",
+      "summary": "Throwaway, evolutionary, and incremental prototypes answer different questions before full development.",
+      "sourceDocumentId": "doc-comp5241-sdlc-2",
+      "sourcePages": [
+        11,
+        13
+      ],
+      "relatedNodeIds": [
+        "kn-mvp"
+      ]
+    },
+    {
+      "id": "kn-mvp",
+      "kind": "concept",
+      "title": "MVP is validated learning, not a smaller product",
+      "summary": "An MVP delivers enough core functionality to test whether customers will use the product, with the least effort.",
+      "sourceDocumentId": "doc-comp5241-sdlc-2",
+      "sourcePages": [
+        14,
+        15
+      ],
+      "relatedNodeIds": [
+        "kn-prototypes",
+        "kn-feedback-loop"
+      ]
+    },
+    {
+      "id": "kn-design",
+      "kind": "concept",
+      "title": "Design turns requirements into component responsibilities",
+      "summary": "Design describes how the system works: components, interfaces, data flow, trade-offs, and where risk is allocated.",
+      "sourceDocumentId": "doc-comp5241-sdlc-2",
+      "sourcePages": [
+        18,
+        19,
+        20
+      ],
+      "relatedNodeIds": [
+        "kn-secret-boundary",
+        "kn-test-levels"
+      ]
+    },
+    {
+      "id": "kn-secret-boundary",
+      "kind": "example",
+      "title": "Secrets define a trust boundary",
+      "summary": "Local .env storage, .gitignore, and production environment-variable injection keep API keys out of the repository and frontend.",
+      "sourceDocumentId": "doc-comp5241-sdlc-2",
+      "sourcePages": [
+        21,
+        22
+      ],
+      "relatedNodeIds": [
+        "kn-design"
+      ]
+    },
+    {
+      "id": "kn-test-levels",
+      "kind": "relationship",
+      "title": "Test levels move from units to seams to the system",
+      "summary": "Unit tests isolate components; integration tests expose interface mismatches; system tests check the whole requirement set.",
+      "sourceDocumentId": "doc-comp5241-sdlc-2",
+      "sourcePages": [
+        23,
+        24,
+        25
+      ],
+      "relatedNodeIds": [
+        "kn-design",
+        "kn-verification-validation"
+      ]
+    },
+    {
+      "id": "kn-verification-validation",
+      "kind": "concept",
+      "title": "Build the product right vs build the right product",
+      "summary": "Verification checks conformance to specification; validation checks whether the product meets user and business needs.",
+      "sourceDocumentId": "doc-comp5241-sdlc-2",
+      "sourcePages": [
+        33
+      ],
+      "relatedNodeIds": [
+        "kn-test-levels",
+        "kn-feedback-loop"
+      ]
+    },
+    {
+      "id": "kn-feedback-loop",
+      "kind": "relationship",
+      "title": "Validation feeds the next requirement",
+      "summary": "Validation produces new requirements, making the lifecycle a feedback loop rather than a relay.",
+      "sourceDocumentId": "doc-comp5241-sdlc-2",
+      "sourcePages": [
+        34
+      ],
+      "relatedNodeIds": [
+        "kn-mvp",
+        "kn-verification-validation",
+        "kn-cicd"
+      ]
+    },
+    {
+      "id": "kn-deployment-environments",
+      "kind": "concept",
+      "title": "Production is a different environment",
+      "summary": "Development and production differ in libraries, data, access controls, limits, and external services, so local success is not production evidence.",
+      "sourceDocumentId": "doc-comp5241-sdlc-2",
+      "sourcePages": [
+        36
+      ],
+      "relatedNodeIds": [
+        "kn-deployment-strategies",
+        "kn-incident"
+      ]
+    },
+    {
+      "id": "kn-maintenance",
+      "kind": "concept",
+      "title": "Maintenance is most of the lifecycle",
+      "summary": "Maintenance fixes, adapts, perfects, and prevents; it can average 60% of lifecycle cost and 60% of it is adding features while keeping the system running.",
+      "sourceDocumentId": "doc-comp5241-sdlc-2",
+      "sourcePages": [
+        37,
+        38,
+        39
+      ],
+      "relatedNodeIds": [
+        "kn-incident",
+        "kn-feedback-loop"
+      ]
+    },
+    {
+      "id": "kn-incident",
+      "kind": "example",
+      "title": "The eighteen-hour visibility gap",
+      "summary": "The hypothetical incident runs from 1:00 AM deployment to 9:00 PM restoration; TTD, TTM, and TTR separate detection, mitigation, and customer impact.",
+      "sourceDocumentId": "doc-comp5241-sdlc-2",
+      "sourcePages": [
+        41,
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "relatedNodeIds": [
+        "kn-deployment-environments",
+        "kn-availability"
+      ]
+    },
+    {
+      "id": "kn-availability",
+      "kind": "formula",
+      "title": "Availability and the cost of downtime",
+      "summary": "Availability is uptime divided by total time, described in 9s; the lecture relates it to MTTF and MTTR and gives downtime at several uptime levels.",
+      "sourceDocumentId": "doc-comp5241-sdlc-2",
+      "sourcePages": [
+        47
+      ],
+      "relatedNodeIds": [
+        "kn-incident"
+      ]
+    },
+    {
+      "id": "kn-deployment-strategies",
+      "kind": "concept",
+      "title": "Deployment is a risk envelope",
+      "summary": "Big Bang, rolling, blue-green, and canary trade downtime, coexistence, rollback, and exposure to risk; feature flags separate release from deployment.",
+      "sourceDocumentId": "doc-comp5241-sdlc-2",
+      "sourcePages": [
+        51,
+        52,
+        53,
+        54,
+        55,
+        56
+      ],
+      "relatedNodeIds": [
+        "kn-deployment-environments",
+        "kn-cicd"
+      ]
+    },
+    {
+      "id": "kn-cicd",
+      "kind": "concept",
+      "title": "From commit to monitored production",
+      "summary": "A CI/CD pipeline connects version control, build, test environments, staged rollout, and monitoring; it is the operational form of the lifecycle loop.",
+      "sourceDocumentId": "doc-comp5241-sdlc-2",
+      "sourcePages": [
+        57
+      ],
+      "relatedNodeIds": [
+        "kn-feedback-loop",
+        "kn-deployment-strategies"
+      ]
+    }
+  ],
+  "chapters": [
+    {
+      "id": "chapter-incident",
+      "title": "The green check",
+      "shortTitle": "Incident",
+      "color": "#B5533C"
+    },
+    {
+      "id": "chapter-shape",
+      "title": "Shape the system",
+      "shortTitle": "Shape",
+      "color": "#B07A32"
+    },
+    {
+      "id": "chapter-prove",
+      "title": "Prove the promise",
+      "shortTitle": "Prove",
+      "color": "#3F6F6B"
+    },
+    {
+      "id": "chapter-release",
+      "title": "Release the risk",
+      "shortTitle": "Release",
+      "color": "#4E6478"
+    },
+    {
+      "id": "chapter-operate",
+      "title": "Operate and learn",
+      "shortTitle": "Operate",
+      "color": "#6E7B4E"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "scene-0100-green-lights",
+      "chapterId": "chapter-incident",
+      "title": "01:00 — Green lights",
+      "template": "opening",
+      "duration": 40,
+      "elements": [
+        {
+          "id": "s1-title",
+          "type": "title",
+          "content": "WHAT DID THE\nLIFECYCLE MISS?",
+          "x": 5,
+          "y": 9,
+          "width": 48,
+          "height": 26,
+          "style": {
+            "accent": "#B5533C",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s1-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.0
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s1-title-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-0100-green-lights-n4",
+                  "offset": 0.15
+                },
+                "duration": 0.9,
+                "intensity": 0.65
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            41,
+            42
+          ]
+        },
+        {
+          "id": "s1-badge",
+          "type": "badge",
+          "content": "SCENARIO · PP. 41–42",
+          "x": 56,
+          "y": 10,
+          "width": 32,
+          "height": 6,
+          "style": {
+            "accent": "#B5533C",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s1-badge-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 4.4
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            41,
+            42
+          ]
+        },
+        {
+          "id": "s1-timeline",
+          "type": "timeline",
+          "content": "A HYPOTHETICAL DEPLOYMENT",
+          "x": 6,
+          "y": 50,
+          "width": 88,
+          "height": 18,
+          "style": {
+            "accent": "#B5533C",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s1-timeline-enter",
+              "preset": "draw",
+              "trigger": {
+                "type": "time",
+                "at": 4.5
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s1-timeline-beat-1",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-0100-green-lights-n3",
+                  "offset": 0.15
+                },
+                "duration": 2.2,
+                "intensity": 0.8
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            41,
+            42
+          ],
+          "items": [
+            {
+              "id": "s1-timeline-item-1",
+              "label": "01:00 · DEPLOY GREEN"
+            },
+            {
+              "id": "s1-timeline-item-2",
+              "label": "03:00 · DEGRADING"
+            },
+            {
+              "id": "s1-timeline-item-3",
+              "label": "10:00 · DISCOVERED"
+            }
+          ]
+        },
+        {
+          "id": "s1-text",
+          "type": "text",
+          "content": "Health checks pass. No alarm fires. The incident has not officially started for the team.",
+          "x": 6,
+          "y": 72,
+          "width": 46,
+          "height": 10,
+          "style": {
+            "accent": "#B5533C",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s1-text-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 17.7
+              },
+              "duration": 0.9,
+              "stagger": 0.02,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            42
+          ]
+        },
+        {
+          "id": "s1-note",
+          "type": "text",
+          "content": "A green check is a moment, not a trend.",
+          "x": 60,
+          "y": 72,
+          "width": 30,
+          "height": 8,
+          "style": {
+            "accent": "#6E7B4E",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s1-note-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 25.2
+              },
+              "duration": 0.9,
+              "stagger": 0.02,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            41
+          ]
+        }
+      ],
+      "narration": [
+        {
+          "id": "scene-0100-green-lights-n1",
+          "text": "This is a hypothetical incident from the lecture. But the pattern is familiar.",
+          "start": 0.0,
+          "end": 4.501
+        },
+        {
+          "id": "scene-0100-green-lights-n2",
+          "text": "At one a.m., the deployment is green. Health checks pass. The system looks stable.",
+          "start": 4.801,
+          "end": 10.577
+        },
+        {
+          "id": "scene-0100-green-lights-n3",
+          "text": "Two hours later, the new queries begin to cascade. Response times fall, but no alarm fires.",
+          "start": 10.877,
+          "end": 17.526
+        },
+        {
+          "id": "scene-0100-green-lights-n4",
+          "text": "At ten a.m., someone finally notices. The code passed every test. So what did the lifecycle miss?",
+          "start": 17.826,
+          "end": 24.949
+        },
+        {
+          "id": "scene-0100-green-lights-n5",
+          "text": "A green check is a moment, not a trend. The first health check is a snapshot, not a guarantee.",
+          "start": 25.249,
+          "end": 31.572
+        }
+      ],
+      "knowledgeNodeIds": [
+        "kn-incident"
+      ],
+      "captionMode": "hidden",
+      "transitionOut": {
+        "preset": "wipe",
+        "duration": 0.5
+      }
+    },
+    {
+      "id": "scene-lifecycle-map",
+      "chapterId": "chapter-shape",
+      "title": "Nine stages, four jobs",
+      "template": "concept",
+      "duration": 50,
+      "elements": [
+        {
+          "id": "s2-title",
+          "type": "title",
+          "content": "NINE STAGES.\nFOUR JOBS.",
+          "x": 5,
+          "y": 8,
+          "width": 30,
+          "height": 18,
+          "style": {
+            "accent": "#B07A32",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s2-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.0
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s2-title-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-lifecycle-map-n2",
+                  "offset": 0.15
+                },
+                "duration": 0.8,
+                "intensity": 0.6
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            2
+          ]
+        },
+        {
+          "id": "s2-map",
+          "type": "diagram",
+          "content": "THE LIFECYCLE IS A CHAIN OF EVIDENCE",
+          "x": 4,
+          "y": 30,
+          "width": 92,
+          "height": 54,
+          "style": {
+            "accent": "#B07A32",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s2-map-enter",
+              "preset": "draw",
+              "trigger": {
+                "type": "time",
+                "at": 1.0
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "diagram",
+            "surface": "none"
+          },
+          "sourcePages": [
+            2
+          ],
+          "diagram": {
+            "nodes": [
+              {
+                "id": "n-req",
+                "label": "Requirement\nanalysis",
+                "x": 2,
+                "y": 6,
+                "width": 18,
+                "height": 17,
+                "tone": "primary",
+                "revealAt": 1.0
+              },
+              {
+                "id": "n-design",
+                "label": "System\ndesign",
+                "x": 23,
+                "y": 6,
+                "width": 18,
+                "height": 17,
+                "tone": "primary",
+                "revealAt": 3.0
+              },
+              {
+                "id": "n-impl",
+                "label": "Implementation",
+                "x": 44,
+                "y": 6,
+                "width": 18,
+                "height": 17,
+                "tone": "secondary",
+                "revealAt": 5.0
+              },
+              {
+                "id": "n-unit",
+                "label": "Unit\ntest",
+                "x": 65,
+                "y": 6,
+                "width": 15,
+                "height": 17,
+                "tone": "secondary",
+                "revealAt": 7.0
+              },
+              {
+                "id": "n-integration",
+                "label": "Integration\ntesting",
+                "x": 82,
+                "y": 6,
+                "width": 15,
+                "height": 17,
+                "tone": "secondary",
+                "revealAt": 9.0
+              },
+              {
+                "id": "n-system",
+                "label": "System\ntesting",
+                "x": 82,
+                "y": 30,
+                "width": 15,
+                "height": 17,
+                "tone": "secondary",
+                "revealAt": 11.0
+              },
+              {
+                "id": "n-acceptance",
+                "label": "Acceptance\ntesting",
+                "x": 65,
+                "y": 30,
+                "width": 15,
+                "height": 17,
+                "tone": "secondary",
+                "revealAt": 13.0
+              },
+              {
+                "id": "n-deploy",
+                "label": "Deployment",
+                "x": 44,
+                "y": 54,
+                "width": 18,
+                "height": 17,
+                "tone": "neutral",
+                "revealAt": 23.7
+              },
+              {
+                "id": "n-maint",
+                "label": "Maintenance",
+                "x": 23,
+                "y": 54,
+                "width": 18,
+                "height": 17,
+                "tone": "neutral",
+                "revealAt": 32.8
+              }
+            ],
+            "edges": [
+              {
+                "id": "e-req-design",
+                "from": "n-req",
+                "to": "n-design",
+                "kind": "directed",
+                "revealAt": 2.5
+              },
+              {
+                "id": "e-design-impl",
+                "from": "n-design",
+                "to": "n-impl",
+                "kind": "directed",
+                "revealAt": 4.5
+              },
+              {
+                "id": "e-impl-unit",
+                "from": "n-impl",
+                "to": "n-unit",
+                "kind": "directed",
+                "revealAt": 6.5
+              },
+              {
+                "id": "e-unit-int",
+                "from": "n-unit",
+                "to": "n-integration",
+                "kind": "directed",
+                "revealAt": 8.5
+              },
+              {
+                "id": "e-int-system",
+                "from": "n-integration",
+                "to": "n-system",
+                "kind": "directed",
+                "revealAt": 10.5
+              },
+              {
+                "id": "e-system-acc",
+                "from": "n-system",
+                "to": "n-acceptance",
+                "kind": "directed",
+                "revealAt": 12.5
+              },
+              {
+                "id": "e-acc-deploy",
+                "from": "n-acceptance",
+                "to": "n-deploy",
+                "kind": "directed",
+                "revealAt": 22.5
+              },
+              {
+                "id": "e-deploy-maint",
+                "from": "n-deploy",
+                "to": "n-maint",
+                "kind": "directed",
+                "revealAt": 31.5
+              }
+            ]
+          }
+        },
+        {
+          "id": "s2-caption",
+          "type": "text",
+          "content": "SHAPE → BUILD → PROVE → RUN · EACH STAGE LEAVES EVIDENCE",
+          "x": 4,
+          "y": 88,
+          "width": 92,
+          "height": 5,
+          "style": {
+            "accent": "#6E7B4E",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s2-caption-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 14.3
+              },
+              "duration": 0.9,
+              "stagger": 0.02,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            2
+          ]
+        }
+      ],
+      "narration": [
+        {
+          "id": "scene-lifecycle-map-n1",
+          "text": "The lecture lists nine stages: requirement analysis, system design, implementation, unit test, integration testing, system testing, acceptance testing, deployment, and maintenance.",
+          "start": 0.0,
+          "end": 14.068
+        },
+        {
+          "id": "scene-lifecycle-map-n2",
+          "text": "Grouped, they do four jobs: shape the system, build it, prove it, and run it.",
+          "start": 14.368,
+          "end": 19.911
+        },
+        {
+          "id": "scene-lifecycle-map-n3",
+          "text": "The important word is not stage. It is evidence.",
+          "start": 20.211,
+          "end": 23.47
+        },
+        {
+          "id": "scene-lifecycle-map-n4",
+          "text": "A requirement retires value uncertainty. A design retires structural uncertainty. A test retires behavioural uncertainty.",
+          "start": 23.77,
+          "end": 32.634
+        },
+        {
+          "id": "scene-lifecycle-map-n5",
+          "text": "Production retires the assumption that any of it survives contact with reality.",
+          "start": 32.934,
+          "end": 37.608
+        },
+        {
+          "id": "scene-lifecycle-map-n6",
+          "text": "They are not a relay of completed documents. They are a chain of evidence, and the chain can break at any seam.",
+          "start": 37.908,
+          "end": 44.406
+        }
+      ],
+      "knowledgeNodeIds": [
+        "kn-sdlc-lifecycle"
+      ],
+      "captionMode": "hidden"
+    },
+    {
+      "id": "scene-requirements",
+      "chapterId": "chapter-shape",
+      "title": "A requirement is a testable promise",
+      "template": "comparison",
+      "duration": 53,
+      "elements": [
+        {
+          "id": "s3-title",
+          "type": "title",
+          "content": "A REQUIREMENT\nIS A TESTABLE\nPROMISE",
+          "x": 5,
+          "y": 8,
+          "width": 30,
+          "height": 26,
+          "style": {
+            "accent": "#B07A32",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s3-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.0
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s3-title-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-requirements-n4",
+                  "offset": 0.15
+                },
+                "duration": 0.8,
+                "intensity": 0.7
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            3,
+            4
+          ]
+        },
+        {
+          "id": "s3-compare",
+          "type": "comparison",
+          "content": "WHAT VS HOW WELL",
+          "x": 38,
+          "y": 10,
+          "width": 57,
+          "height": 38,
+          "style": {
+            "accent": "#B07A32",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s3-compare-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.6
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s3-compare-beat-1",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-requirements-n1",
+                  "offset": 0.15
+                },
+                "duration": 0.9,
+                "intensity": 0.7
+              },
+              {
+                "id": "s3-compare-beat-2",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-requirements-n2",
+                  "offset": 0.15
+                },
+                "duration": 0.9,
+                "intensity": 0.7
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "editorial",
+            "surface": "none"
+          },
+          "sourcePages": [
+            3
+          ],
+          "items": [
+            {
+              "id": "s3-compare-item-1",
+              "label": "Functional — What it must accomplish: email, search, checkout"
+            },
+            {
+              "id": "s3-compare-item-2",
+              "label": "Non-functional — How well it operates: performance, reliability, security"
+            }
+          ]
+        },
+        {
+          "id": "s3-text",
+          "type": "text",
+          "content": "A confirmation email. An approval request. Search. A cart you can edit. Login. Notifications. Feedback.",
+          "x": 38,
+          "y": 51,
+          "width": 57,
+          "height": 12,
+          "style": {
+            "accent": "#B07A32",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s3-text-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 12.8
+              },
+              "duration": 0.9,
+              "stagger": 0.02,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s3-text-beat-1",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-requirements-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.2,
+                "intensity": 0.5
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            4
+          ]
+        },
+        {
+          "id": "s3-testable",
+          "type": "text",
+          "content": "“Easy to use” is a wish. “A new user completes checkout in under three minutes on a mid-range phone” is a requirement.",
+          "x": 5,
+          "y": 38,
+          "width": 30,
+          "height": 22,
+          "style": {
+            "accent": "#B5533C",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s3-testable-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 26.8
+              },
+              "duration": 0.9,
+              "stagger": 0.02,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s3-testable-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-requirements-n5",
+                  "offset": 0.15
+                },
+                "duration": 1.0,
+                "intensity": 0.7
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            3,
+            10
+          ]
+        },
+        {
+          "id": "s3-badge",
+          "type": "badge",
+          "content": "START WITH THE PROBLEM",
+          "x": 5,
+          "y": 64,
+          "width": 30,
+          "height": 6,
+          "style": {
+            "accent": "#3F6F6B",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s3-badge-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 34.1
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s3-badge-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-requirements-n6",
+                  "offset": 0.15
+                },
+                "duration": 0.9,
+                "intensity": 0.7
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            10
+          ]
+        },
+        {
+          "id": "s3-caption",
+          "type": "text",
+          "content": "PRIORITIZE · CONTROL CHANGE · VERIFY PURPOSE",
+          "x": 38,
+          "y": 72,
+          "width": 57,
+          "height": 6,
+          "style": {
+            "accent": "#6E7B4E",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s3-caption-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 38.4
+              },
+              "duration": 0.9,
+              "stagger": 0.02,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            8
+          ]
+        }
+      ],
+      "narration": [
+        {
+          "id": "scene-requirements-n1",
+          "text": "Functional requirements define what a system is supposed to accomplish.",
+          "start": 0.0,
+          "end": 4.353
+        },
+        {
+          "id": "scene-requirements-n2",
+          "text": "Non-functional requirements define how well it operates: performance, reliability, usability, security.",
+          "start": 4.653,
+          "end": 12.517
+        },
+        {
+          "id": "scene-requirements-n3",
+          "text": "The lecture's examples are ordinary: a confirmation email, an approval request, search, a cart you can edit, login, notifications, feedback.",
+          "start": 12.817,
+          "end": 23.437
+        },
+        {
+          "id": "scene-requirements-n4",
+          "text": "None of these is a requirement until it is testable.",
+          "start": 23.737,
+          "end": 26.598
+        },
+        {
+          "id": "scene-requirements-n5",
+          "text": "Easy to use is a wish. A new user can complete checkout in under three minutes on a mid-range phone is a requirement.",
+          "start": 26.898,
+          "end": 33.813
+        },
+        {
+          "id": "scene-requirements-n6",
+          "text": "Start with the problem, not the solution. Then convert vague statements into testable, specific requirements or business rules.",
+          "start": 34.113,
+          "end": 42.391
+        },
+        {
+          "id": "scene-requirements-n7",
+          "text": "If you cannot test it, it is not a requirement yet.",
+          "start": 42.691,
+          "end": 45.984
+        }
+      ],
+      "knowledgeNodeIds": [
+        "kn-requirements"
+      ],
+      "captionMode": "hidden"
+    },
+    {
+      "id": "scene-elicitation",
+      "chapterId": "chapter-shape",
+      "title": "Ask the question behind the request",
+      "template": "process",
+      "duration": 54,
+      "elements": [
+        {
+          "id": "s4-title",
+          "type": "title",
+          "content": "ASK THE\nQUESTION\nBEHIND THE\nREQUEST",
+          "x": 5,
+          "y": 8,
+          "width": 35,
+          "height": 26,
+          "style": {
+            "accent": "#B07A32",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s4-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.0
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s4-title-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-elicitation-n1",
+                  "offset": 0.15
+                },
+                "duration": 0.8,
+                "intensity": 0.6
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            5
+          ]
+        },
+        {
+          "id": "s4-methods",
+          "type": "cards",
+          "content": "SIX WAYS TO SEE THE NEED",
+          "x": 44,
+          "y": 10,
+          "width": 51,
+          "height": 52,
+          "style": {
+            "accent": "#B07A32",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s4-methods-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 4.6
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s4-methods-beat-1",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-elicitation-n2",
+                  "offset": 0.15
+                },
+                "duration": 2.2,
+                "intensity": 0.75
+              },
+              {
+                "id": "s4-methods-beat-2",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-elicitation-n3",
+                  "offset": 0.15
+                },
+                "duration": 2.2,
+                "intensity": 0.65
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "editorial",
+            "surface": "none"
+          },
+          "sourcePages": [
+            5,
+            7,
+            8,
+            10
+          ],
+          "items": [
+            {
+              "id": "s4-methods-item-1",
+              "label": "Document analysis: official process"
+            },
+            {
+              "id": "s4-methods-item-2",
+              "label": "Observation: real workaround"
+            },
+            {
+              "id": "s4-methods-item-3",
+              "label": "Interviews: meaning and context"
+            },
+            {
+              "id": "s4-methods-item-4",
+              "label": "Surveys: distribution"
+            },
+            {
+              "id": "s4-methods-item-5",
+              "label": "Focus groups: conflicting views"
+            },
+            {
+              "id": "s4-methods-item-6",
+              "label": "Prototyping: behaviour with the thing"
+            }
+          ]
+        },
+        {
+          "id": "s4-text",
+          "type": "text",
+          "content": "Documents show the official process. Observation shows the workaround. Interviews show the meaning. Surveys show the distribution. Focus groups show the conflict.",
+          "x": 5,
+          "y": 38,
+          "width": 35,
+          "height": 20,
+          "style": {
+            "accent": "#3F6F6B",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s4-text-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 13.1
+              },
+              "duration": 0.9,
+              "stagger": 0.02,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            5,
+            10
+          ]
+        },
+        {
+          "id": "s4-badge",
+          "type": "badge",
+          "content": "START WITH THE PROBLEM",
+          "x": 5,
+          "y": 62,
+          "width": 35,
+          "height": 7,
+          "style": {
+            "accent": "#B5533C",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s4-badge-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 30.2
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s4-badge-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-elicitation-n5",
+                  "offset": 0.15
+                },
+                "duration": 0.9,
+                "intensity": 0.7
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            10
+          ]
+        },
+        {
+          "id": "s4-caption",
+          "type": "text",
+          "content": "MANAGE WHAT YOU LEARN: PRIORITIZE · CONTROL CHANGE · VERIFY PURPOSE",
+          "x": 44,
+          "y": 66,
+          "width": 51,
+          "height": 8,
+          "style": {
+            "accent": "#6E7B4E",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s4-caption-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 38.4
+              },
+              "duration": 0.9,
+              "stagger": 0.02,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            8
+          ]
+        }
+      ],
+      "narration": [
+        {
+          "id": "scene-elicitation-n1",
+          "text": "Where do those requirements come from? The lecture lists six methods.",
+          "start": 0.0,
+          "end": 4.365
+        },
+        {
+          "id": "scene-elicitation-n2",
+          "text": "Document analysis, observation, interviews, surveys and questionnaires, focus groups, and prototyping.",
+          "start": 4.665,
+          "end": 12.83
+        },
+        {
+          "id": "scene-elicitation-n3",
+          "text": "Each method sees a different slice. Documents show the official process. Observation shows the workaround. Interviews show the meaning. Surveys show the distribution. Focus groups show the conflict.",
+          "start": 13.13,
+          "end": 25.99
+        },
+        {
+          "id": "scene-elicitation-n4",
+          "text": "Prototypes show what people actually do when they touch the thing.",
+          "start": 26.29,
+          "end": 29.989
+        },
+        {
+          "id": "scene-elicitation-n5",
+          "text": "A survey is not a conversation. An interview is not a sample. The best question is often, show me how you do it today.",
+          "start": 30.289,
+          "end": 38.167
+        },
+        {
+          "id": "scene-elicitation-n6",
+          "text": "Then manage what you learned: prioritize, control change, and verify that the system still meets its purpose.",
+          "start": 38.467,
+          "end": 45.847
+        },
+        {
+          "id": "scene-elicitation-n7",
+          "text": "The method is not the point. The question is.",
+          "start": 46.147,
+          "end": 48.954
+        }
+      ],
+      "knowledgeNodeIds": [
+        "kn-elicitation"
+      ],
+      "captionMode": "hidden",
+      "transitionOut": {
+        "preset": "fade",
+        "duration": 0.45
+      }
+    },
+    {
+      "id": "scene-prototype-mvp",
+      "chapterId": "chapter-shape",
+      "title": "Prototype vs MVP",
+      "template": "comparison",
+      "duration": 58,
+      "elements": [
+        {
+          "id": "s5-title",
+          "type": "title",
+          "content": "PROTOTYPE BUYS\nDESIGN LEARNING.\nMVP BUYS\nMARKET LEARNING.",
+          "x": 5,
+          "y": 8,
+          "width": 35,
+          "height": 34,
+          "style": {
+            "accent": "#B07A32",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s5-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.0
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s5-title-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-prototype-mvp-n3",
+                  "offset": 0.15
+                },
+                "duration": 0.8,
+                "intensity": 0.6
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            13,
+            14
+          ]
+        },
+        {
+          "id": "s5-image",
+          "type": "image",
+          "content": "",
+          "x": 44,
+          "y": 6,
+          "width": 51,
+          "height": 49,
+          "style": {
+            "accent": "#B07A32",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s5-image-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.5
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s5-image-beat-1",
+                "preset": "focus",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-prototype-mvp-n5",
+                  "offset": 0.15
+                },
+                "duration": 1.6,
+                "intensity": 0.7
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            14
+          ],
+          "assetId": "asset-page-014-mvp-ladder",
+          "alt": "MVP ladder: a partial car labeled not like this, and a skateboard-to-car progression labeled like this",
+          "fit": "contain"
+        },
+        {
+          "id": "s5-compare",
+          "type": "comparison",
+          "content": "TWO DIFFERENT INSTRUMENTS",
+          "x": 44,
+          "y": 57,
+          "width": 51,
+          "height": 27,
+          "style": {
+            "accent": "#3F6F6B",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s5-compare-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 17.1
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s5-compare-beat-1",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-prototype-mvp-n3",
+                  "offset": 0.15
+                },
+                "duration": 0.9,
+                "intensity": 0.7
+              },
+              {
+                "id": "s5-compare-beat-2",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-prototype-mvp-n4",
+                  "offset": 0.15
+                },
+                "duration": 0.9,
+                "intensity": 0.7
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "editorial",
+            "surface": "none"
+          },
+          "sourcePages": [
+            13,
+            15
+          ],
+          "items": [
+            {
+              "id": "s5-compare-item-1",
+              "label": "Prototype — Learn the design before full development"
+            },
+            {
+              "id": "s5-compare-item-2",
+              "label": "MVP — Learn the market with the least effort"
+            }
+          ]
+        },
+        {
+          "id": "s5-text",
+          "type": "text",
+          "content": "A prototype can be thrown away. An MVP cannot be fake: it must be usable enough to test demand.",
+          "x": 5,
+          "y": 46,
+          "width": 35,
+          "height": 12,
+          "style": {
+            "accent": "#B5533C",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s5-text-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 25.8
+              },
+              "duration": 0.9,
+              "stagger": 0.02,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s5-text-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-prototype-mvp-n4",
+                  "offset": 0.15
+                },
+                "duration": 0.9,
+                "intensity": 0.6
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            13,
+            14
+          ]
+        },
+        {
+          "id": "s5-badge",
+          "type": "badge",
+          "content": "MINIMUM ≠ SMALLEST",
+          "x": 5,
+          "y": 62,
+          "width": 32,
+          "height": 6,
+          "style": {
+            "accent": "#B5533C",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s5-badge-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 34.7
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            14
+          ]
+        }
+      ],
+      "narration": [
+        {
+          "id": "scene-prototype-mvp-n1",
+          "text": "A prototype is an umbrella term for an early deliverable built to show how requirements could be implemented.",
+          "start": 0.0,
+          "end": 6.16
+        },
+        {
+          "id": "scene-prototype-mvp-n2",
+          "text": "Throwaway prototypes gather feedback and are discarded. Evolutionary prototypes are refined until the final version. Incremental prototypes build pieces separately.",
+          "start": 6.46,
+          "end": 16.873
+        },
+        {
+          "id": "scene-prototype-mvp-n3",
+          "text": "An MVP is a different instrument. It is the smallest version that can collect the maximum validated learning about customers with the least effort.",
+          "start": 17.173,
+          "end": 25.562
+        },
+        {
+          "id": "scene-prototype-mvp-n4",
+          "text": "Minimum means little effort. Viable means enough quality to test whether customers will use it.",
+          "start": 25.862,
+          "end": 31.646
+        },
+        {
+          "id": "scene-prototype-mvp-n5",
+          "text": "The lecture's ladder makes the difference visible.",
+          "start": 31.946,
+          "end": 34.416
+        },
+        {
+          "id": "scene-prototype-mvp-n6",
+          "text": "You do not build a car by shipping four wheels and a steering wheel. You build a skateboard, then a scooter, then a bicycle, then a car. Each step is usable, and each step teaches you something the next step needs.",
+          "start": 34.716,
+          "end": 48.058
+        },
+        {
+          "id": "scene-prototype-mvp-n7",
+          "text": "The ladder is not about shipping less. It is about learning earlier.",
+          "start": 48.358,
+          "end": 52.209
+        }
+      ],
+      "knowledgeNodeIds": [
+        "kn-prototypes",
+        "kn-mvp"
+      ],
+      "captionMode": "hidden"
+    },
+    {
+      "id": "scene-design",
+      "chapterId": "chapter-shape",
+      "title": "Design is where risk gets a boundary",
+      "template": "architecture",
+      "duration": 58,
+      "elements": [
+        {
+          "id": "s6-title",
+          "type": "title",
+          "content": "DESIGN IS WHERE\nRISK GETS A\nBOUNDARY",
+          "x": 5,
+          "y": 8,
+          "width": 33,
+          "height": 26,
+          "style": {
+            "accent": "#4E6478",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s6-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.0
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s6-title-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-design-n1",
+                  "offset": 0.15
+                },
+                "duration": 0.8,
+                "intensity": 0.6
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            18,
+            19
+          ]
+        },
+        {
+          "id": "s6-image",
+          "type": "image",
+          "content": "",
+          "x": 40,
+          "y": 8,
+          "width": 56,
+          "height": 40,
+          "style": {
+            "accent": "#4E6478",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s6-image-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 7.5
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s6-image-beat-1",
+                "preset": "focus",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-design-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.4,
+                "intensity": 0.7
+              }
+            ],
+            "ambient": "none",
+            "exit": {
+              "id": "s6-image-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 13.0
+              },
+              "duration": 0.55,
+              "intensity": 1
+            }
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            19
+          ],
+          "assetId": "asset-page-019-genai-architecture",
+          "alt": "Source architecture: React frontend, Flask API backend, Azure OpenAI service, and chat history database",
+          "fit": "contain"
+        },
+        {
+          "id": "s6-diagram",
+          "type": "diagram",
+          "content": "FOUR RESPONSIBILITIES · THREE BOUNDARIES",
+          "x": 40,
+          "y": 50,
+          "width": 56,
+          "height": 38,
+          "style": {
+            "accent": "#4E6478",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s6-diagram-enter",
+              "preset": "draw",
+              "trigger": {
+                "type": "time",
+                "at": 13.2
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s6-diagram-beat-1",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-design-n3",
+                  "offset": 0.15
+                },
+                "duration": 3.0,
+                "intensity": 0.8
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "diagram",
+            "surface": "none"
+          },
+          "sourcePages": [
+            18,
+            19,
+            20
+          ],
+          "diagram": {
+            "nodes": [
+              {
+                "id": "d-ui",
+                "label": "Student UI",
+                "x": 2,
+                "y": 30,
+                "width": 20,
+                "height": 30,
+                "tone": "primary",
+                "revealAt": 13.3
+              },
+              {
+                "id": "d-api",
+                "label": "Flask API",
+                "x": 28,
+                "y": 30,
+                "width": 20,
+                "height": 30,
+                "tone": "primary",
+                "revealAt": 14.5
+              },
+              {
+                "id": "d-ai",
+                "label": "Azure OpenAI",
+                "x": 54,
+                "y": 6,
+                "width": 20,
+                "height": 26,
+                "tone": "secondary",
+                "revealAt": 16.5
+              },
+              {
+                "id": "d-db",
+                "label": "Chat DB",
+                "x": 54,
+                "y": 58,
+                "width": 20,
+                "height": 26,
+                "tone": "secondary",
+                "revealAt": 18.5
+              },
+              {
+                "id": "d-secrets",
+                "label": "Secrets",
+                "x": 28,
+                "y": 70,
+                "width": 20,
+                "height": 18,
+                "tone": "neutral",
+                "revealAt": 20.5
+              }
+            ],
+            "edges": [
+              {
+                "id": "d-e-ui-api",
+                "from": "d-ui",
+                "to": "d-api",
+                "kind": "directed",
+                "revealAt": 15.0
+              },
+              {
+                "id": "d-e-api-ai",
+                "from": "d-api",
+                "to": "d-ai",
+                "kind": "directed",
+                "revealAt": 19.0
+              },
+              {
+                "id": "d-e-api-db",
+                "from": "d-api",
+                "to": "d-db",
+                "kind": "directed",
+                "revealAt": 21.0
+              },
+              {
+                "id": "d-e-secrets-api",
+                "from": "d-secrets",
+                "to": "d-api",
+                "kind": "directed",
+                "revealAt": 29.8
+              }
+            ]
+          }
+        },
+        {
+          "id": "s6-text",
+          "type": "text",
+          "content": "Requirements say what. Design says how: components, interfaces, data flow, trade-offs.",
+          "x": 5,
+          "y": 40,
+          "width": 33,
+          "height": 18,
+          "style": {
+            "accent": "#4E6478",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s6-text-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.0
+              },
+              "duration": 0.9,
+              "stagger": 0.02,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            18
+          ]
+        },
+        {
+          "id": "s6-badge",
+          "type": "badge",
+          "content": "EACH BOUNDARY IS A FAILURE POINT",
+          "x": 5,
+          "y": 62,
+          "width": 33,
+          "height": 6,
+          "style": {
+            "accent": "#B5533C",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s6-badge-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 29.5
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            19
+          ]
+        }
+      ],
+      "narration": [
+        {
+          "id": "scene-design-n1",
+          "text": "Requirements say what. Design says how: components, interfaces, data flow, trade-offs.",
+          "start": 0.0,
+          "end": 7.274
+        },
+        {
+          "id": "scene-design-n2",
+          "text": "The lecture's example is a GenAI chat app.",
+          "start": 7.574,
+          "end": 10.381
+        },
+        {
+          "id": "scene-design-n3",
+          "text": "A React frontend takes the student's question. A Python Flask API receives it, applies business logic, and calls an Azure OpenAI service. A database stores chat history. The answer travels back through the API to the student.",
+          "start": 10.681,
+          "end": 26.129
+        },
+        {
+          "id": "scene-design-n4",
+          "text": "Four responsibilities, three boundaries.",
+          "start": 26.429,
+          "end": 29.284
+        },
+        {
+          "id": "scene-design-n5",
+          "text": "Each boundary is a place where the system can fail: a malformed request, a slow model, a missing history record, a leaked key.",
+          "start": 29.584,
+          "end": 38.171
+        },
+        {
+          "id": "scene-design-n6",
+          "text": "Good design is not a diagram with more boxes. It is a decision about where responsibility stops and where the next component begins.",
+          "start": 38.471,
+          "end": 46.677
+        },
+        {
+          "id": "scene-design-n7",
+          "text": "The diagram is a claim about responsibility. That is why design is where risk gets a boundary.",
+          "start": 46.977,
+          "end": 52.721
+        }
+      ],
+      "knowledgeNodeIds": [
+        "kn-design"
+      ],
+      "captionMode": "hidden"
+    },
+    {
+      "id": "scene-secrets",
+      "chapterId": "chapter-shape",
+      "title": "Secrets define the boundary",
+      "template": "concept",
+      "duration": 35,
+      "elements": [
+        {
+          "id": "s7-title",
+          "type": "title",
+          "content": "THE SECRET\nMUST NEVER\nCROSS THE LINE",
+          "x": 5,
+          "y": 8,
+          "width": 30,
+          "height": 28,
+          "style": {
+            "accent": "#B5533C",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s7-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.0
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s7-title-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-secrets-n1",
+                  "offset": 0.15
+                },
+                "duration": 0.8,
+                "intensity": 0.7
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            21
+          ]
+        },
+        {
+          "id": "s7-image",
+          "type": "image",
+          "content": "",
+          "x": 38,
+          "y": 8,
+          "width": 53,
+          "height": 68,
+          "style": {
+            "accent": "#B5533C",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s7-image-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.4
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s7-image-beat-1",
+                "preset": "focus",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-secrets-n2",
+                  "offset": 0.15
+                },
+                "duration": 2.0,
+                "intensity": 0.7
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            21
+          ],
+          "assetId": "asset-page-021-secret-boundary",
+          "alt": "A .env file, a .gitignore shield, and a public GitHub repository with a lock",
+          "fit": "contain"
+        },
+        {
+          "id": "s7-text",
+          "type": "text",
+          "content": "A pushed key is already lost. Deleting the commit is not enough; rotate the key.",
+          "x": 5,
+          "y": 38,
+          "width": 30,
+          "height": 10,
+          "style": {
+            "accent": "#B5533C",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s7-text-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 13.7
+              },
+              "duration": 0.9,
+              "stagger": 0.02,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s7-text-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-secrets-n3",
+                  "offset": 0.15
+                },
+                "duration": 0.9,
+                "intensity": 0.7
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            21
+          ]
+        },
+        {
+          "id": "s7-rules",
+          "type": "cards",
+          "content": "THREE RULES",
+          "x": 5,
+          "y": 50,
+          "width": 30,
+          "height": 26,
+          "style": {
+            "accent": "#3F6F6B",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s7-rules-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 3.3
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s7-rules-beat-1",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-secrets-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.6,
+                "intensity": 0.6
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "editorial",
+            "surface": "none"
+          },
+          "sourcePages": [
+            21,
+            22
+          ],
+          "items": [
+            {
+              "id": "s7-rules-item-1",
+              "label": "Local .env only"
+            },
+            {
+              "id": "s7-rules-item-2",
+              "label": "Ignored by git"
+            },
+            {
+              "id": "s7-rules-item-3",
+              "label": "Injected at deploy"
+            }
+          ]
+        },
+        {
+          "id": "s7-badge",
+          "type": "badge",
+          "content": "ROTATE, DON’T JUST DELETE",
+          "x": 5,
+          "y": 79,
+          "width": 30,
+          "height": 6,
+          "style": {
+            "accent": "#B5533C",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s7-badge-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 20.0
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            21
+          ]
+        }
+      ],
+      "narration": [
+        {
+          "id": "scene-secrets-n1",
+          "text": "One boundary deserves its own minute: the secret.",
+          "start": 0.0,
+          "end": 3.088
+        },
+        {
+          "id": "scene-secrets-n2",
+          "text": "The key lives in a local dot E N V file. Git ignore keeps that file out of version control. In production, the platform injects the key at deploy time.",
+          "start": 3.388,
+          "end": 13.486
+        },
+        {
+          "id": "scene-secrets-n3",
+          "text": "The rule is absolute: secret keys and sensitive data must never appear in the remote repository.",
+          "start": 13.786,
+          "end": 19.75
+        },
+        {
+          "id": "scene-secrets-n4",
+          "text": "Once a key is pushed, deleting the commit is not enough. You rotate the key.",
+          "start": 20.05,
+          "end": 24.985
+        },
+        {
+          "id": "scene-secrets-n5",
+          "text": "The boundary is only real if the secret never crosses it.",
+          "start": 25.285,
+          "end": 28.66
+        }
+      ],
+      "knowledgeNodeIds": [
+        "kn-secret-boundary"
+      ],
+      "captionMode": "hidden",
+      "transitionOut": {
+        "preset": "slide-left",
+        "duration": 0.45
+      }
+    },
+    {
+      "id": "scene-testing",
+      "chapterId": "chapter-prove",
+      "title": "Unit, integration, system, acceptance",
+      "template": "process",
+      "duration": 58,
+      "elements": [
+        {
+          "id": "s8-title",
+          "type": "title",
+          "content": "UNIT, INTEGRATION,\nSYSTEM, ACCEPTANCE",
+          "x": 5,
+          "y": 8,
+          "width": 32,
+          "height": 24,
+          "style": {
+            "accent": "#3F6F6B",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s8-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.0
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s8-title-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-testing-n1",
+                  "offset": 0.15
+                },
+                "duration": 0.8,
+                "intensity": 0.6
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            23,
+            24,
+            25
+          ]
+        },
+        {
+          "id": "s8-image",
+          "type": "image",
+          "content": "",
+          "x": 40,
+          "y": 8,
+          "width": 56,
+          "height": 36,
+          "style": {
+            "accent": "#3F6F6B",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s8-image-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.5
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s8-image-beat-1",
+                "preset": "focus",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-testing-n3",
+                  "offset": 0.15
+                },
+                "duration": 2.0,
+                "intensity": 0.7
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            24
+          ],
+          "assetId": "asset-page-024-integration-seam",
+          "alt": "Input flows through Component 1 to Component 2 to Outcome, with a note that no bug is found in unit testing",
+          "fit": "contain"
+        },
+        {
+          "id": "s8-flow",
+          "type": "flow",
+          "content": "TEST A LARGER PROMISE AT EACH RUNG",
+          "x": 4,
+          "y": 46,
+          "width": 92,
+          "height": 20,
+          "style": {
+            "accent": "#3F6F6B",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s8-flow-enter",
+              "preset": "draw",
+              "trigger": {
+                "type": "time",
+                "at": 11.0
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s8-flow-beat-1",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-testing-n4",
+                  "offset": 0.15
+                },
+                "duration": 2.5,
+                "intensity": 0.8
+              },
+              {
+                "id": "s8-flow-beat-2",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-testing-n6",
+                  "offset": 0.15
+                },
+                "duration": 2.2,
+                "intensity": 0.7
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            23,
+            24,
+            25
+          ],
+          "items": [
+            {
+              "id": "s8-flow-item-1",
+              "label": "Unit — isolated component"
+            },
+            {
+              "id": "s8-flow-item-2",
+              "label": "Integration — test the seam"
+            },
+            {
+              "id": "s8-flow-item-3",
+              "label": "System — whole requirement set"
+            },
+            {
+              "id": "s8-flow-item-4",
+              "label": "Acceptance — customer validates"
+            }
+          ]
+        },
+        {
+          "id": "s8-text",
+          "type": "text",
+          "content": "Even a bug-free module can fail at the interface: Output 1 must equal Input 2. The seam is where two correct assumptions meet.",
+          "x": 4,
+          "y": 68,
+          "width": 92,
+          "height": 8,
+          "style": {
+            "accent": "#B5533C",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s8-text-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 40.0
+              },
+              "duration": 0.9,
+              "stagger": 0.02,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s8-text-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-testing-n7",
+                  "offset": 0.15
+                },
+                "duration": 0.8,
+                "intensity": 0.7
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            24
+          ]
+        }
+      ],
+      "narration": [
+        {
+          "id": "scene-testing-n1",
+          "text": "Unit tests isolate a component. They answer a narrow question: does this function do what its design says?",
+          "start": 0.0,
+          "end": 6.84
+        },
+        {
+          "id": "scene-testing-n2",
+          "text": "Integration tests combine modules and test them as a group.",
+          "start": 7.14,
+          "end": 10.712
+        },
+        {
+          "id": "scene-testing-n3",
+          "text": "The lecture's example is precise: even when each module is correct and bug-free, a bug can appear when they are integrated. A calling module may misunderstand the interface specification of a called module.",
+          "start": 11.012,
+          "end": 23.815
+        },
+        {
+          "id": "scene-testing-n4",
+          "text": "System testing then checks the whole requirement set: functionality, robustness, interoperability, performance, scalability, reliability, documentation.",
+          "start": 24.115,
+          "end": 35.737
+        },
+        {
+          "id": "scene-testing-n5",
+          "text": "Acceptance testing hands the system to the customer or end user.",
+          "start": 36.037,
+          "end": 39.758
+        },
+        {
+          "id": "scene-testing-n6",
+          "text": "The pattern is a ladder: unit, integration, system, acceptance. Each rung tests a larger promise, and the seams are where the surprises live.",
+          "start": 40.058,
+          "end": 49.541
+        },
+        {
+          "id": "scene-testing-n7",
+          "text": "The seam is where two correct assumptions meet.",
+          "start": 49.841,
+          "end": 52.415
+        }
+      ],
+      "knowledgeNodeIds": [
+        "kn-test-levels"
+      ],
+      "captionMode": "hidden"
+    },
+    {
+      "id": "scene-verification",
+      "chapterId": "chapter-prove",
+      "title": "Build it right vs build the right thing",
+      "template": "comparison",
+      "duration": 53,
+      "elements": [
+        {
+          "id": "s9-title",
+          "type": "title",
+          "content": "BUILD IT RIGHT.\nBUILD THE RIGHT\nTHING.",
+          "x": 5,
+          "y": 8,
+          "width": 30,
+          "height": 26,
+          "style": {
+            "accent": "#3F6F6B",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s9-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.0
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s9-title-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-verification-n1",
+                  "offset": 0.15
+                },
+                "duration": 0.8,
+                "intensity": 0.6
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            33
+          ]
+        },
+        {
+          "id": "s9-image",
+          "type": "image",
+          "content": "",
+          "x": 38,
+          "y": 8,
+          "width": 57,
+          "height": 38,
+          "style": {
+            "accent": "#3F6F6B",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s9-image-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.5
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s9-image-beat-1",
+                "preset": "focus",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-verification-n4",
+                  "offset": 0.15
+                },
+                "duration": 2.0,
+                "intensity": 0.7
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            33
+          ],
+          "assetId": "asset-page-033-verification-validation",
+          "alt": "Two panels: an engineer says the code is bug-free; a student asks whether it helps them learn",
+          "fit": "contain"
+        },
+        {
+          "id": "s9-compare",
+          "type": "comparison",
+          "content": "TWO DIFFERENT QUESTIONS",
+          "x": 38,
+          "y": 50,
+          "width": 57,
+          "height": 28,
+          "style": {
+            "accent": "#3F6F6B",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s9-compare-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 11.0
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s9-compare-beat-1",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-verification-n2",
+                  "offset": 0.15
+                },
+                "duration": 0.9,
+                "intensity": 0.7
+              },
+              {
+                "id": "s9-compare-beat-2",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-verification-n3",
+                  "offset": 0.15
+                },
+                "duration": 0.9,
+                "intensity": 0.7
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "editorial",
+            "surface": "none"
+          },
+          "sourcePages": [
+            33,
+            34
+          ],
+          "items": [
+            {
+              "id": "s9-compare-item-1",
+              "label": "Verification — Did we build the product right?"
+            },
+            {
+              "id": "s9-compare-item-2",
+              "label": "Validation — Did we build the right product?"
+            }
+          ]
+        },
+        {
+          "id": "s9-text",
+          "type": "text",
+          "content": "One asks whether the code conforms. The other asks whether it helps the student learn.",
+          "x": 5,
+          "y": 38,
+          "width": 30,
+          "height": 18,
+          "style": {
+            "accent": "#B5533C",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s9-text-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 25.3
+              },
+              "duration": 0.9,
+              "stagger": 0.02,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s9-text-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-verification-n4",
+                  "offset": 0.15
+                },
+                "duration": 0.9,
+                "intensity": 0.7
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            33
+          ]
+        },
+        {
+          "id": "s9-badge",
+          "type": "badge",
+          "content": "VALIDATION FEEDS THE NEXT REQUIREMENT",
+          "x": 5,
+          "y": 62,
+          "width": 30,
+          "height": 8,
+          "style": {
+            "accent": "#6E7B4E",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s9-badge-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 37.4
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s9-badge-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-verification-n5",
+                  "offset": 0.15
+                },
+                "duration": 0.9,
+                "intensity": 0.7
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            34
+          ]
+        }
+      ],
+      "narration": [
+        {
+          "id": "scene-verification-n1",
+          "text": "Verification asks: did we build the product right?",
+          "start": 0.0,
+          "end": 3.45
+        },
+        {
+          "id": "scene-verification-n2",
+          "text": "Code review, unit testing, integration, system testing. It checks conformance to specification.",
+          "start": 3.75,
+          "end": 10.978
+        },
+        {
+          "id": "scene-verification-n3",
+          "text": "Validation asks: did we build the right product? Prototyping, acceptance testing, usability testing, testing in production, A B testing. It checks whether the product meets user and business needs.",
+          "start": 11.278,
+          "end": 25.108
+        },
+        {
+          "id": "scene-verification-n4",
+          "text": "The lecture's two-panel example is the whole argument. One engineer says, all systems go, the code is bug-free. The student says, but does it actually help my students learn?",
+          "start": 25.408,
+          "end": 37.131
+        },
+        {
+          "id": "scene-verification-n5",
+          "text": "Validation closes the loop. It leads to new requirements, and the lifecycle turns.",
+          "start": 37.431,
+          "end": 43.053
+        },
+        {
+          "id": "scene-verification-n6",
+          "text": "Verification without validation can produce a beautiful wrong product.",
+          "start": 43.353,
+          "end": 47.744
+        }
+      ],
+      "knowledgeNodeIds": [
+        "kn-verification-validation",
+        "kn-feedback-loop"
+      ],
+      "captionMode": "hidden",
+      "transitionOut": {
+        "preset": "wipe",
+        "duration": 0.5
+      }
+    },
+    {
+      "id": "scene-deployment",
+      "chapterId": "chapter-release",
+      "title": "A release is a risk envelope",
+      "template": "comparison",
+      "duration": 70,
+      "elements": [
+        {
+          "id": "s10-title",
+          "type": "title",
+          "content": "A RELEASE IS A\nRISK ENVELOPE",
+          "x": 5,
+          "y": 8,
+          "width": 28,
+          "height": 18,
+          "style": {
+            "accent": "#4E6478",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s10-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.0
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s10-title-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-deployment-n1",
+                  "offset": 0.15
+                },
+                "duration": 0.8,
+                "intensity": 0.6
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            36,
+            51
+          ]
+        },
+        {
+          "id": "s10-text",
+          "type": "text",
+          "content": "Local green is not production evidence. OS, libraries, data, access, limits, and live services all differ.",
+          "x": 5,
+          "y": 28,
+          "width": 28,
+          "height": 18,
+          "style": {
+            "accent": "#4E6478",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s10-text-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 4.4
+              },
+              "duration": 0.9,
+              "stagger": 0.02,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            36
+          ]
+        },
+        {
+          "id": "s10-compare",
+          "type": "comparison",
+          "content": "FOUR WAYS TO EXPOSE RISK",
+          "x": 35,
+          "y": 8,
+          "width": 61,
+          "height": 44,
+          "style": {
+            "accent": "#4E6478",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s10-compare-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 4.0
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s10-compare-beat-1",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-deployment-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.2,
+                "intensity": 0.75
+              },
+              {
+                "id": "s10-compare-beat-2",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-deployment-n5",
+                  "offset": 0.15
+                },
+                "duration": 1.2,
+                "intensity": 0.65
+              },
+              {
+                "id": "s10-compare-beat-3",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-deployment-n6",
+                  "offset": 0.15
+                },
+                "duration": 1.2,
+                "intensity": 0.65
+              },
+              {
+                "id": "s10-compare-beat-4",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-deployment-n7",
+                  "offset": 0.15
+                },
+                "duration": 1.2,
+                "intensity": 0.65
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "editorial",
+            "surface": "none"
+          },
+          "sourcePages": [
+            51,
+            52,
+            53,
+            54,
+            55,
+            56
+          ],
+          "items": [
+            {
+              "id": "s10-compare-item-1",
+              "label": "Big Bang — One switch; downtime; rollback or outage"
+            },
+            {
+              "id": "s10-compare-item-2",
+              "label": "Rolling — Old and new coexist; replace gradually"
+            },
+            {
+              "id": "s10-compare-item-3",
+              "label": "Blue-Green — Two environments; switch traffic; switch back"
+            },
+            {
+              "id": "s10-compare-item-4",
+              "label": "Canary — Small user slice; widen only when clean"
+            }
+          ]
+        },
+        {
+          "id": "s10-flag",
+          "type": "badge",
+          "content": "RELEASE ≠ DEPLOY · FEATURE FLAGS",
+          "x": 35,
+          "y": 64,
+          "width": 36,
+          "height": 7,
+          "style": {
+            "accent": "#3F6F6B",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s10-flag-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 52.8
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s10-flag-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-deployment-n8",
+                  "offset": 0.15
+                },
+                "duration": 0.9,
+                "intensity": 0.7
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            56
+          ]
+        },
+        {
+          "id": "s10-callout",
+          "type": "text",
+          "content": "Same users, same load balancer. Only the blast radius changes.",
+          "x": 35,
+          "y": 54,
+          "width": 61,
+          "height": 8,
+          "style": {
+            "accent": "#B5533C",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s10-callout-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 6.0
+              },
+              "duration": 0.9,
+              "stagger": 0.02,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s10-callout-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-deployment-n9",
+                  "offset": 0.15
+                },
+                "duration": 0.9,
+                "intensity": 0.7
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            51
+          ]
+        },
+        {
+          "id": "s10-source",
+          "type": "text",
+          "content": "Source diagrams: lecture pp. 52–55; credit @alexxubyte.",
+          "x": 5,
+          "y": 64,
+          "width": 28,
+          "height": 8,
+          "style": {
+            "accent": "#6E7B4E",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s10-source-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 47.0
+              },
+              "duration": 0.9,
+              "stagger": 0.02,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            52,
+            53,
+            54,
+            55
+          ]
+        }
+      ],
+      "narration": [
+        {
+          "id": "scene-deployment-n1",
+          "text": "Deployment is where the system meets an environment it does not control.",
+          "start": 0.0,
+          "end": 4.124
+        },
+        {
+          "id": "scene-deployment-n2",
+          "text": "Development and production differ in OS versions, libraries, data, access controls, resource limits, and live services. Local green is not production evidence.",
+          "start": 4.424,
+          "end": 15.968
+        },
+        {
+          "id": "scene-deployment-n3",
+          "text": "The lecture compares four strategies.",
+          "start": 16.268,
+          "end": 18.552
+        },
+        {
+          "id": "scene-deployment-n4",
+          "text": "Big Bang rolls out the new version in one go, with downtime, and rolls back if it fails. It is risky for public-facing or business-critical applications.",
+          "start": 18.852,
+          "end": 28.78
+        },
+        {
+          "id": "scene-deployment-n5",
+          "text": "Rolling upgrades replace the old version gradually. Old and new coexist, and incompatible components can be rolled back.",
+          "start": 29.08,
+          "end": 36.863
+        },
+        {
+          "id": "scene-deployment-n6",
+          "text": "Blue-green keeps two identical production environments. Traffic moves from blue to green after testing, and can move back.",
+          "start": 37.163,
+          "end": 44.943
+        },
+        {
+          "id": "scene-deployment-n7",
+          "text": "Canary routes a small portion of users to the new version first. With no errors, it gradually rolls out to the rest.",
+          "start": 45.243,
+          "end": 52.577
+        },
+        {
+          "id": "scene-deployment-n8",
+          "text": "Feature flags separate release from deployment: visibility and activation can change without deploying new code.",
+          "start": 52.877,
+          "end": 59.679
+        },
+        {
+          "id": "scene-deployment-n9",
+          "text": "The strategy chooses how much risk to expose, and to whom.",
+          "start": 59.979,
+          "end": 63.877
+        }
+      ],
+      "knowledgeNodeIds": [
+        "kn-deployment-environments",
+        "kn-deployment-strategies"
+      ],
+      "captionMode": "hidden"
+    },
+    {
+      "id": "scene-maintenance",
+      "chapterId": "chapter-operate",
+      "title": "Maintenance is most of the lifecycle",
+      "template": "concept",
+      "duration": 49,
+      "elements": [
+        {
+          "id": "s11-title",
+          "type": "title",
+          "content": "MAINTENANCE IS\nMOST OF THE\nLIFECYCLE",
+          "x": 5,
+          "y": 8,
+          "width": 30,
+          "height": 26,
+          "style": {
+            "accent": "#6E7B4E",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s11-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.0
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s11-title-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-maintenance-n1",
+                  "offset": 0.15
+                },
+                "duration": 0.8,
+                "intensity": 0.6
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            37
+          ]
+        },
+        {
+          "id": "s11-metrics",
+          "type": "metrics",
+          "content": "SIXTY / SIXTY",
+          "x": 40,
+          "y": 8,
+          "width": 55,
+          "height": 26,
+          "style": {
+            "accent": "#6E7B4E",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s11-metrics-enter",
+              "preset": "spring-scale",
+              "trigger": {
+                "type": "time",
+                "at": 2.3
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s11-metrics-beat-1",
+                "preset": "count-up",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-maintenance-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.4,
+                "intensity": 0.8
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            37,
+            38
+          ],
+          "items": [
+            {
+              "id": "s11-metrics-item-1",
+              "label": "60% · of lifecycle cost"
+            },
+            {
+              "id": "s11-metrics-item-2",
+              "label": "60% · of maintenance is adding features"
+            }
+          ]
+        },
+        {
+          "id": "s11-types",
+          "type": "cards",
+          "content": "FOUR KINDS OF MAINTENANCE",
+          "x": 40,
+          "y": 38,
+          "width": 55,
+          "height": 44,
+          "style": {
+            "accent": "#3F6F6B",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s11-types-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 13.7
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s11-types-beat-1",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-maintenance-n3",
+                  "offset": 0.15
+                },
+                "duration": 2.0,
+                "intensity": 0.7
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "editorial",
+            "surface": "none"
+          },
+          "sourcePages": [
+            39
+          ],
+          "items": [
+            {
+              "id": "s11-types-item-1",
+              "label": "Corrective: fix defects"
+            },
+            {
+              "id": "s11-types-item-2",
+              "label": "Adaptive: fit a changing environment"
+            },
+            {
+              "id": "s11-types-item-3",
+              "label": "Perfective: improve performance"
+            },
+            {
+              "id": "s11-types-item-4",
+              "label": "Preventive: address future issues"
+            }
+          ]
+        },
+        {
+          "id": "s11-text",
+          "type": "text",
+          "content": "Maintenance happens on a running system, under time pressure, with incomplete information.",
+          "x": 5,
+          "y": 40,
+          "width": 30,
+          "height": 18,
+          "style": {
+            "accent": "#B5533C",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s11-text-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 31.2
+              },
+              "duration": 0.9,
+              "stagger": 0.02,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            37
+          ]
+        },
+        {
+          "id": "s11-badge",
+          "type": "badge",
+          "content": "THE NEXT SECTION IS AN INCIDENT",
+          "x": 5,
+          "y": 62,
+          "width": 30,
+          "height": 7,
+          "style": {
+            "accent": "#B5533C",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s11-badge-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 40.6
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            37
+          ]
+        }
+      ],
+      "narration": [
+        {
+          "id": "scene-maintenance-n1",
+          "text": "Maintenance is not the after-party.",
+          "start": 0.0,
+          "end": 2.057
+        },
+        {
+          "id": "scene-maintenance-n2",
+          "text": "The lecture reports that maintenance can average sixty percent of software lifecycle cost, and about sixty percent of maintenance is adding new features while keeping the system running.",
+          "start": 2.357,
+          "end": 13.488
+        },
+        {
+          "id": "scene-maintenance-n3",
+          "text": "The ISO standard gives four types: corrective, fixing defects; adaptive, remaining compatible with a changing environment; perfective, enhancing performance or maintainability; preventive, addressing potential issues before they become problems.",
+          "start": 13.788,
+          "end": 30.988
+        },
+        {
+          "id": "scene-maintenance-n4",
+          "text": "Maintenance happens on a running system, under time pressure, with incomplete information.",
+          "start": 31.288,
+          "end": 36.932
+        },
+        {
+          "id": "scene-maintenance-n5",
+          "text": "The system you maintain is never the system you designed.",
+          "start": 37.232,
+          "end": 40.376
+        },
+        {
+          "id": "scene-maintenance-n6",
+          "text": "That is why the next section is an incident.",
+          "start": 40.676,
+          "end": 43.017
+        }
+      ],
+      "knowledgeNodeIds": [
+        "kn-maintenance"
+      ],
+      "captionMode": "hidden"
+    },
+    {
+      "id": "scene-incident",
+      "chapterId": "chapter-operate",
+      "title": "Reliability needs a clock",
+      "template": "incident",
+      "duration": 64,
+      "elements": [
+        {
+          "id": "s12-title",
+          "type": "title",
+          "content": "THE CLOCK WAS\nTHE MISSING\nSIGNAL",
+          "x": 5,
+          "y": 8,
+          "width": 30,
+          "height": 26,
+          "style": {
+            "accent": "#B5533C",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s12-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.0
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s12-title-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-incident-n1",
+                  "offset": 0.15
+                },
+                "duration": 0.8,
+                "intensity": 0.6
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            42,
+            46
+          ]
+        },
+        {
+          "id": "s12-image",
+          "type": "image",
+          "content": "",
+          "x": 38,
+          "y": 8,
+          "width": 57,
+          "height": 30,
+          "style": {
+            "accent": "#B5533C",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s12-image-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.5
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s12-image-beat-1",
+                "preset": "focus",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-incident-n1",
+                  "offset": 0.15
+                },
+                "duration": 2.4,
+                "intensity": 0.75
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            42
+          ],
+          "assetId": "asset-page-042-incident-visibility-gap",
+          "alt": "Timeline from 3:00 AM to 10:00 AM labeled The Visibility Gap, with waiting users and an operator asleep",
+          "fit": "contain"
+        },
+        {
+          "id": "s12-timeline",
+          "type": "timeline",
+          "content": "THE INCIDENT CLOCK",
+          "x": 38,
+          "y": 41,
+          "width": 57,
+          "height": 14,
+          "style": {
+            "accent": "#B5533C",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s12-timeline-enter",
+              "preset": "draw",
+              "trigger": {
+                "type": "time",
+                "at": 12.3
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s12-timeline-beat-1",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-incident-n4",
+                  "offset": 0.15
+                },
+                "duration": 2.4,
+                "intensity": 0.8
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            41,
+            42,
+            45
+          ],
+          "items": [
+            {
+              "id": "s12-timeline-item-1",
+              "label": "03:00 degradation"
+            },
+            {
+              "id": "s12-timeline-item-2",
+              "label": "10:00 discovery"
+            },
+            {
+              "id": "s12-timeline-item-3",
+              "label": "18:00 patch"
+            },
+            {
+              "id": "s12-timeline-item-4",
+              "label": "21:00 restored"
+            }
+          ]
+        },
+        {
+          "id": "s12-metrics",
+          "type": "metrics",
+          "content": "THREE CLOCKS + ONE BUDGET",
+          "x": 5,
+          "y": 38,
+          "width": 30,
+          "height": 28,
+          "style": {
+            "accent": "#B5533C",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s12-metrics-enter",
+              "preset": "spring-scale",
+              "trigger": {
+                "type": "time",
+                "at": 26.4
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s12-metrics-beat-1",
+                "preset": "count-up",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-incident-n5",
+                  "offset": 0.15
+                },
+                "duration": 2.8,
+                "intensity": 0.8
+              },
+              {
+                "id": "s12-metrics-beat-2",
+                "preset": "count-up",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-incident-n6",
+                  "offset": 0.15
+                },
+                "duration": 1.4,
+                "intensity": 0.8
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            46,
+            47
+          ],
+          "items": [
+            {
+              "id": "s12-metrics-item-1",
+              "label": "7h · TTD — time to discover"
+            },
+            {
+              "id": "s12-metrics-item-2",
+              "label": "8h · TTM — time to mitigate"
+            },
+            {
+              "id": "s12-metrics-item-3",
+              "label": "18h · TTR — customer impact"
+            },
+            {
+              "id": "s12-metrics-item-4",
+              "label": "52.56 min · downtime at 99.99%"
+            }
+          ]
+        },
+        {
+          "id": "s12-badge",
+          "type": "badge",
+          "content": "HYPOTHETICAL SCENARIO",
+          "x": 38,
+          "y": 58,
+          "width": 22,
+          "height": 6,
+          "style": {
+            "accent": "#6E7B4E",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s12-badge-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.6
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            41
+          ]
+        },
+        {
+          "id": "s12-text",
+          "type": "text",
+          "content": "The system was down, but the incident had not officially started for the team. The signal that would have started the clock was missing.",
+          "x": 5,
+          "y": 74,
+          "width": 30,
+          "height": 10,
+          "style": {
+            "accent": "#B5533C",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s12-text-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 7.5
+              },
+              "duration": 0.9,
+              "stagger": 0.02,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s12-text-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-incident-n8",
+                  "offset": 0.15
+                },
+                "duration": 0.9,
+                "intensity": 0.7
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            42
+          ]
+        }
+      ],
+      "narration": [
+        {
+          "id": "scene-incident-n1",
+          "text": "The incident began at three a.m. and was discovered at ten: seven hours of time to discover. No alarm fired.",
+          "start": 0.0,
+          "end": 7.227
+        },
+        {
+          "id": "scene-incident-n2",
+          "text": "The system was down, but the incident had not officially started for the team.",
+          "start": 7.527,
+          "end": 12.087
+        },
+        {
+          "id": "scene-incident-n3",
+          "text": "Diagnosis and repair took eight hours of time to mitigate. The queries lacked proper indexing, and they were locking resources.",
+          "start": 12.387,
+          "end": 20.168
+        },
+        {
+          "id": "scene-incident-n4",
+          "text": "The customer experienced eighteen hours of time to recover, from three a.m. to nine p.m.",
+          "start": 20.468,
+          "end": 26.201
+        },
+        {
+          "id": "scene-incident-n5",
+          "text": "These are different clocks. T T D measures observability. T T M measures operational velocity. T T R measures customer impact.",
+          "start": 26.501,
+          "end": 35.727
+        },
+        {
+          "id": "scene-incident-n6",
+          "text": "At four nines, the lecture's table allows about fifty two point five six minutes of downtime per year. At three nines, it is eight point seven six hours.",
+          "start": 36.027,
+          "end": 45.971
+        },
+        {
+          "id": "scene-incident-n7",
+          "text": "The clock makes the invisible cost visible.",
+          "start": 46.271,
+          "end": 48.834
+        },
+        {
+          "id": "scene-incident-n8",
+          "text": "The lifecycle did not fail because one test was missing. It failed because the signal that would have started the clock was missing.",
+          "start": 49.134,
+          "end": 56.341
+        }
+      ],
+      "knowledgeNodeIds": [
+        "kn-incident",
+        "kn-availability"
+      ],
+      "captionMode": "hidden",
+      "transitionOut": {
+        "preset": "fade",
+        "duration": 0.55
+      }
+    },
+    {
+      "id": "scene-loop",
+      "chapterId": "chapter-operate",
+      "title": "The postmortem becomes the next requirement",
+      "template": "closing",
+      "duration": 36,
+      "elements": [
+        {
+          "id": "s13-title",
+          "type": "title",
+          "content": "NOT A RELAY.\nA FEEDBACK\nSYSTEM.",
+          "x": 5,
+          "y": 10,
+          "width": 30,
+          "height": 28,
+          "style": {
+            "accent": "#6E7B4E",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s13-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.0
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s13-title-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-loop-n1",
+                  "offset": 0.15
+                },
+                "duration": 0.8,
+                "intensity": 0.7
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            34,
+            57
+          ]
+        },
+        {
+          "id": "s13-diagram",
+          "type": "diagram",
+          "content": "COMMIT → BUILD → TEST → RELEASE → MONITOR → LEARN",
+          "x": 38,
+          "y": 10,
+          "width": 57,
+          "height": 54,
+          "style": {
+            "accent": "#6E7B4E",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s13-diagram-enter",
+              "preset": "draw",
+              "trigger": {
+                "type": "time",
+                "at": 4.6
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s13-diagram-beat-1",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-loop-n2",
+                  "offset": 0.15
+                },
+                "duration": 3.0,
+                "intensity": 0.8
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "diagram",
+            "surface": "none"
+          },
+          "sourcePages": [
+            34,
+            57
+          ],
+          "diagram": {
+            "nodes": [
+              {
+                "id": "l-req",
+                "label": "Requirement",
+                "x": 4,
+                "y": 42,
+                "width": 18,
+                "height": 16,
+                "tone": "primary",
+                "revealAt": 4.7
+              },
+              {
+                "id": "l-design",
+                "label": "Design",
+                "x": 26,
+                "y": 12,
+                "width": 16,
+                "height": 14,
+                "tone": "secondary",
+                "revealAt": 6.0
+              },
+              {
+                "id": "l-build",
+                "label": "Build",
+                "x": 46,
+                "y": 12,
+                "width": 16,
+                "height": 14,
+                "tone": "secondary",
+                "revealAt": 7.0
+              },
+              {
+                "id": "l-test",
+                "label": "Test",
+                "x": 66,
+                "y": 12,
+                "width": 16,
+                "height": 14,
+                "tone": "secondary",
+                "revealAt": 8.0
+              },
+              {
+                "id": "l-release",
+                "label": "Release",
+                "x": 82,
+                "y": 42,
+                "width": 15,
+                "height": 16,
+                "tone": "primary",
+                "revealAt": 10.0
+              },
+              {
+                "id": "l-monitor",
+                "label": "Monitor",
+                "x": 62,
+                "y": 70,
+                "width": 18,
+                "height": 16,
+                "tone": "neutral",
+                "revealAt": 12.0
+              },
+              {
+                "id": "l-post",
+                "label": "Postmortem",
+                "x": 32,
+                "y": 70,
+                "width": 20,
+                "height": 16,
+                "tone": "primary",
+                "revealAt": 14.0
+              }
+            ],
+            "edges": [
+              {
+                "id": "l-e-req-design",
+                "from": "l-req",
+                "to": "l-design",
+                "kind": "directed",
+                "revealAt": 6.5
+              },
+              {
+                "id": "l-e-design-build",
+                "from": "l-design",
+                "to": "l-build",
+                "kind": "directed",
+                "revealAt": 7.5
+              },
+              {
+                "id": "l-e-build-test",
+                "from": "l-build",
+                "to": "l-test",
+                "kind": "directed",
+                "revealAt": 8.5
+              },
+              {
+                "id": "l-e-test-release",
+                "from": "l-test",
+                "to": "l-release",
+                "kind": "directed",
+                "revealAt": 9.5
+              },
+              {
+                "id": "l-e-release-monitor",
+                "from": "l-release",
+                "to": "l-monitor",
+                "kind": "directed",
+                "revealAt": 11.0
+              },
+              {
+                "id": "l-e-monitor-post",
+                "from": "l-monitor",
+                "to": "l-post",
+                "kind": "directed",
+                "revealAt": 13.0
+              },
+              {
+                "id": "l-e-post-req",
+                "from": "l-post",
+                "to": "l-req",
+                "kind": "directed",
+                "revealAt": 14.5,
+                "label": "next requirement"
+              }
+            ]
+          }
+        },
+        {
+          "id": "s13-text",
+          "type": "text",
+          "content": "The postmortem is not the end of the incident. It is the next requirement.",
+          "x": 5,
+          "y": 42,
+          "width": 30,
+          "height": 16,
+          "style": {
+            "accent": "#B5533C",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s13-text-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.4
+              },
+              "duration": 0.9,
+              "stagger": 0.02,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            34
+          ]
+        },
+        {
+          "id": "s13-badge",
+          "type": "badge",
+          "content": "MONITORING FEEDS THE NEXT REQUIREMENT",
+          "x": 5,
+          "y": 62,
+          "width": 30,
+          "height": 8,
+          "style": {
+            "accent": "#3F6F6B",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s13-badge-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 16.3
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s13-badge-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-loop-n3",
+                  "offset": 0.15
+                },
+                "duration": 0.9,
+                "intensity": 0.7
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            57
+          ]
+        },
+        {
+          "id": "s13-note",
+          "type": "text",
+          "content": "COMMIT → BUILD/TEST → QA/UAT → RELEASE → MONITOR",
+          "x": 38,
+          "y": 68,
+          "width": 57,
+          "height": 6,
+          "style": {
+            "accent": "#4E6478",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s13-note-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 4.7
+              },
+              "duration": 0.9,
+              "stagger": 0.02,
+              "intensity": 1
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            57
+          ]
+        }
+      ],
+      "narration": [
+        {
+          "id": "scene-loop-n1",
+          "text": "The postmortem is not the end of the incident. It is the next requirement.",
+          "start": 0.0,
+          "end": 4.316
+        },
+        {
+          "id": "scene-loop-n2",
+          "text": "The big-tech pipeline in the lecture makes the loop concrete: commit, build and test, QA and UAT, release with feature toggles, canary and A B testing, then monitor.",
+          "start": 4.616,
+          "end": 16.084
+        },
+        {
+          "id": "scene-loop-n3",
+          "text": "Monitoring feeds the next requirement. The route line closes.",
+          "start": 16.384,
+          "end": 20.379
+        },
+        {
+          "id": "scene-loop-n4",
+          "text": "The S D L C is not a relay. It is a feedback system.",
+          "start": 20.679,
+          "end": 24.484
+        },
+        {
+          "id": "scene-loop-n5",
+          "text": "The loop is the only part that makes the lifecycle a system.",
+          "start": 24.784,
+          "end": 28.345
+        }
+      ],
+      "knowledgeNodeIds": [
+        "kn-cicd",
+        "kn-feedback-loop"
+      ],
+      "captionMode": "hidden"
+    }
+  ],
+  "assets": [
+    {
+      "id": "asset-page-014-mvp-ladder",
+      "name": "MVP ladder, lecture p.14",
+      "kind": "image",
+      "uri": "sdlc-teaching/images/mvp-ladder.png",
+      "embedded": false,
+      "sha256": "8adfbb7e1b0d4c140ec87663a5acf47768359b177a178cd17c57d1b9bd26f0f6",
+      "width": 788,
+      "height": 505,
+      "source": {
+        "documentId": "doc-comp5241-sdlc-2",
+        "page": 14,
+        "bbox": {
+          "x": 0.52,
+          "y": 0.455,
+          "width": 0.41,
+          "height": 0.465
+        },
+        "extraction": "rendered-crop"
+      }
+    },
+    {
+      "id": "asset-page-019-genai-architecture",
+      "name": "GenAI chat architecture, lecture p.19",
+      "kind": "image",
+      "uri": "sdlc-teaching/images/genai-architecture.png",
+      "embedded": false,
+      "sha256": "1a463a1aeec8f11cdf2b6017e68feb5e645ce86a68ff2118a607de197edb198f",
+      "width": 1690,
+      "height": 799,
+      "source": {
+        "documentId": "doc-comp5241-sdlc-2",
+        "page": 19,
+        "bbox": {
+          "x": 0.06,
+          "y": 0.16,
+          "width": 0.88,
+          "height": 0.74
+        },
+        "extraction": "rendered-crop"
+      }
+    },
+    {
+      "id": "asset-page-021-secret-boundary",
+      "name": "Secret boundary, lecture p.21",
+      "kind": "image",
+      "uri": "sdlc-teaching/images/secret-boundary.png",
+      "embedded": false,
+      "sha256": "3961ad349a4dd9551b7ba7c4bf759d15a75ad2fa3ab698a9ea30ea46125262b1",
+      "width": 672,
+      "height": 540,
+      "source": {
+        "documentId": "doc-comp5241-sdlc-2",
+        "page": 21,
+        "bbox": {
+          "x": 0.03,
+          "y": 0.43,
+          "width": 0.35,
+          "height": 0.5
+        },
+        "extraction": "rendered-crop"
+      }
+    },
+    {
+      "id": "asset-page-024-integration-seam",
+      "name": "Integration seam, lecture p.24",
+      "kind": "image",
+      "uri": "sdlc-teaching/images/integration-seam.png",
+      "embedded": false,
+      "sha256": "5249bf4e5c1403dcfab5e5942228f5e766ddc4a6af6ec881ea92a9072950f131",
+      "width": 1200,
+      "height": 442,
+      "source": {
+        "documentId": "doc-comp5241-sdlc-2",
+        "page": 24,
+        "bbox": {
+          "x": 0.045,
+          "y": 0.47,
+          "width": 0.625,
+          "height": 0.41
+        },
+        "extraction": "rendered-crop"
+      }
+    },
+    {
+      "id": "asset-page-033-verification-validation",
+      "name": "Verification vs validation, lecture p.33",
+      "kind": "image",
+      "uri": "sdlc-teaching/images/verification-validation.png",
+      "embedded": false,
+      "sha256": "3d177319d138885895fe91d0ff64a0b01b52dc9899606b75ef6644c17a5cc0af",
+      "width": 768,
+      "height": 292,
+      "source": {
+        "documentId": "doc-comp5241-sdlc-2",
+        "page": 33,
+        "bbox": {
+          "x": 0.045,
+          "y": 0.6,
+          "width": 0.4,
+          "height": 0.27
+        },
+        "extraction": "rendered-crop"
+      }
+    },
+    {
+      "id": "asset-page-042-incident-visibility-gap",
+      "name": "Incident visibility gap, lecture p.42",
+      "kind": "image",
+      "uri": "sdlc-teaching/images/incident-visibility-gap.png",
+      "embedded": false,
+      "sha256": "18c5f260e3b30e2d31035e5e7fb8ccbcd67d75d272994a703ff17c4adcaeec66",
+      "width": 902,
+      "height": 248,
+      "source": {
+        "documentId": "doc-comp5241-sdlc-2",
+        "page": 42,
+        "bbox": {
+          "x": 0.05,
+          "y": 0.6,
+          "width": 0.47,
+          "height": 0.23
+        },
+        "extraction": "rendered-crop"
+      }
+    },
+    {
+      "id": "audio-scene-0100-green-lights",
+      "name": "Narration scene-0100-green-lights",
+      "kind": "audio",
+      "uri": "audio/sdlc-teaching/scene-01.wav",
+      "embedded": false,
+      "sha256": "744b5feef47db464013e88140592e15100a4cfdb838d5b84192b31660c97e082"
+    },
+    {
+      "id": "audio-scene-lifecycle-map",
+      "name": "Narration scene-lifecycle-map",
+      "kind": "audio",
+      "uri": "audio/sdlc-teaching/scene-02.wav",
+      "embedded": false,
+      "sha256": "3bdb9035c3022b60c6e8cfd40d16c73573dca2a1c7fa9ac8bb0b6ef5f30a85b6"
+    },
+    {
+      "id": "audio-scene-requirements",
+      "name": "Narration scene-requirements",
+      "kind": "audio",
+      "uri": "audio/sdlc-teaching/scene-03.wav",
+      "embedded": false,
+      "sha256": "59eab350ff172e12c646352abda966be9ac6b48facfa0201ed764c1ace346e61"
+    },
+    {
+      "id": "audio-scene-elicitation",
+      "name": "Narration scene-elicitation",
+      "kind": "audio",
+      "uri": "audio/sdlc-teaching/scene-04.wav",
+      "embedded": false,
+      "sha256": "6538fdff675c267f7c464ac0728bc64e6a62d8d15f221e6d55494ed83dc189ca"
+    },
+    {
+      "id": "audio-scene-prototype-mvp",
+      "name": "Narration scene-prototype-mvp",
+      "kind": "audio",
+      "uri": "audio/sdlc-teaching/scene-05.wav",
+      "embedded": false,
+      "sha256": "065eb2aa09f42d16be9ec23cce334ea3a17ce14655843983ee832697eac5e2b5"
+    },
+    {
+      "id": "audio-scene-design",
+      "name": "Narration scene-design",
+      "kind": "audio",
+      "uri": "audio/sdlc-teaching/scene-06.wav",
+      "embedded": false,
+      "sha256": "387c2fc213c016c5af634d460bdf92750677607936f539c88529d03465fd161d"
+    },
+    {
+      "id": "audio-scene-secrets",
+      "name": "Narration scene-secrets",
+      "kind": "audio",
+      "uri": "audio/sdlc-teaching/scene-07.wav",
+      "embedded": false,
+      "sha256": "c81a5ee081b8494f368aedd171d1e8655d84399eca978d81ad7bf6cefc09e454"
+    },
+    {
+      "id": "audio-scene-testing",
+      "name": "Narration scene-testing",
+      "kind": "audio",
+      "uri": "audio/sdlc-teaching/scene-08.wav",
+      "embedded": false,
+      "sha256": "40645ae62b500d4ebabb5763d030aaec8d85cded6f87647f5973863b27d37c24"
+    },
+    {
+      "id": "audio-scene-verification",
+      "name": "Narration scene-verification",
+      "kind": "audio",
+      "uri": "audio/sdlc-teaching/scene-09.wav",
+      "embedded": false,
+      "sha256": "d0175291daf5f05323bccdfbe7b21cd92b28cf2c37d4322e1d64047aea34b6c4"
+    },
+    {
+      "id": "audio-scene-deployment",
+      "name": "Narration scene-deployment",
+      "kind": "audio",
+      "uri": "audio/sdlc-teaching/scene-10.wav",
+      "embedded": false,
+      "sha256": "11987ae409da109e82c2d047e83e34cfa91733d35b87b9fd61514753244e15c7"
+    },
+    {
+      "id": "audio-scene-maintenance",
+      "name": "Narration scene-maintenance",
+      "kind": "audio",
+      "uri": "audio/sdlc-teaching/scene-11.wav",
+      "embedded": false,
+      "sha256": "9d327c549c1cb5b700171227c431e13997f92f833c8f56167945e45e4a9c534a"
+    },
+    {
+      "id": "audio-scene-incident",
+      "name": "Narration scene-incident",
+      "kind": "audio",
+      "uri": "audio/sdlc-teaching/scene-12.wav",
+      "embedded": false,
+      "sha256": "bd09fdd12cab50720a28e373065d8d3638f97650e9c6cda895d3bfb88555f61e"
+    },
+    {
+      "id": "audio-scene-loop",
+      "name": "Narration scene-loop",
+      "kind": "audio",
+      "uri": "audio/sdlc-teaching/scene-13.wav",
+      "embedded": false,
+      "sha256": "308f8ee8c154a7948472d125b1df1f7096afa1ed7f4cd51399507e9d70c8f980"
+    }
+  ],
+  "theme": {
+    "name": "Classroom Field Notes",
+    "background": "#F4F0E6",
+    "surface": "#FBF8F1",
+    "foreground": "#1E2328",
+    "muted": "#5F6664",
+    "accent": "#B5533C",
+    "accentAlt": "#3F6F6B",
+    "fontFamily": "\"Iowan Old Style\", \"Palatino Linotype\", Georgia, serif"
+  }
+}
