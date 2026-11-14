@@ -1,6 +1,7 @@
 import { Clapperboard } from "lucide-react";
 
 import {
+  listExperimentAnimations,
   listPublishedVersions,
   listTopicAnimations,
 } from "@/animation-studio/content/versions/registry";
@@ -19,6 +20,7 @@ export default async function AnimationsPage() {
   const user = await requirePageRoles(["teacher", "student"]);
   const versions = listPublishedVersions();
   const topics = listTopicAnimations();
+  const experiments = listExperimentAnimations();
   const homeHref = user.role === "teacher" ? "/teacher" : "/student";
 
   return (
@@ -34,7 +36,8 @@ export default async function AnimationsPage() {
         <p className="max-w-3xl text-sm leading-6 text-slate-600">
           Compare the project as it moved from the original export to the
           current white-paper cut, or open a short topic introduction. Teachers
-          can edit any animation; students watch read-only. Edits are not saved.
+          can edit any animation; students watch read-only. Both roles can also
+          inspect production experiments. Edits are not saved.
         </p>
       </div>
 
@@ -65,6 +68,27 @@ export default async function AnimationsPage() {
           ))}
         </div>
       </section>
+
+      {experiments.length ? (
+        <section aria-labelledby="iteration-experiments" className="mt-10">
+          <h2
+            className="text-xl font-bold tracking-[-0.01em] text-[#193b61]"
+            id="iteration-experiments"
+          >
+            Iteration experiments
+          </h2>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
+            Prototypes used to test diagrams, source-grounded visuals, recorded
+            narration, and focused lesson structures before they became
+            reusable production rules.
+          </p>
+          <div className="mt-4 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            {experiments.map((animation) => (
+              <AnimationCard animation={animation} key={animation.id} />
+            ))}
+          </div>
+        </section>
+      ) : null}
     </PageShell>
   );
 }

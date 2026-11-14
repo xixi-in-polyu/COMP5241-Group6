@@ -1,0 +1,5333 @@
+{
+  "schemaVersion": 5,
+  "id": "project-sdlc-incident-v2",
+  "title": "Eighteen Hours to Learn",
+  "description": "An incident-led reconstruction of the software development lifecycle, grounded in the supplied lecture PDF.",
+  "locale": "en-US",
+  "renderConfig": {
+    "fps": 30,
+    "width": 1920,
+    "height": 1080
+  },
+  "createdAt": "2026-11-04T00:00:00.000Z",
+  "updatedAt": "2026-11-04T00:00:00.000Z",
+  "sourceDocuments": [
+    {
+      "id": "source-sdlc-lecture",
+      "name": "2 - Software Development Lifecycle-1.pdf",
+      "mimeType": "application/pdf",
+      "pageCount": 57,
+      "importedAt": "2026-11-04T00:00:00.000Z"
+    }
+  ],
+  "knowledgeNodes": [
+    {
+      "id": "incident",
+      "kind": "concept",
+      "title": "Production incident",
+      "summary": "A release can pass deployment checks and still degrade later under real load.",
+      "sourceDocumentId": "source-sdlc-lecture",
+      "sourcePages": [
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46
+      ]
+    },
+    {
+      "id": "requirements",
+      "kind": "concept",
+      "title": "Requirements evidence",
+      "summary": "Requirements emerge from stakeholder workflows, constraints, and competing priorities.",
+      "sourceDocumentId": "source-sdlc-lecture",
+      "sourcePages": [
+        3,
+        4,
+        5,
+        7,
+        8,
+        10,
+        17
+      ]
+    },
+    {
+      "id": "prototype",
+      "kind": "concept",
+      "title": "Prototype and MVP",
+      "summary": "Early artifacts and minimum viable products reduce uncertainty before full investment.",
+      "sourceDocumentId": "source-sdlc-lecture",
+      "sourcePages": [
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ]
+    },
+    {
+      "id": "architecture",
+      "kind": "concept",
+      "title": "Architecture and boundaries",
+      "summary": "Design allocates responsibilities, interfaces, data movement, and security boundaries.",
+      "sourceDocumentId": "source-sdlc-lecture",
+      "sourcePages": [
+        18,
+        19,
+        20,
+        21,
+        22
+      ]
+    },
+    {
+      "id": "testing",
+      "kind": "concept",
+      "title": "Verification and validation",
+      "summary": "Testing expands from isolated units to customer value and production evidence.",
+      "sourceDocumentId": "source-sdlc-lecture",
+      "sourcePages": [
+        23,
+        24,
+        25,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34
+      ]
+    },
+    {
+      "id": "reliability",
+      "kind": "concept",
+      "title": "Operational reliability",
+      "summary": "Detection, mitigation, recovery, and availability make production risk measurable.",
+      "sourceDocumentId": "source-sdlc-lecture",
+      "sourcePages": [
+        37,
+        38,
+        39,
+        46,
+        47,
+        48
+      ]
+    },
+    {
+      "id": "release",
+      "kind": "concept",
+      "title": "Risk-aware delivery",
+      "summary": "Deployment strategies, feature flags, CI/CD, and monitoring control release exposure.",
+      "sourceDocumentId": "source-sdlc-lecture",
+      "sourcePages": [
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57
+      ]
+    }
+  ],
+  "chapters": [
+    {
+      "id": "ch-incident",
+      "title": "Incident",
+      "shortTitle": "01:00–21:00",
+      "color": "#D84A3A"
+    },
+    {
+      "id": "ch-rewind",
+      "title": "Rewind",
+      "shortTitle": "Before code",
+      "color": "#D9822B"
+    },
+    {
+      "id": "ch-contain",
+      "title": "Contain",
+      "shortTitle": "Design & test",
+      "color": "#2563EB"
+    },
+    {
+      "id": "ch-release",
+      "title": "Release",
+      "shortTitle": "Risk control",
+      "color": "#138A72"
+    },
+    {
+      "id": "ch-learn",
+      "title": "Learn",
+      "shortTitle": "Feedback",
+      "color": "#8B5CF6"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "scene-01",
+      "chapterId": "ch-incident",
+      "title": "01:00 — Green lights",
+      "template": "incident",
+      "duration": 60,
+      "knowledgeNodeIds": [
+        "incident"
+      ],
+      "narration": [
+        {
+          "id": "scene-01-n1",
+          "text": "At one in the morning, a new release reaches production. The deployment job is green, health checks pass, and the team goes home believing the change is finished.",
+          "start": 0,
+          "end": 14
+        },
+        {
+          "id": "scene-01-n2",
+          "text": "Two hours later, an inefficient query begins consuming database resources. Nothing crashes outright. Responses simply become slower, then slower again, while the dashboards remain quiet.",
+          "start": 14,
+          "end": 28
+        },
+        {
+          "id": "scene-01-n3",
+          "text": "This is the uncomfortable gap between deployment and reality. Software can be installed correctly yet still fail under real data, traffic, dependencies, and human behavior.",
+          "start": 28,
+          "end": 42
+        },
+        {
+          "id": "scene-01-n4",
+          "text": "We will use this eighteen-hour incident as a thread through the lifecycle and ask a practical question: which earlier decisions could have reduced the damage or shortened the silence?",
+          "start": 42,
+          "end": 56
+        }
+      ],
+      "captionMode": "hidden",
+      "transitionOut": {
+        "preset": "wipe",
+        "duration": 0.5
+      },
+      "elements": [
+        {
+          "id": "s1-title",
+          "type": "title",
+          "content": "01:00 · RELEASE LOOKS HEALTHY",
+          "x": 5,
+          "y": 8,
+          "width": 45,
+          "height": 14,
+          "style": {
+            "accent": "#D84A3A",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s1-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s1-title-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-01-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s1-title-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-01-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s1-title-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-01-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s1-title-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-01-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s1-title-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 59.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            41,
+            42
+          ]
+        },
+        {
+          "id": "s1-image",
+          "type": "image",
+          "content": "",
+          "x": 53,
+          "y": 10,
+          "width": 42,
+          "height": 52,
+          "style": {
+            "tone": "light",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s1-image-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 1.5
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s1-image-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-01-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s1-image-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-01-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s1-image-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-01-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s1-image-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-01-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s1-image-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 59.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "editorial",
+            "surface": "none"
+          },
+          "sourcePages": [
+            42
+          ],
+          "assetId": "asset-page-042",
+          "alt": "Lecture slide showing unnoticed production degradation",
+          "fit": "contain"
+        },
+        {
+          "id": "s1-badge",
+          "type": "badge",
+          "content": "GREEN PIPELINE ≠ HEALTHY PRODUCTION",
+          "x": 5,
+          "y": 27,
+          "width": 43,
+          "height": 12,
+          "style": {
+            "accent": "#D84A3A",
+            "tone": "light",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s1-badge-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 3
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s1-badge-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-01-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s1-badge-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-01-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s1-badge-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-01-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s1-badge-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-01-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s1-badge-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 59.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "breathe"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "outline"
+          },
+          "sourcePages": [
+            41,
+            42
+          ]
+        },
+        {
+          "id": "s1-timeline",
+          "type": "timeline",
+          "content": "What customers experienced before the team knew",
+          "items": [
+            {
+              "id": "s1-timeline-item-1",
+              "label": "01:00 · deploy passes"
+            },
+            {
+              "id": "s1-timeline-item-2",
+              "label": "03:00 · query load rises"
+            },
+            {
+              "id": "s1-timeline-item-3",
+              "label": "10:00 · humans discover it"
+            }
+          ],
+          "x": 5,
+          "y": 62,
+          "width": 90,
+          "height": 18,
+          "style": {
+            "accent": "#D84A3A",
+            "tone": "light",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s1-timeline-enter",
+              "preset": "draw",
+              "trigger": {
+                "type": "time",
+                "at": 5
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s1-timeline-beat-1",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-01-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s1-timeline-beat-2",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-01-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s1-timeline-beat-3",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-01-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s1-timeline-beat-4",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-01-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s1-timeline-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 59.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "rail",
+            "surface": "none"
+          },
+          "sourcePages": [
+            41,
+            42
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scene-02",
+      "chapterId": "ch-incident",
+      "title": "10:00 — The invisible failure",
+      "template": "incident",
+      "duration": 62,
+      "knowledgeNodeIds": [
+        "incident",
+        "reliability"
+      ],
+      "narration": [
+        {
+          "id": "scene-02-n1",
+          "text": "The team notices the problem at ten in the morning, seven hours after degradation began. That delay is time to discover: the period in which customers experience harm but operators lack a useful signal.",
+          "start": 0,
+          "end": 14.5
+        },
+        {
+          "id": "scene-02-n2",
+          "text": "Engineers compare application logs, database behavior, and the release timeline. They narrow the fault to queries introduced by the one o’clock deployment and find missing indexes under production load.",
+          "start": 14.5,
+          "end": 29
+        },
+        {
+          "id": "scene-02-n3",
+          "text": "The incident is not only a coding mistake. It is also a monitoring design problem, a capacity assumption, a deployment decision, and a missing feedback mechanism.",
+          "start": 29,
+          "end": 43.5
+        },
+        {
+          "id": "scene-02-n4",
+          "text": "A lifecycle is valuable because it distributes responsibility across those questions. Requirements, design, testing, deployment, and maintenance each remove a different kind of uncertainty.",
+          "start": 43.5,
+          "end": 58
+        }
+      ],
+      "captionMode": "hidden",
+      "transitionOut": {
+        "preset": "wipe",
+        "duration": 0.5
+      },
+      "elements": [
+        {
+          "id": "s2-title",
+          "type": "title",
+          "content": "10:00 · SEVEN HOURS WITHOUT A SIGNAL",
+          "x": 5,
+          "y": 8,
+          "width": 46,
+          "height": 14,
+          "style": {
+            "accent": "#D84A3A",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s2-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s2-title-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-02-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s2-title-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-02-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s2-title-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-02-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s2-title-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-02-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s2-title-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 61.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            42,
+            46
+          ]
+        },
+        {
+          "id": "s2-metrics",
+          "type": "metrics",
+          "content": "Four clocks expose four different failures",
+          "items": [
+            {
+              "id": "s2-metrics-item-1",
+              "label": "7h · customers suffer before detection"
+            },
+            {
+              "id": "s2-metrics-item-2",
+              "label": "8h · diagnosis and mitigation work"
+            },
+            {
+              "id": "s2-metrics-item-3",
+              "label": "18h · total customer impact"
+            },
+            {
+              "id": "s2-metrics-item-4",
+              "label": "0 · alerts that identified the cause"
+            }
+          ],
+          "x": 5,
+          "y": 29,
+          "width": 44,
+          "height": 43,
+          "style": {
+            "accent": "#D84A3A",
+            "tone": "light",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s2-metrics-enter",
+              "preset": "spring-scale",
+              "trigger": {
+                "type": "time",
+                "at": 3
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s2-metrics-beat-1",
+                "preset": "count-up",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-02-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s2-metrics-beat-2",
+                "preset": "count-up",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-02-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s2-metrics-beat-3",
+                "preset": "count-up",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-02-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s2-metrics-beat-4",
+                "preset": "count-up",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-02-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s2-metrics-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 61.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "breathe"
+          },
+          "visual": {
+            "variant": "poster",
+            "surface": "none"
+          },
+          "sourcePages": [
+            46
+          ]
+        },
+        {
+          "id": "s2-image",
+          "type": "image",
+          "content": "",
+          "x": 53,
+          "y": 18,
+          "width": 42,
+          "height": 58,
+          "style": {
+            "tone": "light",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s2-image-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 5
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s2-image-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-02-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s2-image-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-02-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s2-image-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-02-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s2-image-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-02-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s2-image-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 61.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "editorial",
+            "surface": "none"
+          },
+          "sourcePages": [
+            42
+          ],
+          "assetId": "asset-page-042",
+          "alt": "Lecture slide visualizing the visibility gap before incident discovery",
+          "fit": "contain"
+        }
+      ]
+    },
+    {
+      "id": "scene-03",
+      "chapterId": "ch-incident",
+      "title": "21:00 — Recovery is evidence",
+      "template": "incident",
+      "duration": 68,
+      "knowledgeNodeIds": [
+        "incident",
+        "reliability"
+      ],
+      "narration": [
+        {
+          "id": "scene-03-n1",
+          "text": "The team rewrites the problematic queries, adds the missing indexes, and verifies the patch in staging before touching production again.",
+          "start": 0,
+          "end": 16
+        },
+        {
+          "id": "scene-03-n2",
+          "text": "At nine in the evening, service metrics return to normal. Time to mitigate measures the work after discovery; time to recover captures the full customer impact from degradation to restoration.",
+          "start": 16,
+          "end": 32
+        },
+        {
+          "id": "scene-03-n3",
+          "text": "Recovery closes the outage, but it should not close the investigation. The logs, timing, decisions, and missed alerts are evidence about the system the team actually built.",
+          "start": 32,
+          "end": 48
+        },
+        {
+          "id": "scene-03-n4",
+          "text": "Now we rewind. Instead of treating the defect as one bad line of code, we trace backward through the lifecycle and find the decisions that shape risk long before a release begins.",
+          "start": 48,
+          "end": 64
+        }
+      ],
+      "captionMode": "hidden",
+      "transitionOut": {
+        "preset": "wipe",
+        "duration": 0.5
+      },
+      "elements": [
+        {
+          "id": "s3-title",
+          "type": "title",
+          "content": "21:00 · SERVICE RESTORED",
+          "x": 5,
+          "y": 8,
+          "width": 45,
+          "height": 14,
+          "style": {
+            "accent": "#D84A3A",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s3-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s3-title-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-03-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s3-title-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-03-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s3-title-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-03-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s3-title-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-03-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s3-title-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 67.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            44,
+            45,
+            46
+          ]
+        },
+        {
+          "id": "s3-image",
+          "type": "image",
+          "content": "",
+          "x": 53,
+          "y": 10,
+          "width": 42,
+          "height": 52,
+          "style": {
+            "tone": "light",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s3-image-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 2
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s3-image-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-03-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s3-image-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-03-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s3-image-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-03-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s3-image-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-03-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s3-image-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 67.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "editorial",
+            "surface": "none"
+          },
+          "sourcePages": [
+            45
+          ],
+          "assetId": "asset-page-045",
+          "alt": "Lecture slide showing the incident fix and service restoration",
+          "fit": "contain"
+        },
+        {
+          "id": "s3-timeline",
+          "type": "timeline",
+          "content": "Recovery was a chain of evidence, not one heroic fix",
+          "items": [
+            {
+              "id": "s3-timeline-item-1",
+              "label": "Deploy v2"
+            },
+            {
+              "id": "s3-timeline-item-2",
+              "label": "Latency climbs"
+            },
+            {
+              "id": "s3-timeline-item-3",
+              "label": "Users report"
+            },
+            {
+              "id": "s3-timeline-item-4",
+              "label": "Query isolated"
+            },
+            {
+              "id": "s3-timeline-item-5",
+              "label": "Index + rewrite"
+            },
+            {
+              "id": "s3-timeline-item-6",
+              "label": "Metrics recover"
+            }
+          ],
+          "x": 5,
+          "y": 60,
+          "width": 90,
+          "height": 20,
+          "style": {
+            "accent": "#D84A3A",
+            "tone": "light",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s3-timeline-enter",
+              "preset": "draw",
+              "trigger": {
+                "type": "time",
+                "at": 4
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s3-timeline-beat-1",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-03-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s3-timeline-beat-2",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-03-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s3-timeline-beat-3",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-03-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s3-timeline-beat-4",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-03-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s3-timeline-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 67.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "rail",
+            "surface": "none"
+          },
+          "sourcePages": [
+            41,
+            42,
+            43,
+            44,
+            45,
+            46
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scene-04",
+      "chapterId": "ch-rewind",
+      "title": "Before code — Listen for constraints",
+      "template": "concept",
+      "duration": 65,
+      "knowledgeNodeIds": [
+        "requirements"
+      ],
+      "narration": [
+        {
+          "id": "scene-04-n1",
+          "text": "Good requirements work begins before anyone writes a backlog item. Teams identify who is affected, observe actual workflows, and ask where failure would create real cost.",
+          "start": 0,
+          "end": 15.25
+        },
+        {
+          "id": "scene-04-n2",
+          "text": "Functional requirements describe what the system must do. Non-functional requirements describe how well it must operate: performance, availability, reliability, scalability, security, usability, and maintainability.",
+          "start": 15.25,
+          "end": 30.5
+        },
+        {
+          "id": "scene-04-n3",
+          "text": "For the incident system, a requirement such as handle expected peak traffic is not decoration. It shapes data design, test environments, monitoring thresholds, and rollback decisions.",
+          "start": 30.5,
+          "end": 45.75
+        },
+        {
+          "id": "scene-04-n4",
+          "text": "Documents, observation, interviews, surveys, workshops, and prototypes reveal different evidence. The goal is not to collect every request; it is to expose constraints, conflicts, ownership, and exceptions early.",
+          "start": 45.75,
+          "end": 61
+        }
+      ],
+      "captionMode": "hidden",
+      "transitionOut": {
+        "preset": "wipe",
+        "duration": 0.5
+      },
+      "elements": [
+        {
+          "id": "s4-image",
+          "type": "image",
+          "content": "",
+          "x": 4,
+          "y": 11,
+          "width": 55,
+          "height": 63,
+          "style": {
+            "tone": "light",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s4-image-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s4-image-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-04-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s4-image-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-04-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s4-image-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-04-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s4-image-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-04-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s4-image-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 64.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "editorial",
+            "surface": "none"
+          },
+          "sourcePages": [
+            5
+          ],
+          "assetId": "asset-page-005",
+          "alt": "Lecture slide illustrating six methods for collecting requirements",
+          "fit": "contain"
+        },
+        {
+          "id": "s4-title",
+          "type": "title",
+          "content": "BEFORE CODE · FIND THE CONSTRAINT",
+          "x": 62,
+          "y": 9,
+          "width": 33,
+          "height": 14,
+          "style": {
+            "accent": "#D9822B",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s4-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 1
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s4-title-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-04-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s4-title-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-04-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s4-title-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-04-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s4-title-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-04-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s4-title-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 64.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            3,
+            5,
+            7,
+            10,
+            17
+          ]
+        },
+        {
+          "id": "s4-cards",
+          "type": "cards",
+          "content": "Each method reveals a different kind of evidence",
+          "items": [
+            {
+              "id": "s4-cards-item-1",
+              "label": "Observe workarounds and hand-offs"
+            },
+            {
+              "id": "s4-cards-item-2",
+              "label": "Interview goals, ownership, and conflict"
+            },
+            {
+              "id": "s4-cards-item-3",
+              "label": "Study policies, logs, and existing data"
+            },
+            {
+              "id": "s4-cards-item-4",
+              "label": "Prototype exceptions before specification"
+            }
+          ],
+          "x": 62,
+          "y": 29,
+          "width": 33,
+          "height": 43,
+          "style": {
+            "accent": "#D9822B",
+            "tone": "light",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s4-cards-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 4
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s4-cards-beat-1",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-04-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s4-cards-beat-2",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-04-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s4-cards-beat-3",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-04-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s4-cards-beat-4",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-04-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s4-cards-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 64.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "editorial",
+            "surface": "soft"
+          },
+          "sourcePages": [
+            5,
+            7,
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scene-05",
+      "chapterId": "ch-rewind",
+      "title": "Prototype the risky assumption",
+      "template": "comparison",
+      "duration": 65,
+      "knowledgeNodeIds": [
+        "prototype"
+      ],
+      "narration": [
+        {
+          "id": "scene-05-n1",
+          "text": "When uncertainty is high, the cheapest useful artifact is often not production code. A prototype lets stakeholders react to structure, interaction, or behavior while change is still inexpensive.",
+          "start": 0,
+          "end": 15.25
+        },
+        {
+          "id": "scene-05-n2",
+          "text": "Throwaway prototypes answer a narrow question and are discarded. Evolutionary prototypes grow through feedback. Incremental prototypes explore separate parts before the system is assembled.",
+          "start": 15.25,
+          "end": 30.5
+        },
+        {
+          "id": "scene-05-n3",
+          "text": "A minimum viable product goes further by placing enough real value in front of real users to test a business or product assumption.",
+          "start": 30.5,
+          "end": 45.75
+        },
+        {
+          "id": "scene-05-n4",
+          "text": "The important distinction is purpose. A prototype reduces ambiguity; an MVP produces market evidence. Neither automatically proves production readiness, reliability, security, or operational scale.",
+          "start": 45.75,
+          "end": 61
+        }
+      ],
+      "captionMode": "hidden",
+      "transitionOut": {
+        "preset": "wipe",
+        "duration": 0.5
+      },
+      "elements": [
+        {
+          "id": "s5-title",
+          "type": "title",
+          "content": "PROTOTYPE THE EXPENSIVE GUESS",
+          "x": 5,
+          "y": 9,
+          "width": 42,
+          "height": 14,
+          "style": {
+            "accent": "#D9822B",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s5-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s5-title-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-05-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s5-title-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-05-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s5-title-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-05-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s5-title-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-05-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s5-title-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 64.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            11,
+            14,
+            15
+          ]
+        },
+        {
+          "id": "s5-compare",
+          "type": "comparison",
+          "content": "Two artifacts, two different questions",
+          "items": [
+            {
+              "id": "s5-compare-item-1",
+              "label": "PROTOTYPE — Can people understand and use this idea? Cheap to change; may be discarded."
+            },
+            {
+              "id": "s5-compare-item-2",
+              "label": "MVP — Will real users obtain enough value to produce product evidence?"
+            }
+          ],
+          "x": 5,
+          "y": 29,
+          "width": 42,
+          "height": 43,
+          "style": {
+            "accent": "#D9822B",
+            "tone": "light",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s5-compare-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 3
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s5-compare-beat-1",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-05-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s5-compare-beat-2",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-05-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s5-compare-beat-3",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-05-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s5-compare-beat-4",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-05-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s5-compare-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 64.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "split",
+            "surface": "none"
+          },
+          "sourcePages": [
+            11,
+            13,
+            14,
+            15
+          ]
+        },
+        {
+          "id": "s5-image",
+          "type": "image",
+          "content": "",
+          "x": 51,
+          "y": 12,
+          "width": 44,
+          "height": 61,
+          "style": {
+            "tone": "light",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s5-image-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 5
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s5-image-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-05-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s5-image-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-05-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s5-image-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-05-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s5-image-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-05-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s5-image-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 64.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "editorial",
+            "surface": "none"
+          },
+          "sourcePages": [
+            15
+          ],
+          "assetId": "asset-page-015",
+          "alt": "Lecture slide comparing prototypes and minimum viable products",
+          "fit": "contain"
+        }
+      ]
+    },
+    {
+      "id": "scene-06",
+      "chapterId": "ch-contain",
+      "title": "Design is risk allocation",
+      "template": "architecture",
+      "duration": 66,
+      "knowledgeNodeIds": [
+        "architecture"
+      ],
+      "narration": [
+        {
+          "id": "scene-06-n1",
+          "text": "Requirements state the outcome. Design allocates responsibility: which component owns data, which interface crosses a trust boundary, and which failure can be contained without taking down the whole product.",
+          "start": 0,
+          "end": 15.5
+        },
+        {
+          "id": "scene-06-n2",
+          "text": "In the lecture’s AI tutor, the browser presents the experience, a backend applies application logic, an AI service generates responses, and a database stores conversation history.",
+          "start": 15.5,
+          "end": 31
+        },
+        {
+          "id": "scene-06-n3",
+          "text": "Those boxes matter less than their contracts. Timeouts, retries, data validation, rate limits, logging, and failure behavior determine how the system behaves when one dependency slows down.",
+          "start": 31,
+          "end": 46.5
+        },
+        {
+          "id": "scene-06-n4",
+          "text": "Architecture is therefore not a polished diagram after the fact. It is a set of decisions about scale, coupling, security, observability, and the cost of change.",
+          "start": 46.5,
+          "end": 62
+        }
+      ],
+      "captionMode": "hidden",
+      "transitionOut": {
+        "preset": "wipe",
+        "duration": 0.5
+      },
+      "elements": [
+        {
+          "id": "s6-title",
+          "type": "title",
+          "content": "DESIGN DECIDES WHERE FAILURE STOPS",
+          "x": 5,
+          "y": 8,
+          "width": 45,
+          "height": 14,
+          "style": {
+            "accent": "#2563EB",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s6-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s6-title-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-06-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s6-title-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-06-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s6-title-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-06-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s6-title-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-06-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s6-title-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 65.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            18,
+            19,
+            20
+          ]
+        },
+        {
+          "id": "s6-image",
+          "type": "image",
+          "content": "",
+          "x": 52,
+          "y": 9,
+          "width": 43,
+          "height": 55,
+          "style": {
+            "tone": "light",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s6-image-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 2
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s6-image-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-06-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s6-image-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-06-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s6-image-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-06-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s6-image-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-06-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s6-image-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 65.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "editorial",
+            "surface": "none"
+          },
+          "sourcePages": [
+            19
+          ],
+          "assetId": "asset-page-019",
+          "alt": "Lecture architecture diagram for a generative AI chat application",
+          "fit": "contain"
+        },
+        {
+          "id": "s6-topology",
+          "type": "topology",
+          "content": "A boundary is useful only when its contract is explicit",
+          "items": [
+            {
+              "id": "s6-topology-item-1",
+              "label": "UI · input and feedback"
+            },
+            {
+              "id": "s6-topology-item-2",
+              "label": "API · policy and validation"
+            },
+            {
+              "id": "s6-topology-item-3",
+              "label": "AI · latency and rate limits"
+            },
+            {
+              "id": "s6-topology-item-4",
+              "label": "DB · durable conversation state"
+            }
+          ],
+          "x": 5,
+          "y": 31,
+          "width": 43,
+          "height": 40,
+          "style": {
+            "accent": "#2563EB",
+            "tone": "light",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s6-topology-enter",
+              "preset": "draw",
+              "trigger": {
+                "type": "time",
+                "at": 4
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s6-topology-beat-1",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-06-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s6-topology-beat-2",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-06-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s6-topology-beat-3",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-06-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s6-topology-beat-4",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-06-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s6-topology-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 65.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "drift"
+          },
+          "visual": {
+            "variant": "diagram",
+            "surface": "none"
+          },
+          "sourcePages": [
+            18,
+            19,
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scene-07",
+      "chapterId": "ch-contain",
+      "title": "Secrets define the boundary",
+      "template": "process",
+      "duration": 58,
+      "knowledgeNodeIds": [
+        "architecture"
+      ],
+      "narration": [
+        {
+          "id": "scene-07-n1",
+          "text": "A small implementation choice can reveal whether the architecture has a real security boundary. Private keys must never be committed to a repository or shipped into browser code.",
+          "start": 0,
+          "end": 13.5
+        },
+        {
+          "id": "scene-07-n2",
+          "text": "During local development, environment variables can come from a dot-env file. Git ignore rules prevent that file from entering version control.",
+          "start": 13.5,
+          "end": 27
+        },
+        {
+          "id": "scene-07-n3",
+          "text": "In production, the deployment platform stores secrets and injects them into the backend process. The browser calls the backend; the backend calls the protected AI service.",
+          "start": 27,
+          "end": 40.5
+        },
+        {
+          "id": "scene-07-n4",
+          "text": "This is more than credential hygiene. It demonstrates a general rule: sensitive authority belongs behind a controlled interface where access, logging, rotation, and failure can be managed.",
+          "start": 40.5,
+          "end": 54
+        }
+      ],
+      "captionMode": "hidden",
+      "transitionOut": {
+        "preset": "wipe",
+        "duration": 0.5
+      },
+      "elements": [
+        {
+          "id": "s7-image",
+          "type": "image",
+          "content": "",
+          "x": 4,
+          "y": 11,
+          "width": 50,
+          "height": 63,
+          "style": {
+            "tone": "light",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s7-image-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s7-image-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-07-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s7-image-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-07-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s7-image-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-07-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s7-image-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-07-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s7-image-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 57.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "editorial",
+            "surface": "none"
+          },
+          "sourcePages": [
+            22
+          ],
+          "assetId": "asset-page-022",
+          "alt": "Lecture slide showing secret injection from local development to production",
+          "fit": "contain"
+        },
+        {
+          "id": "s7-title",
+          "type": "title",
+          "content": "SECURITY BOUNDARY · THE BROWSER IS NOT A VAULT",
+          "x": 57,
+          "y": 9,
+          "width": 38,
+          "height": 14,
+          "style": {
+            "accent": "#2563EB",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s7-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s7-title-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-07-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s7-title-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-07-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s7-title-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-07-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s7-title-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-07-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s7-title-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 57.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            21,
+            22
+          ]
+        },
+        {
+          "id": "s7-flow",
+          "type": "flow",
+          "content": "The secret moves only through controlled server-side boundaries",
+          "items": [
+            {
+              "id": "s7-flow-item-1",
+              "label": "Local .env · developer only"
+            },
+            {
+              "id": "s7-flow-item-2",
+              "label": ".gitignore · never commit"
+            },
+            {
+              "id": "s7-flow-item-3",
+              "label": "Repository · code without keys"
+            },
+            {
+              "id": "s7-flow-item-4",
+              "label": "Platform store · rotate and audit"
+            },
+            {
+              "id": "s7-flow-item-5",
+              "label": "Backend runtime · inject at execution"
+            }
+          ],
+          "x": 57,
+          "y": 29,
+          "width": 38,
+          "height": 43,
+          "style": {
+            "accent": "#2563EB",
+            "tone": "light",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s7-flow-enter",
+              "preset": "draw",
+              "trigger": {
+                "type": "time",
+                "at": 3
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s7-flow-beat-1",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-07-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s7-flow-beat-2",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-07-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s7-flow-beat-3",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-07-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s7-flow-beat-4",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-07-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s7-flow-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 57.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "rail",
+            "surface": "none"
+          },
+          "sourcePages": [
+            21,
+            22
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scene-08",
+      "chapterId": "ch-contain",
+      "title": "Test the seams, then the promise",
+      "template": "process",
+      "duration": 68,
+      "knowledgeNodeIds": [
+        "testing"
+      ],
+      "narration": [
+        {
+          "id": "scene-08-n1",
+          "text": "Unit tests isolate local behavior so faults are easy to locate. They are necessary, but they cannot prove that two modules agree on data, timing, error handling, or interface contracts.",
+          "start": 0,
+          "end": 16
+        },
+        {
+          "id": "scene-08-n2",
+          "text": "Integration testing examines those seams. System testing evaluates the complete product against functional and non-functional requirements, including recovery, performance, scalability, reliability, and documentation.",
+          "start": 16,
+          "end": 32
+        },
+        {
+          "id": "scene-08-n3",
+          "text": "Acceptance testing asks whether users and customers recognize the promised value. Verification asks whether the product was built right; validation asks whether the right product was built.",
+          "start": 32,
+          "end": 48
+        },
+        {
+          "id": "scene-08-n4",
+          "text": "For our incident, realistic load, production-like data, query monitoring, and failure injection could have exposed the risk earlier. The test plan must reflect the system’s real operating conditions.",
+          "start": 48,
+          "end": 64
+        }
+      ],
+      "captionMode": "hidden",
+      "transitionOut": {
+        "preset": "wipe",
+        "duration": 0.5
+      },
+      "elements": [
+        {
+          "id": "s8-title",
+          "type": "title",
+          "content": "TEST OUTWARD · FROM LOGIC TO USER VALUE",
+          "x": 5,
+          "y": 8,
+          "width": 48,
+          "height": 14,
+          "style": {
+            "accent": "#2563EB",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s8-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s8-title-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-08-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s8-title-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-08-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s8-title-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-08-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s8-title-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-08-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s8-title-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 67.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            23,
+            24,
+            25,
+            29,
+            33
+          ]
+        },
+        {
+          "id": "s8-flow",
+          "type": "flow",
+          "content": "Every layer catches a different escape route",
+          "items": [
+            {
+              "id": "s8-flow-item-1",
+              "label": "Unit · local logic and edge cases"
+            },
+            {
+              "id": "s8-flow-item-2",
+              "label": "Integration · data and interface contracts"
+            },
+            {
+              "id": "s8-flow-item-3",
+              "label": "System · load, recovery, security"
+            },
+            {
+              "id": "s8-flow-item-4",
+              "label": "Acceptance · the promised user outcome"
+            }
+          ],
+          "x": 5,
+          "y": 29,
+          "width": 44,
+          "height": 43,
+          "style": {
+            "accent": "#2563EB",
+            "tone": "light",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s8-flow-enter",
+              "preset": "draw",
+              "trigger": {
+                "type": "time",
+                "at": 3
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s8-flow-beat-1",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-08-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s8-flow-beat-2",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-08-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s8-flow-beat-3",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-08-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s8-flow-beat-4",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-08-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s8-flow-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 67.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "rail",
+            "surface": "none"
+          },
+          "sourcePages": [
+            23,
+            24,
+            25,
+            29
+          ]
+        },
+        {
+          "id": "s8-image",
+          "type": "image",
+          "content": "",
+          "x": 53,
+          "y": 18,
+          "width": 42,
+          "height": 58,
+          "style": {
+            "tone": "light",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s8-image-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 5
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s8-image-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-08-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s8-image-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-08-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s8-image-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-08-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s8-image-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-08-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s8-image-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 67.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "editorial",
+            "surface": "none"
+          },
+          "sourcePages": [
+            33
+          ],
+          "assetId": "asset-page-033",
+          "alt": "Lecture slide comparing verification and validation",
+          "fit": "contain"
+        }
+      ]
+    },
+    {
+      "id": "scene-09",
+      "chapterId": "ch-release",
+      "title": "Reliability needs a clock",
+      "template": "concept",
+      "duration": 70,
+      "knowledgeNodeIds": [
+        "reliability"
+      ],
+      "narration": [
+        {
+          "id": "scene-09-n1",
+          "text": "Availability is uptime divided by uptime plus downtime. The formula is simple; achieving it is not. Hardware, networks, software defects, configuration, external providers, capacity, security, and recovery all shape the result.",
+          "start": 0,
+          "end": 16.5
+        },
+        {
+          "id": "scene-09-n2",
+          "text": "Time to discover measures how long the system can hurt users without producing an actionable signal. Time to mitigate measures diagnosis and solution work. Time to recover captures total customer impact.",
+          "start": 16.5,
+          "end": 33
+        },
+        {
+          "id": "scene-09-n3",
+          "text": "The incident’s seven-hour visibility gap is a design failure expressed as a metric. Better telemetry, thresholds, traces, and ownership could have shortened it.",
+          "start": 33,
+          "end": 49.5
+        },
+        {
+          "id": "scene-09-n4",
+          "text": "Reliability work becomes concrete when teams connect service objectives to alerts, runbooks, rollback paths, and post-incident actions rather than treating availability as an abstract percentage.",
+          "start": 49.5,
+          "end": 66
+        }
+      ],
+      "captionMode": "hidden",
+      "transitionOut": {
+        "preset": "wipe",
+        "duration": 0.5
+      },
+      "elements": [
+        {
+          "id": "s9-image",
+          "type": "image",
+          "content": "",
+          "x": 4,
+          "y": 11,
+          "width": 50,
+          "height": 63,
+          "style": {
+            "tone": "light",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s9-image-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s9-image-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-09-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s9-image-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-09-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s9-image-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-09-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s9-image-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-09-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s9-image-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 69.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "editorial",
+            "surface": "none"
+          },
+          "sourcePages": [
+            47
+          ],
+          "assetId": "asset-page-047",
+          "alt": "Lecture slide defining system availability and reliability metrics",
+          "fit": "contain"
+        },
+        {
+          "id": "s9-title",
+          "type": "title",
+          "content": "RELIABILITY · MEASURE THE SILENCE",
+          "x": 57,
+          "y": 8,
+          "width": 38,
+          "height": 14,
+          "style": {
+            "accent": "#138A72",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s9-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s9-title-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-09-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s9-title-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-09-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s9-title-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-09-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s9-title-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-09-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s9-title-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 69.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            46,
+            47,
+            48
+          ]
+        },
+        {
+          "id": "s9-metrics",
+          "type": "metrics",
+          "content": "A percentage becomes actionable only when tied to clocks",
+          "items": [
+            {
+              "id": "s9-metrics-item-1",
+              "label": "7h · discover: alerting gap"
+            },
+            {
+              "id": "s9-metrics-item-2",
+              "label": "8h · mitigate: diagnosis + fix"
+            },
+            {
+              "id": "s9-metrics-item-3",
+              "label": "18h · recover: customer impact"
+            },
+            {
+              "id": "s9-metrics-item-4",
+              "label": "99.99% · target: ≈52 min/year"
+            }
+          ],
+          "x": 56,
+          "y": 29,
+          "width": 39,
+          "height": 43,
+          "style": {
+            "accent": "#138A72",
+            "tone": "light",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s9-metrics-enter",
+              "preset": "spring-scale",
+              "trigger": {
+                "type": "time",
+                "at": 3
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s9-metrics-beat-1",
+                "preset": "count-up",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-09-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s9-metrics-beat-2",
+                "preset": "count-up",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-09-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s9-metrics-beat-3",
+                "preset": "count-up",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-09-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s9-metrics-beat-4",
+                "preset": "count-up",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-09-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s9-metrics-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 69.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "breathe"
+          },
+          "visual": {
+            "variant": "poster",
+            "surface": "none"
+          },
+          "sourcePages": [
+            46,
+            47
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scene-10",
+      "chapterId": "ch-release",
+      "title": "A release is a risk envelope",
+      "template": "comparison",
+      "duration": 70,
+      "knowledgeNodeIds": [
+        "release"
+      ],
+      "narration": [
+        {
+          "id": "scene-10-n1",
+          "text": "Deployment strategy decides how much change reaches how many users before the team has production evidence. That makes it a risk-allocation decision, not merely a release checklist.",
+          "start": 0,
+          "end": 16.5
+        },
+        {
+          "id": "scene-10-n2",
+          "text": "Big bang deployment is simple but concentrates exposure. Rolling upgrades replace capacity gradually. Blue-green deployment prepares a parallel environment and makes rollback a traffic switch.",
+          "start": 16.5,
+          "end": 33
+        },
+        {
+          "id": "scene-10-n3",
+          "text": "Canary deployment begins with a small audience and expands only when service and product signals remain healthy.",
+          "start": 33,
+          "end": 49.5
+        },
+        {
+          "id": "scene-10-n4",
+          "text": "No strategy is universally best. The choice depends on architecture, business criticality, observability, database compatibility, rollback speed, and the cost of running parallel capacity.",
+          "start": 49.5,
+          "end": 66
+        }
+      ],
+      "captionMode": "hidden",
+      "transitionOut": {
+        "preset": "wipe",
+        "duration": 0.5
+      },
+      "elements": [
+        {
+          "id": "s10-title",
+          "type": "title",
+          "content": "RELEASE STRATEGIES · HOW TRAFFIC MOVES",
+          "x": 5,
+          "y": 7,
+          "width": 90,
+          "height": 12,
+          "style": {
+            "accent": "#138A72",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s10-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s10-title-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s10-title-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s10-title-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s10-title-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s10-title-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 69.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            51,
+            52,
+            53,
+            54,
+            55
+          ]
+        },
+        {
+          "id": "s10-big-bang-image",
+          "type": "image",
+          "content": "",
+          "x": 3,
+          "y": 20,
+          "width": 22,
+          "height": 45,
+          "style": {
+            "tone": "light",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s10-big-bang-image-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 2
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s10-big-bang-image-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s10-big-bang-image-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s10-big-bang-image-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s10-big-bang-image-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s10-big-bang-image-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 69.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "editorial",
+            "surface": "none"
+          },
+          "sourcePages": [
+            52
+          ],
+          "assetId": "asset-page-052",
+          "alt": "Big bang deployment routes all users from version 1 to version 2 at once",
+          "fit": "contain"
+        },
+        {
+          "id": "s10-big-bang-text",
+          "type": "text",
+          "content": "ALL USERS SWITCH TOGETHER — simple, but downtime and rollback risk are concentrated.",
+          "x": 3,
+          "y": 66,
+          "width": 22,
+          "height": 12,
+          "style": {
+            "accent": "#138A72",
+            "tone": "light",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s10-big-bang-text-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 4
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s10-big-bang-text-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s10-big-bang-text-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s10-big-bang-text-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s10-big-bang-text-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s10-big-bang-text-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 69.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            52
+          ]
+        },
+        {
+          "id": "s10-rolling-image",
+          "type": "image",
+          "content": "",
+          "x": 27,
+          "y": 20,
+          "width": 22,
+          "height": 45,
+          "style": {
+            "tone": "light",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s10-rolling-image-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 16
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s10-rolling-image-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s10-rolling-image-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s10-rolling-image-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s10-rolling-image-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s10-rolling-image-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 69.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "editorial",
+            "surface": "none"
+          },
+          "sourcePages": [
+            53
+          ],
+          "assetId": "asset-page-053",
+          "alt": "Rolling deployment gradually replaces version 1 instances with version 2",
+          "fit": "contain"
+        },
+        {
+          "id": "s10-rolling-text",
+          "type": "text",
+          "content": "OLD + NEW COEXIST — capacity changes gradually; compatibility matters during the overlap.",
+          "x": 27,
+          "y": 66,
+          "width": 22,
+          "height": 12,
+          "style": {
+            "accent": "#138A72",
+            "tone": "light",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s10-rolling-text-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 18
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s10-rolling-text-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s10-rolling-text-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s10-rolling-text-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s10-rolling-text-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s10-rolling-text-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 69.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            53
+          ]
+        },
+        {
+          "id": "s10-blue-green-image",
+          "type": "image",
+          "content": "",
+          "x": 51,
+          "y": 20,
+          "width": 22,
+          "height": 45,
+          "style": {
+            "tone": "light",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s10-blue-green-image-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 31
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s10-blue-green-image-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s10-blue-green-image-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s10-blue-green-image-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s10-blue-green-image-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s10-blue-green-image-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 69.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "editorial",
+            "surface": "none"
+          },
+          "sourcePages": [
+            54
+          ],
+          "assetId": "asset-page-054",
+          "alt": "Blue-green deployment switches traffic between two complete environments",
+          "fit": "contain"
+        },
+        {
+          "id": "s10-blue-green-text",
+          "type": "text",
+          "content": "TWO FULL ENVIRONMENTS — test green, switch traffic, and route back to blue for fast rollback.",
+          "x": 51,
+          "y": 66,
+          "width": 22,
+          "height": 12,
+          "style": {
+            "accent": "#138A72",
+            "tone": "light",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s10-blue-green-text-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 33
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s10-blue-green-text-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s10-blue-green-text-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s10-blue-green-text-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s10-blue-green-text-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s10-blue-green-text-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 69.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            54
+          ]
+        },
+        {
+          "id": "s10-canary-image",
+          "type": "image",
+          "content": "",
+          "x": 75,
+          "y": 20,
+          "width": 22,
+          "height": 45,
+          "style": {
+            "tone": "light",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s10-canary-image-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 47
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s10-canary-image-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s10-canary-image-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s10-canary-image-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s10-canary-image-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s10-canary-image-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 69.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "editorial",
+            "surface": "none"
+          },
+          "sourcePages": [
+            55
+          ],
+          "assetId": "asset-page-055",
+          "alt": "Canary deployment routes a small audience to version 2 before expansion",
+          "fit": "contain"
+        },
+        {
+          "id": "s10-canary-text",
+          "type": "text",
+          "content": "SMALL AUDIENCE FIRST — expand only while errors, latency, and product signals remain healthy.",
+          "x": 75,
+          "y": 66,
+          "width": 22,
+          "height": 12,
+          "style": {
+            "accent": "#138A72",
+            "tone": "light",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s10-canary-text-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 49
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s10-canary-text-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s10-canary-text-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s10-canary-text-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s10-canary-text-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-10-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s10-canary-text-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 69.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            55
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scene-11",
+      "chapterId": "ch-release",
+      "title": "Ship through gates, not hope",
+      "template": "process",
+      "duration": 64,
+      "knowledgeNodeIds": [
+        "release"
+      ],
+      "narration": [
+        {
+          "id": "scene-11-n1",
+          "text": "Continuous integration connects each commit to a repeatable build, automated tests, and code-quality checks. The pipeline turns evidence into a condition for progressing toward production.",
+          "start": 0,
+          "end": 15
+        },
+        {
+          "id": "scene-11-n2",
+          "text": "Feature flags separate deployment from release. Code can be present but inactive, enabled for selected users, compared against a baseline, and disabled without another deployment.",
+          "start": 15,
+          "end": 30
+        },
+        {
+          "id": "scene-11-n3",
+          "text": "A controlled rollout then watches reliability, latency, errors, and user outcomes. If the signals disagree with expectations, the system should stop or roll back automatically.",
+          "start": 30,
+          "end": 45
+        },
+        {
+          "id": "scene-11-n4",
+          "text": "The purpose is not maximum automation. It is fast, trustworthy feedback with clear human ownership when judgment is required.",
+          "start": 45,
+          "end": 60
+        }
+      ],
+      "captionMode": "hidden",
+      "transitionOut": {
+        "preset": "wipe",
+        "duration": 0.5
+      },
+      "elements": [
+        {
+          "id": "s11-title",
+          "type": "title",
+          "content": "DELIVERY PIPELINE · EVIDENCE BEFORE EXPOSURE",
+          "x": 5,
+          "y": 8,
+          "width": 48,
+          "height": 14,
+          "style": {
+            "accent": "#138A72",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s11-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s11-title-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-11-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s11-title-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-11-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s11-title-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-11-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s11-title-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-11-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s11-title-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 63.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            56,
+            57
+          ]
+        },
+        {
+          "id": "s11-flow",
+          "type": "flow",
+          "content": "Every gate answers a question before more users are exposed",
+          "items": [
+            {
+              "id": "s11-flow-item-1",
+              "label": "Commit · what changed?"
+            },
+            {
+              "id": "s11-flow-item-2",
+              "label": "Build · is it reproducible?"
+            },
+            {
+              "id": "s11-flow-item-3",
+              "label": "Tests · does behavior hold?"
+            },
+            {
+              "id": "s11-flow-item-4",
+              "label": "Gate · is quality acceptable?"
+            },
+            {
+              "id": "s11-flow-item-5",
+              "label": "Flag · who can see it?"
+            },
+            {
+              "id": "s11-flow-item-6",
+              "label": "Canary · what happens in reality?"
+            },
+            {
+              "id": "s11-flow-item-7",
+              "label": "Monitor · expand or stop?"
+            }
+          ],
+          "x": 5,
+          "y": 29,
+          "width": 48,
+          "height": 43,
+          "style": {
+            "accent": "#138A72",
+            "tone": "light",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s11-flow-enter",
+              "preset": "draw",
+              "trigger": {
+                "type": "time",
+                "at": 3
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s11-flow-beat-1",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-11-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s11-flow-beat-2",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-11-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s11-flow-beat-3",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-11-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s11-flow-beat-4",
+                "preset": "trace",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-11-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s11-flow-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 63.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "rail",
+            "surface": "none"
+          },
+          "sourcePages": [
+            56,
+            57
+          ]
+        },
+        {
+          "id": "s11-image",
+          "type": "image",
+          "content": "",
+          "x": 57,
+          "y": 13,
+          "width": 38,
+          "height": 62,
+          "style": {
+            "tone": "light",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s11-image-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 5
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s11-image-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-11-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s11-image-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-11-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s11-image-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-11-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s11-image-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-11-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s11-image-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 63.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "editorial",
+            "surface": "none"
+          },
+          "sourcePages": [
+            57
+          ],
+          "assetId": "asset-page-057",
+          "alt": "Lecture slide showing how large technology companies ship code to production",
+          "fit": "contain"
+        }
+      ]
+    },
+    {
+      "id": "scene-12",
+      "chapterId": "ch-learn",
+      "title": "The postmortem becomes a requirement",
+      "template": "closing",
+      "duration": 64,
+      "knowledgeNodeIds": [
+        "incident",
+        "requirements",
+        "release"
+      ],
+      "narration": [
+        {
+          "id": "scene-12-n1",
+          "text": "A useful postmortem does not stop at the faulty query. It records the conditions that allowed the defect to escape, the signals that failed to fire, and the decisions that made recovery slower.",
+          "start": 0,
+          "end": 15
+        },
+        {
+          "id": "scene-12-n2",
+          "text": "Those findings become new requirements: production-like performance tests, index checks, service-level alerts, query budgets, a canary stage, and a rehearsed rollback path.",
+          "start": 15,
+          "end": 30
+        },
+        {
+          "id": "scene-12-n3",
+          "text": "The system is maintained through corrective, adaptive, perfective, and preventive work. Production evidence changes what the team knows, so it must change what the team builds next.",
+          "start": 30,
+          "end": 45
+        },
+        {
+          "id": "scene-12-n4",
+          "text": "That is the software development lifecycle in practice: not a one-way sequence, but a disciplined loop that converts uncertainty into evidence and evidence into safer decisions.",
+          "start": 45,
+          "end": 60
+        }
+      ],
+      "captionMode": "hidden",
+      "elements": [
+        {
+          "id": "s12-title",
+          "type": "title",
+          "content": "POSTMORTEM · TURN THE OUTAGE INTO THE NEXT REQUIREMENT",
+          "x": 5,
+          "y": 8,
+          "width": 52,
+          "height": 14,
+          "style": {
+            "accent": "#8B5CF6",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "s12-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s12-title-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-12-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s12-title-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-12-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s12-title-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-12-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s12-title-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-12-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s12-title-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 63.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            34,
+            46,
+            57
+          ]
+        },
+        {
+          "id": "s12-image",
+          "type": "image",
+          "content": "",
+          "x": 56,
+          "y": 18,
+          "width": 39,
+          "height": 56,
+          "style": {
+            "tone": "light",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s12-image-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 2
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s12-image-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-12-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s12-image-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-12-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s12-image-beat-3",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-12-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s12-image-beat-4",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-12-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s12-image-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 63.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "editorial",
+            "surface": "none"
+          },
+          "sourcePages": [
+            34
+          ],
+          "assetId": "asset-page-034",
+          "alt": "Lecture slide showing the software feedback loop",
+          "fit": "contain"
+        },
+        {
+          "id": "s12-cycle",
+          "type": "lifecycle",
+          "content": "Evidence becomes the next design input",
+          "items": [
+            {
+              "id": "s12-cycle-item-1",
+              "label": "Observe impact"
+            },
+            {
+              "id": "s12-cycle-item-2",
+              "label": "Explain causes"
+            },
+            {
+              "id": "s12-cycle-item-3",
+              "label": "Prioritize risk"
+            },
+            {
+              "id": "s12-cycle-item-4",
+              "label": "Design controls"
+            },
+            {
+              "id": "s12-cycle-item-5",
+              "label": "Test reality"
+            },
+            {
+              "id": "s12-cycle-item-6",
+              "label": "Release gradually"
+            }
+          ],
+          "x": 5,
+          "y": 29,
+          "width": 47,
+          "height": 45,
+          "style": {
+            "accent": "#8B5CF6",
+            "tone": "light",
+            "align": "center"
+          },
+          "motion": {
+            "enter": {
+              "id": "s12-cycle-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 4
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1
+            },
+            "beats": [
+              {
+                "id": "s12-cycle-beat-1",
+                "preset": "glow",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-12-n1",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s12-cycle-beat-2",
+                "preset": "glow",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-12-n2",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s12-cycle-beat-3",
+                "preset": "glow",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-12-n3",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              },
+              {
+                "id": "s12-cycle-beat-4",
+                "preset": "glow",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-12-n4",
+                  "offset": 0.15
+                },
+                "duration": 1.5,
+                "stagger": 0.1,
+                "intensity": 0.75
+              }
+            ],
+            "exit": {
+              "id": "s12-cycle-exit",
+              "preset": "slide",
+              "trigger": {
+                "type": "time",
+                "at": 63.3
+              },
+              "duration": 0.65,
+              "intensity": 0.7
+            },
+            "ambient": "orbit"
+          },
+          "visual": {
+            "variant": "orbital",
+            "surface": "none"
+          },
+          "sourcePages": [
+            2,
+            34,
+            46,
+            57
+          ]
+        }
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "id": "asset-page-005",
+      "name": "Requirements elicitation methods",
+      "kind": "image",
+      "uri": "source/sdlc-v3/requirements-methods.png",
+      "embedded": false,
+      "source": {
+        "documentId": "source-sdlc-lecture",
+        "page": 5,
+        "bbox": {
+          "x": 0.04,
+          "y": 0.2,
+          "width": 0.92,
+          "height": 0.72
+        },
+        "extraction": "rendered-crop"
+      }
+    },
+    {
+      "id": "asset-page-015",
+      "name": "MVP learning loop",
+      "kind": "image",
+      "uri": "source/sdlc-v3/mvp-learning-v2.png",
+      "embedded": false,
+      "source": {
+        "documentId": "source-sdlc-lecture",
+        "page": 15,
+        "bbox": {
+          "x": 0.66,
+          "y": 0.24,
+          "width": 0.31,
+          "height": 0.64
+        },
+        "extraction": "rendered-crop"
+      }
+    },
+    {
+      "id": "asset-page-019",
+      "name": "AI tutor architecture",
+      "kind": "image",
+      "uri": "source/sdlc-v3/architecture-v2.png",
+      "embedded": false,
+      "source": {
+        "documentId": "source-sdlc-lecture",
+        "page": 19,
+        "bbox": {
+          "x": 0.03,
+          "y": 0.18,
+          "width": 0.94,
+          "height": 0.7
+        },
+        "extraction": "rendered-crop"
+      }
+    },
+    {
+      "id": "asset-page-022",
+      "name": "Production secret path",
+      "kind": "image",
+      "uri": "source/sdlc-v3/secrets-path.png",
+      "embedded": false,
+      "source": {
+        "documentId": "source-sdlc-lecture",
+        "page": 22,
+        "bbox": {
+          "x": 0.02,
+          "y": 0.35,
+          "width": 0.96,
+          "height": 0.62
+        },
+        "extraction": "rendered-crop"
+      }
+    },
+    {
+      "id": "asset-page-033",
+      "name": "Verification and validation examples",
+      "kind": "image",
+      "uri": "source/sdlc-v3/verification-validation-v2.png",
+      "embedded": false,
+      "source": {
+        "documentId": "source-sdlc-lecture",
+        "page": 33,
+        "bbox": {
+          "x": 0.04,
+          "y": 0.54,
+          "width": 0.92,
+          "height": 0.4
+        },
+        "extraction": "rendered-crop"
+      }
+    },
+    {
+      "id": "asset-page-034",
+      "name": "Product feedback loop",
+      "kind": "image",
+      "uri": "source/sdlc-v3/feedback-loop.png",
+      "embedded": false,
+      "source": {
+        "documentId": "source-sdlc-lecture",
+        "page": 34,
+        "bbox": {
+          "x": 0.03,
+          "y": 0.28,
+          "width": 0.94,
+          "height": 0.62
+        },
+        "extraction": "rendered-crop"
+      }
+    },
+    {
+      "id": "asset-page-042",
+      "name": "Incident visibility gap",
+      "kind": "image",
+      "uri": "source/sdlc-v3/incident-hidden.png",
+      "embedded": false,
+      "source": {
+        "documentId": "source-sdlc-lecture",
+        "page": 42,
+        "bbox": {
+          "x": 0.05,
+          "y": 0.38,
+          "width": 0.9,
+          "height": 0.55
+        },
+        "extraction": "rendered-crop"
+      }
+    },
+    {
+      "id": "asset-page-045",
+      "name": "Incident recovery",
+      "kind": "image",
+      "uri": "source/sdlc-v3/recovery-v2.png",
+      "embedded": false,
+      "source": {
+        "documentId": "source-sdlc-lecture",
+        "page": 45,
+        "bbox": {
+          "x": 0.04,
+          "y": 0.54,
+          "width": 0.92,
+          "height": 0.4
+        },
+        "extraction": "rendered-crop"
+      }
+    },
+    {
+      "id": "asset-page-047",
+      "name": "Availability formula and reliability clocks",
+      "kind": "image",
+      "uri": "source/sdlc-v3/availability-v2.png",
+      "embedded": false,
+      "source": {
+        "documentId": "source-sdlc-lecture",
+        "page": 47,
+        "bbox": {
+          "x": 0.04,
+          "y": 0.07,
+          "width": 0.92,
+          "height": 0.82
+        },
+        "extraction": "rendered-crop"
+      }
+    },
+    {
+      "id": "asset-page-052",
+      "name": "Big bang deployment topology",
+      "kind": "image",
+      "uri": "source/sdlc-v3/deployment-big-bang.png",
+      "embedded": false,
+      "source": {
+        "documentId": "source-sdlc-lecture",
+        "page": 52,
+        "bbox": {
+          "x": 0.68,
+          "y": 0.13,
+          "width": 0.3,
+          "height": 0.7
+        },
+        "extraction": "rendered-crop"
+      }
+    },
+    {
+      "id": "asset-page-053",
+      "name": "Rolling deployment topology",
+      "kind": "image",
+      "uri": "source/sdlc-v3/deployment-rolling.png",
+      "embedded": false,
+      "source": {
+        "documentId": "source-sdlc-lecture",
+        "page": 53,
+        "bbox": {
+          "x": 0.61,
+          "y": 0.06,
+          "width": 0.37,
+          "height": 0.78
+        },
+        "extraction": "rendered-crop"
+      }
+    },
+    {
+      "id": "asset-page-054",
+      "name": "Blue-green deployment topology",
+      "kind": "image",
+      "uri": "source/sdlc-v3/deployment-blue-green.png",
+      "embedded": false,
+      "source": {
+        "documentId": "source-sdlc-lecture",
+        "page": 54,
+        "bbox": {
+          "x": 0.66,
+          "y": 0.05,
+          "width": 0.32,
+          "height": 0.86
+        },
+        "extraction": "rendered-crop"
+      }
+    },
+    {
+      "id": "asset-page-055",
+      "name": "Canary deployment topology",
+      "kind": "image",
+      "uri": "source/sdlc-v3/deployment-canary.png",
+      "embedded": false,
+      "source": {
+        "documentId": "source-sdlc-lecture",
+        "page": 55,
+        "bbox": {
+          "x": 0.66,
+          "y": 0.05,
+          "width": 0.32,
+          "height": 0.8
+        },
+        "extraction": "rendered-crop"
+      }
+    },
+    {
+      "id": "asset-page-057",
+      "name": "Continuous delivery workflow",
+      "kind": "image",
+      "uri": "source/sdlc-v3/delivery-loop-v2.png",
+      "embedded": false,
+      "source": {
+        "documentId": "source-sdlc-lecture",
+        "page": 57,
+        "bbox": {
+          "x": 0.62,
+          "y": 0.14,
+          "width": 0.35,
+          "height": 0.76
+        },
+        "extraction": "rendered-crop"
+      }
+    }
+  ],
+  "theme": {
+    "name": "Classroom Field Notes",
+    "background": "#FFFDF7",
+    "surface": "#FFFFFF",
+    "foreground": "#24313A",
+    "muted": "#65737C",
+    "accent": "#D84A3A",
+    "accentAlt": "#2563EB",
+    "fontFamily": "Inter, Arial, sans-serif"
+  }
+}

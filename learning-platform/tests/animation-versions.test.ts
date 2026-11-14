@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import {
   getPublishedAnimation,
+  listExperimentAnimations,
   listPublishedVersions,
   listTopicAnimations,
 } from "@/animation-studio/content/versions/registry";
@@ -31,6 +32,41 @@ describe("published animation versions", () => {
     expect(topics[0]?.durationSeconds).toBe(120);
     expect(topics[0]?.images).toBe(4);
     expect(getPublishedAnimation("harness")?.project).toBeTruthy();
+  });
+
+  it("exposes iteration experiments", () => {
+    const experiments = listExperimentAnimations();
+
+    expect(experiments.map((experiment) => experiment.id)).toEqual([
+      "prototype-mvp",
+      "the-seam-map",
+      "editable-diagrams",
+      "eighteen-hours",
+    ]);
+    expect(experiments.map((experiment) => experiment.durationSeconds)).toEqual([
+      180.8,
+      678,
+      22,
+      780,
+    ]);
+    expect(experiments.map((experiment) => experiment.images)).toEqual([
+      4,
+      6,
+      0,
+      15,
+    ]);
+    expect(
+      experiments.map((experiment) => Date.parse(experiment.updatedAt)),
+    ).toEqual(
+      experiments
+        .map((experiment) => Date.parse(experiment.updatedAt))
+        .toSorted((first, second) => second - first),
+    );
+    expect(
+      experiments.every((experiment) =>
+        Boolean(getPublishedAnimation(experiment.id)?.project),
+      ),
+    ).toBe(true);
   });
 
   it("rejects an unknown animation", () => {
