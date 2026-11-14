@@ -1,4 +1,8 @@
+import editableDiagrams from "../projects/editable-diagrams.animation.json";
+import eighteenHours from "../projects/eighteen-hours-to-learn.animation.json";
 import harness from "../projects/harness-intro.animation.json";
+import prototypeMvp from "../projects/prototype-mvp.animation.json";
+import seamMap from "../projects/the-seam-map.animation.json";
 import v2 from "./published.animation-v2.json";
 import v3 from "./published.animation-v3.json";
 import v4 from "./published.animation-v4.json";
@@ -6,6 +10,8 @@ import v5 from "./published.animation-v5.json";
 import v6 from "./published.animation-v6.json";
 
 type ProjectShape = {
+  createdAt?: string;
+  updatedAt?: string;
   scenes?: Array<{
     duration?: number;
     elements?: Array<{ type?: string }>;
@@ -14,7 +20,7 @@ type ProjectShape = {
 
 type Definition = {
   id: string;
-  kind: "version" | "topic";
+  kind: "version" | "topic" | "experiment";
   label: string;
   description: string;
   tags: string[];
@@ -32,6 +38,7 @@ export type PublishedAnimation = {
   durationSeconds: number;
   durationLabel: string;
   images: number;
+  updatedAt: string;
   latest: boolean;
 };
 
@@ -90,6 +97,42 @@ const definitions: Definition[] = [
     tags: ["2 min", "4 scenes", "4 illustrations"],
     project: harness,
   },
+  {
+    id: "editable-diagrams",
+    kind: "experiment",
+    label: "Editable diagrams",
+    description:
+      "A short node-and-edge experiment for editable branching diagrams and staged relationship reveals.",
+    tags: ["22 sec", "2 scenes", "diagram model"],
+    project: editableDiagrams,
+  },
+  {
+    id: "eighteen-hours",
+    kind: "experiment",
+    label: "Eighteen Hours to Learn",
+    description:
+      "An incident-led SDLC reconstruction that tests source-grounded imagery across a complete thirteen-minute lesson.",
+    tags: ["13 min", "12 scenes", "source-grounded"],
+    project: eighteenHours,
+  },
+  {
+    id: "prototype-mvp",
+    kind: "experiment",
+    label: "Prototype and MVP",
+    description:
+      "A Chinese three-minute lesson testing source images, diagrams, and the distinction between prototypes and MVPs.",
+    tags: ["3 min", "8 scenes", "source images"],
+    project: prototypeMvp,
+  },
+  {
+    id: "the-seam-map",
+    kind: "experiment",
+    label: "The Seam Map",
+    description:
+      "An eleven-minute SDLC explainer that treats development as a chain of evidence, supported by source images and recorded narration.",
+    tags: ["11 min", "13 scenes", "recorded narration"],
+    project: seamMap,
+  },
 ];
 
 function formatDuration(seconds: number) {
@@ -118,8 +161,16 @@ function build(definition: Definition): PublishedAnimation {
     durationSeconds,
     durationLabel: formatDuration(durationSeconds),
     images,
+    updatedAt: project.updatedAt ?? project.createdAt ?? "",
     latest: definition.id === "v6",
   };
+}
+
+function byUpdatedAtDescending(
+  first: PublishedAnimation,
+  second: PublishedAnimation,
+) {
+  return (Date.parse(second.updatedAt) || 0) - (Date.parse(first.updatedAt) || 0);
 }
 
 export function listPublishedVersions(): PublishedAnimation[] {
@@ -132,6 +183,13 @@ export function listTopicAnimations(): PublishedAnimation[] {
   return definitions
     .filter((definition) => definition.kind === "topic")
     .map(build);
+}
+
+export function listExperimentAnimations(): PublishedAnimation[] {
+  return definitions
+    .filter((definition) => definition.kind === "experiment")
+    .map(build)
+    .sort(byUpdatedAtDescending);
 }
 
 export function getPublishedAnimation(id: string) {

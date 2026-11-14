@@ -22,3 +22,20 @@ node animation-studio/content/projects/embed-harness-assets.mjs
 
 The gallery reads this project through `content/versions/registry.ts` as a
 topic intro; the route is `/animations/harness`.
+
+## Iteration experiments
+
+The animation library also keeps four production experiments as evidence of the
+animation workflow's evolution:
+
+| Project | Purpose |
+| --- | --- |
+| `editable-diagrams.animation.json` | Editable node-and-edge diagrams and staged reveals. |
+| `eighteen-hours-to-learn.animation.json` | A source-grounded, incident-led full SDLC lesson. |
+| `prototype-mvp.animation.json` | A focused Chinese lesson using source images and diagrams. |
+| `the-seam-map.animation.json` | A complete SDLC evidence-chain lesson with source images and recorded narration. |
+
+Teachers can edit these projects and students can open them read-only.
+Referenced assets live under `public/source/sdlc-v3/`, `public/assets/`,
+`public/sdlc-teaching/`, and `public/audio/sdlc-teaching/`; gallery thumbnails
+live under `public/animation-versions/`.

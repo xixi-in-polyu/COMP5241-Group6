@@ -1,0 +1,2893 @@
+{
+  "schemaVersion": 5,
+  "id": "prototype-mvp",
+  "title": "Prototype 与 MVP：先看见，再验证",
+  "description": "从 wireframe 到 hi-fi，从三种原型到 MVP 学习闭环：用最小成本换取可验证的需求与市场证据。",
+  "locale": "zh-CN",
+  "renderConfig": {
+    "fps": 30,
+    "width": 1920,
+    "height": 1080
+  },
+  "createdAt": "2026-11-05T13:40:00.000Z",
+  "updatedAt": "2026-11-05T13:40:00.000Z",
+  "sourceDocuments": [
+    {
+      "id": "doc-sdlc-lecture-1",
+      "name": "2 - Software Development Lifecycle-1.pdf",
+      "mimeType": "application/pdf",
+      "pageCount": 57,
+      "importedAt": "2026-11-05T13:40:00.000Z",
+      "contentBlocks": [
+        {
+          "id": "p11-b001",
+          "page": 11,
+          "kind": "heading",
+          "text": "Software Prototypes",
+          "bbox": {
+            "x": 0.054375,
+            "y": 0.079792,
+            "width": 0.288453,
+            "height": 0.059222
+          }
+        },
+        {
+          "id": "p11-b002",
+          "page": 11,
+          "kind": "paragraph",
+          "text": "• Software prototype is an umbrella term for different early-stage deliverables that are built to",
+          "bbox": {
+            "x": 0.055813,
+            "y": 0.18377,
+            "width": 0.784303,
+            "height": 0.037222
+          }
+        },
+        {
+          "id": "p11-b003",
+          "page": 11,
+          "kind": "paragraph",
+          "text": "showcase how requirements can be implemented",
+          "bbox": {
+            "x": 0.074563,
+            "y": 0.223992,
+            "width": 0.407384,
+            "height": 0.037
+          }
+        },
+        {
+          "id": "p11-b004",
+          "page": 11,
+          "kind": "paragraph",
+          "text": "• Wireframes are low-fidelity graphic structures of a website or an app. They help map different",
+          "bbox": {
+            "x": 0.055813,
+            "y": 0.282326,
+            "width": 0.811324,
+            "height": 0.037222
+          }
+        },
+        {
+          "id": "p11-b005",
+          "page": 11,
+          "kind": "paragraph",
+          "text": "product pages with sections and interactive elements.",
+          "bbox": {
+            "x": 0.074563,
+            "y": 0.322548,
+            "width": 0.442828,
+            "height": 0.037
+          }
+        },
+        {
+          "id": "p11-b006",
+          "page": 11,
+          "kind": "paragraph",
+          "text": "11",
+          "bbox": {
+            "x": 0.9225,
+            "y": 0.944244,
+            "width": 0.012063,
+            "height": 0.022222
+          }
+        },
+        {
+          "id": "p11-b007",
+          "page": 11,
+          "kind": "paragraph",
+          "text": "“I can’t tell you what I want,",
+          "bbox": {
+            "x": 0.616292,
+            "y": 0.598978,
+            "width": 0.215794,
+            "height": 0.033333
+          }
+        },
+        {
+          "id": "p11-b008",
+          "page": 11,
+          "kind": "paragraph",
+          "text": "but I’ll know it when I see it",
+          "bbox": {
+            "x": 0.616292,
+            "y": 0.638978,
+            "width": 0.212981,
+            "height": 0.033333
+          }
+        },
+        {
+          "id": "p11-b009",
+          "page": 11,
+          "kind": "paragraph",
+          "text": "https://www.altexsoft.com/blog/prototyping",
+          "bbox": {
+            "x": 0.106458,
+            "y": 0.932681,
+            "width": 0.328744,
+            "height": 0.033333
+          }
+        },
+        {
+          "id": "p12-b001",
+          "page": 12,
+          "kind": "heading",
+          "text": "• Mockups",
+          "bbox": {
+            "x": 0.064792,
+            "y": 0.052111,
+            "width": 0.1118,
+            "height": 0.044711
+          }
+        },
+        {
+          "id": "p12-b002",
+          "page": 12,
+          "kind": "paragraph",
+          "text": "• Static, but more realistic depictions of the final product",
+          "bbox": {
+            "x": 0.086667,
+            "y": 0.118326,
+            "width": 0.477541,
+            "height": 0.037222
+          }
+        },
+        {
+          "id": "p12-b003",
+          "page": 12,
+          "kind": "paragraph",
+          "text": "• Shows the branding, colors, fonts, iconography, and other elements",
+          "bbox": {
+            "x": 0.086667,
+            "y": 0.17677,
+            "width": 0.577815,
+            "height": 0.037222
+          }
+        },
+        {
+          "id": "p12-b004",
+          "page": 12,
+          "kind": "paragraph",
+          "text": "• Mockup tools: InVision, Sketch, Figma, Adobe XD, Framer.",
+          "bbox": {
+            "x": 0.086667,
+            "y": 0.235296,
+            "width": 0.52175,
+            "height": 0.037259
+          }
+        },
+        {
+          "id": "p12-b005",
+          "page": 12,
+          "kind": "heading",
+          "text": "• High-fidelity prototype",
+          "bbox": {
+            "x": 0.064792,
+            "y": 0.294259,
+            "width": 0.251158,
+            "height": 0.044711
+          }
+        },
+        {
+          "id": "p12-b006",
+          "page": 12,
+          "kind": "paragraph",
+          "text": "• The closest resemblance to the final product, a hi-fi prototype allows for testing both how people",
+          "bbox": {
+            "x": 0.086667,
+            "y": 0.360363,
+            "width": 0.824817,
+            "height": 0.037222
+          }
+        },
+        {
+          "id": "p12-b007",
+          "page": 12,
+          "kind": "paragraph",
+          "text": "react to the product’s visuals and user flow",
+          "bbox": {
+            "x": 0.105417,
+            "y": 0.400585,
+            "width": 0.356206,
+            "height": 0.037
+          }
+        },
+        {
+          "id": "p12-b008",
+          "page": 12,
+          "kind": "paragraph",
+          "text": "12",
+          "bbox": {
+            "x": 0.922062,
+            "y": 0.944244,
+            "width": 0.0125,
+            "height": 0.022222
+          }
+        },
+        {
+          "id": "p13-b001",
+          "page": 13,
+          "kind": "heading",
+          "text": "Types of prototype",
+          "bbox": {
+            "x": 0.054375,
+            "y": 0.079792,
+            "width": 0.265334,
+            "height": 0.059222
+          }
+        },
+        {
+          "id": "p13-b002",
+          "page": 13,
+          "kind": "heading",
+          "text": "• Throwaway Prototype",
+          "bbox": {
+            "x": 0.054375,
+            "y": 0.209815,
+            "width": 0.24155,
+            "height": 0.044711
+          }
+        },
+        {
+          "id": "p13-b003",
+          "page": 13,
+          "kind": "paragraph",
+          "text": "• Quickly built prototype to gather feedback and refine requirements; discarded after use",
+          "bbox": {
+            "x": 0.07625,
+            "y": 0.276029,
+            "width": 0.741964,
+            "height": 0.037222
+          }
+        },
+        {
+          "id": "p13-b004",
+          "page": 13,
+          "kind": "heading",
+          "text": "• Evolutionary Prototype",
+          "bbox": {
+            "x": 0.054375,
+            "y": 0.334926,
+            "width": 0.252525,
+            "height": 0.044711
+          }
+        },
+        {
+          "id": "p13-b005",
+          "page": 13,
+          "kind": "paragraph",
+          "text": "• Incrementally refined based on feedback until final version",
+          "bbox": {
+            "x": 0.07625,
+            "y": 0.401029,
+            "width": 0.510008,
+            "height": 0.037222
+          }
+        },
+        {
+          "id": "p13-b006",
+          "page": 13,
+          "kind": "heading",
+          "text": "• Incremental Prototype",
+          "bbox": {
+            "x": 0.054375,
+            "y": 0.459963,
+            "width": 0.24135,
+            "height": 0.044711
+          }
+        },
+        {
+          "id": "p13-b007",
+          "page": 13,
+          "kind": "paragraph",
+          "text": "• Breaks final product into pieces, develops parts separately and integrates at the end",
+          "bbox": {
+            "x": 0.07625,
+            "y": 0.526066,
+            "width": 0.709621,
+            "height": 0.037222
+          }
+        },
+        {
+          "id": "p13-b008",
+          "page": 13,
+          "kind": "paragraph",
+          "text": "13",
+          "bbox": {
+            "x": 0.922062,
+            "y": 0.944244,
+            "width": 0.0125,
+            "height": 0.022222
+          }
+        },
+        {
+          "id": "p14-b001",
+          "page": 14,
+          "kind": "heading",
+          "text": "Minimum Viable Product (MVP)",
+          "bbox": {
+            "x": 0.038167,
+            "y": 0.075199,
+            "width": 0.470373,
+            "height": 0.059222
+          }
+        },
+        {
+          "id": "p14-b002",
+          "page": 14,
+          "kind": "paragraph",
+          "text": "• Market validation is crucial when building something unique and uncertain",
+          "bbox": {
+            "x": 0.047,
+            "y": 0.202066,
+            "width": 0.644145,
+            "height": 0.037222
+          }
+        },
+        {
+          "id": "p14-b003",
+          "page": 14,
+          "kind": "paragraph",
+          "text": "• Create a version of a new product which allows a team to collect the maximum amount of validated",
+          "bbox": {
+            "x": 0.047,
+            "y": 0.260593,
+            "width": 0.848854,
+            "height": 0.037259
+          }
+        },
+        {
+          "id": "p14-b004",
+          "page": 14,
+          "kind": "paragraph",
+          "text": "learning about customers with the least effort",
+          "bbox": {
+            "x": 0.06575,
+            "y": 0.300881,
+            "width": 0.375999,
+            "height": 0.037
+          }
+        },
+        {
+          "id": "p14-b005",
+          "page": 14,
+          "kind": "paragraph",
+          "text": "• Minimum: spend as little time and effort to create it",
+          "bbox": {
+            "x": 0.047,
+            "y": 0.359103,
+            "width": 0.455123,
+            "height": 0.037222
+          }
+        },
+        {
+          "id": "p14-b006",
+          "page": 14,
+          "kind": "paragraph",
+          "text": "• Viable: sufficient quality to provide an accurate assessment of whether customers will use the product.",
+          "bbox": {
+            "x": 0.047,
+            "y": 0.417659,
+            "width": 0.874879,
+            "height": 0.037222
+          }
+        },
+        {
+          "id": "p14-b007",
+          "page": 14,
+          "kind": "paragraph",
+          "text": "Video Link 14",
+          "bbox": {
+            "x": 0.534292,
+            "y": 0.939089,
+            "width": 0.400271,
+            "height": 0.033333
+          }
+        },
+        {
+          "id": "p15-b001",
+          "page": 15,
+          "kind": "heading",
+          "text": "Learning with MVP",
+          "bbox": {
+            "x": 0.046958,
+            "y": 0.075607,
+            "width": 0.286921,
+            "height": 0.059222
+          }
+        },
+        {
+          "id": "p15-b002",
+          "page": 15,
+          "kind": "paragraph",
+          "text": "• Test an idea by exposing an early version of your product to the target users and customers, to collect the",
+          "bbox": {
+            "x": 0.052542,
+            "y": 0.21077,
+            "width": 0.890919,
+            "height": 0.037222
+          }
+        },
+        {
+          "id": "p15-b003",
+          "page": 15,
+          "kind": "paragraph",
+          "text": "relevant data, and to learn form it.",
+          "bbox": {
+            "x": 0.071292,
+            "y": 0.250992,
+            "width": 0.282779,
+            "height": 0.037
+          }
+        },
+        {
+          "id": "p15-b004",
+          "page": 15,
+          "kind": "paragraph",
+          "text": "• Reduce risk of developing a product that is not economically viable.",
+          "bbox": {
+            "x": 0.052542,
+            "y": 0.309326,
+            "width": 0.586453,
+            "height": 0.037222
+          }
+        },
+        {
+          "id": "p15-b005",
+          "page": 15,
+          "kind": "paragraph",
+          "text": "• Once the MVP is on the market, you collect your key value metrics, create the next MVP, and so on.",
+          "bbox": {
+            "x": 0.052542,
+            "y": 0.36777,
+            "width": 0.85381,
+            "height": 0.037222
+          }
+        },
+        {
+          "id": "p15-b006",
+          "page": 15,
+          "kind": "paragraph",
+          "text": "15",
+          "bbox": {
+            "x": 0.922062,
+            "y": 0.944244,
+            "width": 0.0125,
+            "height": 0.022222
+          }
+        },
+        {
+          "id": "p15-b007",
+          "page": 15,
+          "kind": "paragraph",
+          "text": "Aspect Prototype MVP (Minimum Viable Product)",
+          "bbox": {
+            "x": 0.046958,
+            "y": 0.478036,
+            "width": 0.576159,
+            "height": 0.025889
+          }
+        },
+        {
+          "id": "p15-b008",
+          "page": 15,
+          "kind": "paragraph",
+          "text": "Purpose",
+          "bbox": {
+            "x": 0.046958,
+            "y": 0.548711,
+            "width": 0.047087,
+            "height": 0.025926
+          }
+        },
+        {
+          "id": "p15-b009",
+          "page": 15,
+          "kind": "paragraph",
+          "text": "Test and visualize concept, design,",
+          "bbox": {
+            "x": 0.187479,
+            "y": 0.533156,
+            "width": 0.202504,
+            "height": 0.025926
+          }
+        },
+        {
+          "id": "p15-b010",
+          "page": 15,
+          "kind": "paragraph",
+          "text": "and UX",
+          "bbox": {
+            "x": 0.187479,
+            "y": 0.564333,
+            "width": 0.04577,
+            "height": 0.025889
+          }
+        },
+        {
+          "id": "p15-b011",
+          "page": 15,
+          "kind": "paragraph",
+          "text": "Deliver core functionality to users",
+          "bbox": {
+            "x": 0.418354,
+            "y": 0.548711,
+            "width": 0.199165,
+            "height": 0.025926
+          }
+        },
+        {
+          "id": "p15-b012",
+          "page": 15,
+          "kind": "paragraph",
+          "text": "Functionality",
+          "bbox": {
+            "x": 0.046958,
+            "y": 0.624333,
+            "width": 0.077793,
+            "height": 0.025889
+          }
+        },
+        {
+          "id": "p15-b013",
+          "page": 15,
+          "kind": "paragraph",
+          "text": "Often non-functional or limited",
+          "bbox": {
+            "x": 0.187479,
+            "y": 0.608777,
+            "width": 0.18326,
+            "height": 0.025889
+          }
+        },
+        {
+          "id": "p15-b014",
+          "page": 15,
+          "kind": "paragraph",
+          "text": "functionality",
+          "bbox": {
+            "x": 0.187479,
+            "y": 0.639888,
+            "width": 0.074545,
+            "height": 0.025889
+          }
+        },
+        {
+          "id": "p15-b015",
+          "page": 15,
+          "kind": "paragraph",
+          "text": "Fully functional with core features",
+          "bbox": {
+            "x": 0.418354,
+            "y": 0.624333,
+            "width": 0.201487,
+            "height": 0.025889
+          }
+        },
+        {
+          "id": "p15-b016",
+          "page": 15,
+          "kind": "paragraph",
+          "text": "Market readiness Not market-ready Market-ready",
+          "bbox": {
+            "x": 0.046958,
+            "y": 0.684333,
+            "width": 0.450677,
+            "height": 0.025889
+          }
+        },
+        {
+          "id": "p15-b017",
+          "page": 15,
+          "kind": "paragraph",
+          "text": "User feedback focus",
+          "bbox": {
+            "x": 0.046958,
+            "y": 0.744333,
+            "width": 0.11918,
+            "height": 0.025889
+          }
+        },
+        {
+          "id": "p15-b018",
+          "page": 15,
+          "kind": "paragraph",
+          "text": "Initial feedback on design and",
+          "bbox": {
+            "x": 0.187479,
+            "y": 0.728777,
+            "width": 0.175769,
+            "height": 0.025889
+          }
+        },
+        {
+          "id": "p15-b019",
+          "page": 15,
+          "kind": "paragraph",
+          "text": "feasibility",
+          "bbox": {
+            "x": 0.187479,
+            "y": 0.759888,
+            "width": 0.058294,
+            "height": 0.025889
+          }
+        },
+        {
+          "id": "p15-b020",
+          "page": 15,
+          "kind": "paragraph",
+          "text": "Real user feedback on product value",
+          "bbox": {
+            "x": 0.418354,
+            "y": 0.728777,
+            "width": 0.212714,
+            "height": 0.025889
+          }
+        },
+        {
+          "id": "p15-b021",
+          "page": 15,
+          "kind": "paragraph",
+          "text": "and usability",
+          "bbox": {
+            "x": 0.418354,
+            "y": 0.759888,
+            "width": 0.074982,
+            "height": 0.025889
+          }
+        },
+        {
+          "id": "p15-b022",
+          "page": 15,
+          "kind": "paragraph",
+          "text": "Development stage Early stage, before full development",
+          "bbox": {
+            "x": 0.046958,
+            "y": 0.819888,
+            "width": 0.352929,
+            "height": 0.025889
+          }
+        },
+        {
+          "id": "p15-b023",
+          "page": 15,
+          "kind": "paragraph",
+          "text": "Early launch phase, first usable",
+          "bbox": {
+            "x": 0.418354,
+            "y": 0.804333,
+            "width": 0.182628,
+            "height": 0.025889
+          }
+        },
+        {
+          "id": "p15-b024",
+          "page": 15,
+          "kind": "paragraph",
+          "text": "version",
+          "bbox": {
+            "x": 0.418354,
+            "y": 0.835444,
+            "width": 0.042945,
+            "height": 0.025889
+          }
+        },
+        {
+          "id": "p15-b025",
+          "page": 15,
+          "kind": "paragraph",
+          "text": "Goal",
+          "bbox": {
+            "x": 0.046958,
+            "y": 0.895444,
+            "width": 0.028309,
+            "height": 0.025889
+          }
+        },
+        {
+          "id": "p15-b026",
+          "page": 15,
+          "kind": "paragraph",
+          "text": "Validate design ideas and technical",
+          "bbox": {
+            "x": 0.187479,
+            "y": 0.879888,
+            "width": 0.204195,
+            "height": 0.025889
+          }
+        },
+        {
+          "id": "p15-b027",
+          "page": 15,
+          "kind": "paragraph",
+          "text": "feasibility",
+          "bbox": {
+            "x": 0.187479,
+            "y": 0.910999,
+            "width": 0.058294,
+            "height": 0.025889
+          }
+        },
+        {
+          "id": "p15-b028",
+          "page": 15,
+          "kind": "paragraph",
+          "text": "Validate business idea and attract",
+          "bbox": {
+            "x": 0.418354,
+            "y": 0.879888,
+            "width": 0.193798,
+            "height": 0.025889
+          }
+        },
+        {
+          "id": "p15-b029",
+          "page": 15,
+          "kind": "paragraph",
+          "text": "users",
+          "bbox": {
+            "x": 0.418354,
+            "y": 0.910999,
+            "width": 0.02997,
+            "height": 0.025889
+          }
+        },
+        {
+          "id": "p16-b001",
+          "page": 16,
+          "kind": "heading",
+          "text": "Prototyping with AI",
+          "bbox": {
+            "x": 0.029542,
+            "y": 0.017119,
+            "width": 0.257738,
+            "height": 0.053704
+          }
+        },
+        {
+          "id": "p16-b002",
+          "page": 16,
+          "kind": "paragraph",
+          "text": "16",
+          "bbox": {
+            "x": 0.922062,
+            "y": 0.944244,
+            "width": 0.0125,
+            "height": 0.022222
+          }
+        },
+        {
+          "id": "p16-b003",
+          "page": 16,
+          "kind": "paragraph",
+          "text": "https://lnkd.in/p/edNRmAsy",
+          "bbox": {
+            "x": 0.029479,
+            "y": 0.504578,
+            "width": 0.142088,
+            "height": 0.022222
+          }
+        },
+        {
+          "id": "p16-b004",
+          "page": 16,
+          "kind": "paragraph",
+          "text": "https://lnkd.in/p/eWFBdhWH https://lnkd.in/p/eAYFM_DQ",
+          "bbox": {
+            "x": 0.290146,
+            "y": 0.510429,
+            "width": 0.610024,
+            "height": 0.026741
+          }
+        },
+        {
+          "id": "p16-b005",
+          "page": 16,
+          "kind": "paragraph",
+          "text": "https://www.linkedin.com/posts/emollick_i-",
+          "bbox": {
+            "x": 0.511813,
+            "y": 0.467651,
+            "width": 0.201705,
+            "height": 0.020333
+          }
+        },
+        {
+          "id": "p16-b006",
+          "page": 16,
+          "kind": "paragraph",
+          "text": "had-early-access-and-a-longer-post-is-activity-",
+          "bbox": {
+            "x": 0.511813,
+            "y": 0.492096,
+            "width": 0.214205,
+            "height": 0.020333
+          }
+        },
+        {
+          "id": "p16-b007",
+          "page": 16,
+          "kind": "paragraph",
+          "text": "7501366954893529089-NQ2E",
+          "bbox": {
+            "x": 0.511813,
+            "y": 0.51654,
+            "width": 0.142056,
+            "height": 0.020333
+          }
+        },
+        {
+          "id": "p16-b008",
+          "page": 16,
+          "kind": "paragraph",
+          "text": "https://lnkd.in/p/ewr3uEhn https://lnkd.in/p/ebPqJ-Ez",
+          "bbox": {
+            "x": 0.320583,
+            "y": 0.956356,
+            "width": 0.350675,
+            "height": 0.026296
+          }
+        },
+        {
+          "id": "p16-b009",
+          "page": 16,
+          "kind": "paragraph",
+          "text": "https://lnkd.in/p/eghGWaJw",
+          "bbox": {
+            "x": 0.759646,
+            "y": 0.946689,
+            "width": 0.140413,
+            "height": 0.022222
+          }
+        },
+        {
+          "id": "p16-b010",
+          "page": 16,
+          "kind": "paragraph",
+          "text": "https://lnkd.in/p/eZdR6ySW",
+          "bbox": {
+            "x": 0.045667,
+            "y": 0.956503,
+            "width": 0.129758,
+            "height": 0.020333
+          }
+        },
+        {
+          "id": "p14-visual-001",
+          "page": 14,
+          "kind": "image",
+          "assetId": "asset-mvp-metaphor",
+          "bbox": {
+            "x": 0.51,
+            "y": 0.48,
+            "width": 0.42,
+            "height": 0.46
+          }
+        },
+        {
+          "id": "p11-visual-001",
+          "page": 11,
+          "kind": "image",
+          "assetId": "asset-prototype-wireframes",
+          "bbox": {
+            "x": 0.08,
+            "y": 0.55,
+            "width": 0.39,
+            "height": 0.38
+          }
+        },
+        {
+          "id": "p15-visual-001",
+          "page": 15,
+          "kind": "image",
+          "assetId": "asset-mvp-loop",
+          "bbox": {
+            "x": 0.69,
+            "y": 0.45,
+            "width": 0.26,
+            "height": 0.48
+          }
+        },
+        {
+          "id": "p15-visual-002",
+          "page": 15,
+          "kind": "image",
+          "assetId": "asset-prototype-vs-mvp-table",
+          "bbox": {
+            "x": 0.035,
+            "y": 0.44,
+            "width": 0.615,
+            "height": 0.5
+          }
+        }
+      ]
+    }
+  ],
+  "knowledgeNodes": [
+    {
+      "id": "kn-prototype-feedback",
+      "kind": "concept",
+      "title": "Prototypes reduce ambiguity",
+      "summary": "Wireframes, mockups, and higher-fidelity prototypes make requirements visible and testable before full implementation.",
+      "sourceDocumentId": "doc-sdlc-lecture-1",
+      "sourcePages": [
+        11,
+        12,
+        13
+      ],
+      "relatedNodeIds": [
+        "kn-mvp-learning"
+      ]
+    },
+    {
+      "id": "kn-mvp-learning",
+      "kind": "relationship",
+      "title": "MVPs produce market evidence",
+      "summary": "An MVP uses a viable core product, real users, data, and iteration to test value and reduce market risk.",
+      "sourceDocumentId": "doc-sdlc-lecture-1",
+      "sourcePages": [
+        14,
+        15
+      ],
+      "relatedNodeIds": [
+        "kn-prototype-feedback"
+      ]
+    }
+  ],
+  "chapters": [
+    {
+      "id": "chapter-prototype",
+      "title": "Prototype：把需求变成可看的东西",
+      "shortTitle": "PROTOTYPE",
+      "color": "#2C55A2"
+    },
+    {
+      "id": "chapter-mvp",
+      "title": "MVP：用最小代价换真实证据",
+      "shortTitle": "MVP",
+      "color": "#9A7440"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "scene-hook",
+      "chapterId": "chapter-prototype",
+      "title": "看到，才知道要什么",
+      "template": "opening",
+      "duration": 20.0,
+      "narration": [
+        {
+          "id": "scene-hook-n1",
+          "text": "软件开发里，最难的一步往往不是写代码，而是让人说清楚他到底要什么。",
+          "start": 0.6,
+          "end": 7.2
+        },
+        {
+          "id": "scene-hook-n2",
+          "text": "幻灯片里有一句话很准确：我说不清要什么，但看到的时候，我会知道。",
+          "start": 7.2,
+          "end": 13.6
+        },
+        {
+          "id": "scene-hook-n3",
+          "text": "所以需求工作的第一步，是先让需求变得可见。",
+          "start": 13.6,
+          "end": 17.8
+        }
+      ],
+      "elements": [
+        {
+          "id": "scene-hook-title",
+          "type": "title",
+          "content": "看到，才知道要什么",
+          "x": 6,
+          "y": 18,
+          "width": 66,
+          "height": 14,
+          "style": {
+            "accent": "#2C55A2",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "scene-hook-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.2
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1.0
+            },
+            "beats": [
+              {
+                "id": "scene-hook-title-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-hook-n1",
+                  "offset": 0.1
+                },
+                "duration": 0.9,
+                "intensity": 0.6
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            11
+          ]
+        },
+        {
+          "id": "scene-hook-text",
+          "type": "text",
+          "content": "客户说不清要什么；需求要先被看见。",
+          "x": 6,
+          "y": 38,
+          "width": 50,
+          "height": 9,
+          "style": {
+            "accent": "#2C55A2",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "scene-hook-text-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 13.7
+              },
+              "duration": 0.8,
+              "stagger": 0.04,
+              "intensity": 1.0
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            11
+          ]
+        },
+        {
+          "id": "scene-hook-quote",
+          "type": "badge",
+          "content": "“I'll know it when I see it.”",
+          "x": 50,
+          "y": 66,
+          "width": 42,
+          "height": 8,
+          "style": {
+            "accent": "#2C55A2",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "scene-hook-quote-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 7.3
+              },
+              "duration": 0.8,
+              "intensity": 1.0
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            11
+          ]
+        }
+      ],
+      "knowledgeNodeIds": [],
+      "captionMode": "bottom",
+      "transitionOut": {
+        "preset": "fade",
+        "duration": 0.5
+      }
+    },
+    {
+      "id": "scene-prototype-fidelity",
+      "chapterId": "chapter-prototype",
+      "title": "三种保真度",
+      "template": "concept",
+      "duration": 27.4,
+      "narration": [
+        {
+          "id": "scene-prototype-fidelity-n1",
+          "text": "Prototype 是一个伞形词：任何展示需求如何实现的早期交付物，都算。",
+          "start": 0.6,
+          "end": 8.0
+        },
+        {
+          "id": "scene-prototype-fidelity-n2",
+          "text": "Wireframe 只画结构，标出页面分区和交互位置。",
+          "start": 8.0,
+          "end": 13.4
+        },
+        {
+          "id": "scene-prototype-fidelity-n3",
+          "text": "Mockup 加上品牌、色彩、字体和图标，但仍然是静态的。",
+          "start": 13.4,
+          "end": 19.2
+        },
+        {
+          "id": "scene-prototype-fidelity-n4",
+          "text": "Hi-fi 最接近成品，能测试用户对视觉的反应和完整流程。",
+          "start": 19.2,
+          "end": 25.0
+        }
+      ],
+      "elements": [
+        {
+          "id": "scene-prototype-fidelity-title",
+          "type": "title",
+          "content": "Prototype：把需求做出来看",
+          "x": 6,
+          "y": 10,
+          "width": 88,
+          "height": 13,
+          "style": {
+            "accent": "#2C55A2",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "scene-prototype-fidelity-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.2
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1.0
+            },
+            "beats": [
+              {
+                "id": "scene-prototype-fidelity-title-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-prototype-fidelity-n1",
+                  "offset": 0.1
+                },
+                "duration": 0.9,
+                "intensity": 0.55
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            11
+          ]
+        },
+        {
+          "id": "scene-prototype-fidelity-image",
+          "type": "image",
+          "content": "",
+          "x": 22,
+          "y": 28,
+          "width": 56,
+          "height": 52,
+          "style": {
+            "accent": "#2C55A2",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "scene-prototype-fidelity-image-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.4
+              },
+              "duration": 0.9,
+              "intensity": 0.25
+            },
+            "beats": [],
+            "ambient": "none",
+            "exit": {
+              "id": "scene-prototype-fidelity-image-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 9.6
+              },
+              "duration": 0.4,
+              "intensity": 1.0
+            }
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            11
+          ],
+          "assetId": "asset-prototype-wireframes",
+          "alt": "AltexSoft 的三张手机线框图原图：登录页、注册表单页、注册成功提示页。",
+          "fit": "contain"
+        },
+        {
+          "id": "scene-prototype-fidelity-flow",
+          "type": "flow",
+          "content": "PROTOTYPE — 任何展示需求如何实现的早期交付物",
+          "x": 6,
+          "y": 30,
+          "width": 88,
+          "height": 30,
+          "style": {
+            "accent": "#2C55A2",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "scene-prototype-fidelity-flow-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 9.9
+              },
+              "duration": 0.9,
+              "stagger": 0.16,
+              "intensity": 1.0
+            },
+            "beats": [
+              {
+                "id": "scene-prototype-fidelity-flow-beat-1",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-prototype-fidelity-n2",
+                  "offset": 2.4
+                },
+                "duration": 0.9,
+                "stagger": 0.12,
+                "intensity": 0.7
+              },
+              {
+                "id": "scene-prototype-fidelity-flow-beat-2",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-prototype-fidelity-n3",
+                  "offset": 0.15
+                },
+                "duration": 0.9,
+                "stagger": 0.12,
+                "intensity": 0.7
+              },
+              {
+                "id": "scene-prototype-fidelity-flow-beat-3",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-prototype-fidelity-n4",
+                  "offset": 0.15
+                },
+                "duration": 0.9,
+                "stagger": 0.12,
+                "intensity": 0.7
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "items": [
+            {
+              "id": "scene-prototype-fidelity-flow-item-1",
+              "label": "Wireframe｜只画结构，标出页面分区与交互位置"
+            },
+            {
+              "id": "scene-prototype-fidelity-flow-item-2",
+              "label": "Mockup｜加上品牌、色彩、字体和图标，但仍是静态的"
+            },
+            {
+              "id": "scene-prototype-fidelity-flow-item-3",
+              "label": "Hi-fi prototype｜最接近成品，能测试视觉反应和完整流程"
+            }
+          ],
+          "sourcePages": [
+            11,
+            12
+          ]
+        },
+        {
+          "id": "scene-prototype-fidelity-credit",
+          "type": "badge",
+          "content": "Wireframes 原图 · AltexSoft · slide 11",
+          "x": 6,
+          "y": 86,
+          "width": 44,
+          "height": 6,
+          "style": {
+            "accent": "#2C55A2",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "scene-prototype-fidelity-credit-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.8
+              },
+              "duration": 0.8,
+              "intensity": 1.0
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            11
+          ]
+        },
+        {
+          "id": "scene-prototype-fidelity-summary",
+          "type": "text",
+          "content": "同一份需求，用三种精度回答三个问题：结构、观感、行为。",
+          "x": 6,
+          "y": 66,
+          "width": 84,
+          "height": 9,
+          "style": {
+            "accent": "#2C55A2",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "scene-prototype-fidelity-summary-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 20.0
+              },
+              "duration": 0.8,
+              "stagger": 0.04,
+              "intensity": 1.0
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            11,
+            12
+          ]
+        }
+      ],
+      "knowledgeNodeIds": [
+        "kn-prototype-feedback"
+      ],
+      "captionMode": "bottom",
+      "transitionOut": {
+        "preset": "fade",
+        "duration": 0.5
+      }
+    },
+    {
+      "id": "scene-prototype-types",
+      "chapterId": "chapter-prototype",
+      "title": "三种原型",
+      "template": "process",
+      "duration": 24.6,
+      "narration": [
+        {
+          "id": "scene-prototype-types-n1",
+          "text": "常见做法有三种。",
+          "start": 0.6,
+          "end": 2.2
+        },
+        {
+          "id": "scene-prototype-types-n2",
+          "text": "Throwaway 快速做一个，拿到反馈就丢掉，它买的是信息。",
+          "start": 2.2,
+          "end": 8.4
+        },
+        {
+          "id": "scene-prototype-types-n3",
+          "text": "Evolutionary 从原型开始，按反馈一轮轮长成最终产品。",
+          "start": 8.4,
+          "end": 14.8
+        },
+        {
+          "id": "scene-prototype-types-n4",
+          "text": "Incremental 把产品拆成几块，分别做原型，最后再集成。",
+          "start": 14.8,
+          "end": 21.2
+        }
+      ],
+      "elements": [
+        {
+          "id": "scene-prototype-types-title",
+          "type": "title",
+          "content": "三种原型，三种学习方式",
+          "x": 6,
+          "y": 9,
+          "width": 70,
+          "height": 13,
+          "style": {
+            "accent": "#2C55A2",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "scene-prototype-types-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.2
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1.0
+            },
+            "beats": [
+              {
+                "id": "scene-prototype-types-title-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-prototype-types-n1",
+                  "offset": 0.1
+                },
+                "duration": 0.9,
+                "intensity": 0.55
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            13
+          ]
+        },
+        {
+          "id": "scene-prototype-types-diagram",
+          "type": "diagram",
+          "content": "三种原型的分支关系",
+          "x": 6,
+          "y": 24,
+          "width": 88,
+          "height": 62,
+          "style": {
+            "accent": "#2C55A2",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "scene-prototype-types-diagram-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.3
+              },
+              "duration": 0.7,
+              "intensity": 0.3
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "diagram",
+            "surface": "none"
+          },
+          "diagram": {
+            "nodes": [
+              {
+                "id": "types-root",
+                "label": "Prototype\n怎么用？",
+                "x": 36,
+                "y": 4,
+                "width": 28,
+                "height": 16,
+                "tone": "primary",
+                "revealAt": 0.9
+              },
+              {
+                "id": "types-throwaway",
+                "label": "Throwaway\n快速验证，用完即弃",
+                "x": 3,
+                "y": 70,
+                "width": 28,
+                "height": 18,
+                "tone": "neutral",
+                "revealAt": 2.3
+              },
+              {
+                "id": "types-evolutionary",
+                "label": "Evolutionary\n按反馈长成成品",
+                "x": 36,
+                "y": 70,
+                "width": 28,
+                "height": 18,
+                "tone": "neutral",
+                "revealAt": 8.5
+              },
+              {
+                "id": "types-incremental",
+                "label": "Incremental\n分块开发，最后集成",
+                "x": 69,
+                "y": 70,
+                "width": 28,
+                "height": 18,
+                "tone": "neutral",
+                "revealAt": 14.9
+              }
+            ],
+            "edges": [
+              {
+                "id": "types-edge-1",
+                "from": "types-root",
+                "to": "types-throwaway",
+                "revealAt": 2.2,
+                "kind": "directed"
+              },
+              {
+                "id": "types-edge-2",
+                "from": "types-root",
+                "to": "types-evolutionary",
+                "revealAt": 8.4,
+                "kind": "directed"
+              },
+              {
+                "id": "types-edge-3",
+                "from": "types-root",
+                "to": "types-incremental",
+                "revealAt": 14.8,
+                "kind": "directed"
+              }
+            ]
+          },
+          "sourcePages": [
+            13
+          ]
+        }
+      ],
+      "knowledgeNodeIds": [
+        "kn-prototype-feedback"
+      ],
+      "captionMode": "bottom",
+      "transitionOut": {
+        "preset": "fade",
+        "duration": 0.5
+      }
+    },
+    {
+      "id": "scene-mvp-definition",
+      "chapterId": "chapter-mvp",
+      "title": "Minimum + Viable",
+      "template": "concept",
+      "duration": 21.0,
+      "narration": [
+        {
+          "id": "scene-mvp-definition-n1",
+          "text": "MVP 不是把功能随便砍一半。",
+          "start": 0.6,
+          "end": 3.6
+        },
+        {
+          "id": "scene-mvp-definition-n2",
+          "text": "Minimum 要求用最少的时间和精力做出来；Viable 要求质量足够高，能准确判断用户到底会不会用。",
+          "start": 3.6,
+          "end": 14.0
+        },
+        {
+          "id": "scene-mvp-definition-n3",
+          "text": "合起来，就是用最小代价，换最大量的验证性学习。",
+          "start": 14.0,
+          "end": 18.6
+        }
+      ],
+      "elements": [
+        {
+          "id": "scene-mvp-definition-title",
+          "type": "title",
+          "content": "MVP：刚好够验证",
+          "x": 6,
+          "y": 11,
+          "width": 56,
+          "height": 13,
+          "style": {
+            "accent": "#9A7440",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "scene-mvp-definition-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.2
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1.0
+            },
+            "beats": [
+              {
+                "id": "scene-mvp-definition-title-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-mvp-definition-n1",
+                  "offset": 0.1
+                },
+                "duration": 0.9,
+                "intensity": 0.55
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            14
+          ]
+        },
+        {
+          "id": "scene-mvp-definition-comparison",
+          "type": "comparison",
+          "content": "不是功能减半，而是刚好够验证",
+          "x": 6,
+          "y": 32,
+          "width": 88,
+          "height": 24,
+          "style": {
+            "accent": "#9A7440",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "scene-mvp-definition-comparison-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.6
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1.0
+            },
+            "beats": [
+              {
+                "id": "scene-mvp-definition-comparison-beat-1",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-mvp-definition-n2",
+                  "offset": 0.2
+                },
+                "duration": 1.0,
+                "stagger": 0.15,
+                "intensity": 0.7
+              },
+              {
+                "id": "scene-mvp-definition-comparison-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-mvp-definition-n3",
+                  "offset": 0.2
+                },
+                "duration": 0.9,
+                "intensity": 0.55
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "editorial",
+            "surface": "none"
+          },
+          "items": [
+            {
+              "id": "scene-mvp-definition-comparison-item-1",
+              "label": "Minimum — 用最少的时间和精力做出来"
+            },
+            {
+              "id": "scene-mvp-definition-comparison-item-2",
+              "label": "Viable — 质量足够高，能准确判断用户会不会真的使用"
+            }
+          ],
+          "sourcePages": [
+            14
+          ]
+        },
+        {
+          "id": "scene-mvp-definition-summary",
+          "type": "text",
+          "content": "用最小代价，换最大量的验证性学习。",
+          "x": 6,
+          "y": 62,
+          "width": 68,
+          "height": 8,
+          "style": {
+            "accent": "#9A7440",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "scene-mvp-definition-summary-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 14.15
+              },
+              "duration": 0.8,
+              "stagger": 0.04,
+              "intensity": 1.0
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            14
+          ]
+        }
+      ],
+      "knowledgeNodeIds": [
+        "kn-mvp-learning"
+      ],
+      "captionMode": "bottom",
+      "transitionOut": {
+        "preset": "fade",
+        "duration": 0.5
+      }
+    },
+    {
+      "id": "scene-mvp-metaphor",
+      "chapterId": "chapter-mvp",
+      "title": "每一版都能用",
+      "template": "process",
+      "duration": 24.6,
+      "narration": [
+        {
+          "id": "scene-mvp-metaphor-n1",
+          "text": "这张图常被用来解释 MVP。",
+          "start": 0.6,
+          "end": 3.4
+        },
+        {
+          "id": "scene-mvp-metaphor-n2",
+          "text": "如果按功能切片交付，先造轮子、再造底盘，最后才有整车，每一步都不能用。",
+          "start": 3.4,
+          "end": 10.4
+        },
+        {
+          "id": "scene-mvp-metaphor-n3",
+          "text": "换一种切法：从滑板开始，每一版都能把人从 A 送到 B，只是能力和成本在增加。",
+          "start": 10.4,
+          "end": 18.2
+        },
+        {
+          "id": "scene-mvp-metaphor-n4",
+          "text": "MVP 要的是这条路：先可用，再变好。",
+          "start": 18.2,
+          "end": 22.0
+        }
+      ],
+      "elements": [
+        {
+          "id": "scene-mvp-metaphor-title",
+          "type": "title",
+          "content": "每一版都要能走",
+          "x": 6,
+          "y": 11,
+          "width": 64,
+          "height": 13,
+          "style": {
+            "accent": "#9A7440",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "scene-mvp-metaphor-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.2
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1.0
+            },
+            "beats": [
+              {
+                "id": "scene-mvp-metaphor-title-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-mvp-metaphor-n1",
+                  "offset": 0.1
+                },
+                "duration": 0.9,
+                "intensity": 0.55
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            14
+          ]
+        },
+        {
+          "id": "scene-mvp-metaphor-image",
+          "type": "image",
+          "content": "",
+          "x": 24,
+          "y": 26,
+          "width": 52,
+          "height": 60,
+          "style": {
+            "accent": "#9A7440",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "scene-mvp-metaphor-image-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.4
+              },
+              "duration": 0.9,
+              "intensity": 0.25
+            },
+            "beats": [],
+            "ambient": "none",
+            "exit": {
+              "id": "scene-mvp-metaphor-image-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 9.9
+              },
+              "duration": 0.4,
+              "intensity": 1.0
+            }
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            14
+          ],
+          "assetId": "asset-mvp-metaphor",
+          "alt": "Henrik Kniberg 的 MVP 比喻原图：上半部分是“先造轮子、底盘、车身”的错误切法，下半部分是滑板到汽车、每一版都能用的正确切法。",
+          "fit": "contain"
+        },
+        {
+          "id": "scene-mvp-metaphor-timeline",
+          "type": "timeline",
+          "content": "",
+          "x": 6,
+          "y": 34,
+          "width": 88,
+          "height": 16,
+          "style": {
+            "accent": "#9A7440",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "scene-mvp-metaphor-timeline-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 9.9
+              },
+              "duration": 0.9,
+              "stagger": 0.16,
+              "intensity": 1.0
+            },
+            "beats": [
+              {
+                "id": "scene-mvp-metaphor-timeline-beat-1",
+                "preset": "lift",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-mvp-metaphor-n3",
+                  "offset": 0.3
+                },
+                "duration": 2.2,
+                "stagger": 0.55,
+                "intensity": 0.7
+              },
+              {
+                "id": "scene-mvp-metaphor-timeline-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-mvp-metaphor-n4",
+                  "offset": 0.2
+                },
+                "duration": 0.9,
+                "intensity": 0.5
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "items": [
+            {
+              "id": "scene-mvp-metaphor-timeline-item-1",
+              "label": "滑板｜先能移动"
+            },
+            {
+              "id": "scene-mvp-metaphor-timeline-item-2",
+              "label": "滑板车｜更省力"
+            },
+            {
+              "id": "scene-mvp-metaphor-timeline-item-3",
+              "label": "自行车｜能上路"
+            },
+            {
+              "id": "scene-mvp-metaphor-timeline-item-4",
+              "label": "摩托车｜更快"
+            },
+            {
+              "id": "scene-mvp-metaphor-timeline-item-5",
+              "label": "汽车｜完整方案"
+            }
+          ],
+          "sourcePages": [
+            14
+          ]
+        },
+        {
+          "id": "scene-mvp-metaphor-text",
+          "type": "text",
+          "content": "先可用，再变好：每一版都能完成同一件事。",
+          "x": 6,
+          "y": 56,
+          "width": 70,
+          "height": 9,
+          "style": {
+            "accent": "#9A7440",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "scene-mvp-metaphor-text-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 18.4
+              },
+              "duration": 0.8,
+              "stagger": 0.04,
+              "intensity": 1.0
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            14
+          ]
+        },
+        {
+          "id": "scene-mvp-metaphor-credit",
+          "type": "badge",
+          "content": "Henrik Kniberg 的比喻 · 原图 / 重绘",
+          "x": 6,
+          "y": 88,
+          "width": 46,
+          "height": 6,
+          "style": {
+            "accent": "#9A7440",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "scene-mvp-metaphor-credit-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 10.5
+              },
+              "duration": 0.8,
+              "intensity": 1.0
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            14
+          ]
+        }
+      ],
+      "knowledgeNodeIds": [
+        "kn-mvp-learning"
+      ],
+      "captionMode": "bottom",
+      "transitionOut": {
+        "preset": "fade",
+        "duration": 0.5
+      }
+    },
+    {
+      "id": "scene-mvp-loop",
+      "chapterId": "chapter-mvp",
+      "title": "Build → Measure → Learn",
+      "template": "architecture",
+      "duration": 22.8,
+      "narration": [
+        {
+          "id": "scene-mvp-loop-n1",
+          "text": "MVP 上线之后，循环才开始。",
+          "start": 0.6,
+          "end": 3.6
+        },
+        {
+          "id": "scene-mvp-loop-n2",
+          "text": "Build 做出下一个版本；Measure 收集关键价值指标，看真实用户怎么用。",
+          "start": 3.6,
+          "end": 11.6
+        },
+        {
+          "id": "scene-mvp-loop-n3",
+          "text": "Learn 用它验证或推翻假设，再决定下一版做什么。",
+          "start": 11.6,
+          "end": 16.8
+        },
+        {
+          "id": "scene-mvp-loop-n4",
+          "text": "每一轮，都在减少做错产品的风险。",
+          "start": 16.8,
+          "end": 20.0
+        }
+      ],
+      "elements": [
+        {
+          "id": "scene-mvp-loop-title",
+          "type": "title",
+          "content": "上线，才是循环的开始",
+          "x": 6,
+          "y": 9,
+          "width": 80,
+          "height": 13,
+          "style": {
+            "accent": "#9A7440",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "scene-mvp-loop-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.2
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1.0
+            },
+            "beats": [
+              {
+                "id": "scene-mvp-loop-title-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-mvp-loop-n1",
+                  "offset": 0.1
+                },
+                "duration": 0.9,
+                "intensity": 0.55
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            15
+          ]
+        },
+        {
+          "id": "scene-mvp-loop-image",
+          "type": "image",
+          "content": "",
+          "x": 6,
+          "y": 30,
+          "width": 30,
+          "height": 42,
+          "style": {
+            "accent": "#9A7440",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "scene-mvp-loop-image-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.4
+              },
+              "duration": 0.9,
+              "intensity": 0.25
+            },
+            "beats": [],
+            "ambient": "none",
+            "exit": {
+              "id": "scene-mvp-loop-image-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 4.4
+              },
+              "duration": 0.5,
+              "intensity": 1.0
+            }
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            15
+          ],
+          "assetId": "asset-mvp-loop",
+          "alt": "slide 15 的手绘 MVP 学习循环原图：Idea、Build、Code、Measure、Data、Learn 与 MVP 便签。",
+          "fit": "contain"
+        },
+        {
+          "id": "scene-mvp-loop-diagram",
+          "type": "diagram",
+          "content": "MVP 学习循环",
+          "x": 6,
+          "y": 26,
+          "width": 88,
+          "height": 60,
+          "style": {
+            "accent": "#9A7440",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "scene-mvp-loop-diagram-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 4.6
+              },
+              "duration": 0.7,
+              "intensity": 0.3
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "diagram",
+            "surface": "none"
+          },
+          "diagram": {
+            "nodes": [
+              {
+                "id": "loop-build",
+                "label": "Build\n做出下一个 MVP",
+                "x": 36,
+                "y": 2,
+                "width": 28,
+                "height": 18,
+                "tone": "primary",
+                "revealAt": 3.6
+              },
+              {
+                "id": "loop-measure",
+                "label": "Measure\n关键价值指标",
+                "x": 68,
+                "y": 66,
+                "width": 26,
+                "height": 18,
+                "tone": "neutral",
+                "revealAt": 5.0
+              },
+              {
+                "id": "loop-learn",
+                "label": "Learn\n验证或推翻假设",
+                "x": 6,
+                "y": 66,
+                "width": 26,
+                "height": 18,
+                "tone": "neutral",
+                "revealAt": 11.7
+              }
+            ],
+            "edges": [
+              {
+                "id": "loop-edge-1",
+                "from": "loop-build",
+                "to": "loop-measure",
+                "label": "真实用户",
+                "revealAt": 5.1,
+                "kind": "directed"
+              },
+              {
+                "id": "loop-edge-2",
+                "from": "loop-measure",
+                "to": "loop-learn",
+                "label": "数据",
+                "revealAt": 11.8,
+                "kind": "directed"
+              },
+              {
+                "id": "loop-edge-3",
+                "from": "loop-learn",
+                "to": "loop-build",
+                "label": "下一版",
+                "revealAt": 13.2,
+                "kind": "directed"
+              }
+            ]
+          },
+          "sourcePages": [
+            15
+          ]
+        }
+      ],
+      "knowledgeNodeIds": [
+        "kn-mvp-learning"
+      ],
+      "captionMode": "bottom",
+      "transitionOut": {
+        "preset": "fade",
+        "duration": 0.5
+      }
+    },
+    {
+      "id": "scene-prototype-vs-mvp",
+      "chapterId": "chapter-mvp",
+      "title": "验证的不是同一件事",
+      "template": "comparison",
+      "duration": 23.8,
+      "narration": [
+        {
+          "id": "scene-prototype-vs-mvp-n1",
+          "text": "把两者放在一起看，分界很清楚。",
+          "start": 0.6,
+          "end": 3.6
+        },
+        {
+          "id": "scene-prototype-vs-mvp-n2",
+          "text": "Prototype 验证的是设计和技术可行性；它常常不完整，也不准备上市。",
+          "start": 3.6,
+          "end": 11.0
+        },
+        {
+          "id": "scene-prototype-vs-mvp-n3",
+          "text": "MVP 验证商业想法：核心功能完整、可以上市，反馈来自真实用户。",
+          "start": 11.0,
+          "end": 17.4
+        },
+        {
+          "id": "scene-prototype-vs-mvp-n4",
+          "text": "一个回答能不能做，一个回答值不值得做。",
+          "start": 17.4,
+          "end": 21.2
+        }
+      ],
+      "elements": [
+        {
+          "id": "scene-prototype-vs-mvp-title",
+          "type": "title",
+          "content": "Prototype ≠ MVP",
+          "x": 6,
+          "y": 10,
+          "width": 64,
+          "height": 13,
+          "style": {
+            "accent": "#9A7440",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "scene-prototype-vs-mvp-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.2
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1.0
+            },
+            "beats": [
+              {
+                "id": "scene-prototype-vs-mvp-title-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-prototype-vs-mvp-n1",
+                  "offset": 0.1
+                },
+                "duration": 0.9,
+                "intensity": 0.55
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            15
+          ]
+        },
+        {
+          "id": "scene-prototype-vs-mvp-image",
+          "type": "image",
+          "content": "",
+          "x": 15,
+          "y": 28,
+          "width": 70,
+          "height": 60,
+          "style": {
+            "accent": "#9A7440",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "scene-prototype-vs-mvp-image-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.4
+              },
+              "duration": 0.9,
+              "intensity": 0.25
+            },
+            "beats": [],
+            "ambient": "none",
+            "exit": {
+              "id": "scene-prototype-vs-mvp-image-exit",
+              "preset": "fade",
+              "trigger": {
+                "type": "time",
+                "at": 3.1
+              },
+              "duration": 0.5,
+              "intensity": 1.0
+            }
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            15
+          ],
+          "assetId": "asset-prototype-vs-mvp-table",
+          "alt": "slide 15 的 Prototype 与 MVP 六行对照表原图，包含 Purpose、Functionality、Market readiness、User feedback focus、Development stage、Goal。",
+          "fit": "contain"
+        },
+        {
+          "id": "scene-prototype-vs-mvp-cards",
+          "type": "cards",
+          "content": "四个问题，一条分界",
+          "x": 6,
+          "y": 30,
+          "width": 88,
+          "height": 34,
+          "style": {
+            "accent": "#9A7440",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "scene-prototype-vs-mvp-cards-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 3.5
+              },
+              "duration": 0.9,
+              "stagger": 0.12,
+              "intensity": 1.0
+            },
+            "beats": [
+              {
+                "id": "scene-prototype-vs-mvp-cards-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-prototype-vs-mvp-n2",
+                  "offset": 0.2
+                },
+                "duration": 0.9,
+                "intensity": 0.45
+              },
+              {
+                "id": "scene-prototype-vs-mvp-cards-beat-2",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-prototype-vs-mvp-n3",
+                  "offset": 0.2
+                },
+                "duration": 0.9,
+                "intensity": 0.45
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "auto",
+            "surface": "none"
+          },
+          "items": [
+            {
+              "id": "scene-prototype-vs-mvp-cards-item-1",
+              "label": "目标｜Prototype 验证设计；MVP 验证生意"
+            },
+            {
+              "id": "scene-prototype-vs-mvp-cards-item-2",
+              "label": "功能｜Prototype 常常不完整；MVP 核心完整"
+            },
+            {
+              "id": "scene-prototype-vs-mvp-cards-item-3",
+              "label": "上市｜Prototype 不上市；MVP 可以上市"
+            },
+            {
+              "id": "scene-prototype-vs-mvp-cards-item-4",
+              "label": "反馈｜Prototype 看可行性；MVP 看真实价值"
+            }
+          ],
+          "sourcePages": [
+            15
+          ]
+        },
+        {
+          "id": "scene-prototype-vs-mvp-text",
+          "type": "text",
+          "content": "先验证做不做得出来，再验证值不值得做。",
+          "x": 6,
+          "y": 72,
+          "width": 70,
+          "height": 8,
+          "style": {
+            "accent": "#9A7440",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "scene-prototype-vs-mvp-text-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 17.6
+              },
+              "duration": 0.8,
+              "stagger": 0.04,
+              "intensity": 1.0
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            15
+          ]
+        }
+      ],
+      "knowledgeNodeIds": [
+        "kn-prototype-feedback",
+        "kn-mvp-learning"
+      ],
+      "captionMode": "bottom",
+      "transitionOut": {
+        "preset": "fade",
+        "duration": 0.5
+      }
+    },
+    {
+      "id": "scene-closing",
+      "chapterId": "chapter-mvp",
+      "title": "先看见，再验证",
+      "template": "closing",
+      "duration": 16.6,
+      "narration": [
+        {
+          "id": "scene-closing-n1",
+          "text": "现在，AI 已经被用来快速做出可交互的原型。",
+          "start": 0.6,
+          "end": 5.0
+        },
+        {
+          "id": "scene-closing-n2",
+          "text": "但无论做得多快，价值都不在交付物本身，而在它换回来的真实反馈。",
+          "start": 5.0,
+          "end": 11.2
+        },
+        {
+          "id": "scene-closing-n3",
+          "text": "先做能看见的，再做能卖出去的。",
+          "start": 11.2,
+          "end": 14.2
+        }
+      ],
+      "elements": [
+        {
+          "id": "scene-closing-title",
+          "type": "title",
+          "content": "AI 很快，判断在人",
+          "x": 6,
+          "y": 14,
+          "width": 64,
+          "height": 14,
+          "style": {
+            "accent": "#9A7440",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "scene-closing-title-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 0.2
+              },
+              "duration": 0.9,
+              "stagger": 0.08,
+              "intensity": 1.0
+            },
+            "beats": [
+              {
+                "id": "scene-closing-title-beat-1",
+                "preset": "pulse",
+                "trigger": {
+                  "type": "narration",
+                  "segmentId": "scene-closing-n1",
+                  "offset": 0.1
+                },
+                "duration": 0.9,
+                "intensity": 0.55
+              }
+            ],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            16
+          ]
+        },
+        {
+          "id": "scene-closing-text",
+          "type": "text",
+          "content": "AI 已经能快速做出可交互的原型；但价值不在交付物，而在它换回的反馈。",
+          "x": 6,
+          "y": 34,
+          "width": 62,
+          "height": 10,
+          "style": {
+            "accent": "#9A7440",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "scene-closing-text-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 5.1
+              },
+              "duration": 0.8,
+              "stagger": 0.04,
+              "intensity": 1.0
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            16
+          ]
+        },
+        {
+          "id": "scene-closing-badge",
+          "type": "badge",
+          "content": "先做能看见的，再做能卖出去的",
+          "x": 6,
+          "y": 52,
+          "width": 44,
+          "height": 7,
+          "style": {
+            "accent": "#9A7440",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "scene-closing-badge-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 11.3
+              },
+              "duration": 0.8,
+              "intensity": 1.0
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "sourcePages": [
+            15,
+            16
+          ]
+        },
+        {
+          "id": "scene-closing-flow",
+          "type": "flow",
+          "content": "看见 → 验证 → 反馈",
+          "x": 6,
+          "y": 70,
+          "width": 88,
+          "height": 16,
+          "style": {
+            "accent": "#9A7440",
+            "tone": "light",
+            "align": "left"
+          },
+          "motion": {
+            "enter": {
+              "id": "scene-closing-flow-enter",
+              "preset": "fade-rise",
+              "trigger": {
+                "type": "time",
+                "at": 5.4
+              },
+              "duration": 0.8,
+              "stagger": 0.14,
+              "intensity": 1.0
+            },
+            "beats": [],
+            "ambient": "none"
+          },
+          "visual": {
+            "variant": "minimal",
+            "surface": "none"
+          },
+          "items": [
+            {
+              "id": "scene-closing-flow-item-1",
+              "label": "Prototype｜让需求可见"
+            },
+            {
+              "id": "scene-closing-flow-item-2",
+              "label": "MVP｜让真实用户使用"
+            },
+            {
+              "id": "scene-closing-flow-item-3",
+              "label": "反馈｜决定下一版"
+            }
+          ],
+          "sourcePages": [
+            11,
+            14,
+            15
+          ]
+        }
+      ],
+      "knowledgeNodeIds": [
+        "kn-prototype-feedback",
+        "kn-mvp-learning"
+      ],
+      "captionMode": "bottom"
+    }
+  ],
+  "assets": [
+    {
+      "id": "asset-mvp-metaphor",
+      "name": "Henrik Kniberg MVP metaphor — native slide 14 image",
+      "kind": "image",
+      "uri": "assets/page-14-mvp-metaphor.png",
+      "embedded": false,
+      "sha256": "0f5d70014e4a5a9ca9d524cbe4141d36d35028fb49fd2c4d8d9ec267dfc67e1b",
+      "width": 880,
+      "height": 566,
+      "source": {
+        "documentId": "doc-sdlc-lecture-1",
+        "page": 14,
+        "bbox": {
+          "x": 0.51,
+          "y": 0.48,
+          "width": 0.42,
+          "height": 0.46
+        },
+        "extraction": "native",
+        "objectId": "76 0 R"
+      }
+    },
+    {
+      "id": "asset-prototype-wireframes",
+      "name": "Three phone wireframes — native slide 11 image",
+      "kind": "image",
+      "uri": "assets/page-11-wireframes-native.png",
+      "embedded": false,
+      "sha256": "f9103d795ee5de0940c97b548947ce52b8e7689111ccdfc8c2a4608f415990c4",
+      "width": 760,
+      "height": 405,
+      "source": {
+        "documentId": "doc-sdlc-lecture-1",
+        "page": 11,
+        "bbox": {
+          "x": 0.08,
+          "y": 0.55,
+          "width": 0.39,
+          "height": 0.38
+        },
+        "extraction": "native",
+        "objectId": "62 0 R"
+      }
+    },
+    {
+      "id": "asset-mvp-loop",
+      "name": "Hand-drawn MVP learning loop — native slide 15 image",
+      "kind": "image",
+      "uri": "assets/page-15-mvp-loop-native.png",
+      "embedded": false,
+      "sha256": "828cec610227100bd5ddd4fc621eb4f071a6fa2b3733b44f3ad98df49d03ebee",
+      "width": 349,
+      "height": 278,
+      "source": {
+        "documentId": "doc-sdlc-lecture-1",
+        "page": 15,
+        "bbox": {
+          "x": 0.69,
+          "y": 0.45,
+          "width": 0.26,
+          "height": 0.48
+        },
+        "extraction": "native",
+        "objectId": "80 0 R"
+      }
+    },
+    {
+      "id": "asset-prototype-vs-mvp-table",
+      "name": "Prototype vs MVP table — 300 DPI slide 15 crop",
+      "kind": "image",
+      "uri": "assets/page-15-prototype-vs-mvp-table.png",
+      "embedded": false,
+      "sha256": "0c92d03299f163c11dedfae03baea279fec031935321e0825ad3eafdc2135b29",
+      "width": 2460,
+      "height": 1125,
+      "source": {
+        "documentId": "doc-sdlc-lecture-1",
+        "page": 15,
+        "bbox": {
+          "x": 0.035,
+          "y": 0.44,
+          "width": 0.615,
+          "height": 0.5
+        },
+        "extraction": "rendered-crop"
+      }
+    }
+  ],
+  "theme": {
+    "name": "indigo-porcelain",
+    "background": "#FCFBF7",
+    "surface": "#F1F0E9",
+    "foreground": "#203A72",
+    "muted": "#697083",
+    "accent": "#2C55A2",
+    "accentAlt": "#9A7440",
+    "fontFamily": "\"Times New Roman\", Times, serif"
+  }
+}
