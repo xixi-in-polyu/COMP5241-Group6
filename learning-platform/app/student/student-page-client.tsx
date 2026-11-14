@@ -165,7 +165,6 @@ export default function StudentPage({ courses, student }: { courses: StudentCour
               </h2>
               <div className="flex items-center gap-2">
                 <Link className="inline-flex min-h-10 items-center gap-2 rounded-xl border border-slate-300 bg-white px-3 text-sm font-semibold text-[#24496f] hover:bg-slate-50" href="/courses?view=archived"><Archive className="size-4" />Archived</Link>
-                <Link className="inline-flex min-h-10 items-center gap-2 rounded-xl bg-[#193b61] px-3 text-sm font-semibold text-white hover:bg-[#284f77]" href="/courses/create"><Plus className="size-4" />Create course</Link>
               </div>
             </div>
             {archiveError ? <p className="mt-4 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">{archiveError}</p> : null}
