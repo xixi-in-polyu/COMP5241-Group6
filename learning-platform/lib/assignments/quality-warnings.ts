@@ -13,3 +13,13 @@ export function visibleQualityWarnings(value: unknown): string[] {
       && !isNoIssuesFoundWarning(warning),
   );
 }
+
+const questionWarningPattern = /^([0-9a-f-]{36}):\s*(.*)$/i;
+
+export function formatQualityWarning(warning: string, questionIds: string[]): string {
+  const match = questionWarningPattern.exec(warning.trim());
+  if (!match) return warning;
+  const questionIndex = questionIds.indexOf(match[1]);
+  const label = questionIndex >= 0 ? `Question ${questionIndex + 1}` : "Question";
+  return `${label}: ${match[2]}`;
+}

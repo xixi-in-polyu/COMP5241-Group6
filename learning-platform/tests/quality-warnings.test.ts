@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { isNoIssuesFoundWarning, visibleQualityWarnings } from "@/lib/assignments/quality-warnings";
+import { formatQualityWarning, isNoIssuesFoundWarning, visibleQualityWarnings } from "@/lib/assignments/quality-warnings";
 
 describe("quality warnings", () => {
   it("recognizes empty review messages with or without a question prefix", () => {
@@ -17,5 +17,16 @@ describe("quality warnings", () => {
       "The answer is correct and well-supported. No issues found.",
       "The answer is not grounded in the cited evidence.",
     ])).toEqual(["The answer is not grounded in the cited evidence."]);
+  });
+
+  it("replaces question IDs with their visible question number", () => {
+    const questionId = "08420eb7-d1d9-4ecb-96bd-a42be8ca36e5";
+    expect(formatQualityWarning(`${questionId}: The difficulty is mislabeled.`, [questionId]))
+      .toBe("Question 1: The difficulty is mislabeled.");
+  });
+
+  it("removes stale question IDs that no longer map to a visible question", () => {
+    expect(formatQualityWarning("08420eb7-d1d9-4ecb-96bd-a42be8ca36e5: Check this question.", []))
+      .toBe("Question: Check this question.");
   });
 });
