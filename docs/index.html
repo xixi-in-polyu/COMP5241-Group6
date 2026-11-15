@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="zh-Hans">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="COMP5241 Group 6 AI-assisted learning platform project information." />
+    <meta name="description" content="COMP5241 Group 6 learning platform for course authoring, assignments, and interactive practice." />
     <title>COMP5241 Group 6 · Learning Platform</title>
     <style>
       :root {
@@ -43,7 +43,7 @@
       .hero {
         position: relative;
         overflow: hidden;
-        padding: 72px 0 80px;
+        padding: 52px 0 58px;
         border: 1px solid var(--line);
         border-radius: 30px;
         background: var(--paper);
@@ -60,8 +60,8 @@
       }
       .hero-inner { position: relative; z-index: 1; width: min(840px, calc(100% - 48px)); margin: 0 auto; text-align: center; }
       .eyebrow { margin: 0 0 14px; color: var(--blue); font-size: 13px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
-      h1 { max-width: 820px; margin: 0 auto; font-size: clamp(40px, 7vw, 72px); line-height: 1.04; letter-spacing: -.055em; }
-      .lead { max-width: 720px; margin: 24px auto 0; color: var(--muted); font-size: clamp(17px, 2vw, 20px); }
+      h1 { max-width: 760px; margin: 0 auto; font-size: clamp(32px, 4.5vw, 52px); line-height: 1.12; letter-spacing: -.04em; }
+      .lead { max-width: 680px; margin: 18px auto 0; color: var(--muted); font-size: clamp(16px, 1.7vw, 19px); }
       .actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 32px; }
       .button { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; gap: 8px; padding: 0 20px; border: 1px solid var(--navy); border-radius: 13px; font-size: 15px; font-weight: 750; text-decoration: none; }
       .button.primary { color: white; background: var(--navy); }
@@ -74,17 +74,16 @@
       .section-heading p { margin: 10px 0 0; color: var(--muted); }
       h2 { margin: 0; font-size: clamp(28px, 4vw, 42px); line-height: 1.12; letter-spacing: -.035em; }
       .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 28px; }
-      .card { min-height: 220px; padding: 26px; border: 1px solid var(--line); border-radius: 20px; background: var(--paper); }
+      .card { min-height: 270px; padding: 26px; border: 1px solid var(--line); border-radius: 20px; background: var(--paper); }
       .card-number { display: grid; width: 42px; height: 42px; place-items: center; border-radius: 12px; font-size: 14px; font-weight: 800; }
       .teacher { color: var(--blue); background: #d9e9f7; }
       .student { color: var(--green); background: #d6efe4; }
       .platform { color: var(--gold); background: #fbeec2; }
       .card h3 { margin: 22px 0 8px; font-size: 19px; }
       .card p { margin: 0; color: var(--muted); font-size: 15px; }
-      .flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 28px; }
-      .flow-step { position: relative; padding: 22px; border: 1px solid var(--line); border-radius: 18px; background: var(--paper); }
-      .flow-step small { color: var(--muted); font-weight: 750; text-transform: uppercase; letter-spacing: .08em; }
-      .flow-step strong { display: block; margin-top: 8px; font-size: 18px; }
+      .card ul { margin: 14px 0 0; padding-left: 20px; color: var(--muted); font-size: 14px; }
+      .card li + li { margin-top: 7px; }
+      .card li::marker { color: var(--blue); }
       .stack { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
       .stack span { padding: 9px 13px; border: 1px solid var(--line); border-radius: 999px; background: var(--paper); color: var(--muted); font-size: 14px; font-weight: 700; }
       .cta { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin: 76px 0 0; padding: 34px; border-radius: 24px; color: white; background: var(--navy); }
@@ -95,8 +94,8 @@
       footer a { font-weight: 700; }
       @media (max-width: 800px) {
         .nav-links a:not(:last-child) { display: none; }
-        .hero { padding: 52px 0 60px; }
-        .grid, .flow { grid-template-columns: 1fr; }
+        .hero { padding: 42px 0 48px; }
+        .grid { grid-template-columns: 1fr; }
         .card { min-height: auto; }
         .cta { align-items: flex-start; flex-direction: column; }
         footer { flex-direction: column; }
@@ -107,9 +106,8 @@
     <header class="shell nav">
       <div class="brand"><span class="mark" aria-hidden="true">G6</span><span>COMP5241 Learning Platform</span></div>
       <nav class="nav-links" aria-label="Primary navigation">
-        <a href="#features">功能</a>
-        <a href="#workflow">工作流</a>
-        <a href="#stack">技术栈</a>
+        <a href="#features">Features</a>
+        <a href="#stack">Technology</a>
         <a href="https://github.com/xixi-in-polyu/COMP5241-Group6">GitHub</a>
       </nav>
     </header>
@@ -118,55 +116,80 @@
       <section class="hero">
         <div class="hero-inner">
           <p class="eyebrow">COMP5241 · Group 6</p>
-          <h1>从课程材料到可学习、可练习的内容</h1>
-          <p class="lead">一个连接教师创作、AI 辅助生成与学生互动学习的全栈平台。以来源证据为基础，让课程、作业和练习保持在同一个清晰工作流中。</p>
+          <h1>Create courses, assignments, and interactive practice in one place</h1>
+          <p class="lead">A learning platform where teachers prepare course content and review assignments before publishing them to students.</p>
           <div class="actions">
-            <a class="button primary" href="https://comp5241-group6-learning-platform.vercel.app/">打开正式应用 <span aria-hidden="true">→</span></a>
-            <a class="button secondary" href="./group6-report.pdf">查看项目报告</a>
-            <a class="button secondary" href="./group6-slides.pdf">查看演示文稿</a>
-            <a class="button secondary" href="https://github.com/xixi-in-polyu/COMP5241-Group6">查看源代码</a>
+            <a class="button primary" href="https://comp5241-group6-learning-platform.vercel.app/">Open the app <span aria-hidden="true">→</span></a>
+            <a class="button secondary" href="./group6-report.pdf">Project report</a>
+            <a class="button secondary" href="./group6-slides.pdf">Presentation</a>
+            <a class="button secondary" href="./group6-slides.pptx" download>Download PPTX</a>
+            <a class="button secondary" href="https://www.youtube.com/watch?v=AKvw-iXTlhs">Demo video</a>
+            <a class="button secondary" href="https://github.com/xixi-in-polyu/COMP5241-Group6">Source code</a>
           </div>
           <div class="meta" aria-label="Project highlights">
-            <span>Next.js 16</span><span>React 19</span><span>PostgreSQL</span><span>AI-assisted</span>
+            <span>Teacher workspace</span><span>Student workspace</span><span>Interactive Labs</span>
           </div>
         </div>
       </section>
 
       <section id="features">
-        <div class="section-heading"><h2>围绕真实教学流程设计</h2><p>教师控制内容与发布边界，学生获得按课程组织的阅读与练习体验。</p></div>
+        <div class="section-heading"><h2>What the platform includes</h2><p>Each feature supports a specific part of preparing, reviewing, or completing course work.</p></div>
         <div class="grid">
-          <article class="card"><span class="card-number teacher">01</span><h3>教师创作</h3><p>上传课程材料、审核知识点、规划 mini-course，并生成与编辑普通题目和 Interactive Labs。</p></article>
-          <article class="card"><span class="card-number student">02</span><h3>学生学习</h3><p>阅读已发布课程，在课程详情中完成普通作业题目，并使用教师审批的互动练习。</p></article>
-          <article class="card"><span class="card-number platform">03</span><h3>平台能力</h3><p>提供个人 AI 设置、课程动画、音频讲解、Interactive Learning 与版本化内容管理。</p></article>
-        </div>
-      </section>
-
-      <section id="workflow">
-        <div class="section-heading"><h2>可审核的 AI 作业工作流</h2><p>生成不是黑盒的一次点击；每一步都保留教师确认和修订空间。</p></div>
-        <div class="flow" aria-label="Assignment workflow">
-          <div class="flow-step"><small>Step 1</small><strong>Sources</strong><span>选择课程知识或上传材料</span></div>
-          <div class="flow-step"><small>Step 2</small><strong>Knowledge</strong><span>审核实体、层级与证据</span></div>
-          <div class="flow-step"><small>Step 3</small><strong>Brief</strong><span>定义题型、难度与覆盖范围</span></div>
-          <div class="flow-step"><small>Step 4</small><strong>Draft</strong><span>编辑题目、审批 Lab 并发布</span></div>
+          <article class="card">
+            <span class="card-number teacher">01</span>
+            <h3>Course authoring</h3>
+            <p>Teachers build course content from their own materials.</p>
+            <ul><li>Upload PDF, TXT, DOCX, and PPTX files</li><li>Review extracted knowledge and source evidence</li><li>Edit and publish structured mini-courses</li></ul>
+          </article>
+          <article class="card">
+            <span class="card-number teacher">02</span>
+            <h3>Assignment builder</h3>
+            <p>A four-step workspace keeps generation and review separate.</p>
+            <ul><li>Select sources and knowledge coverage</li><li>Set question types, difficulty, and learning goals</li><li>Edit questions before saving and submitting</li></ul>
+          </article>
+          <article class="card">
+            <span class="card-number platform">03</span>
+            <h3>Interactive Labs</h3>
+            <p>Teachers can add practical activities alongside regular questions.</p>
+            <ul><li>Seven activity types, including matching, ordering, and quizzes</li><li>Up to three separately approved labs per assignment</li><li>Version history, updates, ordering, and archiving</li></ul>
+          </article>
+          <article class="card">
+            <span class="card-number student">04</span>
+            <h3>Student learning</h3>
+            <p>Published work is organised by course and assignment.</p>
+            <ul><li>Read course content and supporting materials</li><li>Answer standard assignment questions</li><li>Complete approved labs as ungraded practice</li></ul>
+          </article>
+          <article class="card">
+            <span class="card-number student">05</span>
+            <h3>Learning tools</h3>
+            <p>Additional formats support explanation and exploration.</p>
+            <ul><li>Course animation library</li><li>Audio explanations</li><li>Interactive learning experiments and workshops</li></ul>
+          </article>
+          <article class="card">
+            <span class="card-number platform">06</span>
+            <h3>Review and control</h3>
+            <p>Generated content stays under teacher control.</p>
+            <ul><li>Evidence references for generated activities</li><li>Draft and submitted assignment states</li><li>Approval required before labs reach students</li></ul>
+          </article>
         </div>
       </section>
 
       <section id="stack">
-        <div class="section-heading"><h2>全栈实现与自动化交付</h2><p>正式应用运行在 Vercel；GitHub Pages 仅用于这张公开项目信息页。</p></div>
+        <div class="section-heading"><h2>Technology</h2><p>The application runs on Vercel with a PostgreSQL database. This GitHub Pages site provides the public project overview and documents.</p></div>
         <div class="stack" aria-label="Technology stack">
           <span>Next.js</span><span>TypeScript</span><span>Tailwind CSS</span><span>Prisma</span><span>Neon Postgres</span><span>Vercel Blob</span><span>OpenAI-compatible APIs</span><span>Vitest</span><span>Playwright</span><span>GitHub Actions</span>
         </div>
       </section>
 
       <aside class="cta">
-        <div><h2>开始体验 Learning Platform</h2><p>前往 Vercel 正式环境登录，探索教师与学生工作区。</p></div>
-        <a class="button" href="https://comp5241-group6-learning-platform.vercel.app/">访问应用 <span aria-hidden="true">→</span></a>
+        <div><h2>Try the learning platform</h2><p>Open the deployed application to explore the teacher and student workspaces.</p></div>
+        <a class="button" href="https://comp5241-group6-learning-platform.vercel.app/">Open the app <span aria-hidden="true">→</span></a>
       </aside>
     </main>
 
     <footer class="shell">
       <span>COMP5241 Group 6 · Learning Platform</span>
-      <span><a href="./group6-report.pdf">Project Report</a> · <a href="./group6-slides.pdf">Presentation</a> · <a href="https://github.com/xixi-in-polyu/COMP5241-Group6">Repository</a> · <a href="https://comp5241-group6-learning-platform.vercel.app/">Vercel App</a></span>
+      <span><a href="./group6-report.pdf">Project Report</a> · <a href="./group6-slides.pdf">Presentation PDF</a> · <a href="./group6-slides.pptx" download>Download PPTX</a> · <a href="https://www.youtube.com/watch?v=AKvw-iXTlhs">Demo Video</a> · <a href="https://github.com/xixi-in-polyu/COMP5241-Group6">Repository</a> · <a href="https://comp5241-group6-learning-platform.vercel.app/">Vercel App</a></span>
     </footer>
   </body>
 </html>
