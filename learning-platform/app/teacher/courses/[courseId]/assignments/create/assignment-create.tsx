@@ -5,6 +5,7 @@ import { Check, FileText, LoaderCircle, Upload } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { type FormEvent, useCallback, useEffect, useState } from "react";
 
+import { AiSettingsLink } from "@/app/components/ai-settings-link";
 import { PageShell } from "@/app/components/page-shell";
 import { BLOB_UPLOAD_ACCESS } from "@/lib/uploads/access";
 
@@ -154,7 +155,7 @@ export default function AssignmentCreate({ courseId, user }: { courseId: string;
         <nav aria-label="Assignment workflow" className="mt-5 grid grid-cols-4 overflow-hidden rounded-xl border border-slate-200 bg-white">
           {steps.map((step, index) => <div key={step} className={`flex items-center justify-center gap-2 border-r border-slate-200 px-2 py-3 text-xs font-semibold last:border-r-0 sm:text-sm ${index === 0 ? "bg-[#193b61] text-white" : "text-slate-400"}`}>{index === 0 ? <span className="grid size-5 place-items-center rounded-full bg-white/20">1</span> : <span>{index + 1}</span>}{step}</div>)}
         </nav>
-        {notice && <p role="alert" className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800">{notice}</p>}
+        {notice && <p role="alert" className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800">{notice}<AiSettingsLink message={notice} /></p>}
         {course?.status !== "READY" ? (
           <section className="mt-6 rounded-2xl border border-slate-200 bg-white p-8 text-center"><h2 className="font-semibold text-[#193b61]">Course is not ready</h2><p className="mt-2 text-sm text-slate-500">Finish the legacy course setup before creating an assignment.</p></section>
         ) : (

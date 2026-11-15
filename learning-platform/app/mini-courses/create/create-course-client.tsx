@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { ArrowLeft, ArrowRight, Loader2, Sparkles, Wand2 } from "lucide-react";
 
 import { AccountMenu } from "@/app/components/account-menu";
+import { AiSettingsLink } from "@/app/components/ai-settings-link";
 import { personalAiHeaders } from "@/app/components/personal-ai-credentials";
 import { MaterialsEditor } from "@/app/components/mini-course/materials-editor";
 import { WorkspaceHeader } from "@/app/components/workspace-header";
@@ -437,7 +438,7 @@ export function CreateCourseClient({
 
       {error ? (
         <p role="alert" className="mt-4 rounded-lg bg-[#fdf3f3] px-3 py-2 text-xs text-[#a3232b]">
-          {error}
+          {error}<AiSettingsLink message={error} />
         </p>
       ) : null}
 
