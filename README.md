@@ -1,9 +1,55 @@
 # COMP5241 Group 6 — Learning Platform
 
-基于 Next.js 16、Prisma 和 PostgreSQL 的学习平台。
+面向教师与学生的 AI 辅助学习平台。教师可以从课程材料生成结构化 mini-course、作业题目和 Interactive Labs；学生可以阅读课程、完成练习并使用互动学习工具。
 
-测试生成功能相关：
-教师端支持按课程管理多份作业，并通过 `Sources → Knowledge → Brief → Draft` 四步流程生成有证据依据的题目和 Interactive Labs；学生端可运行已审批的本地练习活动。
+## 项目入口
+
+| 入口 | 地址 | 用途 |
+| --- | --- | --- |
+| 正式应用 | [comp5241-group6-learning-platform.vercel.app](https://comp5241-group6-learning-platform.vercel.app/) | 登录并使用完整学习平台 |
+| 项目信息页 | [xixi-in-polyu.github.io/COMP5241-Group6](https://xixi-in-polyu.github.io/COMP5241-Group6/) | 快速了解项目、功能与技术架构 |
+| 源代码 | [GitHub Repository](https://github.com/xixi-in-polyu/COMP5241-Group6) | 查看代码、Issues、PR 和 Actions |
+
+> GitHub Pages 只承载静态项目信息页；需要登录、数据库和 AI 能力的完整应用部署在 Vercel。
+
+## 核心功能
+
+- **课程创作**：从 PDF、TXT、DOCX、PPTX 等材料生成并编辑结构化 mini-course。
+- **AI 作业工作流**：通过 `Sources → Knowledge → Brief → Draft` 审核来源、知识点、题目与 Interactive Labs。
+- **学生学习空间**：按课程查看已发布作业，完成普通题目和已审批的互动练习。
+- **个人 AI 设置**：可在浏览器标签页中临时使用个人 OpenRouter、DeepSeek、OpenAI 或批准的兼容 API。
+- **课程动画与实验**：提供版本化动画、Interactive Learning、音频讲解和 Prototype Studio。
+
+## 技术栈
+
+| 层级 | 技术 |
+| --- | --- |
+| Web | Next.js 16、React 19、TypeScript、Tailwind CSS |
+| 数据 | PostgreSQL、Prisma、Neon |
+| 文件 | Private Vercel Blob |
+| AI | OpenAI-compatible providers、structured outputs |
+| 部署 | Vercel、GitHub Actions、GitHub Pages |
+| 测试 | Vitest、Playwright、ESLint、TypeScript |
+
+## 目录结构
+
+```text
+.
+├── learning-platform/   # Next.js 应用、Prisma schema、测试与部署脚本
+├── docs/                # GitHub Pages 静态信息页
+├── .github/workflows/   # CI、Preview、Production 与 Pages workflows
+└── README.md            # 项目总览与开发运维文档
+```
+
+## 文档导航
+
+- [本地启动](#本地启动)
+- [AI Provider 配置](#ai-provider-配置)
+- [课程动画](#课程动画)
+- [教师作业流程](#教师作业流程)
+- [验证命令](#验证命令)
+- [GitHub Actions CI/CD](#github-actions-cicd)
+- [主要页面与接口](#主要页面与接口)
 
 ## 本地启动
 
@@ -168,7 +214,7 @@ BLOB_READ_WRITE_TOKEN=vercel_blob_rw_实际生成的值
 5. 在 **Draft** 编辑题目，并管理最多 3 个未归档 Lab。每个 Lab 只有一个活动，拥有独立版本历史、审批、排序和归档状态；更新与首次生成失败时模型会自动修复重试一次。
 6. 所有未归档 Lab 必须有已审批的当前版本才能 **Submit**；提交后题目和 Lab 永久锁定。
 
-学生端 `/student` 展示所有 READY 课程。只有包含已审批 Lab 的已提交作业会显示在 Interactive Labs 中；练习不计分，回答、浏览位置、hint 和完成状态只保存在当前浏览器的 `localStorage`，可随时 Reset。
+学生端 `/student` 展示可访问课程，作业入口位于对应课程详情页。所有已提交作业都会显示；普通题目可直接练习，已审批的 Interactive Labs 会附加显示。当前学生回答不提交计分，Lab 的浏览位置、hint 和完成状态只保存在当前浏览器的 `localStorage`，可随时 Reset。
 
 已完成的步骤可通过 Tab 只读回看。处理中的步骤显示 spinner，未来步骤不可进入。切换 Tab 不会清除尚未保存的 Brief/Draft 本地状态。
 
@@ -235,6 +281,7 @@ npm audit --omit=dev
 | `Preview` | 内部 PR 创建或更新；manual 模式下使用 `deploy-preview` 标签 | 隔离 Neon 分支、Vercel Preview、Playwright E2E、PR URL 评论 |
 | `Preview Cleanup` | PR 关闭 | 删除 `preview/pr-{number}`；7 天 TTL 是异常兜底 |
 | `Production` | push 到 `main` 或手动 | 人工批准后创建恢复分支、迁移、候选部署、健康验证和 promote |
+| `Pages` | Pages 文件合入 `main` 或手动 | 发布 `docs/` 静态项目信息页 |
 | `Maintenance Migration` | 手动 | 破坏性 migration 的双环境审批维护窗口 |
 | `Break Glass Production` | 手动且显式启用 | 仅管理员可使用的审计化紧急部署 |
 
@@ -298,6 +345,12 @@ Migration 必须使用 expand-contract：先新增兼容结构、发布兼容代
 
 Break-glass 默认关闭。事件中只有 `xixi-in-polyu` 能以当前 `main` 的完整 SHA 和原因发起；使用后必须关闭 `BREAK_GLASS_ENABLED`、记录后续事件复盘并轮换 emergency credentials。它不能成为绕过常规 reviewer 的日常发布方式。
 
+### GitHub Pages 信息页
+
+`docs/` 是不依赖 Node.js 构建的静态信息页，`.github/workflows/pages.yml` 使用 GitHub 官方 Pages Actions 发布。它只介绍项目并引导访问 Vercel 正式应用，不承载登录、数据库、文件上传或 AI 请求。
+
+Pages workflow 只在 `main` 上的 `docs/**`、workflow 本身或 README 发生变化时自动运行，也支持手动触发。发布地址为 [https://xixi-in-polyu.github.io/COMP5241-Group6/](https://xixi-in-polyu.github.io/COMP5241-Group6/)。
+
 ### 诊断与证据
 
 - PR 页面查看 `Checks` 与唯一 Preview 评论。
@@ -316,9 +369,9 @@ Break-glass 默认关闭。事件中只有 `xixi-in-polyu` 能以当前 `main` �
 | `/teacher/courses/{courseId}` | 作业列表；旧课程材料恢复/知识确认入口 |
 | `/teacher/courses/{courseId}/assignments/create` | 作业 Sources 步骤 |
 | `/teacher/courses/{courseId}/assignments/{assignmentId}` | 四步作业工作台 |
-| `/student` | READY 课程与已发布 Interactive Labs |
-| `/student/courses/{courseId}` | 课程内已发布的 Lab 作业 |
-| `/student/assignments/{assignmentId}` | 多 Lab 练习运行时与本地进度 |
+| `/student` | 学生可访问的课程与学习工具 |
+| `/student/courses/{courseId}` | 课程内容、材料与全部已发布作业 |
+| `/student/assignments/{assignmentId}` | 普通题目与已审批 Interactive Labs |
 | `/animations` | 动画版本库；教师和学生都可浏览 |
 | `/animations/{version}` | 指定版本；教师可编辑，学生只读 |
 | `/api/assignments/{assignmentId}/interactive-labs/**` | 教师 Lab 创建、更新、历史、审批、归档及排序 |
