@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, Beaker, BookOpen } from "lucide-react";
+import { ArrowRight, BookOpen, ClipboardList } from "lucide-react";
 
 import { AccountMenu } from "@/app/components/account-menu";
 import { chipTones, coverFor } from "@/app/components/course-cover";
@@ -39,7 +39,7 @@ export default async function StudentCoursePage({ params }: { params: Promise<{ 
     },
   });
   if (!course) notFound();
-  const assignments = course.assignments.filter((assignment) => assignment.interactiveLabs.some((lab) => lab.activeVersionId && lab.approvedVersionId === lab.activeVersionId));
+  const assignments = course.assignments;
   return (
     <main className="min-h-screen bg-slate-50 p-4 text-slate-800 sm:p-6">
       <div className="mx-auto w-full max-w-[1280px]">
@@ -93,17 +93,17 @@ export default async function StudentCoursePage({ params }: { params: Promise<{ 
           ) : null}
 
           <section className="mt-8">
-            <h2 className="text-xl font-semibold text-[#193b61]">Interactive Labs</h2>
+            <h2 className="text-xl font-semibold text-[#193b61]">Assignments</h2>
             <div className="mt-4 grid gap-3">
               {assignments.map((assignment) => (
                 <Link key={assignment.id} href={`/student/assignments/${assignment.id}`} className="flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:border-[#9bb2c8]">
                   <span className="grid size-10 place-items-center rounded-xl bg-[#d6efe4] text-[#2f6e56]">
-                    <Beaker className="size-5" />
+                    <ClipboardList className="size-5" />
                   </span>
                   <span className="min-w-0 flex-1">
                     <b className="block text-[#193b61]">{assignment.title}</b>
                     <small className="mt-1 block text-slate-500">
-                      {assignment.interactiveLabs.filter((lab) => lab.activeVersionId && lab.approvedVersionId === lab.activeVersionId).length} approved Lab(s) · Practice only
+                      {assignment.interactiveLabs.filter((lab) => lab.activeVersionId && lab.approvedVersionId === lab.activeVersionId).length} interactive lab(s) · Published
                     </small>
                   </span>
                   <ArrowRight className="size-4 text-slate-400" />
@@ -112,9 +112,9 @@ export default async function StudentCoursePage({ params }: { params: Promise<{ 
               {!assignments.length && (
                 <div className="flex items-center gap-4 rounded-2xl border border-dashed border-slate-300 bg-white p-6">
                   <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-[#d6efe4] text-[#2f6e56]">
-                    <Beaker className="size-5" />
+                    <ClipboardList className="size-5" />
                   </span>
-                  <p className="text-sm text-slate-500">No Interactive Labs have been published yet.</p>
+                  <p className="text-sm text-slate-500">No assignments have been published yet.</p>
                 </div>
               )}
             </div>

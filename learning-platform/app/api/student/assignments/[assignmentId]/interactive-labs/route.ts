@@ -1,5 +1,5 @@
 import { authorizeApiRole } from "@/lib/auth/authorization";
-import { interactiveLabPayloadSchema } from "@/lib/assignments/domain";
+import { interactiveLabPayloadSchema, questionsSchema } from "@/lib/assignments/domain";
 import { prisma } from "@/lib/prisma";
 
 export async function GET(_request: Request, { params }: { params: Promise<{ assignmentId: string }> }) {
@@ -19,6 +19,7 @@ export async function GET(_request: Request, { params }: { params: Promise<{ ass
     select: {
       id: true,
       title: true,
+      questions: true,
       course: { select: { id: true, title: true } },
       interactiveLabs: {
         where: { archivedAt: null },
@@ -28,6 +29,14 @@ export async function GET(_request: Request, { params }: { params: Promise<{ ass
     },
   });
   if (!assignment) return Response.json({ error: "Assignment not found." }, { status: 404 });
+
+  const questions = questionsSchema.parse(assignment.questions).map((question) => ({
+    id: question.id,
+    type: question.type,
+    prompt: question.prompt,
+    options: question.options,
+    score: question.score,
+  }));
 
   const labs = assignment.interactiveLabs.flatMap((lab) => {
     if (!lab.activeVersionId || lab.approvedVersionId !== lab.activeVersionId) return [];
@@ -47,6 +56,5 @@ export async function GET(_request: Request, { params }: { params: Promise<{ ass
       payload: { schemaVersion: 1 as const, activity },
     }];
   });
-  if (!labs.length) return Response.json({ error: "No approved Interactive Labs are available." }, { status: 404 });
-  return Response.json({ studentId: authorization.user.id, assignment: { id: assignment.id, title: assignment.title, course: assignment.course }, labs });
+  return Response.json({ studentId: authorization.user.id, assignment: { id: assignment.id, title: assignment.title, course: assignment.course }, questions, labs });
 }
