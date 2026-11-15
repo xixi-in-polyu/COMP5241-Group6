@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Download, FileText, Loader2, Plus, Sparkles, Trash2 } from "lucide-react";
 
+import { AiSettingsLink } from "@/app/components/ai-settings-link";
 import { BlockListEditor } from "@/app/components/mini-course/block-list-editor";
 import { personalAiHeaders } from "@/app/components/personal-ai-credentials";
 import { MaterialsEditor } from "@/app/components/mini-course/materials-editor";
@@ -300,7 +301,7 @@ export function EditCourseClient({
       ) : null}
       {error ? (
         <p role="alert" className="mt-3 rounded-lg bg-[#fdf3f3] px-3 py-2 text-xs text-[#a3232b]">
-          {error}
+          {error}<AiSettingsLink message={error} />
         </p>
       ) : null}
 
