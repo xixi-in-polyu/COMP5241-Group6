@@ -7,6 +7,7 @@ import { z } from "zod";
 import { getAiConfig, getAiProvider } from "@/lib/ai/config";
 import { promptSchema } from "@/lib/ai/schema-prompt";
 import { difficultySchema, entitySchema, evidenceSchema, getDifficultySpecification, interactiveLabPayloadSchema, objectiveSchema, questionDifficultyRules, questionSchema, questionTypeSchema, validateInteractiveLab, type AssignmentBrief, type InteractiveLabComponentType, type InteractiveLabPayload, type KnowledgeEntity, type Question, type QuestionSlot } from "./domain";
+import { isNoIssuesFoundWarning } from "./quality-warnings";
 import { finishUsageEvent, startUsageEvent } from "./usage";
 
 type Segment = { id: string; materialId: string; locator: unknown; normalizedText: string };
@@ -176,7 +177,9 @@ export async function reviewQuestions(questions: Question[], entities: Knowledge
   if (!questions.length) return [];
   const difficultySpecifications = questions.map((question) => ({ questionId: question.id, specification: getDifficultySpecification(question) }));
   const result = await structured(reviewSchema, "quality_review", "Review whether each answer and explanation is grounded in cited evidence and whether the actual cognitive demand matches its difficulty specification. Flag questions that are easier or harder than labeled, use an incompatible task for the question type, rely on ambiguity or obscure wording, contain weak distractors, or require unsupported knowledge. Return only material warnings; do not rewrite questions.", { questions, difficultySpecifications, entities, segments }, trace);
-  return result.warnings.map((item) => `${item.questionId}: ${item.warning}`);
+  return result.warnings
+    .filter((item) => !isNoIssuesFoundWarning(item.warning))
+    .map((item) => `${item.questionId}: ${item.warning}`);
 }
 
 export { evidenceSchema };
