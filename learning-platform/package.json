@@ -61,7 +61,7 @@
     "tailwindcss": "^4",
     "typescript": "^5",
     "vercel": "64.7.0",
-    "vitest": "5.0.5"
+    "vitest": "5.1.0"
   },
   "overrides": {
     "tar": "7.5.22"
